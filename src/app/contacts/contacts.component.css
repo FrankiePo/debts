@@ -1,0 +1,8 @@
+.example-card {
+  width: 200px;
+}
+
+.example-header-image {
+  background-image: url('http://placekitten.com/g/750/600');
+  background-size: cover;
+}

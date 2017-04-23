@@ -1,0 +1,27 @@
+<md-toolbar color="primary" class="navbar">
+  <button md-button routerLink="/debts">
+    <md-icon>attach_money</md-icon>
+    DEBTS
+  </button>
+  <button md-button *ngIf="isLogedIn" routerLink="/contacts">
+    <md-icon>people_outline</md-icon>
+    CONTACTS
+  </button>
+  <button md-button *ngIf="isLogedIn" routerLink="/analytics">
+    <md-icon>insert_chart</md-icon>
+    ANALYTICS
+  </button>
+  <span class="spacer"></span>
+  <a md-button href="https://github.com/FrankiePo/debts">
+    <img alt="GitHub" class="docs-github-logo" src="/assets/img/github-circle-white-transparent.svg">
+    GITHUB
+  </a>
+  <button md-button *ngIf="isLogedIn" (click)="logout()">
+    <md-icon>power_settings_new</md-icon>
+    LOGOUT
+  </button>
+  <button md-button *ngIf="!isLogedIn" (click)="login()">
+    <md-icon>launch</md-icon>
+    LOGIN
+  </button>
+</md-toolbar>

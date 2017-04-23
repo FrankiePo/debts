@@ -1,0 +1,24 @@
+<p>
+  contacts works!
+</p>
+<!--<ul>-->
+  <!--<li *ngFor="let contact of contacts">{{ contact }}</li>-->
+<!--</ul>-->
+<!--<md-card class="example-card" *ngFor="let contact of contacts">-->
+  <!--<md-card-header>-->
+    <!--&lt;!&ndash;<div md-card-avatar class="example-header-image"></div>&ndash;&gt;-->
+    <!--<md-card-title>{{ contact }}</md-card-title>-->
+    <!--<md-card-subtitle>{{ contact.email }}</md-card-subtitle>-->
+  <!--</md-card-header>-->
+  <!--&lt;!&ndash;<img md-card-image src="http://placekitten.com/g/750/600">&ndash;&gt;-->
+  <!--<md-card-content *ngIf="contact.debts">-->
+    <!--<ul>-->
+      <!--<li></li>-->
+    <!--</ul>-->
+  <!--</md-card-content>-->
+  <!--<md-card-actions>-->
+    <!--<button md-button>CHANGE</button>-->
+  <!--</md-card-actions>-->
+<!--</md-card>-->
+{{ contacts | async | json }}
+hi
