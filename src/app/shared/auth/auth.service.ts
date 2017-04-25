@@ -1,39 +1,25 @@
 import { Injectable } from '@angular/core';
-import { AngularFire, AuthMethods, AuthProviders, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
-import { IUser } from './model/iuser';
-import { IContact } from "./model/icontact";
+import { AngularFire, AuthMethods, AuthProviders } from 'angularfire2';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
+
 
 @Injectable()
-export class LoginService {
-  isLogedIn: boolean;
-  user: FirebaseObjectObservable<IUser>;
-  contacts: FirebaseListObservable<IContact[]>;
+export class AuthService {
+  isLogedIn: BehaviorSubject<boolean>;
+  private auth;
   constructor(public af: AngularFire) {
-    this.isLogedIn = false;
+    this.isLogedIn = new BehaviorSubject(false);
     this.af.auth.subscribe(auth => {
       if (!auth) {
-        this.isLogedIn = false;
+        this.isLogedIn.next(false);
         return;
       }
-      console.log("---- User:", auth);
-      this.isLogedIn = true;
-      this.user = af.database.object(`users/${auth.uid}`);
-      this.contacts = af.database.list(`users/${auth.uid}/contacts`);
-      this.user.subscribe(data => {
-        // Register user
-        if (!data) {
-          this.user.set({
-            provider: auth.provider,
-            email: auth.auth.email,
-            name: auth.auth.displayName,
-            photo: auth.auth.photoURL,
-            registrationTime: Date.now(),
-            lastLogin: Date.now(),
-            contacts: []
-          });
-        }
-      });
-      this.user.update({lastLogin: Date.now()});
+      this.auth = auth;
+      this.isLogedIn.next(true);
+
+      // this.contacts = af.database.list(`users/${auth.uid}/contacts`);
+
       // this.user.set({
       //   provider: auth.provider,
       //   email: auth.auth.email,
@@ -71,13 +57,17 @@ export class LoginService {
       // });
     });
   }
-  loginWithGoogle() {
-    return !this.isLogedIn && this.af.auth.login({
-      provider: AuthProviders.Google,
-      method: AuthMethods.Redirect,
-    });
+  getAuth() {
+    return this.auth;
   }
+  loginWithGoogle() {
+    return this.af.auth.login({
+        provider: AuthProviders.Google,
+        method: AuthMethods.Redirect,
+      });
+  }
+
   logout() {
-    return this.isLogedIn && this.af.auth.logout();
+    return this.af.auth.logout();
   }
 }

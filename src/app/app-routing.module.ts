@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AnalyticsComponent } from './analytics/analytics.component';
 import { DebtsComponent } from './debts/debts.component';
 import { ContactsComponent } from './contacts/contacts.component';
-import { IsLogedInGuard } from './is-loged-in.guard';
+import { AuthGuard } from './shared/auth/auth.guard';
 
 const routes: Routes = [
   {
@@ -14,17 +14,17 @@ const routes: Routes = [
   {
     path: 'analytics',
     component: AnalyticsComponent,
-    canActivate: [IsLogedInGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'debts',
     component: DebtsComponent,
-    canActivate: [IsLogedInGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'contacts',
     component: ContactsComponent,
-    canActivate: [IsLogedInGuard],
+    canActivate: [AuthGuard],
   }
 ];
 

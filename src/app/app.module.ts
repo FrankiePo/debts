@@ -1,10 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AngularFireModule } from 'angularfire2';
 import 'hammerjs';
-import { MdButtonModule, MdCardModule, MdIconModule, MdToolbarModule } from '@angular/material';
+import {
+  MdButtonModule, MdCardModule, MdDialog, MdIconModule, MdListModule, MdToolbarModule, MdDialogModule,
+  MdInputModule
+} from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
@@ -14,8 +17,11 @@ import { NavigationBarComponent } from './navigation-bar/navigation-bar.componen
 import { AnalyticsComponent } from './analytics/analytics.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { DebtsComponent } from './debts/debts.component';
-import { LoginService } from 'app/shared/login.service';
-import { IsLogedInGuard } from 'app/is-loged-in.guard';
+import { AuthService } from './shared/auth/auth.service';
+import { AuthGuard } from './shared/auth/auth.guard';
+import { UserService } from './shared/user.service';
+import { ContactsService } from './shared/contacts.service';
+import { AddContactComponent } from './dialogs/add-contact/add-contact.component';
 
 @NgModule({
   declarations: [
@@ -23,12 +29,16 @@ import { IsLogedInGuard } from 'app/is-loged-in.guard';
     NavigationBarComponent,
     AnalyticsComponent,
     ContactsComponent,
-    DebtsComponent
+    DebtsComponent,
+    AddContactComponent
+  ],
+  entryComponents: [
+    AddContactComponent
   ],
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
-    FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(FirebaseConfig),
@@ -37,8 +47,11 @@ import { IsLogedInGuard } from 'app/is-loged-in.guard';
     MdButtonModule,
     MdIconModule,
     MdCardModule,
+    MdListModule,
+    MdDialogModule,
+    MdInputModule,
   ],
-  providers: [LoginService, IsLogedInGuard],
+  providers: [AuthService, AuthGuard, UserService, ContactsService, MdDialog],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

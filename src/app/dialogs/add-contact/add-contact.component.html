@@ -1,0 +1,13 @@
+<form novalidate (ngSubmit)="onSubmit(contactForm)" [formGroup]="contactForm">
+  <h3>Contact</h3>
+  <md-input-container class="full-width">
+    <input mdInput placeholder="Name" type="text" formControlName="name">
+  </md-input-container>
+  <md-input-container class="full-width">
+    <input mdInput placeholder="Phone" type="text" formControlName="phone">
+  </md-input-container>
+  <md-input-container class="full-width">
+    <input mdInput placeholder="Email" type="text" formControlName="email">
+  </md-input-container>
+  <button md-raised-button type="submit">Добавить</button>
+</form>

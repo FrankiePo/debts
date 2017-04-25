@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from '../shared/login.service';
+import { AuthService } from '../shared/auth/auth.service';
+import { UserService } from '../shared/user.service';
+import {IUser} from "../shared/model/iuser";
+import {FirebaseObjectObservable} from "angularfire2";
 
 @Component({
   selector: 'app-debts',
@@ -7,9 +10,10 @@ import { LoginService } from '../shared/login.service';
   styleUrls: ['./debts.component.css']
 })
 export class DebtsComponent implements OnInit {
-
-  constructor(public loginService: LoginService) { }
-
+  user: FirebaseObjectObservable<IUser>;
+  constructor(public userService: UserService) {
+    this.user = userService.user;
+  }
   ngOnInit() {
   }
 

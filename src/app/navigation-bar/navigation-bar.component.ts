@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from "../shared/login.service";
+import { AuthService } from '../shared/auth/auth.service';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -7,16 +7,16 @@ import { LoginService } from "../shared/login.service";
   styleUrls: ['./navigation-bar.component.css']
 })
 export class NavigationBarComponent implements OnInit {
-  constructor(public loginService: LoginService) {}
+  isLogedIn: boolean;
+  constructor(public authService: AuthService) {
+    this.authService.isLogedIn.subscribe(status => this.isLogedIn = status);
+  }
   login() {
-    this.loginService.loginWithGoogle();
+    this.authService.loginWithGoogle();
   }
   logout() {
-    this.loginService.logout();
+    this.authService.logout();
   }
   ngOnInit() {
-  }
-  get isLogedIn(): boolean {
-    return this.loginService.isLogedIn;
   }
 }
