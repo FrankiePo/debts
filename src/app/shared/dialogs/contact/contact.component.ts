@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IContact } from '../../shared/model/contact/icontact';
+import { IContact } from '../../model/contact/icontact';
 import { MdDialogRef } from '@angular/material';
 
 @Component({

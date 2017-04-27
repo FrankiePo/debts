@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IContact } from '../shared/model/contact/icontact';
 import { ContactsService } from '../shared/model/contact/contacts.service';
 import { MdDialog } from '@angular/material';
-import { ContactComponent } from '../dialogs/contact/contact.component';
+import { ContactComponent } from '../shared/dialogs/contact/contact.component';
 
 @Component({
   selector: 'app-contacts',

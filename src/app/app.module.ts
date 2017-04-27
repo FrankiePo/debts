@@ -22,8 +22,8 @@ import { AuthService } from './shared/auth/auth.service';
 import { AuthGuard } from './shared/auth/auth.guard';
 import { UserService } from './shared/model/user/user.service';
 import { ContactsService } from './shared/model/contact/contacts.service';
-import { ContactComponent } from './dialogs/contact/contact.component';
-import { DebtComponent } from './dialogs/debt/debt.component';
+import { ContactComponent } from './shared/dialogs/contact/contact.component';
+import { DebtComponent } from './shared/dialogs/debt/debt.component';
 import { DebtsService } from 'app/shared/model/debt/debts.service';
 
 @NgModule({

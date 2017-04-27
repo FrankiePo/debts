@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ContactsService } from '../shared/model/contact/contacts.service';
 import { IContact } from '../shared/model/contact/icontact';
-import { DebtComponent } from '../dialogs/debt/debt.component';
+import { DebtComponent } from '../shared/dialogs/debt/debt.component';
 import { IDebt } from '../shared/model/debt/idebt';
 import { MdDialog } from '@angular/material';
 import { DebtsService } from '../shared/model/debt/debts.service';

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IDebt } from '../../shared/model/debt/idebt';
+import { IDebt } from '../../model/debt/idebt';
 import { MdDialogRef } from '@angular/material';
 import { DebtType } from 'app/shared/model/debt/debt-type.enum';
 
