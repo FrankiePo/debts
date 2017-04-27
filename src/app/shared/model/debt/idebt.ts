@@ -4,5 +4,7 @@ export interface IDebt {
   description: string;
   amount: number;
   type: DebtType;
-  creationTime: number;
+  creationTime?: number;
+  $key?: string;
+  contact?: string;
 }

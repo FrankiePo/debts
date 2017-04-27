@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { IContact } from '../shared/model/icontact';
-import { ContactsService } from '../shared/contacts.service';
+import { Component } from '@angular/core';
+import { IContact } from '../shared/model/contact/icontact';
+import { ContactsService } from '../shared/model/contact/contacts.service';
 import { MdDialog } from '@angular/material';
 import { AddContactComponent } from '../dialogs/add-contact/add-contact.component';
 
@@ -9,7 +9,7 @@ import { AddContactComponent } from '../dialogs/add-contact/add-contact.componen
   templateUrl: './contacts.component.html',
   styleUrls: ['./contacts.component.css']
 })
-export class ContactsComponent implements OnInit {
+export class ContactsComponent {
   contacts: IContact[];
   constructor(public contactService: ContactsService, public dialog: MdDialog) {
     contactService.contacts.subscribe(contacts => {
@@ -17,29 +17,26 @@ export class ContactsComponent implements OnInit {
       this.contacts = contacts;
     });
   }
-
-  ngOnInit() {
-  }
-  addContact(contact: IContact) {
-    this.contactService.addContact(contact);
-  }
-  removeContact(contact: IContact) {
-
-  }
   openAddDialog() {
     const dialogRef = this.dialog.open(AddContactComponent);
     dialogRef.afterClosed().subscribe(result => {
-      this.contactService.addContact(result);
+      if (!result) {
+        return;
+      }
+      this.contactService.add(result);
     });
   }
   openChangeDialog(contact: IContact) {
     const dialogRef = this.dialog.open(AddContactComponent);
     dialogRef.componentInstance.contact = contact;
     dialogRef.afterClosed().subscribe(result => {
-      this.contactService.updateContact(Object.assign(contact, result));
+      if (!result) {
+        return;
+      }
+      this.contactService.update(Object.assign(contact, result));
     });
   }
   deleteContact(contact: IContact) {
-    this.contactService.removeContact(contact);
+    this.contactService.remove(contact);
   }
 }

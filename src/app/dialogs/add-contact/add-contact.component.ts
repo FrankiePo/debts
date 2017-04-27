@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { IContact } from '../../shared/model/icontact';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IContact } from '../../shared/model/contact/icontact';
 import { MdDialogRef } from '@angular/material';
 
 @Component({
@@ -27,6 +27,11 @@ export class AddContactComponent implements OnInit {
     });
   }
   onSubmit({ value, valid }: { value: IContact, valid: boolean }) {
-    this.dialogRef.close(value);
+    if (valid) {
+      this.dialogRef.close(value);
+    }
+  }
+  closeForm() {
+    this.dialogRef.close(null);
   }
 }

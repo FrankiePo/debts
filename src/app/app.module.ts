@@ -6,9 +6,10 @@ import { AngularFireModule } from 'angularfire2';
 import 'hammerjs';
 import {
   MdButtonModule, MdCardModule, MdDialog, MdIconModule, MdListModule, MdToolbarModule, MdDialogModule,
-  MdInputModule
+  MdInputModule, MdSelectModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppComponent } from './app.component';
 import { FirebaseConfig } from '../environments/firebase.config';
@@ -19,9 +20,11 @@ import { ContactsComponent } from './contacts/contacts.component';
 import { DebtsComponent } from './debts/debts.component';
 import { AuthService } from './shared/auth/auth.service';
 import { AuthGuard } from './shared/auth/auth.guard';
-import { UserService } from './shared/user.service';
-import { ContactsService } from './shared/contacts.service';
+import { UserService } from './shared/model/user/user.service';
+import { ContactsService } from './shared/model/contact/contacts.service';
 import { AddContactComponent } from './dialogs/add-contact/add-contact.component';
+import { DebtComponent } from './dialogs/debt/debt.component';
+import { DebtsService } from 'app/shared/model/debt/debts.service';
 
 @NgModule({
   declarations: [
@@ -30,10 +33,12 @@ import { AddContactComponent } from './dialogs/add-contact/add-contact.component
     AnalyticsComponent,
     ContactsComponent,
     DebtsComponent,
-    AddContactComponent
+    AddContactComponent,
+    DebtComponent
   ],
   entryComponents: [
-    AddContactComponent
+    AddContactComponent,
+    DebtComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -42,6 +47,7 @@ import { AddContactComponent } from './dialogs/add-contact/add-contact.component
     HttpModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(FirebaseConfig),
+    FlexLayoutModule,
     // V V V: AngularMaterial
     MdToolbarModule,
     MdButtonModule,
@@ -50,8 +56,9 @@ import { AddContactComponent } from './dialogs/add-contact/add-contact.component
     MdListModule,
     MdDialogModule,
     MdInputModule,
+    MdSelectModule,
   ],
-  providers: [AuthService, AuthGuard, UserService, ContactsService, MdDialog],
+  providers: [AuthService, AuthGuard, UserService, ContactsService, DebtsService, MdDialog],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

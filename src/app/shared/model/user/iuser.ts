@@ -1,5 +1,5 @@
 import { AuthProviders } from 'angularfire2';
-import { IContact } from './icontact';
+import { IContact } from '../contact/icontact';
 
 export interface IUser {
   provider: AuthProviders;

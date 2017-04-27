@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { AuthService } from './auth/auth.service';
+import { AuthService } from '../../auth/auth.service';
 import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
-import { IUser } from './model/iuser';
+import { IUser } from './iuser';
 
 @Injectable()
 export class UserService {
@@ -21,7 +21,7 @@ export class UserService {
         }
         // Update lastLogin time
         const currentTime = Date.now();
-        if (user.lastLogin < currentTime) {
+        if ((user.lastLogin + 30000) < currentTime) {
           this.user.update({
             lastLogin: currentTime
           });

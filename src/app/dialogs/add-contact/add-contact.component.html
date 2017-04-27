@@ -9,5 +9,6 @@
   <md-input-container class="full-width">
     <input mdInput placeholder="Email" type="text" formControlName="email">
   </md-input-container>
-  <button md-raised-button type="submit">Добавить</button>
+  <button md-raised-button type="submit">Сохранить</button>
+  <button md-raised-button (click)="closeForm()">Отменить</button>
 </form>
