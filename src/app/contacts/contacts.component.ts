@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IContact } from '../shared/model/contact/icontact';
 import { ContactsService } from '../shared/model/contact/contacts.service';
 import { MdDialog } from '@angular/material';
-import { AddContactComponent } from '../dialogs/add-contact/add-contact.component';
+import { ContactComponent } from '../dialogs/contact/contact.component';
 
 @Component({
   selector: 'app-contacts',
@@ -18,7 +18,7 @@ export class ContactsComponent {
     });
   }
   openAddDialog() {
-    const dialogRef = this.dialog.open(AddContactComponent);
+    const dialogRef = this.dialog.open(ContactComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (!result) {
         return;
@@ -27,7 +27,7 @@ export class ContactsComponent {
     });
   }
   openChangeDialog(contact: IContact) {
-    const dialogRef = this.dialog.open(AddContactComponent);
+    const dialogRef = this.dialog.open(ContactComponent);
     dialogRef.componentInstance.contact = contact;
     dialogRef.afterClosed().subscribe(result => {
       if (!result) {

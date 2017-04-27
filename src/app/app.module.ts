@@ -22,7 +22,7 @@ import { AuthService } from './shared/auth/auth.service';
 import { AuthGuard } from './shared/auth/auth.guard';
 import { UserService } from './shared/model/user/user.service';
 import { ContactsService } from './shared/model/contact/contacts.service';
-import { AddContactComponent } from './dialogs/add-contact/add-contact.component';
+import { ContactComponent } from './dialogs/contact/contact.component';
 import { DebtComponent } from './dialogs/debt/debt.component';
 import { DebtsService } from 'app/shared/model/debt/debts.service';
 
@@ -33,12 +33,12 @@ import { DebtsService } from 'app/shared/model/debt/debts.service';
     AnalyticsComponent,
     ContactsComponent,
     DebtsComponent,
-    AddContactComponent,
-    DebtComponent
+    ContactComponent,
+    DebtComponent,
   ],
   entryComponents: [
-    AddContactComponent,
-    DebtComponent
+    ContactComponent,
+    DebtComponent,
   ],
   imports: [
     BrowserAnimationsModule,

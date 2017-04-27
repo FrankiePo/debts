@@ -4,17 +4,17 @@ import { IContact } from '../../shared/model/contact/icontact';
 import { MdDialogRef } from '@angular/material';
 
 @Component({
-  selector: 'app-add-contact',
-  templateUrl: './add-contact.component.html',
-  styleUrls: ['./add-contact.component.css']
+  selector: 'app-contact',
+  templateUrl: './contact.component.html',
+  styleUrls: ['./contact.component.css']
 })
-export class AddContactComponent implements OnInit {
+export class ContactComponent implements OnInit {
   contactForm: FormGroup;
   contact: IContact;
 
   constructor(
     private formBuilder: FormBuilder,
-    private dialogRef: MdDialogRef<AddContactComponent>,
+    private dialogRef: MdDialogRef<ContactComponent>,
   ) { }
 
   ngOnInit() {
