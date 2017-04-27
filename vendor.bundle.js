@@ -1,164 +1,15 @@
 webpackJsonp([3,4],[
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var root_1 = __webpack_require__(16);
-var toSubscriber_1 = __webpack_require__(259);
-var observable_1 = __webpack_require__(78);
-/**
- * A representation of any set of values over any amount of time. This the most basic building block
- * of RxJS.
- *
- * @class Observable<T>
- */
-var Observable = (function () {
-    /**
-     * @constructor
-     * @param {Function} subscribe the function that is  called when the Observable is
-     * initially subscribed to. This function is given a Subscriber, to which new values
-     * can be `next`ed, or an `error` method can be called to raise an error, or
-     * `complete` can be called to notify of a successful completion.
-     */
-    function Observable(subscribe) {
-        this._isScalar = false;
-        if (subscribe) {
-            this._subscribe = subscribe;
-        }
-    }
-    /**
-     * Creates a new Observable, with this Observable as the source, and the passed
-     * operator defined as the new observable's operator.
-     * @method lift
-     * @param {Operator} operator the operator defining the operation to take on the observable
-     * @return {Observable} a new observable with the Operator applied
-     */
-    Observable.prototype.lift = function (operator) {
-        var observable = new Observable();
-        observable.source = this;
-        observable.operator = operator;
-        return observable;
-    };
-    Observable.prototype.subscribe = function (observerOrNext, error, complete) {
-        var operator = this.operator;
-        var sink = toSubscriber_1.toSubscriber(observerOrNext, error, complete);
-        if (operator) {
-            operator.call(sink, this.source);
-        }
-        else {
-            sink.add(this._trySubscribe(sink));
-        }
-        if (sink.syncErrorThrowable) {
-            sink.syncErrorThrowable = false;
-            if (sink.syncErrorThrown) {
-                throw sink.syncErrorValue;
-            }
-        }
-        return sink;
-    };
-    Observable.prototype._trySubscribe = function (sink) {
-        try {
-            return this._subscribe(sink);
-        }
-        catch (err) {
-            sink.syncErrorThrown = true;
-            sink.syncErrorValue = err;
-            sink.error(err);
-        }
-    };
-    /**
-     * @method forEach
-     * @param {Function} next a handler for each value emitted by the observable
-     * @param {PromiseConstructor} [PromiseCtor] a constructor function used to instantiate the Promise
-     * @return {Promise} a promise that either resolves on observable completion or
-     *  rejects with the handled error
-     */
-    Observable.prototype.forEach = function (next, PromiseCtor) {
-        var _this = this;
-        if (!PromiseCtor) {
-            if (root_1.root.Rx && root_1.root.Rx.config && root_1.root.Rx.config.Promise) {
-                PromiseCtor = root_1.root.Rx.config.Promise;
-            }
-            else if (root_1.root.Promise) {
-                PromiseCtor = root_1.root.Promise;
-            }
-        }
-        if (!PromiseCtor) {
-            throw new Error('no Promise impl found');
-        }
-        return new PromiseCtor(function (resolve, reject) {
-            // Must be declared in a separate statement to avoid a RefernceError when
-            // accessing subscription below in the closure due to Temporal Dead Zone.
-            var subscription;
-            subscription = _this.subscribe(function (value) {
-                if (subscription) {
-                    // if there is a subscription, then we can surmise
-                    // the next handling is asynchronous. Any errors thrown
-                    // need to be rejected explicitly and unsubscribe must be
-                    // called manually
-                    try {
-                        next(value);
-                    }
-                    catch (err) {
-                        reject(err);
-                        subscription.unsubscribe();
-                    }
-                }
-                else {
-                    // if there is NO subscription, then we're getting a nexted
-                    // value synchronously during subscription. We can just call it.
-                    // If it errors, Observable's `subscribe` will ensure the
-                    // unsubscription logic is called, then synchronously rethrow the error.
-                    // After that, Promise will trap the error and send it
-                    // down the rejection path.
-                    next(value);
-                }
-            }, reject, resolve);
-        });
-    };
-    Observable.prototype._subscribe = function (subscriber) {
-        return this.source.subscribe(subscriber);
-    };
-    /**
-     * An interop point defined by the es7-observable spec https://github.com/zenparsing/es-observable
-     * @method Symbol.observable
-     * @return {Observable} this instance of the observable
-     */
-    Observable.prototype[observable_1.observable] = function () {
-        return this;
-    };
-    // HACK: Since TypeScript inherits static properties too, we have to
-    // fight against TypeScript here so Subject can have a different static create signature
-    /**
-     * Creates a new cold Observable by calling the Observable constructor
-     * @static true
-     * @owner Observable
-     * @method create
-     * @param {Function} subscribe? the subscriber function to be passed to the Observable constructor
-     * @return {Observable} a new cold observable
-     */
-    Observable.create = function (subscribe) {
-        return new Observable(subscribe);
-    };
-    return Observable;
-}());
-exports.Observable = Observable;
-//# sourceMappingURL=Observable.js.map
-
-/***/ }),
-/* 1 */,
-/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__ = __webpack_require__(0);
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_observable_merge__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_observable_merge__ = __webpack_require__(131);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_observable_merge___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_observable_merge__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_operator_share__ = __webpack_require__(117);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_operator_share__ = __webpack_require__(137);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_operator_share___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_operator_share__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Subject__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Subject__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Subject__);
 /* unused harmony export Class */
 /* unused harmony export createPlatform */
@@ -225,8 +76,8 @@ exports.Observable = Observable;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "T", function() { return ReflectiveInjector; });
 /* unused harmony export ResolvedReflectiveFactory */
 /* unused harmony export ReflectiveKey */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "H", function() { return InjectionToken; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "D", function() { return OpaqueToken; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "D", function() { return InjectionToken; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "E", function() { return OpaqueToken; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_1", function() { return Inject; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Z", function() { return Optional; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "X", function() { return Injectable; });
@@ -236,7 +87,7 @@ exports.Observable = Observable;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return NgZone; });
 /* unused harmony export RenderComponentType */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "L", function() { return Renderer; });
-/* unused harmony export Renderer2 */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_28", function() { return Renderer2; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "z", function() { return RendererFactory2; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_15", function() { return RendererStyleFlags2; });
 /* unused harmony export RootRenderer */
@@ -249,7 +100,7 @@ exports.Observable = Observable;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "V", function() { return ComponentFactoryResolver; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "M", function() { return ElementRef; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "C", function() { return NgModuleFactory; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "G", function() { return NgModuleRef; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "H", function() { return NgModuleRef; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return NgModuleFactoryLoader; });
 /* unused harmony export getModuleFactory */
 /* unused harmony export QueryList */
@@ -290,33 +141,33 @@ exports.Observable = Observable;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_27", function() { return looseIdentical; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_6", function() { return stringify; });
 /* unused harmony export ɵmakeDecorator */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "E", function() { return isObservable; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "F", function() { return isPromise; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "F", function() { return isObservable; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "G", function() { return isPromise; });
 /* unused harmony export ɵNOT_FOUND_CHECK_ONLY_ELEMENT_INJECTOR */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "B", function() { return NgModuleInjector; });
 /* unused harmony export ɵregisterModuleFactory */
 /* unused harmony export ɵEMPTY_ARRAY */
 /* unused harmony export ɵEMPTY_MAP */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_35", function() { return anchorDef; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_33", function() { return createComponentFactory; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_28", function() { return createRendererType2; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_31", function() { return directiveDef; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_30", function() { return elementDef; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_36", function() { return anchorDef; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_34", function() { return createComponentFactory; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_29", function() { return createRendererType2; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_32", function() { return directiveDef; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_31", function() { return elementDef; });
 /* unused harmony export ɵelementEventFullName */
 /* unused harmony export ɵgetComponentViewDefinitionFactory */
 /* unused harmony export ɵinlineInterpolate */
 /* unused harmony export ɵinterpolate */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_36", function() { return ngContentDef; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_34", function() { return nodeValue; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_39", function() { return pipeDef; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_38", function() { return providerDef; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_37", function() { return ngContentDef; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_35", function() { return nodeValue; });
+/* unused harmony export ɵpid */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_39", function() { return providerDef; });
 /* unused harmony export ɵpad */
 /* unused harmony export ɵpod */
 /* unused harmony export ɵppd */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_37", function() { return queryDef; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_32", function() { return textDef; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_40", function() { return unwrapValue; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_29", function() { return viewDef; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_38", function() { return queryDef; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_33", function() { return textDef; });
+/* unused harmony export ɵunv */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_30", function() { return viewDef; });
 /* unused harmony export AUTO_STYLE */
 /* unused harmony export trigger */
 /* unused harmony export animate */
@@ -6226,7 +6077,7 @@ var SystemJsNgModuleLoader = (function () {
         if (exportName === undefined) {
             exportName = 'default';
         }
-        return __webpack_require__(125)(module)
+        return __webpack_require__(145)(module)
             .then(function (module) { return module[exportName]; })
             .then(function (type) { return checkNotEmpty(type, module, exportName); })
             .then(function (type) { return _this._compiler.compileModuleAsync(type); });
@@ -6242,7 +6093,7 @@ var SystemJsNgModuleLoader = (function () {
             exportName = 'default';
             factoryClassSuffix = '';
         }
-        return __webpack_require__(125)(this._config.factoryPathPrefix + module + this._config.factoryPathSuffix)
+        return __webpack_require__(145)(this._config.factoryPathPrefix + module + this._config.factoryPathSuffix)
             .then(function (module) { return module[exportName + factoryClassSuffix]; })
             .then(function (factory) { return checkNotEmpty(factory, module, exportName); });
     };
@@ -14327,11 +14178,285 @@ function transition$$1(stateChangeExpr, steps) {
 
 //# sourceMappingURL=core.es5.js.map
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(17)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(21)))
 
 /***/ }),
-/* 3 */,
-/* 4 */
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var root_1 = __webpack_require__(20);
+var toSubscriber_1 = __webpack_require__(299);
+var observable_1 = __webpack_require__(92);
+/**
+ * A representation of any set of values over any amount of time. This the most basic building block
+ * of RxJS.
+ *
+ * @class Observable<T>
+ */
+var Observable = (function () {
+    /**
+     * @constructor
+     * @param {Function} subscribe the function that is  called when the Observable is
+     * initially subscribed to. This function is given a Subscriber, to which new values
+     * can be `next`ed, or an `error` method can be called to raise an error, or
+     * `complete` can be called to notify of a successful completion.
+     */
+    function Observable(subscribe) {
+        this._isScalar = false;
+        if (subscribe) {
+            this._subscribe = subscribe;
+        }
+    }
+    /**
+     * Creates a new Observable, with this Observable as the source, and the passed
+     * operator defined as the new observable's operator.
+     * @method lift
+     * @param {Operator} operator the operator defining the operation to take on the observable
+     * @return {Observable} a new observable with the Operator applied
+     */
+    Observable.prototype.lift = function (operator) {
+        var observable = new Observable();
+        observable.source = this;
+        observable.operator = operator;
+        return observable;
+    };
+    Observable.prototype.subscribe = function (observerOrNext, error, complete) {
+        var operator = this.operator;
+        var sink = toSubscriber_1.toSubscriber(observerOrNext, error, complete);
+        if (operator) {
+            operator.call(sink, this.source);
+        }
+        else {
+            sink.add(this._trySubscribe(sink));
+        }
+        if (sink.syncErrorThrowable) {
+            sink.syncErrorThrowable = false;
+            if (sink.syncErrorThrown) {
+                throw sink.syncErrorValue;
+            }
+        }
+        return sink;
+    };
+    Observable.prototype._trySubscribe = function (sink) {
+        try {
+            return this._subscribe(sink);
+        }
+        catch (err) {
+            sink.syncErrorThrown = true;
+            sink.syncErrorValue = err;
+            sink.error(err);
+        }
+    };
+    /**
+     * @method forEach
+     * @param {Function} next a handler for each value emitted by the observable
+     * @param {PromiseConstructor} [PromiseCtor] a constructor function used to instantiate the Promise
+     * @return {Promise} a promise that either resolves on observable completion or
+     *  rejects with the handled error
+     */
+    Observable.prototype.forEach = function (next, PromiseCtor) {
+        var _this = this;
+        if (!PromiseCtor) {
+            if (root_1.root.Rx && root_1.root.Rx.config && root_1.root.Rx.config.Promise) {
+                PromiseCtor = root_1.root.Rx.config.Promise;
+            }
+            else if (root_1.root.Promise) {
+                PromiseCtor = root_1.root.Promise;
+            }
+        }
+        if (!PromiseCtor) {
+            throw new Error('no Promise impl found');
+        }
+        return new PromiseCtor(function (resolve, reject) {
+            // Must be declared in a separate statement to avoid a RefernceError when
+            // accessing subscription below in the closure due to Temporal Dead Zone.
+            var subscription;
+            subscription = _this.subscribe(function (value) {
+                if (subscription) {
+                    // if there is a subscription, then we can surmise
+                    // the next handling is asynchronous. Any errors thrown
+                    // need to be rejected explicitly and unsubscribe must be
+                    // called manually
+                    try {
+                        next(value);
+                    }
+                    catch (err) {
+                        reject(err);
+                        subscription.unsubscribe();
+                    }
+                }
+                else {
+                    // if there is NO subscription, then we're getting a nexted
+                    // value synchronously during subscription. We can just call it.
+                    // If it errors, Observable's `subscribe` will ensure the
+                    // unsubscription logic is called, then synchronously rethrow the error.
+                    // After that, Promise will trap the error and send it
+                    // down the rejection path.
+                    next(value);
+                }
+            }, reject, resolve);
+        });
+    };
+    Observable.prototype._subscribe = function (subscriber) {
+        return this.source.subscribe(subscriber);
+    };
+    /**
+     * An interop point defined by the es7-observable spec https://github.com/zenparsing/es-observable
+     * @method Symbol.observable
+     * @return {Observable} this instance of the observable
+     */
+    Observable.prototype[observable_1.observable] = function () {
+        return this;
+    };
+    // HACK: Since TypeScript inherits static properties too, we have to
+    // fight against TypeScript here so Subject can have a different static create signature
+    /**
+     * Creates a new cold Observable by calling the Observable constructor
+     * @static true
+     * @owner Observable
+     * @method create
+     * @param {Function} subscribe? the subscriber function to be passed to the Observable constructor
+     * @return {Observable} a new cold observable
+     */
+    Observable.create = function (subscribe) {
+        return new Observable(subscribe);
+    };
+    return Observable;
+}());
+exports.Observable = Observable;
+//# sourceMappingURL=Observable.js.map
+
+/***/ }),
+/* 2 */,
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__breakpoints_break_point_registry__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__match_media__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_add_alias__ = __webpack_require__(105);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MediaMonitor; });
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+
+
+/**
+ * MediaMonitor uses the MatchMedia service to observe mediaQuery changes (both activations and
+ * deactivations). These changes are are published as MediaChange notifications.
+ *
+ * Note: all notifications will be performed within the
+ * ng Zone to trigger change detections and component updates.
+ *
+ * It is the MediaMonitor that:
+ *  - auto registers all known breakpoints
+ *  - injects alias information into each raw MediaChange event
+ *  - provides accessor to the currently active BreakPoint
+ *  - publish list of overlapping BreakPoint(s); used by ResponsiveActivation
+ */
+var MediaMonitor = (function () {
+    function MediaMonitor(_breakpoints, _matchMedia) {
+        this._breakpoints = _breakpoints;
+        this._matchMedia = _matchMedia;
+        this._registerBreakpoints();
+    }
+    Object.defineProperty(MediaMonitor.prototype, "breakpoints", {
+        /**
+         * Read-only accessor to the list of breakpoints configured in the BreakPointRegistry provider
+         */
+        get: function () {
+            return this._breakpoints.items.slice();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MediaMonitor.prototype, "activeOverlaps", {
+        get: function () {
+            var _this = this;
+            var items = this._breakpoints.overlappings.reverse();
+            return items.filter(function (bp) {
+                return _this._matchMedia.isActive(bp.mediaQuery);
+            });
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MediaMonitor.prototype, "active", {
+        get: function () {
+            var _this = this;
+            var found = null, items = this.breakpoints.reverse();
+            items.forEach(function (bp) {
+                if (bp.alias !== '') {
+                    if (!found && _this._matchMedia.isActive(bp.mediaQuery)) {
+                        found = bp;
+                    }
+                }
+            });
+            var first = this.breakpoints[0];
+            return found || (this._matchMedia.isActive(first.mediaQuery) ? first : null);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * For the specified mediaQuery alias, is the mediaQuery range active?
+     */
+    MediaMonitor.prototype.isActive = function (alias) {
+        var bp = this._breakpoints.findByAlias(alias) || this._breakpoints.findByQuery(alias);
+        return this._matchMedia.isActive(bp ? bp.mediaQuery : alias);
+    };
+    /**
+     * External observers can watch for all (or a specific) mql changes.
+     * If specific breakpoint is observed, only return *activated* events
+     * otherwise return all events for BOTH activated + deactivated changes.
+     */
+    MediaMonitor.prototype.observe = function (alias) {
+        var bp = this._breakpoints.findByAlias(alias) || this._breakpoints.findByQuery(alias);
+        var hasAlias = function (change) { return (bp ? change.mqAlias !== "" : true); };
+        // Note: the raw MediaChange events [from MatchMedia] do not contain important alias information
+        return this._matchMedia
+            .observe(bp ? bp.mediaQuery : alias)
+            .map(function (change) { return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__utils_add_alias__["a" /* mergeAlias */])(change, bp); })
+            .filter(hasAlias);
+    };
+    /**
+     * Immediate calls to matchMedia() to establish listeners
+     * and prepare for immediate subscription notifications
+     */
+    MediaMonitor.prototype._registerBreakpoints = function () {
+        var _this = this;
+        this._breakpoints.items.forEach(function (bp) {
+            _this._matchMedia.registerQuery(bp.mediaQuery);
+        });
+    };
+    return MediaMonitor;
+}());
+
+MediaMonitor.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["X" /* Injectable */] },
+];
+/** @nocollapse */
+MediaMonitor.ctorParameters = function () { return [
+    { type: __WEBPACK_IMPORTED_MODULE_1__breakpoints_break_point_registry__["a" /* BreakPointRegistry */], },
+    { type: __WEBPACK_IMPORTED_MODULE_2__match_media__["a" /* MatchMedia */], },
+]; };
+//# sourceMappingURL=media-monitor.js.map
+
+/***/ }),
+/* 4 */,
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14341,10 +14466,10 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var isFunction_1 = __webpack_require__(83);
-var Subscription_1 = __webpack_require__(15);
-var Observer_1 = __webpack_require__(107);
-var rxSubscriber_1 = __webpack_require__(79);
+var isFunction_1 = __webpack_require__(97);
+var Subscription_1 = __webpack_require__(19);
+var Observer_1 = __webpack_require__(127);
+var rxSubscriber_1 = __webpack_require__(93);
 /**
  * Implements the {@link Observer} interface and extends the
  * {@link Subscription} class. While the {@link Observer} is the public API for
@@ -14599,38 +14724,34 @@ var SafeSubscriber = (function (_super) {
 //# sourceMappingURL=Subscriber.js.map
 
 /***/ }),
-/* 5 */,
 /* 6 */,
-/* 7 */,
-/* 8 */,
-/* 9 */,
-/* 10 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NgLocaleLocalization; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return NgLocalization; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CommonModule; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return NgClass; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return NgClass; });
 /* unused harmony export NgFor */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return NgForOf; });
 /* unused harmony export NgForOfContext */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return NgIf; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return NgIf; });
 /* unused harmony export NgIfContext */
 /* unused harmony export NgPlural */
 /* unused harmony export NgPluralCase */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return NgStyle; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return NgSwitch; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return NgSwitchCase; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return NgSwitchDefault; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return NgStyle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return NgSwitch; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return NgSwitchCase; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return NgSwitchDefault; });
 /* unused harmony export NgTemplateOutlet */
 /* unused harmony export NgComponentOutlet */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return AsyncPipe; });
+/* unused harmony export AsyncPipe */
 /* unused harmony export DatePipe */
 /* unused harmony export I18nPluralPipe */
 /* unused harmony export I18nSelectPipe */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return JsonPipe; });
+/* unused harmony export JsonPipe */
 /* unused harmony export LowerCasePipe */
 /* unused harmony export CurrencyPipe */
 /* unused harmony export DecimalPipe */
@@ -14777,7 +14898,7 @@ var PlatformLocation = (function () {
  * \@whatItDoes indicates when a location is initialized
  * \@experimental
  */
-var LOCATION_INITIALIZED = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["H" /* InjectionToken */]('Location Initialized');
+var LOCATION_INITIALIZED = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* InjectionToken */]('Location Initialized');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -14882,7 +15003,7 @@ var LocationStrategy = (function () {
  *
  * \@stable
  */
-var APP_BASE_HREF = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["H" /* InjectionToken */]('appBaseHref');
+var APP_BASE_HREF = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* InjectionToken */]('appBaseHref');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -16134,7 +16255,7 @@ var NgComponentOutlet = (function () {
                 if (this._moduleRef)
                     this._moduleRef.destroy();
                 if (this.ngComponentOutletNgModuleFactory) {
-                    var /** @type {?} */ parentModule = elInjector.get(__WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* NgModuleRef */]);
+                    var /** @type {?} */ parentModule = elInjector.get(__WEBPACK_IMPORTED_MODULE_0__angular_core__["H" /* NgModuleRef */]);
                     this._moduleRef = this.ngComponentOutletNgModuleFactory.create(parentModule.injector);
                 }
                 else {
@@ -17430,10 +17551,10 @@ var AsyncPipe = (function () {
      * @return {?}
      */
     AsyncPipe.prototype._selectStrategy = function (obj) {
-        if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* ɵisPromise */])(obj)) {
+        if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* ɵisPromise */])(obj)) {
             return _promiseStrategy;
         }
-        if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["E" /* ɵisObservable */])(obj)) {
+        if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* ɵisObservable */])(obj)) {
             return _observableStrategy;
         }
         throw invalidPipeArgumentError(AsyncPipe, obj);
@@ -18646,4921 +18767,226 @@ var VERSION = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["_4" /* Version */
 
 
 /***/ }),
-/* 11 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(2);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return BrowserModule; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return platformBrowser; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return Meta; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return Title; });
-/* unused harmony export disableDebugTools */
-/* unused harmony export enableDebugTools */
-/* unused harmony export By */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return NgProbeToken$1; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return DOCUMENT; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return EVENT_MANAGER_PLUGINS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return EventManager; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return HAMMER_GESTURE_CONFIG; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return HammerGestureConfig; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return DomSanitizer; });
-/* unused harmony export VERSION */
-/* unused harmony export ɵBROWSER_SANITIZATION_PROVIDERS */
-/* unused harmony export ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS */
-/* unused harmony export ɵinitDomAdapter */
-/* unused harmony export ɵBrowserDomAdapter */
-/* unused harmony export ɵsetValueOnPath */
-/* unused harmony export ɵBrowserPlatformLocation */
-/* unused harmony export ɵTRANSITION_ID */
-/* unused harmony export ɵBrowserGetTestability */
-/* unused harmony export ɵELEMENT_PROBE_PROVIDERS */
-/* unused harmony export ɵDomAdapter */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return getDOM; });
-/* unused harmony export ɵsetRootDomAdapter */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return DomRendererFactory2; });
-/* unused harmony export ɵNAMESPACE_URIS */
-/* unused harmony export ɵflattenStyles */
-/* unused harmony export ɵshimContentAttribute */
-/* unused harmony export ɵshimHostAttribute */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return DomEventsPlugin; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return HammerGesturesPlugin; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return KeyEventsPlugin; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return DomSharedStylesHost; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return SharedStylesHost; });
-/* unused harmony export ɵb */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return errorHandler; });
-/* unused harmony export ɵh */
-/* unused harmony export ɵg */
-/* unused harmony export ɵf */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return _createNgProbe; });
-/* unused harmony export ɵd */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return DomSanitizerImpl; });
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-/**
- * @license Angular v4.0.3
- * (c) 2010-2017 Google, Inc. https://angular.io/
- * License: MIT
- */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_auto_prefixer__ = __webpack_require__(163);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_layout_validator__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__responsive_responsive_activation__ = __webpack_require__(159);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BaseFxDirective; });
 
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-var _DOM = null;
-/**
- * @return {?}
- */
-function getDOM() {
-    return _DOM;
-}
-/**
- * @param {?} adapter
- * @return {?}
- */
-/**
- * @param {?} adapter
- * @return {?}
- */
-function setRootDomAdapter(adapter) {
-    if (!_DOM) {
-        _DOM = adapter;
-    }
-}
-/**
- * Provides DOM operations in an environment-agnostic way.
- *
- * \@security Tread carefully! Interacting with the DOM directly is dangerous and
- * can introduce XSS risks.
- * @abstract
- */
-var DomAdapter = (function () {
-    function DomAdapter() {
-        this.resourceLoaderType = null;
-    }
-    /**
-     * @abstract
-     * @param {?} element
-     * @param {?} name
-     * @return {?}
-     */
-    DomAdapter.prototype.hasProperty = function (element, name) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @param {?} name
-     * @param {?} value
-     * @return {?}
-     */
-    DomAdapter.prototype.setProperty = function (el, name, value) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @param {?} name
-     * @return {?}
-     */
-    DomAdapter.prototype.getProperty = function (el, name) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @param {?} methodName
-     * @param {?} args
-     * @return {?}
-     */
-    DomAdapter.prototype.invoke = function (el, methodName, args) { };
-    /**
-     * @abstract
-     * @param {?} error
-     * @return {?}
-     */
-    DomAdapter.prototype.logError = function (error) { };
-    /**
-     * @abstract
-     * @param {?} error
-     * @return {?}
-     */
-    DomAdapter.prototype.log = function (error) { };
-    /**
-     * @abstract
-     * @param {?} error
-     * @return {?}
-     */
-    DomAdapter.prototype.logGroup = function (error) { };
-    /**
-     * @abstract
-     * @return {?}
-     */
-    DomAdapter.prototype.logGroupEnd = function () { };
-    Object.defineProperty(DomAdapter.prototype, "attrToPropMap", {
-        /**
-         * Maps attribute names to their corresponding property names for cases
-         * where attribute name doesn't match property name.
-         * @return {?}
-         */
-        get: function () { return this._attrToPropMap; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) { this._attrToPropMap = value; },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    ;
-    /**
-     * @abstract
-     * @param {?} nodeA
-     * @param {?} nodeB
-     * @return {?}
-     */
-    DomAdapter.prototype.contains = function (nodeA, nodeB) { };
-    /**
-     * @abstract
-     * @param {?} templateHtml
-     * @return {?}
-     */
-    DomAdapter.prototype.parse = function (templateHtml) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @param {?} selector
-     * @return {?}
-     */
-    DomAdapter.prototype.querySelector = function (el, selector) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @param {?} selector
-     * @return {?}
-     */
-    DomAdapter.prototype.querySelectorAll = function (el, selector) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @param {?} evt
-     * @param {?} listener
-     * @return {?}
-     */
-    DomAdapter.prototype.on = function (el, evt, listener) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @param {?} evt
-     * @param {?} listener
-     * @return {?}
-     */
-    DomAdapter.prototype.onAndCancel = function (el, evt, listener) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @param {?} evt
-     * @return {?}
-     */
-    DomAdapter.prototype.dispatchEvent = function (el, evt) { };
-    /**
-     * @abstract
-     * @param {?} eventType
-     * @return {?}
-     */
-    DomAdapter.prototype.createMouseEvent = function (eventType) { };
-    /**
-     * @abstract
-     * @param {?} eventType
-     * @return {?}
-     */
-    DomAdapter.prototype.createEvent = function (eventType) { };
-    /**
-     * @abstract
-     * @param {?} evt
-     * @return {?}
-     */
-    DomAdapter.prototype.preventDefault = function (evt) { };
-    /**
-     * @abstract
-     * @param {?} evt
-     * @return {?}
-     */
-    DomAdapter.prototype.isPrevented = function (evt) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.getInnerHTML = function (el) { };
-    /**
-     * Returns content if el is a <template> element, null otherwise.
-     * @abstract
-     * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.getTemplateContent = function (el) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.getOuterHTML = function (el) { };
-    /**
-     * @abstract
-     * @param {?} node
-     * @return {?}
-     */
-    DomAdapter.prototype.nodeName = function (node) { };
-    /**
-     * @abstract
-     * @param {?} node
-     * @return {?}
-     */
-    DomAdapter.prototype.nodeValue = function (node) { };
-    /**
-     * @abstract
-     * @param {?} node
-     * @return {?}
-     */
-    DomAdapter.prototype.type = function (node) { };
-    /**
-     * @abstract
-     * @param {?} node
-     * @return {?}
-     */
-    DomAdapter.prototype.content = function (node) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.firstChild = function (el) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.nextSibling = function (el) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.parentElement = function (el) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.childNodes = function (el) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.childNodesAsList = function (el) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.clearNodes = function (el) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @param {?} node
-     * @return {?}
-     */
-    DomAdapter.prototype.appendChild = function (el, node) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @param {?} node
-     * @return {?}
-     */
-    DomAdapter.prototype.removeChild = function (el, node) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @param {?} newNode
-     * @param {?} oldNode
-     * @return {?}
-     */
-    DomAdapter.prototype.replaceChild = function (el, newNode, oldNode) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.remove = function (el) { };
-    /**
-     * @abstract
-     * @param {?} parent
-     * @param {?} ref
-     * @param {?} node
-     * @return {?}
-     */
-    DomAdapter.prototype.insertBefore = function (parent, ref, node) { };
-    /**
-     * @abstract
-     * @param {?} parent
-     * @param {?} ref
-     * @param {?} nodes
-     * @return {?}
-     */
-    DomAdapter.prototype.insertAllBefore = function (parent, ref, nodes) { };
-    /**
-     * @abstract
-     * @param {?} parent
-     * @param {?} el
-     * @param {?} node
-     * @return {?}
-     */
-    DomAdapter.prototype.insertAfter = function (parent, el, node) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @param {?} value
-     * @return {?}
-     */
-    DomAdapter.prototype.setInnerHTML = function (el, value) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.getText = function (el) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @param {?} value
-     * @return {?}
-     */
-    DomAdapter.prototype.setText = function (el, value) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.getValue = function (el) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @param {?} value
-     * @return {?}
-     */
-    DomAdapter.prototype.setValue = function (el, value) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.getChecked = function (el) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @param {?} value
-     * @return {?}
-     */
-    DomAdapter.prototype.setChecked = function (el, value) { };
-    /**
-     * @abstract
-     * @param {?} text
-     * @return {?}
-     */
-    DomAdapter.prototype.createComment = function (text) { };
-    /**
-     * @abstract
-     * @param {?} html
-     * @return {?}
-     */
-    DomAdapter.prototype.createTemplate = function (html) { };
-    /**
-     * @abstract
-     * @param {?} tagName
-     * @param {?=} doc
-     * @return {?}
-     */
-    DomAdapter.prototype.createElement = function (tagName, doc) { };
-    /**
-     * @abstract
-     * @param {?} ns
-     * @param {?} tagName
-     * @param {?=} doc
-     * @return {?}
-     */
-    DomAdapter.prototype.createElementNS = function (ns, tagName, doc) { };
-    /**
-     * @abstract
-     * @param {?} text
-     * @param {?=} doc
-     * @return {?}
-     */
-    DomAdapter.prototype.createTextNode = function (text, doc) { };
-    /**
-     * @abstract
-     * @param {?} attrName
-     * @param {?} attrValue
-     * @param {?=} doc
-     * @return {?}
-     */
-    DomAdapter.prototype.createScriptTag = function (attrName, attrValue, doc) { };
-    /**
-     * @abstract
-     * @param {?} css
-     * @param {?=} doc
-     * @return {?}
-     */
-    DomAdapter.prototype.createStyleElement = function (css, doc) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.createShadowRoot = function (el) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.getShadowRoot = function (el) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.getHost = function (el) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.getDistributedNodes = function (el) { };
-    /**
-     * @abstract
-     * @param {?} node
-     * @return {?}
-     */
-    DomAdapter.prototype.clone /*<T extends Node>*/ = function (node) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @param {?} name
-     * @return {?}
-     */
-    DomAdapter.prototype.getElementsByClassName = function (element, name) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @param {?} name
-     * @return {?}
-     */
-    DomAdapter.prototype.getElementsByTagName = function (element, name) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @return {?}
-     */
-    DomAdapter.prototype.classList = function (element) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @param {?} className
-     * @return {?}
-     */
-    DomAdapter.prototype.addClass = function (element, className) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @param {?} className
-     * @return {?}
-     */
-    DomAdapter.prototype.removeClass = function (element, className) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @param {?} className
-     * @return {?}
-     */
-    DomAdapter.prototype.hasClass = function (element, className) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @param {?} styleName
-     * @param {?} styleValue
-     * @return {?}
-     */
-    DomAdapter.prototype.setStyle = function (element, styleName, styleValue) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @param {?} styleName
-     * @return {?}
-     */
-    DomAdapter.prototype.removeStyle = function (element, styleName) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @param {?} styleName
-     * @return {?}
-     */
-    DomAdapter.prototype.getStyle = function (element, styleName) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @param {?} styleName
-     * @param {?=} styleValue
-     * @return {?}
-     */
-    DomAdapter.prototype.hasStyle = function (element, styleName, styleValue) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @return {?}
-     */
-    DomAdapter.prototype.tagName = function (element) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @return {?}
-     */
-    DomAdapter.prototype.attributeMap = function (element) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @param {?} attribute
-     * @return {?}
-     */
-    DomAdapter.prototype.hasAttribute = function (element, attribute) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @param {?} ns
-     * @param {?} attribute
-     * @return {?}
-     */
-    DomAdapter.prototype.hasAttributeNS = function (element, ns, attribute) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @param {?} attribute
-     * @return {?}
-     */
-    DomAdapter.prototype.getAttribute = function (element, attribute) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @param {?} ns
-     * @param {?} attribute
-     * @return {?}
-     */
-    DomAdapter.prototype.getAttributeNS = function (element, ns, attribute) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @param {?} name
-     * @param {?} value
-     * @return {?}
-     */
-    DomAdapter.prototype.setAttribute = function (element, name, value) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @param {?} ns
-     * @param {?} name
-     * @param {?} value
-     * @return {?}
-     */
-    DomAdapter.prototype.setAttributeNS = function (element, ns, name, value) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @param {?} attribute
-     * @return {?}
-     */
-    DomAdapter.prototype.removeAttribute = function (element, attribute) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @param {?} ns
-     * @param {?} attribute
-     * @return {?}
-     */
-    DomAdapter.prototype.removeAttributeNS = function (element, ns, attribute) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.templateAwareRoot = function (el) { };
-    /**
-     * @abstract
-     * @return {?}
-     */
-    DomAdapter.prototype.createHtmlDocument = function () { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.getBoundingClientRect = function (el) { };
-    /**
-     * @abstract
-     * @param {?} doc
-     * @return {?}
-     */
-    DomAdapter.prototype.getTitle = function (doc) { };
-    /**
-     * @abstract
-     * @param {?} doc
-     * @param {?} newTitle
-     * @return {?}
-     */
-    DomAdapter.prototype.setTitle = function (doc, newTitle) { };
-    /**
-     * @abstract
-     * @param {?} n
-     * @param {?} selector
-     * @return {?}
-     */
-    DomAdapter.prototype.elementMatches = function (n, selector) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.isTemplateElement = function (el) { };
-    /**
-     * @abstract
-     * @param {?} node
-     * @return {?}
-     */
-    DomAdapter.prototype.isTextNode = function (node) { };
-    /**
-     * @abstract
-     * @param {?} node
-     * @return {?}
-     */
-    DomAdapter.prototype.isCommentNode = function (node) { };
-    /**
-     * @abstract
-     * @param {?} node
-     * @return {?}
-     */
-    DomAdapter.prototype.isElementNode = function (node) { };
-    /**
-     * @abstract
-     * @param {?} node
-     * @return {?}
-     */
-    DomAdapter.prototype.hasShadowRoot = function (node) { };
-    /**
-     * @abstract
-     * @param {?} node
-     * @return {?}
-     */
-    DomAdapter.prototype.isShadowRoot = function (node) { };
-    /**
-     * @abstract
-     * @param {?} node
-     * @return {?}
-     */
-    DomAdapter.prototype.importIntoDoc /*<T extends Node>*/ = function (node) { };
-    /**
-     * @abstract
-     * @param {?} node
-     * @return {?}
-     */
-    DomAdapter.prototype.adoptNode /*<T extends Node>*/ = function (node) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @return {?}
-     */
-    DomAdapter.prototype.getHref = function (element) { };
-    /**
-     * @abstract
-     * @param {?} event
-     * @return {?}
-     */
-    DomAdapter.prototype.getEventKey = function (event) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @param {?} baseUrl
-     * @param {?} href
-     * @return {?}
-     */
-    DomAdapter.prototype.resolveAndSetHref = function (element, baseUrl, href) { };
-    /**
-     * @abstract
-     * @return {?}
-     */
-    DomAdapter.prototype.supportsDOMEvents = function () { };
-    /**
-     * @abstract
-     * @return {?}
-     */
-    DomAdapter.prototype.supportsNativeShadowDOM = function () { };
-    /**
-     * @abstract
-     * @param {?} doc
-     * @param {?} target
-     * @return {?}
-     */
-    DomAdapter.prototype.getGlobalEventTarget = function (doc, target) { };
-    /**
-     * @abstract
-     * @return {?}
-     */
-    DomAdapter.prototype.getHistory = function () { };
-    /**
-     * @abstract
-     * @return {?}
-     */
-    DomAdapter.prototype.getLocation = function () { };
-    /**
-     * @abstract
-     * @param {?} doc
-     * @return {?}
-     */
-    DomAdapter.prototype.getBaseHref = function (doc) { };
-    /**
-     * @abstract
-     * @return {?}
-     */
-    DomAdapter.prototype.resetBaseElement = function () { };
-    /**
-     * @abstract
-     * @return {?}
-     */
-    DomAdapter.prototype.getUserAgent = function () { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @param {?} name
-     * @param {?} value
-     * @return {?}
-     */
-    DomAdapter.prototype.setData = function (element, name, value) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @return {?}
-     */
-    DomAdapter.prototype.getComputedStyle = function (element) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @param {?} name
-     * @return {?}
-     */
-    DomAdapter.prototype.getData = function (element, name) { };
-    /**
-     * @abstract
-     * @param {?} name
-     * @param {?} value
-     * @return {?}
-     */
-    DomAdapter.prototype.setGlobalVar = function (name, value) { };
-    /**
-     * @abstract
-     * @return {?}
-     */
-    DomAdapter.prototype.supportsWebAnimation = function () { };
-    /**
-     * @abstract
-     * @return {?}
-     */
-    DomAdapter.prototype.performanceNow = function () { };
-    /**
-     * @abstract
-     * @return {?}
-     */
-    DomAdapter.prototype.getAnimationPrefix = function () { };
-    /**
-     * @abstract
-     * @return {?}
-     */
-    DomAdapter.prototype.getTransitionEnd = function () { };
-    /**
-     * @abstract
-     * @return {?}
-     */
-    DomAdapter.prototype.supportsAnimation = function () { };
-    /**
-     * @abstract
-     * @return {?}
-     */
-    DomAdapter.prototype.supportsCookies = function () { };
-    /**
-     * @abstract
-     * @param {?} name
-     * @return {?}
-     */
-    DomAdapter.prototype.getCookie = function (name) { };
-    /**
-     * @abstract
-     * @param {?} name
-     * @param {?} value
-     * @return {?}
-     */
-    DomAdapter.prototype.setCookie = function (name, value) { };
-    return DomAdapter;
-}());
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * Provides DOM operations in any browser environment.
- *
- * \@security Tread carefully! Interacting with the DOM directly is dangerous and
- * can introduce XSS risks.
- * @abstract
- */
-var GenericBrowserDomAdapter = (function (_super) {
-    __extends(GenericBrowserDomAdapter, _super);
-    function GenericBrowserDomAdapter() {
-        var _this = _super.call(this) || this;
-        _this._animationPrefix = null;
-        _this._transitionEnd = null;
-        try {
-            var element_1 = _this.createElement('div', document);
-            if (_this.getStyle(element_1, 'animationName') != null) {
-                _this._animationPrefix = '';
-            }
-            else {
-                var domPrefixes = ['Webkit', 'Moz', 'O', 'ms'];
-                for (var i = 0; i < domPrefixes.length; i++) {
-                    if (_this.getStyle(element_1, domPrefixes[i] + 'AnimationName') != null) {
-                        _this._animationPrefix = '-' + domPrefixes[i].toLowerCase() + '-';
-                        break;
-                    }
-                }
-            }
-            var transEndEventNames_1 = {
-                WebkitTransition: 'webkitTransitionEnd',
-                MozTransition: 'transitionend',
-                OTransition: 'oTransitionEnd otransitionend',
-                transition: 'transitionend'
-            };
-            Object.keys(transEndEventNames_1).forEach(function (key) {
-                if (_this.getStyle(element_1, key) != null) {
-                    _this._transitionEnd = transEndEventNames_1[key];
-                }
-            });
-        }
-        catch (e) {
-            _this._animationPrefix = null;
-            _this._transitionEnd = null;
-        }
-        return _this;
-    }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    GenericBrowserDomAdapter.prototype.getDistributedNodes = function (el) { return ((el)).getDistributedNodes(); };
-    /**
-     * @param {?} el
-     * @param {?} baseUrl
-     * @param {?} href
-     * @return {?}
-     */
-    GenericBrowserDomAdapter.prototype.resolveAndSetHref = function (el, baseUrl, href) {
-        el.href = href == null ? baseUrl : baseUrl + '/../' + href;
-    };
-    /**
-     * @return {?}
-     */
-    GenericBrowserDomAdapter.prototype.supportsDOMEvents = function () { return true; };
-    /**
-     * @return {?}
-     */
-    GenericBrowserDomAdapter.prototype.supportsNativeShadowDOM = function () {
-        return typeof ((document.body)).createShadowRoot === 'function';
-    };
-    /**
-     * @return {?}
-     */
-    GenericBrowserDomAdapter.prototype.getAnimationPrefix = function () { return this._animationPrefix ? this._animationPrefix : ''; };
-    /**
-     * @return {?}
-     */
-    GenericBrowserDomAdapter.prototype.getTransitionEnd = function () { return this._transitionEnd ? this._transitionEnd : ''; };
-    /**
-     * @return {?}
-     */
-    GenericBrowserDomAdapter.prototype.supportsAnimation = function () {
-        return this._animationPrefix != null && this._transitionEnd != null;
-    };
-    return GenericBrowserDomAdapter;
-}(DomAdapter));
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-var _attrToPropMap = {
-    'class': 'className',
-    'innerHtml': 'innerHTML',
-    'readonly': 'readOnly',
-    'tabindex': 'tabIndex',
-};
-var DOM_KEY_LOCATION_NUMPAD = 3;
-// Map to convert some key or keyIdentifier values to what will be returned by getEventKey
-var _keyMap = {
-    // The following values are here for cross-browser compatibility and to match the W3C standard
-    // cf http://www.w3.org/TR/DOM-Level-3-Events-key/
-    '\b': 'Backspace',
-    '\t': 'Tab',
-    '\x7F': 'Delete',
-    '\x1B': 'Escape',
-    'Del': 'Delete',
-    'Esc': 'Escape',
-    'Left': 'ArrowLeft',
-    'Right': 'ArrowRight',
-    'Up': 'ArrowUp',
-    'Down': 'ArrowDown',
-    'Menu': 'ContextMenu',
-    'Scroll': 'ScrollLock',
-    'Win': 'OS'
-};
-// There is a bug in Chrome for numeric keypad keys:
-// https://code.google.com/p/chromium/issues/detail?id=155654
-// 1, 2, 3 ... are reported as A, B, C ...
-var _chromeNumKeyPadMap = {
-    'A': '1',
-    'B': '2',
-    'C': '3',
-    'D': '4',
-    'E': '5',
-    'F': '6',
-    'G': '7',
-    'H': '8',
-    'I': '9',
-    'J': '*',
-    'K': '+',
-    'M': '-',
-    'N': '.',
-    'O': '/',
-    '\x60': '0',
-    '\x90': 'NumLock'
-};
-var nodeContains;
-if (__WEBPACK_IMPORTED_MODULE_1__angular_core__["_11" /* ɵglobal */]['Node']) {
-    nodeContains = __WEBPACK_IMPORTED_MODULE_1__angular_core__["_11" /* ɵglobal */]['Node'].prototype.contains || function (node) {
-        return !!(this.compareDocumentPosition(node) & 16);
-    };
-}
-var BrowserDomAdapter = (function (_super) {
-    __extends(BrowserDomAdapter, _super);
-    function BrowserDomAdapter() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    /**
-     * @param {?} templateHtml
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.parse = function (templateHtml) { throw new Error('parse not implemented'); };
-    /**
-     * @return {?}
-     */
-    BrowserDomAdapter.makeCurrent = function () { setRootDomAdapter(new BrowserDomAdapter()); };
-    /**
-     * @param {?} element
-     * @param {?} name
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.hasProperty = function (element, name) { return name in element; };
-    /**
-     * @param {?} el
-     * @param {?} name
-     * @param {?} value
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.setProperty = function (el, name, value) { ((el))[name] = value; };
-    /**
-     * @param {?} el
-     * @param {?} name
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.getProperty = function (el, name) { return ((el))[name]; };
-    /**
-     * @param {?} el
-     * @param {?} methodName
-     * @param {?} args
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.invoke = function (el, methodName, args) { ((el))[methodName].apply(((el)), args); };
-    /**
-     * @param {?} error
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.logError = function (error) {
-        if (window.console) {
-            if (console.error) {
-                console.error(error);
-            }
-            else {
-                console.log(error);
-            }
-        }
-    };
-    /**
-     * @param {?} error
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.log = function (error) {
-        if (window.console) {
-            window.console.log && window.console.log(error);
-        }
-    };
-    /**
-     * @param {?} error
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.logGroup = function (error) {
-        if (window.console) {
-            window.console.group && window.console.group(error);
-        }
-    };
-    /**
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.logGroupEnd = function () {
-        if (window.console) {
-            window.console.groupEnd && window.console.groupEnd();
-        }
-    };
-    Object.defineProperty(BrowserDomAdapter.prototype, "attrToPropMap", {
-        /**
-         * @return {?}
-         */
-        get: function () { return _attrToPropMap; },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @param {?} nodeA
-     * @param {?} nodeB
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.contains = function (nodeA, nodeB) { return nodeContains.call(nodeA, nodeB); };
-    /**
-     * @param {?} el
-     * @param {?} selector
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.querySelector = function (el, selector) { return el.querySelector(selector); };
-    /**
-     * @param {?} el
-     * @param {?} selector
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.querySelectorAll = function (el, selector) { return el.querySelectorAll(selector); };
-    /**
-     * @param {?} el
-     * @param {?} evt
-     * @param {?} listener
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.on = function (el, evt, listener) { el.addEventListener(evt, listener, false); };
-    /**
-     * @param {?} el
-     * @param {?} evt
-     * @param {?} listener
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.onAndCancel = function (el, evt, listener) {
-        el.addEventListener(evt, listener, false);
-        // Needed to follow Dart's subscription semantic, until fix of
-        // https://code.google.com/p/dart/issues/detail?id=17406
-        return function () { el.removeEventListener(evt, listener, false); };
-    };
-    /**
-     * @param {?} el
-     * @param {?} evt
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.dispatchEvent = function (el, evt) { el.dispatchEvent(evt); };
-    /**
-     * @param {?} eventType
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.createMouseEvent = function (eventType) {
-        var /** @type {?} */ evt = document.createEvent('MouseEvent');
-        evt.initEvent(eventType, true, true);
-        return evt;
-    };
-    /**
-     * @param {?} eventType
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.createEvent = function (eventType) {
-        var /** @type {?} */ evt = document.createEvent('Event');
-        evt.initEvent(eventType, true, true);
-        return evt;
-    };
-    /**
-     * @param {?} evt
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.preventDefault = function (evt) {
-        evt.preventDefault();
-        evt.returnValue = false;
-    };
-    /**
-     * @param {?} evt
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.isPrevented = function (evt) {
-        return evt.defaultPrevented || evt.returnValue != null && !evt.returnValue;
-    };
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.getInnerHTML = function (el) { return el.innerHTML; };
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.getTemplateContent = function (el) {
-        return 'content' in el && el instanceof HTMLTemplateElement ? el.content : null;
-    };
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.getOuterHTML = function (el) { return el.outerHTML; };
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.nodeName = function (node) { return node.nodeName; };
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.nodeValue = function (node) { return node.nodeValue; };
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.type = function (node) { return node.type; };
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.content = function (node) {
-        if (this.hasProperty(node, 'content')) {
-            return ((node)).content;
-        }
-        else {
-            return node;
-        }
-    };
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.firstChild = function (el) { return el.firstChild; };
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.nextSibling = function (el) { return el.nextSibling; };
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.parentElement = function (el) { return el.parentNode; };
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.childNodes = function (el) { return el.childNodes; };
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.childNodesAsList = function (el) {
-        var /** @type {?} */ childNodes = el.childNodes;
-        var /** @type {?} */ res = new Array(childNodes.length);
-        for (var /** @type {?} */ i = 0; i < childNodes.length; i++) {
-            res[i] = childNodes[i];
-        }
-        return res;
-    };
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.clearNodes = function (el) {
-        while (el.firstChild) {
-            el.removeChild(el.firstChild);
-        }
-    };
-    /**
-     * @param {?} el
-     * @param {?} node
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.appendChild = function (el, node) { el.appendChild(node); };
-    /**
-     * @param {?} el
-     * @param {?} node
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.removeChild = function (el, node) { el.removeChild(node); };
-    /**
-     * @param {?} el
-     * @param {?} newChild
-     * @param {?} oldChild
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.replaceChild = function (el, newChild, oldChild) { el.replaceChild(newChild, oldChild); };
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.remove = function (node) {
-        if (node.parentNode) {
-            node.parentNode.removeChild(node);
-        }
-        return node;
-    };
-    /**
-     * @param {?} parent
-     * @param {?} ref
-     * @param {?} node
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.insertBefore = function (parent, ref, node) { parent.insertBefore(node, ref); };
-    /**
-     * @param {?} parent
-     * @param {?} ref
-     * @param {?} nodes
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.insertAllBefore = function (parent, ref, nodes) {
-        nodes.forEach(function (n) { return parent.insertBefore(n, ref); });
-    };
-    /**
-     * @param {?} parent
-     * @param {?} ref
-     * @param {?} node
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.insertAfter = function (parent, ref, node) { parent.insertBefore(node, ref.nextSibling); };
-    /**
-     * @param {?} el
-     * @param {?} value
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.setInnerHTML = function (el, value) { el.innerHTML = value; };
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.getText = function (el) { return el.textContent; };
-    /**
-     * @param {?} el
-     * @param {?} value
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.setText = function (el, value) { el.textContent = value; };
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.getValue = function (el) { return el.value; };
-    /**
-     * @param {?} el
-     * @param {?} value
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.setValue = function (el, value) { el.value = value; };
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.getChecked = function (el) { return el.checked; };
-    /**
-     * @param {?} el
-     * @param {?} value
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.setChecked = function (el, value) { el.checked = value; };
-    /**
-     * @param {?} text
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.createComment = function (text) { return document.createComment(text); };
-    /**
-     * @param {?} html
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.createTemplate = function (html) {
-        var /** @type {?} */ t = document.createElement('template');
-        t.innerHTML = html;
-        return t;
-    };
-    /**
-     * @param {?} tagName
-     * @param {?=} doc
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.createElement = function (tagName, doc) {
-        if (doc === void 0) { doc = document; }
-        return doc.createElement(tagName);
-    };
-    /**
-     * @param {?} ns
-     * @param {?} tagName
-     * @param {?=} doc
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.createElementNS = function (ns, tagName, doc) {
-        if (doc === void 0) { doc = document; }
-        return doc.createElementNS(ns, tagName);
-    };
-    /**
-     * @param {?} text
-     * @param {?=} doc
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.createTextNode = function (text, doc) {
-        if (doc === void 0) { doc = document; }
-        return doc.createTextNode(text);
-    };
-    /**
-     * @param {?} attrName
-     * @param {?} attrValue
-     * @param {?=} doc
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.createScriptTag = function (attrName, attrValue, doc) {
-        if (doc === void 0) { doc = document; }
-        var /** @type {?} */ el = (doc.createElement('SCRIPT'));
-        el.setAttribute(attrName, attrValue);
-        return el;
-    };
-    /**
-     * @param {?} css
-     * @param {?=} doc
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.createStyleElement = function (css, doc) {
-        if (doc === void 0) { doc = document; }
-        var /** @type {?} */ style = (doc.createElement('style'));
-        this.appendChild(style, this.createTextNode(css));
-        return style;
-    };
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.createShadowRoot = function (el) { return ((el)).createShadowRoot(); };
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.getShadowRoot = function (el) { return ((el)).shadowRoot; };
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.getHost = function (el) { return ((el)).host; };
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.clone = function (node) { return node.cloneNode(true); };
-    /**
-     * @param {?} element
-     * @param {?} name
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.getElementsByClassName = function (element, name) {
-        return element.getElementsByClassName(name);
-    };
-    /**
-     * @param {?} element
-     * @param {?} name
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.getElementsByTagName = function (element, name) {
-        return element.getElementsByTagName(name);
-    };
-    /**
-     * @param {?} element
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.classList = function (element) { return Array.prototype.slice.call(element.classList, 0); };
-    /**
-     * @param {?} element
-     * @param {?} className
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.addClass = function (element, className) { element.classList.add(className); };
-    /**
-     * @param {?} element
-     * @param {?} className
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.removeClass = function (element, className) { element.classList.remove(className); };
-    /**
-     * @param {?} element
-     * @param {?} className
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.hasClass = function (element, className) {
-        return element.classList.contains(className);
-    };
-    /**
-     * @param {?} element
-     * @param {?} styleName
-     * @param {?} styleValue
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.setStyle = function (element, styleName, styleValue) {
-        element.style[styleName] = styleValue;
-    };
-    /**
-     * @param {?} element
-     * @param {?} stylename
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.removeStyle = function (element, stylename) {
-        // IE requires '' instead of null
-        // see https://github.com/angular/angular/issues/7916
-        element.style[stylename] = '';
-    };
-    /**
-     * @param {?} element
-     * @param {?} stylename
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.getStyle = function (element, stylename) { return element.style[stylename]; };
-    /**
-     * @param {?} element
-     * @param {?} styleName
-     * @param {?=} styleValue
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.hasStyle = function (element, styleName, styleValue) {
-        if (styleValue === void 0) { styleValue = null; }
-        var /** @type {?} */ value = this.getStyle(element, styleName) || '';
-        return styleValue ? value == styleValue : value.length > 0;
-    };
-    /**
-     * @param {?} element
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.tagName = function (element) { return element.tagName; };
-    /**
-     * @param {?} element
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.attributeMap = function (element) {
-        var /** @type {?} */ res = new Map();
-        var /** @type {?} */ elAttrs = element.attributes;
-        for (var /** @type {?} */ i = 0; i < elAttrs.length; i++) {
-            var /** @type {?} */ attrib = elAttrs[i];
-            res.set(attrib.name, attrib.value);
-        }
-        return res;
-    };
-    /**
-     * @param {?} element
-     * @param {?} attribute
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.hasAttribute = function (element, attribute) {
-        return element.hasAttribute(attribute);
-    };
-    /**
-     * @param {?} element
-     * @param {?} ns
-     * @param {?} attribute
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.hasAttributeNS = function (element, ns, attribute) {
-        return element.hasAttributeNS(ns, attribute);
-    };
-    /**
-     * @param {?} element
-     * @param {?} attribute
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.getAttribute = function (element, attribute) {
-        return element.getAttribute(attribute);
-    };
-    /**
-     * @param {?} element
-     * @param {?} ns
-     * @param {?} name
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.getAttributeNS = function (element, ns, name) {
-        return element.getAttributeNS(ns, name);
-    };
-    /**
-     * @param {?} element
-     * @param {?} name
-     * @param {?} value
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.setAttribute = function (element, name, value) { element.setAttribute(name, value); };
-    /**
-     * @param {?} element
-     * @param {?} ns
-     * @param {?} name
-     * @param {?} value
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.setAttributeNS = function (element, ns, name, value) {
-        element.setAttributeNS(ns, name, value);
-    };
-    /**
-     * @param {?} element
-     * @param {?} attribute
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.removeAttribute = function (element, attribute) { element.removeAttribute(attribute); };
-    /**
-     * @param {?} element
-     * @param {?} ns
-     * @param {?} name
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.removeAttributeNS = function (element, ns, name) {
-        element.removeAttributeNS(ns, name);
-    };
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.templateAwareRoot = function (el) { return this.isTemplateElement(el) ? this.content(el) : el; };
-    /**
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.createHtmlDocument = function () {
-        return document.implementation.createHTMLDocument('fakeTitle');
-    };
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.getBoundingClientRect = function (el) {
-        try {
-            return el.getBoundingClientRect();
-        }
-        catch (e) {
-            return { top: 0, bottom: 0, left: 0, right: 0, width: 0, height: 0 };
-        }
-    };
-    /**
-     * @param {?} doc
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.getTitle = function (doc) { return document.title; };
-    /**
-     * @param {?} doc
-     * @param {?} newTitle
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.setTitle = function (doc, newTitle) { document.title = newTitle || ''; };
-    /**
-     * @param {?} n
-     * @param {?} selector
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.elementMatches = function (n, selector) {
-        if (n instanceof HTMLElement) {
-            return n.matches && n.matches(selector) ||
-                n.msMatchesSelector && n.msMatchesSelector(selector) ||
-                n.webkitMatchesSelector && n.webkitMatchesSelector(selector);
-        }
-        return false;
-    };
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.isTemplateElement = function (el) {
-        return el instanceof HTMLElement && el.nodeName == 'TEMPLATE';
-    };
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.isTextNode = function (node) { return node.nodeType === Node.TEXT_NODE; };
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.isCommentNode = function (node) { return node.nodeType === Node.COMMENT_NODE; };
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.isElementNode = function (node) { return node.nodeType === Node.ELEMENT_NODE; };
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.hasShadowRoot = function (node) {
-        return node.shadowRoot != null && node instanceof HTMLElement;
-    };
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.isShadowRoot = function (node) { return node instanceof DocumentFragment; };
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.importIntoDoc = function (node) { return document.importNode(this.templateAwareRoot(node), true); };
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.adoptNode = function (node) { return document.adoptNode(node); };
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.getHref = function (el) { return ((el)).href; };
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.getEventKey = function (event) {
-        var /** @type {?} */ key = event.key;
-        if (key == null) {
-            key = event.keyIdentifier;
-            // keyIdentifier is defined in the old draft of DOM Level 3 Events implemented by Chrome and
-            // Safari cf
-            // http://www.w3.org/TR/2007/WD-DOM-Level-3-Events-20071221/events.html#Events-KeyboardEvents-Interfaces
-            if (key == null) {
-                return 'Unidentified';
-            }
-            if (key.startsWith('U+')) {
-                key = String.fromCharCode(parseInt(key.substring(2), 16));
-                if (event.location === DOM_KEY_LOCATION_NUMPAD && _chromeNumKeyPadMap.hasOwnProperty(key)) {
-                    // There is a bug in Chrome for numeric keypad keys:
-                    // https://code.google.com/p/chromium/issues/detail?id=155654
-                    // 1, 2, 3 ... are reported as A, B, C ...
-                    key = ((_chromeNumKeyPadMap))[key];
-                }
-            }
-        }
-        return _keyMap[key] || key;
-    };
-    /**
-     * @param {?} doc
-     * @param {?} target
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.getGlobalEventTarget = function (doc, target) {
-        if (target === 'window') {
-            return window;
-        }
-        if (target === 'document') {
-            return document;
-        }
-        if (target === 'body') {
-            return document.body;
-        }
-    };
-    /**
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.getHistory = function () { return window.history; };
-    /**
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.getLocation = function () { return window.location; };
-    /**
-     * @param {?} doc
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.getBaseHref = function (doc) {
-        var /** @type {?} */ href = getBaseElementHref();
-        return href == null ? null : relativePath(href);
-    };
-    /**
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.resetBaseElement = function () { baseElement = null; };
-    /**
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.getUserAgent = function () { return window.navigator.userAgent; };
-    /**
-     * @param {?} element
-     * @param {?} name
-     * @param {?} value
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.setData = function (element, name, value) {
-        this.setAttribute(element, 'data-' + name, value);
-    };
-    /**
-     * @param {?} element
-     * @param {?} name
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.getData = function (element, name) {
-        return this.getAttribute(element, 'data-' + name);
-    };
-    /**
-     * @param {?} element
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.getComputedStyle = function (element) { return getComputedStyle(element); };
-    /**
-     * @param {?} path
-     * @param {?} value
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.setGlobalVar = function (path, value) { setValueOnPath(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_11" /* ɵglobal */], path, value); };
-    /**
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.supportsWebAnimation = function () {
-        return typeof ((Element)).prototype['animate'] === 'function';
-    };
-    /**
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.performanceNow = function () {
-        // performance.now() is not available in all browsers, see
-        // http://caniuse.com/#search=performance.now
-        return window.performance && window.performance.now ? window.performance.now() :
-            new Date().getTime();
-    };
-    /**
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.supportsCookies = function () { return true; };
-    /**
-     * @param {?} name
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.getCookie = function (name) { return parseCookieValue(document.cookie, name); };
-    /**
-     * @param {?} name
-     * @param {?} value
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.setCookie = function (name, value) {
-        // document.cookie is magical, assigning into it assigns/overrides one cookie value, but does
-        // not clear other cookies.
-        document.cookie = encodeURIComponent(name) + '=' + encodeURIComponent(value);
-    };
-    return BrowserDomAdapter;
-}(GenericBrowserDomAdapter));
-var baseElement = null;
-/**
- * @return {?}
- */
-function getBaseElementHref() {
-    if (!baseElement) {
-        baseElement = document.querySelector('base');
-        if (!baseElement) {
-            return null;
-        }
-    }
-    return baseElement.getAttribute('href');
-}
-// based on urlUtils.js in AngularJS 1
-var urlParsingNode;
-/**
- * @param {?} url
- * @return {?}
- */
-function relativePath(url) {
-    if (!urlParsingNode) {
-        urlParsingNode = document.createElement('a');
-    }
-    urlParsingNode.setAttribute('href', url);
-    return (urlParsingNode.pathname.charAt(0) === '/') ? urlParsingNode.pathname :
-        '/' + urlParsingNode.pathname;
-}
-/**
- * @param {?} cookieStr
- * @param {?} name
- * @return {?}
- */
-function parseCookieValue(cookieStr, name) {
-    name = encodeURIComponent(name);
-    for (var _i = 0, _a = cookieStr.split(';'); _i < _a.length; _i++) {
-        var cookie = _a[_i];
-        var /** @type {?} */ eqIndex = cookie.indexOf('=');
-        var _b = eqIndex == -1 ? [cookie, ''] : [cookie.slice(0, eqIndex), cookie.slice(eqIndex + 1)], cookieName = _b[0], cookieValue = _b[1];
-        if (cookieName.trim() === name) {
-            return decodeURIComponent(cookieValue);
-        }
-    }
-    return null;
-}
-/**
- * @param {?} global
- * @param {?} path
- * @param {?} value
- * @return {?}
- */
-function setValueOnPath(global, path, value) {
-    var /** @type {?} */ parts = path.split('.');
-    var /** @type {?} */ obj = global;
-    while (parts.length > 1) {
-        var /** @type {?} */ name = parts.shift();
-        if (obj.hasOwnProperty(name) && obj[name] != null) {
-            obj = obj[name];
-        }
-        else {
-            obj = obj[name] = {};
-        }
-    }
-    if (obj === undefined || obj === null) {
-        obj = {};
-    }
-    obj[parts.shift()] = value;
-}
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * A DI Token representing the main rendering context. In a browser this is the DOM Document.
- *
- * Note: Document might not be available in the Application Context when Application and Rendering
- * Contexts are not the same (e.g. when running the application into a Web Worker).
- *
- * \@stable
- */
-var DOCUMENT = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["H" /* InjectionToken */]('DocumentToken');
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- * @return {?}
- */
-function supportsState() {
-    return !!window.history.pushState;
-}
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * `PlatformLocation` encapsulates all of the direct calls to platform APIs.
- * This class should not be used directly by an application developer. Instead, use
- * {\@link Location}.
- */
-var BrowserPlatformLocation = (function (_super) {
-    __extends(BrowserPlatformLocation, _super);
-    /**
-     * @param {?} _doc
-     */
-    function BrowserPlatformLocation(_doc) {
-        var _this = _super.call(this) || this;
-        _this._doc = _doc;
-        _this._init();
-        return _this;
-    }
-    /**
-     * \@internal
-     * @return {?}
-     */
-    BrowserPlatformLocation.prototype._init = function () {
-        this._location = getDOM().getLocation();
-        this._history = getDOM().getHistory();
-    };
-    Object.defineProperty(BrowserPlatformLocation.prototype, "location", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this._location; },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @return {?}
-     */
-    BrowserPlatformLocation.prototype.getBaseHrefFromDOM = function () { return getDOM().getBaseHref(this._doc); };
-    /**
-     * @param {?} fn
-     * @return {?}
-     */
-    BrowserPlatformLocation.prototype.onPopState = function (fn) {
-        getDOM().getGlobalEventTarget(this._doc, 'window').addEventListener('popstate', fn, false);
-    };
-    /**
-     * @param {?} fn
-     * @return {?}
-     */
-    BrowserPlatformLocation.prototype.onHashChange = function (fn) {
-        getDOM().getGlobalEventTarget(this._doc, 'window').addEventListener('hashchange', fn, false);
-    };
-    Object.defineProperty(BrowserPlatformLocation.prototype, "pathname", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this._location.pathname; },
-        /**
-         * @param {?} newPath
-         * @return {?}
-         */
-        set: function (newPath) { this._location.pathname = newPath; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BrowserPlatformLocation.prototype, "search", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this._location.search; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BrowserPlatformLocation.prototype, "hash", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this._location.hash; },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @param {?} state
-     * @param {?} title
-     * @param {?} url
-     * @return {?}
-     */
-    BrowserPlatformLocation.prototype.pushState = function (state, title, url) {
-        if (supportsState()) {
-            this._history.pushState(state, title, url);
-        }
-        else {
-            this._location.hash = url;
-        }
-    };
-    /**
-     * @param {?} state
-     * @param {?} title
-     * @param {?} url
-     * @return {?}
-     */
-    BrowserPlatformLocation.prototype.replaceState = function (state, title, url) {
-        if (supportsState()) {
-            this._history.replaceState(state, title, url);
-        }
-        else {
-            this._location.hash = url;
-        }
-    };
-    /**
-     * @return {?}
-     */
-    BrowserPlatformLocation.prototype.forward = function () { this._history.forward(); };
-    /**
-     * @return {?}
-     */
-    BrowserPlatformLocation.prototype.back = function () { this._history.back(); };
-    return BrowserPlatformLocation;
-}(__WEBPACK_IMPORTED_MODULE_0__angular_common__["c" /* PlatformLocation */]));
-BrowserPlatformLocation.decorators = [
-    { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["X" /* Injectable */] },
-];
-/**
- * @nocollapse
- */
-BrowserPlatformLocation.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["_1" /* Inject */], args: [DOCUMENT,] },] },
-]; };
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * A service that can be used to get and add meta tags.
- *
- * \@experimental
- */
-var Meta = (function () {
-    /**
-     * @param {?} _doc
-     */
-    function Meta(_doc) {
-        this._doc = _doc;
-        this._dom = getDOM();
-    }
-    /**
-     * @param {?} tag
-     * @param {?=} forceCreation
-     * @return {?}
-     */
-    Meta.prototype.addTag = function (tag, forceCreation) {
-        if (forceCreation === void 0) { forceCreation = false; }
-        if (!tag)
-            return null;
-        return this._getOrCreateElement(tag, forceCreation);
-    };
-    /**
-     * @param {?} tags
-     * @param {?=} forceCreation
-     * @return {?}
-     */
-    Meta.prototype.addTags = function (tags, forceCreation) {
-        var _this = this;
-        if (forceCreation === void 0) { forceCreation = false; }
-        if (!tags)
-            return [];
-        return tags.reduce(function (result, tag) {
-            if (tag) {
-                result.push(_this._getOrCreateElement(tag, forceCreation));
-            }
-            return result;
-        }, []);
-    };
-    /**
-     * @param {?} attrSelector
-     * @return {?}
-     */
-    Meta.prototype.getTag = function (attrSelector) {
-        if (!attrSelector)
-            return null;
-        return this._dom.querySelector(this._doc, "meta[" + attrSelector + "]");
-    };
-    /**
-     * @param {?} attrSelector
-     * @return {?}
-     */
-    Meta.prototype.getTags = function (attrSelector) {
-        if (!attrSelector)
-            return [];
-        var /** @type {?} */ list /*NodeList*/ = this._dom.querySelectorAll(this._doc, "meta[" + attrSelector + "]");
-        return list ? [].slice.call(list) : [];
-    };
-    /**
-     * @param {?} tag
-     * @param {?=} selector
-     * @return {?}
-     */
-    Meta.prototype.updateTag = function (tag, selector) {
-        if (!tag)
-            return null;
-        selector = selector || this._parseSelector(tag);
-        var /** @type {?} */ meta = this.getTag(selector);
-        if (meta) {
-            return this._setMetaElementAttributes(tag, meta);
-        }
-        return this._getOrCreateElement(tag, true);
-    };
-    /**
-     * @param {?} attrSelector
-     * @return {?}
-     */
-    Meta.prototype.removeTag = function (attrSelector) { this.removeTagElement(this.getTag(attrSelector)); };
-    /**
-     * @param {?} meta
-     * @return {?}
-     */
-    Meta.prototype.removeTagElement = function (meta) {
-        if (meta) {
-            this._dom.remove(meta);
-        }
-    };
-    /**
-     * @param {?} meta
-     * @param {?=} forceCreation
-     * @return {?}
-     */
-    Meta.prototype._getOrCreateElement = function (meta, forceCreation) {
-        if (forceCreation === void 0) { forceCreation = false; }
-        if (!forceCreation) {
-            var /** @type {?} */ selector = this._parseSelector(meta);
-            var /** @type {?} */ elem = this.getTag(selector);
-            // It's allowed to have multiple elements with the same name so it's not enough to
-            // just check that element with the same name already present on the page. We also need to
-            // check if element has tag attributes
-            if (elem && this._containsAttributes(meta, elem))
-                return elem;
-        }
-        var /** @type {?} */ element = (this._dom.createElement('meta'));
-        this._setMetaElementAttributes(meta, element);
-        var /** @type {?} */ head = this._dom.getElementsByTagName(this._doc, 'head')[0];
-        this._dom.appendChild(head, element);
-        return element;
-    };
-    /**
-     * @param {?} tag
-     * @param {?} el
-     * @return {?}
-     */
-    Meta.prototype._setMetaElementAttributes = function (tag, el) {
-        var _this = this;
-        Object.keys(tag).forEach(function (prop) { return _this._dom.setAttribute(el, prop, tag[prop]); });
-        return el;
-    };
-    /**
-     * @param {?} tag
-     * @return {?}
-     */
-    Meta.prototype._parseSelector = function (tag) {
-        var /** @type {?} */ attr = tag.name ? 'name' : 'property';
-        return attr + "=\"" + tag[attr] + "\"";
-    };
-    /**
-     * @param {?} tag
-     * @param {?} elem
-     * @return {?}
-     */
-    Meta.prototype._containsAttributes = function (tag, elem) {
-        var _this = this;
-        return Object.keys(tag).every(function (key) { return _this._dom.getAttribute(elem, key) === tag[key]; });
-    };
-    return Meta;
-}());
-Meta.decorators = [
-    { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["X" /* Injectable */] },
-];
-/**
- * @nocollapse
- */
-Meta.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["_1" /* Inject */], args: [DOCUMENT,] },] },
-]; };
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * An id that identifies a particular application being bootstrapped, that should
- * match across the client/server boundary.
- */
-var TRANSITION_ID = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["H" /* InjectionToken */]('TRANSITION_ID');
-/**
- * @param {?} transitionId
- * @param {?} document
- * @return {?}
- */
-function bootstrapListenerFactory(transitionId, document) {
-    var /** @type {?} */ factory = function () {
-        var /** @type {?} */ dom = getDOM();
-        var /** @type {?} */ styles = Array.prototype.slice.apply(dom.querySelectorAll(document, "style[ng-transition]"));
-        styles.filter(function (el) { return dom.getAttribute(el, 'ng-transition') === transitionId; })
-            .forEach(function (el) { return dom.remove(el); });
-    };
-    return factory;
-}
-var SERVER_TRANSITION_PROVIDERS = [
-    {
-        provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["s" /* APP_INITIALIZER */],
-        useFactory: bootstrapListenerFactory,
-        deps: [TRANSITION_ID, DOCUMENT],
-        multi: true
-    },
-];
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-var BrowserGetTestability = (function () {
-    function BrowserGetTestability() {
-    }
-    /**
-     * @return {?}
-     */
-    BrowserGetTestability.init = function () { __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_12" /* setTestabilityGetter */])(new BrowserGetTestability()); };
-    /**
-     * @param {?} registry
-     * @return {?}
-     */
-    BrowserGetTestability.prototype.addToWindow = function (registry) {
-        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_11" /* ɵglobal */]['getAngularTestability'] = function (elem, findInAncestors) {
-            if (findInAncestors === void 0) { findInAncestors = true; }
-            var /** @type {?} */ testability = registry.findTestabilityInTree(elem, findInAncestors);
-            if (testability == null) {
-                throw new Error('Could not find testability for element.');
-            }
-            return testability;
-        };
-        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_11" /* ɵglobal */]['getAllAngularTestabilities'] = function () { return registry.getAllTestabilities(); };
-        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_11" /* ɵglobal */]['getAllAngularRootElements'] = function () { return registry.getAllRootElements(); };
-        var /** @type {?} */ whenAllStable = function (callback /** TODO #9100 */) {
-            var /** @type {?} */ testabilities = __WEBPACK_IMPORTED_MODULE_1__angular_core__["_11" /* ɵglobal */]['getAllAngularTestabilities']();
-            var /** @type {?} */ count = testabilities.length;
-            var /** @type {?} */ didWork = false;
-            var /** @type {?} */ decrement = function (didWork_ /** TODO #9100 */) {
-                didWork = didWork || didWork_;
-                count--;
-                if (count == 0) {
-                    callback(didWork);
-                }
-            };
-            testabilities.forEach(function (testability /** TODO #9100 */) {
-                testability.whenStable(decrement);
-            });
-        };
-        if (!__WEBPACK_IMPORTED_MODULE_1__angular_core__["_11" /* ɵglobal */]['frameworkStabilizers']) {
-            __WEBPACK_IMPORTED_MODULE_1__angular_core__["_11" /* ɵglobal */]['frameworkStabilizers'] = [];
-        }
-        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_11" /* ɵglobal */]['frameworkStabilizers'].push(whenAllStable);
-    };
-    /**
-     * @param {?} registry
-     * @param {?} elem
-     * @param {?} findInAncestors
-     * @return {?}
-     */
-    BrowserGetTestability.prototype.findTestabilityInTree = function (registry, elem, findInAncestors) {
-        if (elem == null) {
-            return null;
-        }
-        var /** @type {?} */ t = registry.getTestability(elem);
-        if (t != null) {
-            return t;
-        }
-        else if (!findInAncestors) {
-            return null;
-        }
-        if (getDOM().isShadowRoot(elem)) {
-            return this.findTestabilityInTree(registry, getDOM().getHost(elem), true);
-        }
-        return this.findTestabilityInTree(registry, getDOM().parentElement(elem), true);
-    };
-    return BrowserGetTestability;
-}());
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * A service that can be used to get and set the title of a current HTML document.
- *
- * Since an Angular application can't be bootstrapped on the entire HTML document (`<html>` tag)
- * it is not possible to bind to the `text` property of the `HTMLTitleElement` elements
- * (representing the `<title>` tag). Instead, this service can be used to set and get the current
- * title value.
- *
- * \@experimental
- */
-var Title = (function () {
-    /**
-     * @param {?} _doc
-     */
-    function Title(_doc) {
-        this._doc = _doc;
-    }
-    /**
-     * Get the title of the current HTML document.
-     * @return {?}
-     */
-    Title.prototype.getTitle = function () { return getDOM().getTitle(this._doc); };
-    /**
-     * Set the title of the current HTML document.
-     * @param {?} newTitle
-     * @return {?}
-     */
-    Title.prototype.setTitle = function (newTitle) { getDOM().setTitle(this._doc, newTitle); };
-    return Title;
-}());
-Title.decorators = [
-    { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["X" /* Injectable */] },
-];
-/**
- * @nocollapse
- */
-Title.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["_1" /* Inject */], args: [DOCUMENT,] },] },
-]; };
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-var __assign = (undefined && undefined.__assign) || Object.assign || function (t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s)
-            if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-    }
-    return t;
-};
-var CORE_TOKENS = {
-    'ApplicationRef': __WEBPACK_IMPORTED_MODULE_1__angular_core__["t" /* ApplicationRef */],
-    'NgZone': __WEBPACK_IMPORTED_MODULE_1__angular_core__["g" /* NgZone */],
-};
-var INSPECT_GLOBAL_NAME = 'ng.probe';
-var CORE_TOKENS_GLOBAL_NAME = 'ng.coreTokens';
-/**
- * Returns a {\@link DebugElement} for the given native DOM element, or
- * null if the given native element does not have an Angular view associated
- * with it.
- * @param {?} element
- * @return {?}
- */
-function inspectNativeElement(element) {
-    return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_13" /* getDebugNode */])(element);
-}
-/**
- * Deprecated. Use the one from '\@angular/core'.
- * @deprecated
- */
-var NgProbeToken$1 = (function () {
-    /**
-     * @param {?} name
-     * @param {?} token
-     */
-    function NgProbeToken$1(name, token) {
-        this.name = name;
-        this.token = token;
-    }
-    return NgProbeToken$1;
-}());
-/**
- * @param {?} extraTokens
- * @param {?} coreTokens
- * @return {?}
- */
-function _createNgProbe(extraTokens, coreTokens) {
-    var /** @type {?} */ tokens = (extraTokens || []).concat(coreTokens || []);
-    getDOM().setGlobalVar(INSPECT_GLOBAL_NAME, inspectNativeElement);
-    getDOM().setGlobalVar(CORE_TOKENS_GLOBAL_NAME, __assign({}, CORE_TOKENS, _ngProbeTokensToMap(tokens || [])));
-    return function () { return inspectNativeElement; };
-}
-/**
- * @param {?} tokens
- * @return {?}
- */
-function _ngProbeTokensToMap(tokens) {
-    return tokens.reduce(function (prev, t) { return (prev[t.name] = t.token, prev); }, {});
-}
-/**
- * Providers which support debugging Angular applications (e.g. via `ng.probe`).
- */
-var ELEMENT_PROBE_PROVIDERS = [
-    {
-        provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["s" /* APP_INITIALIZER */],
-        useFactory: _createNgProbe,
-        deps: [
-            [NgProbeToken$1, new __WEBPACK_IMPORTED_MODULE_1__angular_core__["Z" /* Optional */]()],
-            [__WEBPACK_IMPORTED_MODULE_1__angular_core__["r" /* NgProbeToken */], new __WEBPACK_IMPORTED_MODULE_1__angular_core__["Z" /* Optional */]()],
-        ],
-        multi: true,
-    },
-];
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * \@stable
- */
-var EVENT_MANAGER_PLUGINS = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["H" /* InjectionToken */]('EventManagerPlugins');
-/**
- * \@stable
- */
-var EventManager = (function () {
-    /**
-     * @param {?} plugins
-     * @param {?} _zone
-     */
-    function EventManager(plugins, _zone) {
-        var _this = this;
-        this._zone = _zone;
-        this._eventNameToPlugin = new Map();
-        plugins.forEach(function (p) { return p.manager = _this; });
-        this._plugins = plugins.slice().reverse();
-    }
-    /**
-     * @param {?} element
-     * @param {?} eventName
-     * @param {?} handler
-     * @return {?}
-     */
-    EventManager.prototype.addEventListener = function (element, eventName, handler) {
-        var /** @type {?} */ plugin = this._findPluginFor(eventName);
-        return plugin.addEventListener(element, eventName, handler);
-    };
-    /**
-     * @param {?} target
-     * @param {?} eventName
-     * @param {?} handler
-     * @return {?}
-     */
-    EventManager.prototype.addGlobalEventListener = function (target, eventName, handler) {
-        var /** @type {?} */ plugin = this._findPluginFor(eventName);
-        return plugin.addGlobalEventListener(target, eventName, handler);
-    };
-    /**
-     * @return {?}
-     */
-    EventManager.prototype.getZone = function () { return this._zone; };
-    /**
-     * \@internal
-     * @param {?} eventName
-     * @return {?}
-     */
-    EventManager.prototype._findPluginFor = function (eventName) {
-        var /** @type {?} */ plugin = this._eventNameToPlugin.get(eventName);
-        if (plugin) {
-            return plugin;
-        }
-        var /** @type {?} */ plugins = this._plugins;
-        for (var /** @type {?} */ i = 0; i < plugins.length; i++) {
-            var /** @type {?} */ plugin_1 = plugins[i];
-            if (plugin_1.supports(eventName)) {
-                this._eventNameToPlugin.set(eventName, plugin_1);
-                return plugin_1;
-            }
-        }
-        throw new Error("No event manager plugin found for event " + eventName);
-    };
-    return EventManager;
-}());
-EventManager.decorators = [
-    { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["X" /* Injectable */] },
-];
-/**
- * @nocollapse
- */
-EventManager.ctorParameters = function () { return [
-    { type: Array, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["_1" /* Inject */], args: [EVENT_MANAGER_PLUGINS,] },] },
-    { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["g" /* NgZone */], },
-]; };
-/**
- * @abstract
- */
-var EventManagerPlugin = (function () {
-    /**
-     * @param {?} _doc
-     */
-    function EventManagerPlugin(_doc) {
-        this._doc = _doc;
-    }
-    /**
-     * @abstract
-     * @param {?} eventName
-     * @return {?}
-     */
-    EventManagerPlugin.prototype.supports = function (eventName) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @param {?} eventName
-     * @param {?} handler
-     * @return {?}
-     */
-    EventManagerPlugin.prototype.addEventListener = function (element, eventName, handler) { };
-    /**
-     * @param {?} element
-     * @param {?} eventName
-     * @param {?} handler
-     * @return {?}
-     */
-    EventManagerPlugin.prototype.addGlobalEventListener = function (element, eventName, handler) {
-        var /** @type {?} */ target = getDOM().getGlobalEventTarget(this._doc, element);
-        if (!target) {
-            throw new Error("Unsupported event target " + target + " for event " + eventName);
-        }
-        return this.addEventListener(target, eventName, handler);
-    };
-    ;
-    return EventManagerPlugin;
-}());
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-var SharedStylesHost = (function () {
-    function SharedStylesHost() {
-        /**
-         * \@internal
-         */
-        this._stylesSet = new Set();
-    }
-    /**
-     * @param {?} styles
-     * @return {?}
-     */
-    SharedStylesHost.prototype.addStyles = function (styles) {
-        var _this = this;
-        var /** @type {?} */ additions = new Set();
-        styles.forEach(function (style) {
-            if (!_this._stylesSet.has(style)) {
-                _this._stylesSet.add(style);
-                additions.add(style);
-            }
-        });
-        this.onStylesAdded(additions);
-    };
-    /**
-     * @param {?} additions
-     * @return {?}
-     */
-    SharedStylesHost.prototype.onStylesAdded = function (additions) { };
-    /**
-     * @return {?}
-     */
-    SharedStylesHost.prototype.getAllStyles = function () { return Array.from(this._stylesSet); };
-    return SharedStylesHost;
-}());
-SharedStylesHost.decorators = [
-    { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["X" /* Injectable */] },
-];
-/**
- * @nocollapse
- */
-SharedStylesHost.ctorParameters = function () { return []; };
-var DomSharedStylesHost = (function (_super) {
-    __extends(DomSharedStylesHost, _super);
-    /**
-     * @param {?} _doc
-     */
-    function DomSharedStylesHost(_doc) {
-        var _this = _super.call(this) || this;
-        _this._doc = _doc;
-        _this._hostNodes = new Set();
-        _this._styleNodes = new Set();
-        _this._hostNodes.add(_doc.head);
-        return _this;
-    }
-    /**
-     * @param {?} styles
-     * @param {?} host
-     * @return {?}
-     */
-    DomSharedStylesHost.prototype._addStylesToHost = function (styles, host) {
-        var _this = this;
-        styles.forEach(function (style) {
-            var /** @type {?} */ styleEl = _this._doc.createElement('style');
-            styleEl.textContent = style;
-            _this._styleNodes.add(host.appendChild(styleEl));
-        });
-    };
-    /**
-     * @param {?} hostNode
-     * @return {?}
-     */
-    DomSharedStylesHost.prototype.addHost = function (hostNode) {
-        this._addStylesToHost(this._stylesSet, hostNode);
-        this._hostNodes.add(hostNode);
-    };
-    /**
-     * @param {?} hostNode
-     * @return {?}
-     */
-    DomSharedStylesHost.prototype.removeHost = function (hostNode) { this._hostNodes.delete(hostNode); };
-    /**
-     * @param {?} additions
-     * @return {?}
-     */
-    DomSharedStylesHost.prototype.onStylesAdded = function (additions) {
-        var _this = this;
-        this._hostNodes.forEach(function (hostNode) { return _this._addStylesToHost(additions, hostNode); });
-    };
-    /**
-     * @return {?}
-     */
-    DomSharedStylesHost.prototype.ngOnDestroy = function () { this._styleNodes.forEach(function (styleNode) { return getDOM().remove(styleNode); }); };
-    return DomSharedStylesHost;
-}(SharedStylesHost));
-DomSharedStylesHost.decorators = [
-    { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["X" /* Injectable */] },
-];
-/**
- * @nocollapse
- */
-DomSharedStylesHost.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["_1" /* Inject */], args: [DOCUMENT,] },] },
-]; };
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-var NAMESPACE_URIS = {
-    'svg': 'http://www.w3.org/2000/svg',
-    'xhtml': 'http://www.w3.org/1999/xhtml',
-    'xlink': 'http://www.w3.org/1999/xlink',
-    'xml': 'http://www.w3.org/XML/1998/namespace',
-    'xmlns': 'http://www.w3.org/2000/xmlns/',
-};
-var COMPONENT_REGEX = /%COMP%/g;
-var COMPONENT_VARIABLE = '%COMP%';
-var HOST_ATTR = "_nghost-" + COMPONENT_VARIABLE;
-var CONTENT_ATTR = "_ngcontent-" + COMPONENT_VARIABLE;
-/**
- * @param {?} componentShortId
- * @return {?}
- */
-function shimContentAttribute(componentShortId) {
-    return CONTENT_ATTR.replace(COMPONENT_REGEX, componentShortId);
-}
-/**
- * @param {?} componentShortId
- * @return {?}
- */
-function shimHostAttribute(componentShortId) {
-    return HOST_ATTR.replace(COMPONENT_REGEX, componentShortId);
-}
-/**
- * @param {?} compId
- * @param {?} styles
- * @param {?} target
- * @return {?}
- */
-function flattenStyles(compId, styles, target) {
-    for (var /** @type {?} */ i = 0; i < styles.length; i++) {
-        var /** @type {?} */ style = styles[i];
-        if (Array.isArray(style)) {
-            flattenStyles(compId, style, target);
-        }
-        else {
-            style = style.replace(COMPONENT_REGEX, compId);
-            target.push(style);
-        }
-    }
-    return target;
-}
-/**
- * @param {?} eventHandler
- * @return {?}
- */
-function decoratePreventDefault(eventHandler) {
-    return function (event) {
-        var /** @type {?} */ allowDefaultBehavior = eventHandler(event);
-        if (allowDefaultBehavior === false) {
-            // TODO(tbosch): move preventDefault into event plugins...
-            event.preventDefault();
-            event.returnValue = false;
-        }
-    };
-}
-var DomRendererFactory2 = (function () {
-    /**
-     * @param {?} eventManager
-     * @param {?} sharedStylesHost
-     */
-    function DomRendererFactory2(eventManager, sharedStylesHost) {
-        this.eventManager = eventManager;
-        this.sharedStylesHost = sharedStylesHost;
-        this.rendererByCompId = new Map();
-        this.defaultRenderer = new DefaultDomRenderer2(eventManager);
-    }
-    ;
-    /**
-     * @param {?} element
-     * @param {?} type
-     * @return {?}
-     */
-    DomRendererFactory2.prototype.createRenderer = function (element, type) {
-        if (!element || !type) {
-            return this.defaultRenderer;
-        }
-        switch (type.encapsulation) {
-            case __WEBPACK_IMPORTED_MODULE_1__angular_core__["_14" /* ViewEncapsulation */].Emulated: {
-                var /** @type {?} */ renderer = this.rendererByCompId.get(type.id);
-                if (!renderer) {
-                    renderer =
-                        new EmulatedEncapsulationDomRenderer2(this.eventManager, this.sharedStylesHost, type);
-                    this.rendererByCompId.set(type.id, renderer);
-                }
-                ((renderer)).applyToHost(element);
-                return renderer;
-            }
-            case __WEBPACK_IMPORTED_MODULE_1__angular_core__["_14" /* ViewEncapsulation */].Native:
-                return new ShadowDomRenderer(this.eventManager, this.sharedStylesHost, element, type);
-            default: {
-                if (!this.rendererByCompId.has(type.id)) {
-                    var /** @type {?} */ styles = flattenStyles(type.id, type.styles, []);
-                    this.sharedStylesHost.addStyles(styles);
-                    this.rendererByCompId.set(type.id, this.defaultRenderer);
-                }
-                return this.defaultRenderer;
-            }
-        }
-    };
-    return DomRendererFactory2;
-}());
-DomRendererFactory2.decorators = [
-    { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["X" /* Injectable */] },
-];
-/**
- * @nocollapse
- */
-DomRendererFactory2.ctorParameters = function () { return [
-    { type: EventManager, },
-    { type: DomSharedStylesHost, },
-]; };
-var DefaultDomRenderer2 = (function () {
-    /**
-     * @param {?} eventManager
-     */
-    function DefaultDomRenderer2(eventManager) {
-        this.eventManager = eventManager;
-        this.data = Object.create(null);
-    }
-    /**
-     * @return {?}
-     */
-    DefaultDomRenderer2.prototype.destroy = function () { };
-    /**
-     * @param {?} name
-     * @param {?=} namespace
-     * @return {?}
-     */
-    DefaultDomRenderer2.prototype.createElement = function (name, namespace) {
-        if (namespace) {
-            return document.createElementNS(NAMESPACE_URIS[namespace], name);
-        }
-        return document.createElement(name);
-    };
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    DefaultDomRenderer2.prototype.createComment = function (value) { return document.createComment(value); };
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    DefaultDomRenderer2.prototype.createText = function (value) { return document.createTextNode(value); };
-    /**
-     * @param {?} parent
-     * @param {?} newChild
-     * @return {?}
-     */
-    DefaultDomRenderer2.prototype.appendChild = function (parent, newChild) { parent.appendChild(newChild); };
-    /**
-     * @param {?} parent
-     * @param {?} newChild
-     * @param {?} refChild
-     * @return {?}
-     */
-    DefaultDomRenderer2.prototype.insertBefore = function (parent, newChild, refChild) {
-        if (parent) {
-            parent.insertBefore(newChild, refChild);
-        }
-    };
-    /**
-     * @param {?} parent
-     * @param {?} oldChild
-     * @return {?}
-     */
-    DefaultDomRenderer2.prototype.removeChild = function (parent, oldChild) {
-        if (parent) {
-            parent.removeChild(oldChild);
-        }
-    };
-    /**
-     * @param {?} selectorOrNode
-     * @return {?}
-     */
-    DefaultDomRenderer2.prototype.selectRootElement = function (selectorOrNode) {
-        var /** @type {?} */ el = typeof selectorOrNode === 'string' ? document.querySelector(selectorOrNode) :
-            selectorOrNode;
-        if (!el) {
-            throw new Error("The selector \"" + selectorOrNode + "\" did not match any elements");
-        }
-        el.textContent = '';
-        return el;
-    };
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    DefaultDomRenderer2.prototype.parentNode = function (node) { return node.parentNode; };
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    DefaultDomRenderer2.prototype.nextSibling = function (node) { return node.nextSibling; };
-    /**
-     * @param {?} el
-     * @param {?} name
-     * @param {?} value
-     * @param {?=} namespace
-     * @return {?}
-     */
-    DefaultDomRenderer2.prototype.setAttribute = function (el, name, value, namespace) {
-        if (namespace) {
-            name = namespace + ":" + name;
-            var /** @type {?} */ namespaceUri = NAMESPACE_URIS[namespace];
-            if (namespaceUri) {
-                el.setAttributeNS(namespaceUri, name, value);
-            }
-            else {
-                el.setAttribute(name, value);
-            }
-        }
-        else {
-            el.setAttribute(name, value);
-        }
-    };
-    /**
-     * @param {?} el
-     * @param {?} name
-     * @param {?=} namespace
-     * @return {?}
-     */
-    DefaultDomRenderer2.prototype.removeAttribute = function (el, name, namespace) {
-        if (namespace) {
-            var /** @type {?} */ namespaceUri = NAMESPACE_URIS[namespace];
-            if (namespaceUri) {
-                el.removeAttributeNS(namespaceUri, name);
-            }
-            else {
-                el.removeAttribute(namespace + ":" + name);
-            }
-        }
-        else {
-            el.removeAttribute(name);
-        }
-    };
-    /**
-     * @param {?} el
-     * @param {?} name
-     * @return {?}
-     */
-    DefaultDomRenderer2.prototype.addClass = function (el, name) { el.classList.add(name); };
-    /**
-     * @param {?} el
-     * @param {?} name
-     * @return {?}
-     */
-    DefaultDomRenderer2.prototype.removeClass = function (el, name) { el.classList.remove(name); };
-    /**
-     * @param {?} el
-     * @param {?} style
-     * @param {?} value
-     * @param {?} flags
-     * @return {?}
-     */
-    DefaultDomRenderer2.prototype.setStyle = function (el, style, value, flags) {
-        if (flags & __WEBPACK_IMPORTED_MODULE_1__angular_core__["_15" /* RendererStyleFlags2 */].DashCase) {
-            el.style.setProperty(style, value, !!(flags & __WEBPACK_IMPORTED_MODULE_1__angular_core__["_15" /* RendererStyleFlags2 */].Important) ? 'important' : '');
-        }
-        else {
-            el.style[style] = value;
-        }
-    };
-    /**
-     * @param {?} el
-     * @param {?} style
-     * @param {?} flags
-     * @return {?}
-     */
-    DefaultDomRenderer2.prototype.removeStyle = function (el, style, flags) {
-        if (flags & __WEBPACK_IMPORTED_MODULE_1__angular_core__["_15" /* RendererStyleFlags2 */].DashCase) {
-            el.style.removeProperty(style);
-        }
-        else {
-            // IE requires '' instead of null
-            // see https://github.com/angular/angular/issues/7916
-            el.style[style] = '';
-        }
-    };
-    /**
-     * @param {?} el
-     * @param {?} name
-     * @param {?} value
-     * @return {?}
-     */
-    DefaultDomRenderer2.prototype.setProperty = function (el, name, value) {
-        checkNoSyntheticProp(name, 'property');
-        el[name] = value;
-    };
-    /**
-     * @param {?} node
-     * @param {?} value
-     * @return {?}
-     */
-    DefaultDomRenderer2.prototype.setValue = function (node, value) { node.nodeValue = value; };
-    /**
-     * @param {?} target
-     * @param {?} event
-     * @param {?} callback
-     * @return {?}
-     */
-    DefaultDomRenderer2.prototype.listen = function (target, event, callback) {
-        checkNoSyntheticProp(event, 'listener');
-        if (typeof target === 'string') {
-            return (this.eventManager.addGlobalEventListener(target, event, decoratePreventDefault(callback)));
-        }
-        return ((this.eventManager.addEventListener(target, event, decoratePreventDefault(callback))));
-    };
-    return DefaultDomRenderer2;
-}());
-var AT_CHARCODE = '@'.charCodeAt(0);
-/**
- * @param {?} name
- * @param {?} nameKind
- * @return {?}
- */
-function checkNoSyntheticProp(name, nameKind) {
-    if (name.charCodeAt(0) === AT_CHARCODE) {
-        throw new Error("Found the synthetic " + nameKind + " " + name + ". Please include either \"BrowserAnimationsModule\" or \"NoopAnimationsModule\" in your application.");
-    }
-}
-var EmulatedEncapsulationDomRenderer2 = (function (_super) {
-    __extends(EmulatedEncapsulationDomRenderer2, _super);
-    /**
-     * @param {?} eventManager
-     * @param {?} sharedStylesHost
-     * @param {?} component
-     */
-    function EmulatedEncapsulationDomRenderer2(eventManager, sharedStylesHost, component) {
-        var _this = _super.call(this, eventManager) || this;
-        _this.component = component;
-        var styles = flattenStyles(component.id, component.styles, []);
-        sharedStylesHost.addStyles(styles);
-        _this.contentAttr = shimContentAttribute(component.id);
-        _this.hostAttr = shimHostAttribute(component.id);
-        return _this;
-    }
-    /**
-     * @param {?} element
-     * @return {?}
-     */
-    EmulatedEncapsulationDomRenderer2.prototype.applyToHost = function (element) { _super.prototype.setAttribute.call(this, element, this.hostAttr, ''); };
-    /**
-     * @param {?} parent
-     * @param {?} name
-     * @return {?}
-     */
-    EmulatedEncapsulationDomRenderer2.prototype.createElement = function (parent, name) {
-        var /** @type {?} */ el = _super.prototype.createElement.call(this, parent, name);
-        _super.prototype.setAttribute.call(this, el, this.contentAttr, '');
-        return el;
-    };
-    return EmulatedEncapsulationDomRenderer2;
-}(DefaultDomRenderer2));
-var ShadowDomRenderer = (function (_super) {
-    __extends(ShadowDomRenderer, _super);
-    /**
-     * @param {?} eventManager
-     * @param {?} sharedStylesHost
-     * @param {?} hostEl
-     * @param {?} component
-     */
-    function ShadowDomRenderer(eventManager, sharedStylesHost, hostEl, component) {
-        var _this = _super.call(this, eventManager) || this;
-        _this.sharedStylesHost = sharedStylesHost;
-        _this.hostEl = hostEl;
-        _this.component = component;
-        _this.shadowRoot = hostEl.createShadowRoot();
-        _this.sharedStylesHost.addHost(_this.shadowRoot);
-        var styles = flattenStyles(component.id, component.styles, []);
-        for (var i = 0; i < styles.length; i++) {
-            var styleEl = document.createElement('style');
-            styleEl.textContent = styles[i];
-            _this.shadowRoot.appendChild(styleEl);
-        }
-        return _this;
-    }
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    ShadowDomRenderer.prototype.nodeOrShadowRoot = function (node) { return node === this.hostEl ? this.shadowRoot : node; };
-    /**
-     * @return {?}
-     */
-    ShadowDomRenderer.prototype.destroy = function () { this.sharedStylesHost.removeHost(this.shadowRoot); };
-    /**
-     * @param {?} parent
-     * @param {?} newChild
-     * @return {?}
-     */
-    ShadowDomRenderer.prototype.appendChild = function (parent, newChild) {
-        return _super.prototype.appendChild.call(this, this.nodeOrShadowRoot(parent), newChild);
-    };
-    /**
-     * @param {?} parent
-     * @param {?} newChild
-     * @param {?} refChild
-     * @return {?}
-     */
-    ShadowDomRenderer.prototype.insertBefore = function (parent, newChild, refChild) {
-        return _super.prototype.insertBefore.call(this, this.nodeOrShadowRoot(parent), newChild, refChild);
-    };
-    /**
-     * @param {?} parent
-     * @param {?} oldChild
-     * @return {?}
-     */
-    ShadowDomRenderer.prototype.removeChild = function (parent, oldChild) {
-        return _super.prototype.removeChild.call(this, this.nodeOrShadowRoot(parent), oldChild);
-    };
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    ShadowDomRenderer.prototype.parentNode = function (node) {
-        return this.nodeOrShadowRoot(_super.prototype.parentNode.call(this, this.nodeOrShadowRoot(node)));
-    };
-    return ShadowDomRenderer;
-}(DefaultDomRenderer2));
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-var DomEventsPlugin = (function (_super) {
-    __extends(DomEventsPlugin, _super);
-    /**
-     * @param {?} doc
-     */
-    function DomEventsPlugin(doc) {
-        return _super.call(this, doc) || this;
-    }
-    /**
-     * @param {?} eventName
-     * @return {?}
-     */
-    DomEventsPlugin.prototype.supports = function (eventName) { return true; };
-    /**
-     * @param {?} element
-     * @param {?} eventName
-     * @param {?} handler
-     * @return {?}
-     */
-    DomEventsPlugin.prototype.addEventListener = function (element, eventName, handler) {
-        element.addEventListener(eventName, /** @type {?} */ (handler), false);
-        return function () { return element.removeEventListener(eventName, /** @type {?} */ (handler), false); };
-    };
-    return DomEventsPlugin;
-}(EventManagerPlugin));
-DomEventsPlugin.decorators = [
-    { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["X" /* Injectable */] },
-];
-/**
- * @nocollapse
- */
-DomEventsPlugin.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["_1" /* Inject */], args: [DOCUMENT,] },] },
-]; };
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-var EVENT_NAMES = {
-    // pan
-    'pan': true,
-    'panstart': true,
-    'panmove': true,
-    'panend': true,
-    'pancancel': true,
-    'panleft': true,
-    'panright': true,
-    'panup': true,
-    'pandown': true,
-    // pinch
-    'pinch': true,
-    'pinchstart': true,
-    'pinchmove': true,
-    'pinchend': true,
-    'pinchcancel': true,
-    'pinchin': true,
-    'pinchout': true,
-    // press
-    'press': true,
-    'pressup': true,
-    // rotate
-    'rotate': true,
-    'rotatestart': true,
-    'rotatemove': true,
-    'rotateend': true,
-    'rotatecancel': true,
-    // swipe
-    'swipe': true,
-    'swipeleft': true,
-    'swiperight': true,
-    'swipeup': true,
-    'swipedown': true,
-    // tap
-    'tap': true,
-};
-/**
- * A DI token that you can use to provide{\@link HammerGestureConfig} to Angular. Use it to configure
- * Hammer gestures.
- *
- * \@experimental
- */
-var HAMMER_GESTURE_CONFIG = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["H" /* InjectionToken */]('HammerGestureConfig');
-/**
- * \@experimental
- */
-var HammerGestureConfig = (function () {
-    function HammerGestureConfig() {
-        this.events = [];
-        this.overrides = {};
-    }
-    /**
-     * @param {?} element
-     * @return {?}
-     */
-    HammerGestureConfig.prototype.buildHammer = function (element) {
-        var /** @type {?} */ mc = new Hammer(element);
-        mc.get('pinch').set({ enable: true });
-        mc.get('rotate').set({ enable: true });
-        for (var /** @type {?} */ eventName in this.overrides) {
-            mc.get(eventName).set(this.overrides[eventName]);
-        }
-        return mc;
-    };
-    return HammerGestureConfig;
-}());
-HammerGestureConfig.decorators = [
-    { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["X" /* Injectable */] },
-];
-/**
- * @nocollapse
- */
-HammerGestureConfig.ctorParameters = function () { return []; };
-var HammerGesturesPlugin = (function (_super) {
-    __extends(HammerGesturesPlugin, _super);
-    /**
-     * @param {?} doc
-     * @param {?} _config
-     */
-    function HammerGesturesPlugin(doc, _config) {
-        var _this = _super.call(this, doc) || this;
-        _this._config = _config;
-        return _this;
-    }
-    /**
-     * @param {?} eventName
-     * @return {?}
-     */
-    HammerGesturesPlugin.prototype.supports = function (eventName) {
-        if (!EVENT_NAMES.hasOwnProperty(eventName.toLowerCase()) && !this.isCustomEvent(eventName)) {
-            return false;
-        }
-        if (!((window)).Hammer) {
-            throw new Error("Hammer.js is not loaded, can not bind " + eventName + " event");
-        }
-        return true;
-    };
-    /**
-     * @param {?} element
-     * @param {?} eventName
-     * @param {?} handler
-     * @return {?}
-     */
-    HammerGesturesPlugin.prototype.addEventListener = function (element, eventName, handler) {
-        var _this = this;
-        var /** @type {?} */ zone = this.manager.getZone();
-        eventName = eventName.toLowerCase();
-        return zone.runOutsideAngular(function () {
-            // Creating the manager bind events, must be done outside of angular
-            var /** @type {?} */ mc = _this._config.buildHammer(element);
-            var /** @type {?} */ callback = function (eventObj) {
-                zone.runGuarded(function () { handler(eventObj); });
-            };
-            mc.on(eventName, callback);
-            return function () { return mc.off(eventName, callback); };
-        });
-    };
-    /**
-     * @param {?} eventName
-     * @return {?}
-     */
-    HammerGesturesPlugin.prototype.isCustomEvent = function (eventName) { return this._config.events.indexOf(eventName) > -1; };
-    return HammerGesturesPlugin;
-}(EventManagerPlugin));
-HammerGesturesPlugin.decorators = [
-    { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["X" /* Injectable */] },
-];
-/**
- * @nocollapse
- */
-HammerGesturesPlugin.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["_1" /* Inject */], args: [DOCUMENT,] },] },
-    { type: HammerGestureConfig, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["_1" /* Inject */], args: [HAMMER_GESTURE_CONFIG,] },] },
-]; };
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-var MODIFIER_KEYS = ['alt', 'control', 'meta', 'shift'];
-var MODIFIER_KEY_GETTERS = {
-    'alt': function (event) { return event.altKey; },
-    'control': function (event) { return event.ctrlKey; },
-    'meta': function (event) { return event.metaKey; },
-    'shift': function (event) { return event.shiftKey; }
-};
-/**
- * \@experimental
- */
-var KeyEventsPlugin = (function (_super) {
-    __extends(KeyEventsPlugin, _super);
-    /**
-     * @param {?} doc
-     */
-    function KeyEventsPlugin(doc) {
-        return _super.call(this, doc) || this;
-    }
-    /**
-     * @param {?} eventName
-     * @return {?}
-     */
-    KeyEventsPlugin.prototype.supports = function (eventName) { return KeyEventsPlugin.parseEventName(eventName) != null; };
-    /**
-     * @param {?} element
-     * @param {?} eventName
-     * @param {?} handler
-     * @return {?}
-     */
-    KeyEventsPlugin.prototype.addEventListener = function (element, eventName, handler) {
-        var /** @type {?} */ parsedEvent = KeyEventsPlugin.parseEventName(eventName);
-        var /** @type {?} */ outsideHandler = KeyEventsPlugin.eventCallback(parsedEvent['fullKey'], handler, this.manager.getZone());
-        return this.manager.getZone().runOutsideAngular(function () {
-            return getDOM().onAndCancel(element, parsedEvent['domEventName'], outsideHandler);
-        });
-    };
-    /**
-     * @param {?} eventName
-     * @return {?}
-     */
-    KeyEventsPlugin.parseEventName = function (eventName) {
-        var /** @type {?} */ parts = eventName.toLowerCase().split('.');
-        var /** @type {?} */ domEventName = parts.shift();
-        if ((parts.length === 0) || !(domEventName === 'keydown' || domEventName === 'keyup')) {
-            return null;
-        }
-        var /** @type {?} */ key = KeyEventsPlugin._normalizeKey(parts.pop());
-        var /** @type {?} */ fullKey = '';
-        MODIFIER_KEYS.forEach(function (modifierName) {
-            var /** @type {?} */ index = parts.indexOf(modifierName);
-            if (index > -1) {
-                parts.splice(index, 1);
-                fullKey += modifierName + '.';
-            }
-        });
-        fullKey += key;
-        if (parts.length != 0 || key.length === 0) {
-            // returning null instead of throwing to let another plugin process the event
-            return null;
-        }
-        var /** @type {?} */ result = {};
-        result['domEventName'] = domEventName;
-        result['fullKey'] = fullKey;
-        return result;
-    };
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    KeyEventsPlugin.getEventFullKey = function (event) {
-        var /** @type {?} */ fullKey = '';
-        var /** @type {?} */ key = getDOM().getEventKey(event);
-        key = key.toLowerCase();
-        if (key === ' ') {
-            key = 'space'; // for readability
-        }
-        else if (key === '.') {
-            key = 'dot'; // because '.' is used as a separator in event names
-        }
-        MODIFIER_KEYS.forEach(function (modifierName) {
-            if (modifierName != key) {
-                var /** @type {?} */ modifierGetter = MODIFIER_KEY_GETTERS[modifierName];
-                if (modifierGetter(event)) {
-                    fullKey += modifierName + '.';
-                }
-            }
-        });
-        fullKey += key;
-        return fullKey;
-    };
-    /**
-     * @param {?} fullKey
-     * @param {?} handler
-     * @param {?} zone
-     * @return {?}
-     */
-    KeyEventsPlugin.eventCallback = function (fullKey, handler, zone) {
-        return function (event /** TODO #9100 */) {
-            if (KeyEventsPlugin.getEventFullKey(event) === fullKey) {
-                zone.runGuarded(function () { return handler(event); });
-            }
-        };
-    };
-    /**
-     * \@internal
-     * @param {?} keyName
-     * @return {?}
-     */
-    KeyEventsPlugin._normalizeKey = function (keyName) {
-        // TODO: switch to a Map if the mapping grows too much
-        switch (keyName) {
-            case 'esc':
-                return 'escape';
-            default:
-                return keyName;
-        }
-    };
-    return KeyEventsPlugin;
-}(EventManagerPlugin));
-KeyEventsPlugin.decorators = [
-    { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["X" /* Injectable */] },
-];
-/**
- * @nocollapse
- */
-KeyEventsPlugin.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["_1" /* Inject */], args: [DOCUMENT,] },] },
-]; };
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * A pattern that recognizes a commonly useful subset of URLs that are safe.
- *
- * This regular expression matches a subset of URLs that will not cause script
- * execution if used in URL context within a HTML document. Specifically, this
- * regular expression matches if (comment from here on and regex copied from
- * Soy's EscapingConventions):
- * (1) Either a protocol in a whitelist (http, https, mailto or ftp).
- * (2) or no protocol.  A protocol must be followed by a colon. The below
- *     allows that by allowing colons only after one of the characters [/?#].
- *     A colon after a hash (#) must be in the fragment.
- *     Otherwise, a colon after a (?) must be in a query.
- *     Otherwise, a colon after a single solidus (/) must be in a path.
- *     Otherwise, a colon after a double solidus (//) must be in the authority
- *     (before port).
- *
- * The pattern disallows &, used in HTML entity declarations before
- * one of the characters in [/?#]. This disallows HTML entities used in the
- * protocol name, which should never happen, e.g. "h&#116;tp" for "http".
- * It also disallows HTML entities in the first path part of a relative path,
- * e.g. "foo&lt;bar/baz".  Our existing escaping functions should not produce
- * that. More importantly, it disallows masking of a colon,
- * e.g. "javascript&#58;...".
- *
- * This regular expression was taken from the Closure sanitization library.
- */
-var SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file):|[^&:/?#]*(?:[/?#]|$))/gi;
-/** A pattern that matches safe data URLs. Only matches image, video and audio types. */
-var DATA_URL_PATTERN = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[a-z0-9+\/]+=*$/i;
-/**
- * @param {?} url
- * @return {?}
- */
-function sanitizeUrl(url) {
-    url = String(url);
-    if (url.match(SAFE_URL_PATTERN) || url.match(DATA_URL_PATTERN))
-        return url;
-    if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["I" /* isDevMode */])()) {
-        getDOM().log("WARNING: sanitizing unsafe URL value " + url + " (see http://g.co/ng/security#xss)");
-    }
-    return 'unsafe:' + url;
-}
-/**
- * @param {?} srcset
- * @return {?}
- */
-function sanitizeSrcset(srcset) {
-    srcset = String(srcset);
-    return srcset.split(',').map(function (srcset) { return sanitizeUrl(srcset.trim()); }).join(', ');
-}
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/** A <body> element that can be safely used to parse untrusted HTML. Lazily initialized below. */
-var inertElement = null;
-/** Lazily initialized to make sure the DOM adapter gets set before use. */
-var DOM = null;
-/**
- * Returns an HTML element that is guaranteed to not execute code when creating elements in it.
- * @return {?}
- */
-function getInertElement() {
-    if (inertElement)
-        return inertElement;
-    DOM = getDOM();
-    // Prefer using <template> element if supported.
-    var /** @type {?} */ templateEl = DOM.createElement('template');
-    if ('content' in templateEl)
-        return templateEl;
-    var /** @type {?} */ doc = DOM.createHtmlDocument();
-    inertElement = DOM.querySelector(doc, 'body');
-    if (inertElement == null) {
-        // usually there should be only one body element in the document, but IE doesn't have any, so we
-        // need to create one.
-        var /** @type {?} */ html = DOM.createElement('html', doc);
-        inertElement = DOM.createElement('body', doc);
-        DOM.appendChild(html, inertElement);
-        DOM.appendChild(doc, html);
-    }
-    return inertElement;
-}
-/**
- * @param {?} tags
- * @return {?}
- */
-function tagSet(tags) {
-    var /** @type {?} */ res = {};
-    for (var _i = 0, _a = tags.split(','); _i < _a.length; _i++) {
-        var t = _a[_i];
-        res[t] = true;
-    }
-    return res;
-}
-/**
- * @param {...?} sets
- * @return {?}
- */
-function merge() {
-    var sets = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        sets[_i] = arguments[_i];
-    }
-    var /** @type {?} */ res = {};
-    for (var _a = 0, sets_1 = sets; _a < sets_1.length; _a++) {
-        var s = sets_1[_a];
-        for (var /** @type {?} */ v in s) {
-            if (s.hasOwnProperty(v))
-                res[v] = true;
-        }
-    }
-    return res;
-}
-// Good source of info about elements and attributes
-// http://dev.w3.org/html5/spec/Overview.html#semantics
-// http://simon.html5.org/html-elements
-// Safe Void Elements - HTML5
-// http://dev.w3.org/html5/spec/Overview.html#void-elements
-var VOID_ELEMENTS = tagSet('area,br,col,hr,img,wbr');
-// Elements that you can, intentionally, leave open (and which close themselves)
-// http://dev.w3.org/html5/spec/Overview.html#optional-tags
-var OPTIONAL_END_TAG_BLOCK_ELEMENTS = tagSet('colgroup,dd,dt,li,p,tbody,td,tfoot,th,thead,tr');
-var OPTIONAL_END_TAG_INLINE_ELEMENTS = tagSet('rp,rt');
-var OPTIONAL_END_TAG_ELEMENTS = merge(OPTIONAL_END_TAG_INLINE_ELEMENTS, OPTIONAL_END_TAG_BLOCK_ELEMENTS);
-// Safe Block Elements - HTML5
-var BLOCK_ELEMENTS = merge(OPTIONAL_END_TAG_BLOCK_ELEMENTS, tagSet('address,article,' +
-    'aside,blockquote,caption,center,del,details,dialog,dir,div,dl,figure,figcaption,footer,h1,h2,h3,h4,h5,' +
-    'h6,header,hgroup,hr,ins,main,map,menu,nav,ol,pre,section,summary,table,ul'));
-// Inline Elements - HTML5
-var INLINE_ELEMENTS = merge(OPTIONAL_END_TAG_INLINE_ELEMENTS, tagSet('a,abbr,acronym,audio,b,' +
-    'bdi,bdo,big,br,cite,code,del,dfn,em,font,i,img,ins,kbd,label,map,mark,picture,q,ruby,rp,rt,s,' +
-    'samp,small,source,span,strike,strong,sub,sup,time,track,tt,u,var,video'));
-var VALID_ELEMENTS = merge(VOID_ELEMENTS, BLOCK_ELEMENTS, INLINE_ELEMENTS, OPTIONAL_END_TAG_ELEMENTS);
-// Attributes that have href and hence need to be sanitized
-var URI_ATTRS = tagSet('background,cite,href,itemtype,longdesc,poster,src,xlink:href');
-// Attributes that have special href set hence need to be sanitized
-var SRCSET_ATTRS = tagSet('srcset');
-var HTML_ATTRS = tagSet('abbr,accesskey,align,alt,autoplay,axis,bgcolor,border,cellpadding,cellspacing,class,clear,color,cols,colspan,' +
-    'compact,controls,coords,datetime,default,dir,download,face,headers,height,hidden,hreflang,hspace,' +
-    'ismap,itemscope,itemprop,kind,label,lang,language,loop,media,muted,nohref,nowrap,open,preload,rel,rev,role,rows,rowspan,rules,' +
-    'scope,scrolling,shape,size,sizes,span,srclang,start,summary,tabindex,target,title,translate,type,usemap,' +
-    'valign,value,vspace,width');
-// NB: This currently conciously doesn't support SVG. SVG sanitization has had several security
-// issues in the past, so it seems safer to leave it out if possible. If support for binding SVG via
-// innerHTML is required, SVG attributes should be added here.
-// NB: Sanitization does not allow <form> elements or other active elements (<button> etc). Those
-// can be sanitized, but they increase security surface area without a legitimate use case, so they
-// are left out here.
-var VALID_ATTRS = merge(URI_ATTRS, SRCSET_ATTRS, HTML_ATTRS);
-/**
- * SanitizingHtmlSerializer serializes a DOM fragment, stripping out any unsafe elements and unsafe
- * attributes.
- */
-var SanitizingHtmlSerializer = (function () {
-    function SanitizingHtmlSerializer() {
-        this.sanitizedSomething = false;
-        this.buf = [];
-    }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    SanitizingHtmlSerializer.prototype.sanitizeChildren = function (el) {
-        // This cannot use a TreeWalker, as it has to run on Angular's various DOM adapters.
-        // However this code never accesses properties off of `document` before deleting its contents
-        // again, so it shouldn't be vulnerable to DOM clobbering.
-        var /** @type {?} */ current = el.firstChild;
-        while (current) {
-            if (DOM.isElementNode(current)) {
-                this.startElement(/** @type {?} */ (current));
-            }
-            else if (DOM.isTextNode(current)) {
-                this.chars(DOM.nodeValue(current));
-            }
-            else {
-                // Strip non-element, non-text nodes.
-                this.sanitizedSomething = true;
-            }
-            if (DOM.firstChild(current)) {
-                current = DOM.firstChild(current);
-                continue;
-            }
-            while (current) {
-                // Leaving the element. Walk up and to the right, closing tags as we go.
-                if (DOM.isElementNode(current)) {
-                    this.endElement(/** @type {?} */ (current));
-                }
-                var /** @type {?} */ next = checkClobberedElement(current, DOM.nextSibling(current));
-                if (next) {
-                    current = next;
-                    break;
-                }
-                current = checkClobberedElement(current, DOM.parentElement(current));
-            }
-        }
-        return this.buf.join('');
-    };
-    /**
-     * @param {?} element
-     * @return {?}
-     */
-    SanitizingHtmlSerializer.prototype.startElement = function (element) {
-        var _this = this;
-        var /** @type {?} */ tagName = DOM.nodeName(element).toLowerCase();
-        if (!VALID_ELEMENTS.hasOwnProperty(tagName)) {
-            this.sanitizedSomething = true;
-            return;
-        }
-        this.buf.push('<');
-        this.buf.push(tagName);
-        DOM.attributeMap(element).forEach(function (value, attrName) {
-            var /** @type {?} */ lower = attrName.toLowerCase();
-            if (!VALID_ATTRS.hasOwnProperty(lower)) {
-                _this.sanitizedSomething = true;
-                return;
-            }
-            // TODO(martinprobst): Special case image URIs for data:image/...
-            if (URI_ATTRS[lower])
-                value = sanitizeUrl(value);
-            if (SRCSET_ATTRS[lower])
-                value = sanitizeSrcset(value);
-            _this.buf.push(' ');
-            _this.buf.push(attrName);
-            _this.buf.push('="');
-            _this.buf.push(encodeEntities(value));
-            _this.buf.push('"');
-        });
-        this.buf.push('>');
-    };
-    /**
-     * @param {?} current
-     * @return {?}
-     */
-    SanitizingHtmlSerializer.prototype.endElement = function (current) {
-        var /** @type {?} */ tagName = DOM.nodeName(current).toLowerCase();
-        if (VALID_ELEMENTS.hasOwnProperty(tagName) && !VOID_ELEMENTS.hasOwnProperty(tagName)) {
-            this.buf.push('</');
-            this.buf.push(tagName);
-            this.buf.push('>');
-        }
-    };
-    /**
-     * @param {?} chars
-     * @return {?}
-     */
-    SanitizingHtmlSerializer.prototype.chars = function (chars) { this.buf.push(encodeEntities(chars)); };
-    return SanitizingHtmlSerializer;
-}());
-/**
- * @param {?} node
- * @param {?} nextNode
- * @return {?}
- */
-function checkClobberedElement(node, nextNode) {
-    if (nextNode && DOM.contains(node, nextNode)) {
-        throw new Error("Failed to sanitize html because the element is clobbered: " + DOM.getOuterHTML(node));
-    }
-    return nextNode;
-}
-// Regular Expressions for parsing tags and attributes
-var SURROGATE_PAIR_REGEXP = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g;
-// ! to ~ is the ASCII range.
-var NON_ALPHANUMERIC_REGEXP = /([^\#-~ |!])/g;
-/**
- * Escapes all potentially dangerous characters, so that the
- * resulting string can be safely inserted into attribute or
- * element text.
- * @param {?} value
- * @return {?}
- */
-function encodeEntities(value) {
-    return value.replace(/&/g, '&amp;')
-        .replace(SURROGATE_PAIR_REGEXP, function (match) {
-        var /** @type {?} */ hi = match.charCodeAt(0);
-        var /** @type {?} */ low = match.charCodeAt(1);
-        return '&#' + (((hi - 0xD800) * 0x400) + (low - 0xDC00) + 0x10000) + ';';
-    })
-        .replace(NON_ALPHANUMERIC_REGEXP, function (match) { return '&#' + match.charCodeAt(0) + ';'; })
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;');
-}
-/**
- * When IE9-11 comes across an unknown namespaced attribute e.g. 'xlink:foo' it adds 'xmlns:ns1'
- * attribute to declare ns1 namespace and prefixes the attribute with 'ns1' (e.g. 'ns1:xlink:foo').
- *
- * This is undesirable since we don't want to allow any of these custom attributes. This method
- * strips them all.
- * @param {?} el
- * @return {?}
- */
-function stripCustomNsAttrs(el) {
-    DOM.attributeMap(el).forEach(function (_, attrName) {
-        if (attrName === 'xmlns:ns1' || attrName.indexOf('ns1:') === 0) {
-            DOM.removeAttribute(el, attrName);
-        }
-    });
-    for (var _i = 0, _a = DOM.childNodesAsList(el); _i < _a.length; _i++) {
-        var n = _a[_i];
-        if (DOM.isElementNode(n))
-            stripCustomNsAttrs(/** @type {?} */ (n));
-    }
-}
-/**
- * Sanitizes the given unsafe, untrusted HTML fragment, and returns HTML text that is safe to add to
- * the DOM in a browser environment.
- * @param {?} defaultDoc
- * @param {?} unsafeHtmlInput
- * @return {?}
- */
-function sanitizeHtml(defaultDoc, unsafeHtmlInput) {
-    try {
-        var /** @type {?} */ containerEl = getInertElement();
-        // Make sure unsafeHtml is actually a string (TypeScript types are not enforced at runtime).
-        var /** @type {?} */ unsafeHtml = unsafeHtmlInput ? String(unsafeHtmlInput) : '';
-        // mXSS protection. Repeatedly parse the document to make sure it stabilizes, so that a browser
-        // trying to auto-correct incorrect HTML cannot cause formerly inert HTML to become dangerous.
-        var /** @type {?} */ mXSSAttempts = 5;
-        var /** @type {?} */ parsedHtml = unsafeHtml;
-        do {
-            if (mXSSAttempts === 0) {
-                throw new Error('Failed to sanitize html because the input is unstable');
-            }
-            mXSSAttempts--;
-            unsafeHtml = parsedHtml;
-            DOM.setInnerHTML(containerEl, unsafeHtml);
-            if (defaultDoc.documentMode) {
-                // strip custom-namespaced attributes on IE<=11
-                stripCustomNsAttrs(containerEl);
-            }
-            parsedHtml = DOM.getInnerHTML(containerEl);
-        } while (unsafeHtml !== parsedHtml);
-        var /** @type {?} */ sanitizer = new SanitizingHtmlSerializer();
-        var /** @type {?} */ safeHtml = sanitizer.sanitizeChildren(DOM.getTemplateContent(containerEl) || containerEl);
-        // Clear out the body element.
-        var /** @type {?} */ parent = DOM.getTemplateContent(containerEl) || containerEl;
-        for (var _i = 0, _a = DOM.childNodesAsList(parent); _i < _a.length; _i++) {
-            var child = _a[_i];
-            DOM.removeChild(parent, child);
-        }
-        if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["I" /* isDevMode */])() && sanitizer.sanitizedSomething) {
-            DOM.log('WARNING: sanitizing HTML stripped some content (see http://g.co/ng/security#xss).');
-        }
-        return safeHtml;
-    }
-    catch (e) {
-        // In case anything goes wrong, clear out inertElement to reset the entire DOM structure.
-        inertElement = null;
-        throw e;
-    }
-}
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * Regular expression for safe style values.
- *
- * Quotes (" and ') are allowed, but a check must be done elsewhere to ensure they're balanced.
- *
- * ',' allows multiple values to be assigned to the same property (e.g. background-attachment or
- * font-family) and hence could allow multiple values to get injected, but that should pose no risk
- * of XSS.
- *
- * The function expression checks only for XSS safety, not for CSS validity.
- *
- * This regular expression was taken from the Closure sanitization library, and augmented for
- * transformation values.
- */
-var VALUES = '[-,."\'%_!# a-zA-Z0-9]+';
-var TRANSFORMATION_FNS = '(?:matrix|translate|scale|rotate|skew|perspective)(?:X|Y|3d)?';
-var COLOR_FNS = '(?:rgb|hsl)a?';
-var GRADIENTS = '(?:repeating-)?(?:linear|radial)-gradient';
-var CSS3_FNS = '(?:calc|attr)';
-var FN_ARGS = '\\([-0-9.%, #a-zA-Z]+\\)';
-var SAFE_STYLE_VALUE = new RegExp("^(" + VALUES + "|" +
-    ("(?:" + TRANSFORMATION_FNS + "|" + COLOR_FNS + "|" + GRADIENTS + "|" + CSS3_FNS + ")") +
-    (FN_ARGS + ")$"), 'g');
-/**
- * Matches a `url(...)` value with an arbitrary argument as long as it does
- * not contain parentheses.
- *
- * The URL value still needs to be sanitized separately.
- *
- * `url(...)` values are a very common use case, e.g. for `background-image`. With carefully crafted
- * CSS style rules, it is possible to construct an information leak with `url` values in CSS, e.g.
- * by observing whether scroll bars are displayed, or character ranges used by a font face
- * definition.
- *
- * Angular only allows binding CSS values (as opposed to entire CSS rules), so it is unlikely that
- * binding a URL value without further cooperation from the page will cause an information leak, and
- * if so, it is just a leak, not a full blown XSS vulnerability.
- *
- * Given the common use case, low likelihood of attack vector, and low impact of an attack, this
- * code is permissive and allows URLs that sanitize otherwise.
- */
-var URL_RE = /^url\(([^)]+)\)$/;
-/**
- * Checks that quotes (" and ') are properly balanced inside a string. Assumes
- * that neither escape (\) nor any other character that could result in
- * breaking out of a string parsing context are allowed;
- * see http://www.w3.org/TR/css3-syntax/#string-token-diagram.
- *
- * This code was taken from the Closure sanitization library.
- * @param {?} value
- * @return {?}
- */
-function hasBalancedQuotes(value) {
-    var /** @type {?} */ outsideSingle = true;
-    var /** @type {?} */ outsideDouble = true;
-    for (var /** @type {?} */ i = 0; i < value.length; i++) {
-        var /** @type {?} */ c = value.charAt(i);
-        if (c === '\'' && outsideDouble) {
-            outsideSingle = !outsideSingle;
-        }
-        else if (c === '"' && outsideSingle) {
-            outsideDouble = !outsideDouble;
-        }
-    }
-    return outsideSingle && outsideDouble;
-}
-/**
- * Sanitizes the given untrusted CSS style property value (i.e. not an entire object, just a single
- * value) and returns a value that is safe to use in a browser environment.
- * @param {?} value
- * @return {?}
- */
-function sanitizeStyle(value) {
-    value = String(value).trim(); // Make sure it's actually a string.
-    if (!value)
-        return '';
-    // Single url(...) values are supported, but only for URLs that sanitize cleanly. See above for
-    // reasoning behind this.
-    var /** @type {?} */ urlMatch = value.match(URL_RE);
-    if ((urlMatch && sanitizeUrl(urlMatch[1]) === urlMatch[1]) ||
-        value.match(SAFE_STYLE_VALUE) && hasBalancedQuotes(value)) {
-        return value; // Safe style values.
-    }
-    if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["I" /* isDevMode */])()) {
-        getDOM().log("WARNING: sanitizing unsafe style value " + value + " (see http://g.co/ng/security#xss).");
-    }
-    return 'unsafe';
-}
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * DomSanitizer helps preventing Cross Site Scripting Security bugs (XSS) by sanitizing
- * values to be safe to use in the different DOM contexts.
- *
- * For example, when binding a URL in an `<a [href]="someValue">` hyperlink, `someValue` will be
- * sanitized so that an attacker cannot inject e.g. a `javascript:` URL that would execute code on
- * the website.
- *
- * In specific situations, it might be necessary to disable sanitization, for example if the
- * application genuinely needs to produce a `javascript:` style link with a dynamic value in it.
- * Users can bypass security by constructing a value with one of the `bypassSecurityTrust...`
- * methods, and then binding to that value from the template.
- *
- * These situations should be very rare, and extraordinary care must be taken to avoid creating a
- * Cross Site Scripting (XSS) security bug!
- *
- * When using `bypassSecurityTrust...`, make sure to call the method as early as possible and as
- * close as possible to the source of the value, to make it easy to verify no security bug is
- * created by its use.
- *
- * It is not required (and not recommended) to bypass security if the value is safe, e.g. a URL that
- * does not start with a suspicious protocol, or an HTML snippet that does not contain dangerous
- * code. The sanitizer leaves safe values intact.
- *
- * \@security Calling any of the `bypassSecurityTrust...` APIs disables Angular's built-in
- * sanitization for the value passed in. Carefully check and audit all values and code paths going
- * into this call. Make sure any user data is appropriately escaped for this security context.
- * For more detail, see the [Security Guide](http://g.co/ng/security).
- *
- * \@stable
- * @abstract
- */
-var DomSanitizer = (function () {
-    function DomSanitizer() {
-    }
-    /**
-     * Sanitizes a value for use in the given SecurityContext.
-     *
-     * If value is trusted for the context, this method will unwrap the contained safe value and use
-     * it directly. Otherwise, value will be sanitized to be safe in the given context, for example
-     * by replacing URLs that have an unsafe protocol part (such as `javascript:`). The implementation
-     * is responsible to make sure that the value can definitely be safely used in the given context.
-     * @abstract
-     * @param {?} context
-     * @param {?} value
-     * @return {?}
-     */
-    DomSanitizer.prototype.sanitize = function (context, value) { };
-    /**
-     * Bypass security and trust the given value to be safe HTML. Only use this when the bound HTML
-     * is unsafe (e.g. contains `<script>` tags) and the code should be executed. The sanitizer will
-     * leave safe HTML intact, so in most situations this method should not be used.
-     *
-     * **WARNING:** calling this method with untrusted user data exposes your application to XSS
-     * security risks!
-     * @abstract
-     * @param {?} value
-     * @return {?}
-     */
-    DomSanitizer.prototype.bypassSecurityTrustHtml = function (value) { };
-    /**
-     * Bypass security and trust the given value to be safe style value (CSS).
-     *
-     * **WARNING:** calling this method with untrusted user data exposes your application to XSS
-     * security risks!
-     * @abstract
-     * @param {?} value
-     * @return {?}
-     */
-    DomSanitizer.prototype.bypassSecurityTrustStyle = function (value) { };
-    /**
-     * Bypass security and trust the given value to be safe JavaScript.
-     *
-     * **WARNING:** calling this method with untrusted user data exposes your application to XSS
-     * security risks!
-     * @abstract
-     * @param {?} value
-     * @return {?}
-     */
-    DomSanitizer.prototype.bypassSecurityTrustScript = function (value) { };
-    /**
-     * Bypass security and trust the given value to be a safe style URL, i.e. a value that can be used
-     * in hyperlinks or `<img src>`.
-     *
-     * **WARNING:** calling this method with untrusted user data exposes your application to XSS
-     * security risks!
-     * @abstract
-     * @param {?} value
-     * @return {?}
-     */
-    DomSanitizer.prototype.bypassSecurityTrustUrl = function (value) { };
-    /**
-     * Bypass security and trust the given value to be a safe resource URL, i.e. a location that may
-     * be used to load executable code from, like `<script src>`, or `<iframe src>`.
-     *
-     * **WARNING:** calling this method with untrusted user data exposes your application to XSS
-     * security risks!
-     * @abstract
-     * @param {?} value
-     * @return {?}
-     */
-    DomSanitizer.prototype.bypassSecurityTrustResourceUrl = function (value) { };
-    return DomSanitizer;
-}());
-var DomSanitizerImpl = (function (_super) {
-    __extends(DomSanitizerImpl, _super);
-    /**
-     * @param {?} _doc
-     */
-    function DomSanitizerImpl(_doc) {
-        var _this = _super.call(this) || this;
-        _this._doc = _doc;
-        return _this;
-    }
-    /**
-     * @param {?} ctx
-     * @param {?} value
-     * @return {?}
-     */
-    DomSanitizerImpl.prototype.sanitize = function (ctx, value) {
-        if (value == null)
-            return null;
-        switch (ctx) {
-            case __WEBPACK_IMPORTED_MODULE_1__angular_core__["_16" /* SecurityContext */].NONE:
-                return value;
-            case __WEBPACK_IMPORTED_MODULE_1__angular_core__["_16" /* SecurityContext */].HTML:
-                if (value instanceof SafeHtmlImpl)
-                    return value.changingThisBreaksApplicationSecurity;
-                this.checkNotSafeValue(value, 'HTML');
-                return sanitizeHtml(this._doc, String(value));
-            case __WEBPACK_IMPORTED_MODULE_1__angular_core__["_16" /* SecurityContext */].STYLE:
-                if (value instanceof SafeStyleImpl)
-                    return value.changingThisBreaksApplicationSecurity;
-                this.checkNotSafeValue(value, 'Style');
-                return sanitizeStyle(value);
-            case __WEBPACK_IMPORTED_MODULE_1__angular_core__["_16" /* SecurityContext */].SCRIPT:
-                if (value instanceof SafeScriptImpl)
-                    return value.changingThisBreaksApplicationSecurity;
-                this.checkNotSafeValue(value, 'Script');
-                throw new Error('unsafe value used in a script context');
-            case __WEBPACK_IMPORTED_MODULE_1__angular_core__["_16" /* SecurityContext */].URL:
-                if (value instanceof SafeResourceUrlImpl || value instanceof SafeUrlImpl) {
-                    // Allow resource URLs in URL contexts, they are strictly more trusted.
-                    return value.changingThisBreaksApplicationSecurity;
-                }
-                this.checkNotSafeValue(value, 'URL');
-                return sanitizeUrl(String(value));
-            case __WEBPACK_IMPORTED_MODULE_1__angular_core__["_16" /* SecurityContext */].RESOURCE_URL:
-                if (value instanceof SafeResourceUrlImpl) {
-                    return value.changingThisBreaksApplicationSecurity;
-                }
-                this.checkNotSafeValue(value, 'ResourceURL');
-                throw new Error('unsafe value used in a resource URL context (see http://g.co/ng/security#xss)');
-            default:
-                throw new Error("Unexpected SecurityContext " + ctx + " (see http://g.co/ng/security#xss)");
-        }
-    };
-    /**
-     * @param {?} value
-     * @param {?} expectedType
-     * @return {?}
-     */
-    DomSanitizerImpl.prototype.checkNotSafeValue = function (value, expectedType) {
-        if (value instanceof SafeValueImpl) {
-            throw new Error("Required a safe " + expectedType + ", got a " + value.getTypeName() + " " +
-                "(see http://g.co/ng/security#xss)");
-        }
-    };
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    DomSanitizerImpl.prototype.bypassSecurityTrustHtml = function (value) { return new SafeHtmlImpl(value); };
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    DomSanitizerImpl.prototype.bypassSecurityTrustStyle = function (value) { return new SafeStyleImpl(value); };
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    DomSanitizerImpl.prototype.bypassSecurityTrustScript = function (value) { return new SafeScriptImpl(value); };
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    DomSanitizerImpl.prototype.bypassSecurityTrustUrl = function (value) { return new SafeUrlImpl(value); };
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    DomSanitizerImpl.prototype.bypassSecurityTrustResourceUrl = function (value) {
-        return new SafeResourceUrlImpl(value);
-    };
-    return DomSanitizerImpl;
-}(DomSanitizer));
-DomSanitizerImpl.decorators = [
-    { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["X" /* Injectable */] },
-];
-/**
- * @nocollapse
- */
-DomSanitizerImpl.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["_1" /* Inject */], args: [DOCUMENT,] },] },
-]; };
-/**
- * @abstract
- */
-var SafeValueImpl = (function () {
-    /**
-     * @param {?} changingThisBreaksApplicationSecurity
-     */
-    function SafeValueImpl(changingThisBreaksApplicationSecurity) {
-        this.changingThisBreaksApplicationSecurity = changingThisBreaksApplicationSecurity;
-        // empty
-    }
-    /**
-     * @abstract
-     * @return {?}
-     */
-    SafeValueImpl.prototype.getTypeName = function () { };
-    /**
-     * @return {?}
-     */
-    SafeValueImpl.prototype.toString = function () {
-        return "SafeValue must use [property]=binding: " + this.changingThisBreaksApplicationSecurity +
-            " (see http://g.co/ng/security#xss)";
-    };
-    return SafeValueImpl;
-}());
-var SafeHtmlImpl = (function (_super) {
-    __extends(SafeHtmlImpl, _super);
-    function SafeHtmlImpl() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    /**
-     * @return {?}
-     */
-    SafeHtmlImpl.prototype.getTypeName = function () { return 'HTML'; };
-    return SafeHtmlImpl;
-}(SafeValueImpl));
-var SafeStyleImpl = (function (_super) {
-    __extends(SafeStyleImpl, _super);
-    function SafeStyleImpl() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    /**
-     * @return {?}
-     */
-    SafeStyleImpl.prototype.getTypeName = function () { return 'Style'; };
-    return SafeStyleImpl;
-}(SafeValueImpl));
-var SafeScriptImpl = (function (_super) {
-    __extends(SafeScriptImpl, _super);
-    function SafeScriptImpl() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    /**
-     * @return {?}
-     */
-    SafeScriptImpl.prototype.getTypeName = function () { return 'Script'; };
-    return SafeScriptImpl;
-}(SafeValueImpl));
-var SafeUrlImpl = (function (_super) {
-    __extends(SafeUrlImpl, _super);
-    function SafeUrlImpl() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    /**
-     * @return {?}
-     */
-    SafeUrlImpl.prototype.getTypeName = function () { return 'URL'; };
-    return SafeUrlImpl;
-}(SafeValueImpl));
-var SafeResourceUrlImpl = (function (_super) {
-    __extends(SafeResourceUrlImpl, _super);
-    function SafeResourceUrlImpl() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    /**
-     * @return {?}
-     */
-    SafeResourceUrlImpl.prototype.getTypeName = function () { return 'ResourceURL'; };
-    return SafeResourceUrlImpl;
-}(SafeValueImpl));
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-var INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
-    { provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["_17" /* PLATFORM_ID */], useValue: __WEBPACK_IMPORTED_MODULE_0__angular_common__["k" /* ɵPLATFORM_BROWSER_ID */] },
-    { provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["_18" /* PLATFORM_INITIALIZER */], useValue: initDomAdapter, multi: true },
-    { provide: __WEBPACK_IMPORTED_MODULE_0__angular_common__["c" /* PlatformLocation */], useClass: BrowserPlatformLocation },
-    { provide: DOCUMENT, useFactory: _document, deps: [] },
-];
-/**
- * \@security Replacing built-in sanitization providers exposes the application to XSS risks.
- * Attacker-controlled data introduced by an unsanitized provider could expose your
- * application to XSS risks. For more detail, see the [Security Guide](http://g.co/ng/security).
- * \@experimental
- */
-var BROWSER_SANITIZATION_PROVIDERS = [
-    { provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["y" /* Sanitizer */], useExisting: DomSanitizer },
-    { provide: DomSanitizer, useClass: DomSanitizerImpl },
-];
-/**
- * \@stable
- */
-var platformBrowser = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_19" /* createPlatformFactory */])(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_20" /* platformCore */], 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
-/**
- * @return {?}
- */
-function initDomAdapter() {
-    BrowserDomAdapter.makeCurrent();
-    BrowserGetTestability.init();
-}
-/**
- * @return {?}
- */
-function errorHandler() {
-    return new __WEBPACK_IMPORTED_MODULE_1__angular_core__["q" /* ErrorHandler */]();
-}
-/**
- * @return {?}
- */
-function _document() {
-    return document;
-}
-/**
- * The ng module for the browser.
- *
- * \@stable
- */
-var BrowserModule = (function () {
-    /**
-     * @param {?} parentModule
-     */
-    function BrowserModule(parentModule) {
-        if (parentModule) {
-            throw new Error("BrowserModule has already been loaded. If you need access to common directives such as NgIf and NgFor from a lazy loaded module, import CommonModule instead.");
-        }
-    }
-    /**
-     * Configures a browser-based application to transition from a server-rendered app, if
-     * one is present on the page. The specified parameters must include an application id,
-     * which must match between the client and server applications.
-     *
-     * \@experimental
-     * @param {?} params
-     * @return {?}
-     */
-    BrowserModule.withServerTransition = function (params) {
-        return {
-            ngModule: BrowserModule,
-            providers: [
-                { provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["v" /* APP_ID */], useValue: params.appId },
-                { provide: TRANSITION_ID, useExisting: __WEBPACK_IMPORTED_MODULE_1__angular_core__["v" /* APP_ID */] },
-                SERVER_TRANSITION_PROVIDERS,
-            ],
-        };
-    };
-    return BrowserModule;
-}());
-BrowserModule.decorators = [
-    { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["_2" /* NgModule */], args: [{
-                providers: [
-                    BROWSER_SANITIZATION_PROVIDERS,
-                    { provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["q" /* ErrorHandler */], useFactory: errorHandler, deps: [] },
-                    { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true },
-                    { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true },
-                    { provide: EVENT_MANAGER_PLUGINS, useClass: HammerGesturesPlugin, multi: true },
-                    { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig },
-                    DomRendererFactory2,
-                    { provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["z" /* RendererFactory2 */], useExisting: DomRendererFactory2 },
-                    { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
-                    DomSharedStylesHost,
-                    __WEBPACK_IMPORTED_MODULE_1__angular_core__["h" /* Testability */],
-                    EventManager,
-                    ELEMENT_PROBE_PROVIDERS,
-                    Meta,
-                    Title,
-                ],
-                exports: [__WEBPACK_IMPORTED_MODULE_0__angular_common__["b" /* CommonModule */], __WEBPACK_IMPORTED_MODULE_1__angular_core__["m" /* ApplicationModule */]]
-            },] },
-];
-/**
- * @nocollapse
- */
-BrowserModule.ctorParameters = function () { return [
-    { type: BrowserModule, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["Z" /* Optional */] }, { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["_0" /* SkipSelf */] },] },
-]; };
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-var win = typeof window !== 'undefined' && window || {};
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-var ChangeDetectionPerfRecord = (function () {
-    /**
-     * @param {?} msPerTick
-     * @param {?} numTicks
-     */
-    function ChangeDetectionPerfRecord(msPerTick, numTicks) {
-        this.msPerTick = msPerTick;
-        this.numTicks = numTicks;
-    }
-    return ChangeDetectionPerfRecord;
-}());
-/**
- * Entry point for all Angular profiling-related debug tools. This object
- * corresponds to the `ng.profiler` in the dev console.
- */
-var AngularProfiler = (function () {
-    /**
-     * @param {?} ref
-     */
-    function AngularProfiler(ref) {
-        this.appRef = ref.injector.get(__WEBPACK_IMPORTED_MODULE_1__angular_core__["t" /* ApplicationRef */]);
-    }
-    /**
-     * Exercises change detection in a loop and then prints the average amount of
-     * time in milliseconds how long a single round of change detection takes for
-     * the current state of the UI. It runs a minimum of 5 rounds for a minimum
-     * of 500 milliseconds.
-     *
-     * Optionally, a user may pass a `config` parameter containing a map of
-     * options. Supported options are:
-     *
-     * `record` (boolean) - causes the profiler to record a CPU profile while
-     * it exercises the change detector. Example:
-     *
-     * ```
-     * ng.profiler.timeChangeDetection({record: true})
-     * ```
-     * @param {?} config
-     * @return {?}
-     */
-    AngularProfiler.prototype.timeChangeDetection = function (config) {
-        var /** @type {?} */ record = config && config['record'];
-        var /** @type {?} */ profileName = 'Change Detection';
-        // Profiler is not available in Android browsers, nor in IE 9 without dev tools opened
-        var /** @type {?} */ isProfilerAvailable = win.console.profile != null;
-        if (record && isProfilerAvailable) {
-            win.console.profile(profileName);
-        }
-        var /** @type {?} */ start = getDOM().performanceNow();
-        var /** @type {?} */ numTicks = 0;
-        while (numTicks < 5 || (getDOM().performanceNow() - start) < 500) {
-            this.appRef.tick();
-            numTicks++;
-        }
-        var /** @type {?} */ end = getDOM().performanceNow();
-        if (record && isProfilerAvailable) {
-            // need to cast to <any> because type checker thinks there's no argument
-            // while in fact there is:
-            //
-            // https://developer.mozilla.org/en-US/docs/Web/API/Console/profileEnd
-            ((win.console.profileEnd))(profileName);
-        }
-        var /** @type {?} */ msPerTick = (end - start) / numTicks;
-        win.console.log("ran " + numTicks + " change detection cycles");
-        win.console.log(msPerTick.toFixed(2) + " ms per check");
-        return new ChangeDetectionPerfRecord(msPerTick, numTicks);
-    };
-    return AngularProfiler;
-}());
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-var PROFILER_GLOBAL_NAME = 'ng.profiler';
-/**
- * Enabled Angular debug tools that are accessible via your browser's
- * developer console.
- *
- * Usage:
- *
- * 1. Open developer console (e.g. in Chrome Ctrl + Shift + j)
- * 1. Type `ng.` (usually the console will show auto-complete suggestion)
- * 1. Try the change detection profiler `ng.profiler.timeChangeDetection()`
- *    then hit Enter.
- *
- * \@experimental All debugging apis are currently experimental.
- * @template T
- * @param {?} ref
- * @return {?}
- */
-function enableDebugTools(ref) {
-    getDOM().setGlobalVar(PROFILER_GLOBAL_NAME, new AngularProfiler(ref));
-    return ref;
-}
-/**
- * Disables Angular tools.
- *
- * \@experimental All debugging apis are currently experimental.
- * @return {?}
- */
-function disableDebugTools() {
-    getDOM().setGlobalVar(PROFILER_GLOBAL_NAME, null);
-}
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * Predicates for use with {\@link DebugElement}'s query functions.
- *
- * \@experimental All debugging apis are currently experimental.
- */
-var By = (function () {
-    function By() {
-    }
-    /**
-     * Match all elements.
-     *
-     * ## Example
-     *
-     * {\@example platform-browser/dom/debug/ts/by/by.ts region='by_all'}
-     * @return {?}
-     */
-    By.all = function () { return function (debugElement) { return true; }; };
-    /**
-     * Match elements by the given CSS selector.
-     *
-     * ## Example
-     *
-     * {\@example platform-browser/dom/debug/ts/by/by.ts region='by_css'}
-     * @param {?} selector
-     * @return {?}
-     */
-    By.css = function (selector) {
-        return function (debugElement) {
-            return debugElement.nativeElement != null ?
-                getDOM().elementMatches(debugElement.nativeElement, selector) :
-                false;
-        };
-    };
-    /**
-     * Match elements that have the given directive present.
-     *
-     * ## Example
-     *
-     * {\@example platform-browser/dom/debug/ts/by/by.ts region='by_directive'}
-     * @param {?} type
-     * @return {?}
-     */
-    By.directive = function (type) {
-        return function (debugElement) { return debugElement.providerTokens.indexOf(type) !== -1; };
-    };
-    return By;
-}());
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * @module
- * @description
- * Entry point for all public APIs of the common package.
- */
-/**
- * \@stable
- */
-var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_4" /* Version */]('4.0.3');
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * @module
- * @description
- * Entry point for all public APIs of the platform-browser package.
- */
-// This file only reexports content of the `src` folder. Keep it that way.
-/**
- * Generated bundle index. Do not edit.
- */
 
-//# sourceMappingURL=platform-browser.es5.js.map
-
-
-/***/ }),
-/* 12 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_scheduler_queue__ = __webpack_require__(120);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_scheduler_queue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_scheduler_queue__);
-/* harmony export (immutable) */ __webpack_exports__["c"] = isNil;
-/* harmony export (immutable) */ __webpack_exports__["d"] = hasKey;
-/* harmony export (immutable) */ __webpack_exports__["g"] = isString;
-/* harmony export (immutable) */ __webpack_exports__["h"] = isFirebaseRef;
-/* harmony export (immutable) */ __webpack_exports__["i"] = isFirebaseDataSnapshot;
-/* harmony export (immutable) */ __webpack_exports__["j"] = isAFUnwrappedSnapshot;
-/* unused harmony export isFirebaseQuery */
-/* harmony export (immutable) */ __webpack_exports__["k"] = isEmptyObject;
-/* harmony export (immutable) */ __webpack_exports__["f"] = unwrapMapFn;
-/* harmony export (immutable) */ __webpack_exports__["e"] = checkForUrlOrFirebaseRef;
-/* harmony export (immutable) */ __webpack_exports__["a"] = stripTrailingSlash;
-/* harmony export (immutable) */ __webpack_exports__["l"] = stripLeadingSlash;
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ZoneScheduler; });
-
-function isNil(obj) {
-    return obj === undefined || obj === null;
-}
-function hasKey(obj, key) {
-    return obj && obj[key] !== undefined;
-}
-function isString(value) {
-    return typeof value === 'string';
-}
-function isFirebaseRef(value) {
-    return typeof value.set === 'function';
-}
-function isFirebaseDataSnapshot(value) {
-    return typeof value.exportVal === 'function';
-}
-function isAFUnwrappedSnapshot(value) {
-    return typeof value.$key === 'string';
-}
-function isFirebaseQuery(value) {
-    return typeof value.orderByChild === 'function';
-}
-function isEmptyObject(obj) {
-    if (isNil(obj)) {
-        return false;
+/** Abstract base class for the Layout API styling directives. */
+var BaseFxDirective = (function () {
+    /**
+     *
+     */
+    function BaseFxDirective(_mediaMonitor, _elementRef, _renderer) {
+        this._mediaMonitor = _mediaMonitor;
+        this._elementRef = _elementRef;
+        this._renderer = _renderer;
+        /**
+         *  Dictionary of input keys with associated values
+         */
+        this._inputMap = {};
+        this._display = this._getDisplayStyle();
     }
-    return Object.keys(obj).length === 0 && JSON.stringify(obj) === JSON.stringify({});
-}
-function unwrapMapFn(snapshot) {
-    var unwrapped = !isNil(snapshot.val()) ? snapshot.val() : { $value: null };
-    if ((/string|number|boolean/).test(typeof unwrapped)) {
-        unwrapped = {
-            $value: unwrapped
-        };
-    }
-    Object.defineProperty(unwrapped, '$key', {
-        value: snapshot.ref.key,
-        enumerable: false
-    });
-    Object.defineProperty(unwrapped, '$exists', {
-        value: function () {
-            return snapshot.exists();
+    Object.defineProperty(BaseFxDirective.prototype, "hasMediaQueryListener", {
+        get: function () {
+            return !!this._mqActivation;
         },
-        enumerable: false
+        enumerable: true,
+        configurable: true
     });
-    return unwrapped;
-}
-function checkForUrlOrFirebaseRef(urlOrRef, cases) {
-    if (isString(urlOrRef)) {
-        return cases.isUrl();
-    }
-    if (isFirebaseRef(urlOrRef)) {
-        return cases.isRef();
-    }
-    if (isFirebaseQuery(urlOrRef)) {
-        return cases.isQuery();
-    }
-    throw new Error('Provide a url or a Firebase database reference');
-}
-function stripTrailingSlash(value) {
-    if (value.substring(value.length - 1, value.length) === '/') {
-        return value.substring(0, value.length - 1);
-    }
-    else {
-        return value;
-    }
-}
-function stripLeadingSlash(value) {
-    if (value.substring(0, 1) === '/') {
-        return value.substring(1, value.length);
-    }
-    else {
-        return value;
-    }
-}
-var ZoneScheduler = (function () {
-    function ZoneScheduler(zone) {
-        this.zone = zone;
-    }
-    ZoneScheduler.prototype.schedule = function () {
-        var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            args[_i] = arguments[_i];
-        }
-        return this.zone.run(function () { return __WEBPACK_IMPORTED_MODULE_0_rxjs_scheduler_queue__["queue"].schedule.apply(__WEBPACK_IMPORTED_MODULE_0_rxjs_scheduler_queue__["queue"], args); });
-    };
-    return ZoneScheduler;
-}());
-
-//# sourceMappingURL=utils.js.map
-
-/***/ }),
-/* 13 */,
-/* 14 */,
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var isArray_1 = __webpack_require__(49);
-var isObject_1 = __webpack_require__(122);
-var isFunction_1 = __webpack_require__(83);
-var tryCatch_1 = __webpack_require__(124);
-var errorObject_1 = __webpack_require__(82);
-var UnsubscriptionError_1 = __webpack_require__(258);
-/**
- * Represents a disposable resource, such as the execution of an Observable. A
- * Subscription has one important method, `unsubscribe`, that takes no argument
- * and just disposes the resource held by the subscription.
- *
- * Additionally, subscriptions may be grouped together through the `add()`
- * method, which will attach a child Subscription to the current Subscription.
- * When a Subscription is unsubscribed, all its children (and its grandchildren)
- * will be unsubscribed as well.
- *
- * @class Subscription
- */
-var Subscription = (function () {
+    // *********************************************
+    // Accessor Methods
+    // *********************************************
     /**
-     * @param {function(): void} [unsubscribe] A function describing how to
-     * perform the disposal of resources when the `unsubscribe` method is called.
+     * Access the current value (if any) of the @Input property.
      */
-    function Subscription(unsubscribe) {
+    BaseFxDirective.prototype._queryInput = function (key) {
+        return this._inputMap[key];
+    };
+    // *********************************************
+    // Lifecycle Methods
+    // *********************************************
+    BaseFxDirective.prototype.ngOnDestroy = function () {
+        if (this._mqActivation) {
+            this._mqActivation.destroy();
+        }
+        this._mediaMonitor = null;
+    };
+    // *********************************************
+    // Protected Methods
+    // *********************************************
+    /**
+     * Was the directive's default selector used ?
+     * If not, use the fallback value!
+     */
+    BaseFxDirective.prototype._getDefaultVal = function (key, fallbackVal) {
+        var val = this._queryInput(key);
+        var hasDefaultVal = (val !== undefined && val !== null);
+        return (hasDefaultVal && val !== '') ? val : fallbackVal;
+    };
+    /**
+     * Quick accessor to the current HTMLElement's `display` style
+     * Note: this allows use to preserve the original style
+     * and optional restore it when the mediaQueries deactivate
+     */
+    BaseFxDirective.prototype._getDisplayStyle = function (source) {
+        var element = source || this._elementRef.nativeElement;
+        var value = element.style['display'] || getComputedStyle(element)['display'];
+        return value.trim();
+    };
+    BaseFxDirective.prototype._getFlowDirection = function (target, addIfMissing) {
+        if (addIfMissing === void 0) { addIfMissing = false; }
+        var value = "";
+        if (target) {
+            var directionKeys_1 = Object.keys(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__utils_auto_prefixer__["a" /* applyCssPrefixes */])({ 'flex-direction': '' }));
+            var findDirection = function (styles) { return directionKeys_1.reduce(function (direction, key) {
+                return direction || styles[key];
+            }, null); };
+            var immediateValue = findDirection(target['style']);
+            value = immediateValue || findDirection(getComputedStyle(target));
+            if (!immediateValue && addIfMissing) {
+                value = value || 'row';
+                this._applyStyleToElements(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__utils_layout_validator__["a" /* buildLayoutCSS */])(value), [target]);
+            }
+        }
+        return value ? value.trim() : "row";
+    };
+    /**
+     * Applies styles given via string pair or object map to the directive element.
+     */
+    BaseFxDirective.prototype._applyStyleToElement = function (style, value, nativeElement) {
+        var _this = this;
+        var styles = {};
+        var element = nativeElement || this._elementRef.nativeElement;
+        if (typeof style === 'string') {
+            styles[style] = value;
+            style = styles;
+        }
+        styles = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__utils_auto_prefixer__["a" /* applyCssPrefixes */])(style);
+        // Iterate all properties in hashMap and set styles
+        Object.keys(styles).forEach(function (key) {
+            _this._renderer.setStyle(element, key, styles[key]);
+        });
+    };
+    /**
+     * Applies styles given via string pair or object map to the directive element.
+     */
+    BaseFxDirective.prototype._applyStyleToElements = function (style, elements) {
+        var _this = this;
+        var styles = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__utils_auto_prefixer__["a" /* applyCssPrefixes */])(style);
+        Object.keys(styles).forEach(function (key) {
+            elements.forEach(function (el) { return _this._renderer.setStyle(el, key, styles[key]); });
+        });
+    };
+    /**
+     *  Save the property value; which may be a complex object.
+     *  Complex objects support property chains
+     */
+    BaseFxDirective.prototype._cacheInput = function (key, source) {
+        if (typeof source === 'object') {
+            for (var prop in source) {
+                this._inputMap[prop] = source[prop];
+            }
+        }
+        else {
+            this._inputMap[key] = source;
+        }
+    };
+    /**
+     *  Build a ResponsiveActivation object used to manage subscriptions to mediaChange notifications
+     *  and intelligent lookup of the directive's property value that corresponds to that mediaQuery
+     *  (or closest match).
+     */
+    BaseFxDirective.prototype._listenForMediaQueryChanges = function (key, defaultValue, onMediaQueryChange) {
+        if (!this._mqActivation) {
+            var keyOptions = new __WEBPACK_IMPORTED_MODULE_2__responsive_responsive_activation__["a" /* KeyOptions */](key, defaultValue, this._inputMap);
+            this._mqActivation = new __WEBPACK_IMPORTED_MODULE_2__responsive_responsive_activation__["b" /* ResponsiveActivation */](keyOptions, this._mediaMonitor, function (change) { return onMediaQueryChange(change); });
+        }
+        return this._mqActivation;
+    };
+    Object.defineProperty(BaseFxDirective.prototype, "childrenNodes", {
         /**
-         * A flag to indicate whether this Subscription has already been unsubscribed.
-         * @type {boolean}
+         * Special accessor to query for all child 'element' nodes regardless of type, class, etc.
          */
-        this.closed = false;
-        this._parent = null;
-        this._parents = null;
-        this._subscriptions = null;
-        if (unsubscribe) {
-            this._unsubscribe = unsubscribe;
-        }
-    }
-    /**
-     * Disposes the resources held by the subscription. May, for instance, cancel
-     * an ongoing Observable execution or cancel any other type of work that
-     * started when the Subscription was created.
-     * @return {void}
-     */
-    Subscription.prototype.unsubscribe = function () {
-        var hasErrors = false;
-        var errors;
-        if (this.closed) {
-            return;
-        }
-        var _a = this, _parent = _a._parent, _parents = _a._parents, _unsubscribe = _a._unsubscribe, _subscriptions = _a._subscriptions;
-        this.closed = true;
-        this._parent = null;
-        this._parents = null;
-        // null out _subscriptions first so any child subscriptions that attempt
-        // to remove themselves from this subscription will noop
-        this._subscriptions = null;
-        var index = -1;
-        var len = _parents ? _parents.length : 0;
-        // if this._parent is null, then so is this._parents, and we
-        // don't have to remove ourselves from any parent subscriptions.
-        while (_parent) {
-            _parent.remove(this);
-            // if this._parents is null or index >= len,
-            // then _parent is set to null, and the loop exits
-            _parent = ++index < len && _parents[index] || null;
-        }
-        if (isFunction_1.isFunction(_unsubscribe)) {
-            var trial = tryCatch_1.tryCatch(_unsubscribe).call(this);
-            if (trial === errorObject_1.errorObject) {
-                hasErrors = true;
-                errors = errors || (errorObject_1.errorObject.e instanceof UnsubscriptionError_1.UnsubscriptionError ?
-                    flattenUnsubscriptionErrors(errorObject_1.errorObject.e.errors) : [errorObject_1.errorObject.e]);
+        get: function () {
+            var obj = this._elementRef.nativeElement.childNodes;
+            var buffer = [];
+            // iterate backwards ensuring that length is an UInt32
+            for (var i = obj.length; i--;) {
+                buffer[i] = obj[i];
             }
-        }
-        if (isArray_1.isArray(_subscriptions)) {
-            index = -1;
-            len = _subscriptions.length;
-            while (++index < len) {
-                var sub = _subscriptions[index];
-                if (isObject_1.isObject(sub)) {
-                    var trial = tryCatch_1.tryCatch(sub.unsubscribe).call(sub);
-                    if (trial === errorObject_1.errorObject) {
-                        hasErrors = true;
-                        errors = errors || [];
-                        var err = errorObject_1.errorObject.e;
-                        if (err instanceof UnsubscriptionError_1.UnsubscriptionError) {
-                            errors = errors.concat(flattenUnsubscriptionErrors(err.errors));
-                        }
-                        else {
-                            errors.push(err);
-                        }
-                    }
-                }
-            }
-        }
-        if (hasErrors) {
-            throw new UnsubscriptionError_1.UnsubscriptionError(errors);
-        }
-    };
+            return buffer;
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
-     * Adds a tear down to be called during the unsubscribe() of this
-     * Subscription.
-     *
-     * If the tear down being added is a subscription that is already
-     * unsubscribed, is the same reference `add` is being called on, or is
-     * `Subscription.EMPTY`, it will not be added.
-     *
-     * If this subscription is already in an `closed` state, the passed
-     * tear down logic will be executed immediately.
-     *
-     * @param {TeardownLogic} teardown The additional logic to execute on
-     * teardown.
-     * @return {Subscription} Returns the Subscription used or created to be
-     * added to the inner subscriptions list. This Subscription can be used with
-     * `remove()` to remove the passed teardown logic from the inner subscriptions
-     * list.
+     * Fast validator for presence of attribute on the host element
      */
-    Subscription.prototype.add = function (teardown) {
-        if (!teardown || (teardown === Subscription.EMPTY)) {
-            return Subscription.EMPTY;
-        }
-        if (teardown === this) {
-            return this;
-        }
-        var subscription = teardown;
-        switch (typeof teardown) {
-            case 'function':
-                subscription = new Subscription(teardown);
-            case 'object':
-                if (subscription.closed || typeof subscription.unsubscribe !== 'function') {
-                    return subscription;
-                }
-                else if (this.closed) {
-                    subscription.unsubscribe();
-                    return subscription;
-                }
-                else if (typeof subscription._addParent !== 'function' /* quack quack */) {
-                    var tmp = subscription;
-                    subscription = new Subscription();
-                    subscription._subscriptions = [tmp];
-                }
-                break;
-            default:
-                throw new Error('unrecognized teardown ' + teardown + ' added to Subscription.');
-        }
-        var subscriptions = this._subscriptions || (this._subscriptions = []);
-        subscriptions.push(subscription);
-        subscription._addParent(this);
-        return subscription;
+    BaseFxDirective.prototype.hasKeyValue = function (key) {
+        return this._mqActivation.hasKeyValue(key);
     };
-    /**
-     * Removes a Subscription from the internal list of subscriptions that will
-     * unsubscribe during the unsubscribe process of this Subscription.
-     * @param {Subscription} subscription The subscription to remove.
-     * @return {void}
-     */
-    Subscription.prototype.remove = function (subscription) {
-        var subscriptions = this._subscriptions;
-        if (subscriptions) {
-            var subscriptionIndex = subscriptions.indexOf(subscription);
-            if (subscriptionIndex !== -1) {
-                subscriptions.splice(subscriptionIndex, 1);
-            }
-        }
-    };
-    Subscription.prototype._addParent = function (parent) {
-        var _a = this, _parent = _a._parent, _parents = _a._parents;
-        if (!_parent || _parent === parent) {
-            // If we don't have a parent, or the new parent is the same as the
-            // current parent, then set this._parent to the new parent.
-            this._parent = parent;
-        }
-        else if (!_parents) {
-            // If there's already one parent, but not multiple, allocate an Array to
-            // store the rest of the parent Subscriptions.
-            this._parents = [parent];
-        }
-        else if (_parents.indexOf(parent) === -1) {
-            // Only add the new parent to the _parents list if it's not already there.
-            _parents.push(parent);
-        }
-    };
-    Subscription.EMPTY = (function (empty) {
-        empty.closed = true;
-        return empty;
-    }(new Subscription()));
-    return Subscription;
+    return BaseFxDirective;
 }());
-exports.Subscription = Subscription;
-function flattenUnsubscriptionErrors(errors) {
-    return errors.reduce(function (errs, err) { return errs.concat((err instanceof UnsubscriptionError_1.UnsubscriptionError) ? err.errors : err); }, []);
-}
-//# sourceMappingURL=Subscription.js.map
+
+//# sourceMappingURL=base.js.map
 
 /***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(global) {
-/**
- * window: browser in DOM main thread
- * self: browser in WebWorker
- * global: Node.js/other
- */
-exports.root = (typeof window == 'object' && window.window === window && window
-    || typeof self == 'object' && self.self === self && self
-    || typeof global == 'object' && global.global === global && global);
-if (!exports.root) {
-    throw new Error('RxJS could not find any global context (window, self, global)');
-}
-//# sourceMappingURL=root.js.map
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(17)))
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 18 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Subject__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Subject__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Subject__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_observable_fromEvent__ = __webpack_require__(218);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_observable_fromEvent__ = __webpack_require__(260);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_observable_fromEvent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_add_observable_fromEvent__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_observable_merge__ = __webpack_require__(219);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_observable_merge__ = __webpack_require__(261);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_observable_merge___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_add_observable_merge__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_auditTime__ = __webpack_require__(222);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_auditTime__ = __webpack_require__(264);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_auditTime___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_auditTime__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_forms__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_animations__ = __webpack_require__(84);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_startWith__ = __webpack_require__(230);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_forms__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_animations__ = __webpack_require__(98);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_startWith__ = __webpack_require__(270);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_startWith___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_startWith__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_rxjs_add_operator_first__ = __webpack_require__(227);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_rxjs_add_operator_first__ = __webpack_require__(268);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_rxjs_add_operator_first___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_rxjs_add_operator_first__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__angular_http__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_rxjs_add_observable_forkJoin__ = __webpack_require__(217);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__angular_http__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_rxjs_add_observable_forkJoin__ = __webpack_require__(259);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_rxjs_add_observable_forkJoin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13_rxjs_add_observable_forkJoin__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_rxjs_add_observable_of__ = __webpack_require__(220);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_rxjs_add_observable_of__ = __webpack_require__(262);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_rxjs_add_observable_of___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14_rxjs_add_observable_of__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_rxjs_add_operator_map__ = __webpack_require__(228);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_rxjs_add_operator_map__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_rxjs_add_operator_filter__ = __webpack_require__(225);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_rxjs_add_operator_filter__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_rxjs_add_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16_rxjs_add_operator_filter__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17_rxjs_add_operator_do__ = __webpack_require__(224);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17_rxjs_add_operator_do__ = __webpack_require__(266);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17_rxjs_add_operator_do___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17_rxjs_add_operator_do__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18_rxjs_add_operator_share__ = __webpack_require__(229);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18_rxjs_add_operator_share__ = __webpack_require__(269);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18_rxjs_add_operator_share___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18_rxjs_add_operator_share__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19_rxjs_add_operator_finally__ = __webpack_require__(226);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19_rxjs_add_operator_finally__ = __webpack_require__(267);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19_rxjs_add_operator_finally___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_19_rxjs_add_operator_finally__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20_rxjs_add_operator_catch__ = __webpack_require__(223);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20_rxjs_add_operator_catch__ = __webpack_require__(265);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_20_rxjs_add_operator_catch__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21_rxjs_add_observable_throw__ = __webpack_require__(221);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21_rxjs_add_observable_throw__ = __webpack_require__(263);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21_rxjs_add_observable_throw___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_21_rxjs_add_observable_throw__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22_rxjs_add_operator_switchMap__ = __webpack_require__(231);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22_rxjs_add_operator_switchMap__ = __webpack_require__(271);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22_rxjs_add_operator_switchMap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_22_rxjs_add_operator_switchMap__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_31", function() { return Dir; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Q", function() { return RtlModule; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "R", function() { return ObserveContentModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "T", function() { return RtlModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "U", function() { return ObserveContentModule; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_55", function() { return ObserveContent; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "T", function() { return MdOptionModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "J", function() { return MdOptionModule; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_22", function() { return MdOption; });
 /* unused harmony export Portal */
 /* unused harmony export BasePortalHost */
@@ -23580,14 +19006,14 @@ module.exports = g;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_41", function() { return OverlayOrigin; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "D", function() { return OverlayModule; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ScrollDispatcher; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Y", function() { return GestureConfig; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Z", function() { return GestureConfig; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return LiveAnnouncer; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return LIVE_ANNOUNCER_ELEMENT_TOKEN; });
 /* unused harmony export LIVE_ANNOUNCER_PROVIDER */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return InteractivityChecker; });
 /* unused harmony export isFakeMousedownFromScreenReader */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "F", function() { return A11yModule; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "X", function() { return UniqueSelectionDispatcher; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Y", function() { return UniqueSelectionDispatcher; });
 /* unused harmony export UNIQUE_SELECTION_DISPATCHER_PROVIDER */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "A", function() { return MdLineModule; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_73", function() { return MdLine; });
@@ -23596,8 +19022,8 @@ module.exports = g;
 /* unused harmony export coerceBooleanProperty */
 /* unused harmony export coerceNumberProperty */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return CompatibilityModule; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "V", function() { return NoConflictStyleCompatibilityMode; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "U", function() { return MdCoreModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "W", function() { return NoConflictStyleCompatibilityMode; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "V", function() { return MdCoreModule; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "E", function() { return PlatformModule; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return Platform; });
 /* unused harmony export getSupportedInputTypes */
@@ -23640,31 +19066,31 @@ module.exports = g;
 /* unused harmony export ESCAPE */
 /* unused harmony export BACKSPACE */
 /* unused harmony export DELETE */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "K", function() { return MATERIAL_COMPATIBILITY_MODE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "N", function() { return MATERIAL_COMPATIBILITY_MODE; });
 /* unused harmony export MAT_ELEMENTS_SELECTOR */
 /* unused harmony export MD_ELEMENTS_SELECTOR */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_19", function() { return MatPrefixRejector; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "J", function() { return MdPrefixRejector; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "M", function() { return MdPrefixRejector; });
 /* unused harmony export AnimationCurves */
 /* unused harmony export AnimationDurations */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "S", function() { return MdSelectionModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "I", function() { return MdSelectionModule; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_18", function() { return MdPseudoCheckbox; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_16", function() { return MaterialRootModule; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_17", function() { return MaterialModule; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_0", function() { return MdAutocompleteModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_1", function() { return MdAutocompleteModule; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_23", function() { return MdAutocomplete; });
 /* unused harmony export AUTOCOMPLETE_OPTION_HEIGHT */
 /* unused harmony export AUTOCOMPLETE_PANEL_HEIGHT */
 /* unused harmony export MD_AUTOCOMPLETE_VALUE_ACCESSOR */
 /* unused harmony export MdAutocompleteTrigger */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "x", function() { return MdButtonModule; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "M", function() { return MdButtonCssMatStyler; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "P", function() { return MdButtonCssMatStyler; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_71", function() { return MdRaisedButtonCssMatStyler; });
 /* unused harmony export MdIconButtonCssMatStyler */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_76", function() { return MdFabCssMatStyler; });
 /* unused harmony export MdMiniFabCssMatStyler */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "L", function() { return MdButton; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "P", function() { return MdAnchor; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "O", function() { return MdButton; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "S", function() { return MdAnchor; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_9", function() { return MdButtonToggleModule; });
 /* unused harmony export MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR */
 /* unused harmony export MdButtonToggleChange */
@@ -23672,24 +19098,24 @@ module.exports = g;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_59", function() { return MdButtonToggleGroupMultiple; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_57", function() { return MdButtonToggle; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "z", function() { return MdCardModule; });
-/* unused harmony export MdCardContent */
-/* unused harmony export MdCardTitle */
-/* unused harmony export MdCardSubtitle */
-/* unused harmony export MdCardActions */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_80", function() { return MdCardContent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_78", function() { return MdCardTitle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_79", function() { return MdCardSubtitle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_81", function() { return MdCardActions; });
 /* unused harmony export MdCardFooter */
 /* unused harmony export MdCardSmImage */
 /* unused harmony export MdCardMdImage */
 /* unused harmony export MdCardLgImage */
 /* unused harmony export MdCardImage */
 /* unused harmony export MdCardXlImage */
-/* unused harmony export MdCardAvatar */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_77", function() { return MdCardAvatar; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_24", function() { return MdCard; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_25", function() { return MdCardHeader; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_26", function() { return MdCardTitleGroup; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_1", function() { return MdChipsModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_2", function() { return MdChipsModule; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_27", function() { return MdChipList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_28", function() { return MdChip; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_2", function() { return MdCheckboxModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_3", function() { return MdCheckboxModule; });
 /* unused harmony export MD_CHECKBOX_CONTROL_VALUE_ACCESSOR */
 /* unused harmony export TransitionCheckState */
 /* unused harmony export MdCheckboxChange */
@@ -23703,13 +19129,13 @@ module.exports = g;
 /* unused harmony export MdDialogContent */
 /* unused harmony export MdDialogActions */
 /* unused harmony export MdDialogConfig */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "I", function() { return MdDialogRef; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_3", function() { return MdGridListModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "L", function() { return MdDialogRef; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_4", function() { return MdGridListModule; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_30", function() { return MdGridList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "y", function() { return MdIconModule; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return MdIconRegistry; });
 /* unused harmony export MdIconInvalidNameError */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "N", function() { return MdIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Q", function() { return MdIcon; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return ICON_REGISTRY_PROVIDER_FACTORY; });
 /* unused harmony export ICON_REGISTRY_PROVIDER */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "H", function() { return MdInputModule; });
@@ -23743,9 +19169,9 @@ module.exports = g;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_61", function() { return MdMenu; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_62", function() { return MdMenuItem; });
 /* unused harmony export MdMenuTrigger */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_4", function() { return MdProgressBarModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_5", function() { return MdProgressBarModule; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_38", function() { return MdProgressBar; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_5", function() { return MdProgressSpinnerModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_6", function() { return MdProgressSpinnerModule; });
 /* unused harmony export MdProgressSpinnerCssMatStyler */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_39", function() { return MdProgressSpinner; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_40", function() { return MdSpinner; });
@@ -23754,7 +19180,7 @@ module.exports = g;
 /* unused harmony export MdRadioChange */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_64", function() { return MdRadioGroup; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_63", function() { return MdRadioButton; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_6", function() { return MdSelectModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "K", function() { return MdSelectModule; });
 /* unused harmony export fadeInContent */
 /* unused harmony export transformPanel */
 /* unused harmony export transformPlaceholder */
@@ -23784,7 +19210,7 @@ module.exports = g;
 /* unused harmony export MdSlideToggleChange */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_66", function() { return MdSlideToggle; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_14", function() { return MdSnackBarModule; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Z", function() { return MdSnackBar; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_0", function() { return MdSnackBar; });
 /* unused harmony export SHOW_ANIMATION */
 /* unused harmony export HIDE_ANIMATION */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_67", function() { return MdSnackBarContainer; });
@@ -23805,14 +19231,14 @@ module.exports = g;
 /* unused harmony export MdTabLinkRipple */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return MdToolbarModule; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_56", function() { return MdToolbarRow; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "O", function() { return MdToolbar; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "R", function() { return MdToolbar; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_15", function() { return MdTooltipModule; });
 /* unused harmony export TOUCHEND_HIDE_DELAY */
 /* unused harmony export SCROLL_THROTTLE_MS */
 /* unused harmony export MdTooltip */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_69", function() { return TooltipComponent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return LIVE_ANNOUNCER_PROVIDER_FACTORY; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "W", function() { return UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "X", function() { return UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY; });
 /* unused harmony export ɵb */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return OVERLAY_CONTAINER_PROVIDER_FACTORY; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return OverlayPositionBuilder; });
@@ -23863,7 +19289,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 
 /** Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype). */
 var hasDoneGlobalChecks = false;
-var MATERIAL_COMPATIBILITY_MODE = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* OpaqueToken */]('md-compatibility-mode');
+var MATERIAL_COMPATIBILITY_MODE = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["E" /* OpaqueToken */]('md-compatibility-mode');
 /** Selector that matches all elements that may have style collisions with AngularJS Material. */
 var MAT_ELEMENTS_SELECTOR = "\n  [mat-button],\n  [mat-dialog-actions],\n  [mat-dialog-close],\n  [mat-dialog-content],\n  [mat-dialog-title],\n  [mat-fab],\n  [mat-icon-button],\n  [mat-menu-trigger-for],\n  [mat-mini-fab],\n  [mat-raised-button],\n  [mat-tab-label],\n  [mat-tab-link],\n  [mat-tab-nav-bar],\n  [matTooltip],\n  mat-autocomplete,\n  mat-button-toggle,\n  mat-button-toggle-group,\n  mat-button-toggle,\n  mat-card,\n  mat-card-actions,\n  mat-card-content,\n  mat-card-footer,\n  mat-card-header,\n  mat-card-subtitle,\n  mat-card-title,\n  mat-card-title-group,\n  mat-checkbox,\n  mat-chip,\n  mat-dialog-actions,\n  mat-dialog-container,\n  mat-dialog-content,\n  mat-divider,\n  mat-grid-list,\n  mat-grid-tile,\n  mat-grid-tile-footer,\n  mat-grid-tile-header,\n  mat-hint,\n  mat-icon,\n  mat-list,\n  mat-list-item,\n  mat-menu,\n  mat-nav-list,\n  mat-option,\n  mat-placeholder,\n  mat-progress-bar,\n  mat-pseudo-checkbox,\n  mat-radio-button,\n  mat-radio-group,\n  mat-select,\n  mat-sidenav,\n  mat-sidenav-container,\n  mat-slider,\n  mat-spinner,\n  mat-tab,\n  mat-tab-group,\n  mat-toolbar,\n  mat-error";
 /** Selector that matches all elements that may have style collisions with AngularJS Material. */
@@ -24753,7 +20179,7 @@ var VIEWPORT_RULER_PROVIDER = {
     useFactory: VIEWPORT_RULER_PROVIDER_FACTORY
 };
 /** OpaqueToken that can be used to specify the global ripple options. */
-var MD_RIPPLE_GLOBAL_OPTIONS = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* OpaqueToken */]('md-ripple-global-options');
+var MD_RIPPLE_GLOBAL_OPTIONS = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["E" /* OpaqueToken */]('md-ripple-global-options');
 var MdRipple = (function () {
     /**
      * @param {?} elementRef
@@ -27830,7 +23256,7 @@ FocusTrapDirective.ctorParameters = function () { return [
 FocusTrapDirective.propDecorators = {
     'enabled': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['cdkTrapFocus',] },],
 };
-var LIVE_ANNOUNCER_ELEMENT_TOKEN = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* OpaqueToken */]('liveAnnouncerElement');
+var LIVE_ANNOUNCER_ELEMENT_TOKEN = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["E" /* OpaqueToken */]('liveAnnouncerElement');
 var LiveAnnouncer = (function () {
     /**
      * @param {?} elementToken
@@ -34217,7 +29643,7 @@ MdListDivider.ctorParameters = function () { return []; };
  * Token used to inject the list type into child MdListItem components so they can know whether
  * they're in a nav list (and thus should use an MdRipple).
  */
-var LIST_TYPE_TOKEN = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* OpaqueToken */]('list_type');
+var LIST_TYPE_TOKEN = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["E" /* OpaqueToken */]('list_type');
 var NORMAL_LIST_TYPE = 'normal_list_type';
 var NAV_LIST_TYPE = 'nav_list_type';
 var MdList = (function () {
@@ -41638,7 +37064,7 @@ var MdDialogRef = (function () {
     };
     return MdDialogRef;
 }());
-var MD_DIALOG_DATA = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* OpaqueToken */]('MdDialogData');
+var MD_DIALOG_DATA = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["E" /* OpaqueToken */]('MdDialogData');
 /**
  * Custom injector type specifically for instantiating components with a dialog.
  */
@@ -42855,561 +38281,5027 @@ MaterialModule.ctorParameters = function () { return []; };
 
 
 /***/ }),
-/* 19 */,
-/* 20 */,
-/* 21 */,
-/* 22 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 10 */,
+/* 11 */,
+/* 12 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return BrowserModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return platformBrowser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return Meta; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return Title; });
+/* unused harmony export disableDebugTools */
+/* unused harmony export enableDebugTools */
+/* unused harmony export By */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return NgProbeToken$1; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return DOCUMENT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return EVENT_MANAGER_PLUGINS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return EventManager; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return HAMMER_GESTURE_CONFIG; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return HammerGestureConfig; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return DomSanitizer; });
+/* unused harmony export VERSION */
+/* unused harmony export ɵBROWSER_SANITIZATION_PROVIDERS */
+/* unused harmony export ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS */
+/* unused harmony export ɵinitDomAdapter */
+/* unused harmony export ɵBrowserDomAdapter */
+/* unused harmony export ɵsetValueOnPath */
+/* unused harmony export ɵBrowserPlatformLocation */
+/* unused harmony export ɵTRANSITION_ID */
+/* unused harmony export ɵBrowserGetTestability */
+/* unused harmony export ɵELEMENT_PROBE_PROVIDERS */
+/* unused harmony export ɵDomAdapter */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return getDOM; });
+/* unused harmony export ɵsetRootDomAdapter */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return DomRendererFactory2; });
+/* unused harmony export ɵNAMESPACE_URIS */
+/* unused harmony export ɵflattenStyles */
+/* unused harmony export ɵshimContentAttribute */
+/* unused harmony export ɵshimHostAttribute */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return DomEventsPlugin; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return HammerGesturesPlugin; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return KeyEventsPlugin; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return DomSharedStylesHost; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return SharedStylesHost; });
+/* unused harmony export ɵb */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return errorHandler; });
+/* unused harmony export ɵh */
+/* unused harmony export ɵg */
+/* unused harmony export ɵf */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return _createNgProbe; });
+/* unused harmony export ɵd */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return DomSanitizerImpl; });
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var Observable_1 = __webpack_require__(0);
-var Subscriber_1 = __webpack_require__(4);
-var Subscription_1 = __webpack_require__(15);
-var ObjectUnsubscribedError_1 = __webpack_require__(81);
-var SubjectSubscription_1 = __webpack_require__(108);
-var rxSubscriber_1 = __webpack_require__(79);
 /**
- * @class SubjectSubscriber<T>
+ * @license Angular v4.0.3
+ * (c) 2010-2017 Google, Inc. https://angular.io/
+ * License: MIT
  */
-var SubjectSubscriber = (function (_super) {
-    __extends(SubjectSubscriber, _super);
-    function SubjectSubscriber(destination) {
-        _super.call(this, destination);
-        this.destination = destination;
-    }
-    return SubjectSubscriber;
-}(Subscriber_1.Subscriber));
-exports.SubjectSubscriber = SubjectSubscriber;
+
+
 /**
- * @class Subject<T>
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
  */
-var Subject = (function (_super) {
-    __extends(Subject, _super);
-    function Subject() {
-        _super.call(this);
-        this.observers = [];
-        this.closed = false;
-        this.isStopped = false;
-        this.hasError = false;
-        this.thrownError = null;
+var _DOM = null;
+/**
+ * @return {?}
+ */
+function getDOM() {
+    return _DOM;
+}
+/**
+ * @param {?} adapter
+ * @return {?}
+ */
+/**
+ * @param {?} adapter
+ * @return {?}
+ */
+function setRootDomAdapter(adapter) {
+    if (!_DOM) {
+        _DOM = adapter;
     }
-    Subject.prototype[rxSubscriber_1.rxSubscriber] = function () {
-        return new SubjectSubscriber(this);
-    };
-    Subject.prototype.lift = function (operator) {
-        var subject = new AnonymousSubject(this, this);
-        subject.operator = operator;
-        return subject;
-    };
-    Subject.prototype.next = function (value) {
-        if (this.closed) {
-            throw new ObjectUnsubscribedError_1.ObjectUnsubscribedError();
+}
+/**
+ * Provides DOM operations in an environment-agnostic way.
+ *
+ * \@security Tread carefully! Interacting with the DOM directly is dangerous and
+ * can introduce XSS risks.
+ * @abstract
+ */
+var DomAdapter = (function () {
+    function DomAdapter() {
+        this.resourceLoaderType = null;
+    }
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} name
+     * @return {?}
+     */
+    DomAdapter.prototype.hasProperty = function (element, name) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @param {?} name
+     * @param {?} value
+     * @return {?}
+     */
+    DomAdapter.prototype.setProperty = function (el, name, value) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @param {?} name
+     * @return {?}
+     */
+    DomAdapter.prototype.getProperty = function (el, name) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @param {?} methodName
+     * @param {?} args
+     * @return {?}
+     */
+    DomAdapter.prototype.invoke = function (el, methodName, args) { };
+    /**
+     * @abstract
+     * @param {?} error
+     * @return {?}
+     */
+    DomAdapter.prototype.logError = function (error) { };
+    /**
+     * @abstract
+     * @param {?} error
+     * @return {?}
+     */
+    DomAdapter.prototype.log = function (error) { };
+    /**
+     * @abstract
+     * @param {?} error
+     * @return {?}
+     */
+    DomAdapter.prototype.logGroup = function (error) { };
+    /**
+     * @abstract
+     * @return {?}
+     */
+    DomAdapter.prototype.logGroupEnd = function () { };
+    Object.defineProperty(DomAdapter.prototype, "attrToPropMap", {
+        /**
+         * Maps attribute names to their corresponding property names for cases
+         * where attribute name doesn't match property name.
+         * @return {?}
+         */
+        get: function () { return this._attrToPropMap; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) { this._attrToPropMap = value; },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    ;
+    /**
+     * @abstract
+     * @param {?} nodeA
+     * @param {?} nodeB
+     * @return {?}
+     */
+    DomAdapter.prototype.contains = function (nodeA, nodeB) { };
+    /**
+     * @abstract
+     * @param {?} templateHtml
+     * @return {?}
+     */
+    DomAdapter.prototype.parse = function (templateHtml) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @param {?} selector
+     * @return {?}
+     */
+    DomAdapter.prototype.querySelector = function (el, selector) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @param {?} selector
+     * @return {?}
+     */
+    DomAdapter.prototype.querySelectorAll = function (el, selector) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @param {?} evt
+     * @param {?} listener
+     * @return {?}
+     */
+    DomAdapter.prototype.on = function (el, evt, listener) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @param {?} evt
+     * @param {?} listener
+     * @return {?}
+     */
+    DomAdapter.prototype.onAndCancel = function (el, evt, listener) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @param {?} evt
+     * @return {?}
+     */
+    DomAdapter.prototype.dispatchEvent = function (el, evt) { };
+    /**
+     * @abstract
+     * @param {?} eventType
+     * @return {?}
+     */
+    DomAdapter.prototype.createMouseEvent = function (eventType) { };
+    /**
+     * @abstract
+     * @param {?} eventType
+     * @return {?}
+     */
+    DomAdapter.prototype.createEvent = function (eventType) { };
+    /**
+     * @abstract
+     * @param {?} evt
+     * @return {?}
+     */
+    DomAdapter.prototype.preventDefault = function (evt) { };
+    /**
+     * @abstract
+     * @param {?} evt
+     * @return {?}
+     */
+    DomAdapter.prototype.isPrevented = function (evt) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.getInnerHTML = function (el) { };
+    /**
+     * Returns content if el is a <template> element, null otherwise.
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.getTemplateContent = function (el) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.getOuterHTML = function (el) { };
+    /**
+     * @abstract
+     * @param {?} node
+     * @return {?}
+     */
+    DomAdapter.prototype.nodeName = function (node) { };
+    /**
+     * @abstract
+     * @param {?} node
+     * @return {?}
+     */
+    DomAdapter.prototype.nodeValue = function (node) { };
+    /**
+     * @abstract
+     * @param {?} node
+     * @return {?}
+     */
+    DomAdapter.prototype.type = function (node) { };
+    /**
+     * @abstract
+     * @param {?} node
+     * @return {?}
+     */
+    DomAdapter.prototype.content = function (node) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.firstChild = function (el) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.nextSibling = function (el) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.parentElement = function (el) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.childNodes = function (el) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.childNodesAsList = function (el) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.clearNodes = function (el) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @param {?} node
+     * @return {?}
+     */
+    DomAdapter.prototype.appendChild = function (el, node) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @param {?} node
+     * @return {?}
+     */
+    DomAdapter.prototype.removeChild = function (el, node) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @param {?} newNode
+     * @param {?} oldNode
+     * @return {?}
+     */
+    DomAdapter.prototype.replaceChild = function (el, newNode, oldNode) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.remove = function (el) { };
+    /**
+     * @abstract
+     * @param {?} parent
+     * @param {?} ref
+     * @param {?} node
+     * @return {?}
+     */
+    DomAdapter.prototype.insertBefore = function (parent, ref, node) { };
+    /**
+     * @abstract
+     * @param {?} parent
+     * @param {?} ref
+     * @param {?} nodes
+     * @return {?}
+     */
+    DomAdapter.prototype.insertAllBefore = function (parent, ref, nodes) { };
+    /**
+     * @abstract
+     * @param {?} parent
+     * @param {?} el
+     * @param {?} node
+     * @return {?}
+     */
+    DomAdapter.prototype.insertAfter = function (parent, el, node) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @param {?} value
+     * @return {?}
+     */
+    DomAdapter.prototype.setInnerHTML = function (el, value) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.getText = function (el) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @param {?} value
+     * @return {?}
+     */
+    DomAdapter.prototype.setText = function (el, value) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.getValue = function (el) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @param {?} value
+     * @return {?}
+     */
+    DomAdapter.prototype.setValue = function (el, value) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.getChecked = function (el) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @param {?} value
+     * @return {?}
+     */
+    DomAdapter.prototype.setChecked = function (el, value) { };
+    /**
+     * @abstract
+     * @param {?} text
+     * @return {?}
+     */
+    DomAdapter.prototype.createComment = function (text) { };
+    /**
+     * @abstract
+     * @param {?} html
+     * @return {?}
+     */
+    DomAdapter.prototype.createTemplate = function (html) { };
+    /**
+     * @abstract
+     * @param {?} tagName
+     * @param {?=} doc
+     * @return {?}
+     */
+    DomAdapter.prototype.createElement = function (tagName, doc) { };
+    /**
+     * @abstract
+     * @param {?} ns
+     * @param {?} tagName
+     * @param {?=} doc
+     * @return {?}
+     */
+    DomAdapter.prototype.createElementNS = function (ns, tagName, doc) { };
+    /**
+     * @abstract
+     * @param {?} text
+     * @param {?=} doc
+     * @return {?}
+     */
+    DomAdapter.prototype.createTextNode = function (text, doc) { };
+    /**
+     * @abstract
+     * @param {?} attrName
+     * @param {?} attrValue
+     * @param {?=} doc
+     * @return {?}
+     */
+    DomAdapter.prototype.createScriptTag = function (attrName, attrValue, doc) { };
+    /**
+     * @abstract
+     * @param {?} css
+     * @param {?=} doc
+     * @return {?}
+     */
+    DomAdapter.prototype.createStyleElement = function (css, doc) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.createShadowRoot = function (el) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.getShadowRoot = function (el) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.getHost = function (el) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.getDistributedNodes = function (el) { };
+    /**
+     * @abstract
+     * @param {?} node
+     * @return {?}
+     */
+    DomAdapter.prototype.clone /*<T extends Node>*/ = function (node) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} name
+     * @return {?}
+     */
+    DomAdapter.prototype.getElementsByClassName = function (element, name) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} name
+     * @return {?}
+     */
+    DomAdapter.prototype.getElementsByTagName = function (element, name) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @return {?}
+     */
+    DomAdapter.prototype.classList = function (element) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} className
+     * @return {?}
+     */
+    DomAdapter.prototype.addClass = function (element, className) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} className
+     * @return {?}
+     */
+    DomAdapter.prototype.removeClass = function (element, className) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} className
+     * @return {?}
+     */
+    DomAdapter.prototype.hasClass = function (element, className) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} styleName
+     * @param {?} styleValue
+     * @return {?}
+     */
+    DomAdapter.prototype.setStyle = function (element, styleName, styleValue) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} styleName
+     * @return {?}
+     */
+    DomAdapter.prototype.removeStyle = function (element, styleName) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} styleName
+     * @return {?}
+     */
+    DomAdapter.prototype.getStyle = function (element, styleName) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} styleName
+     * @param {?=} styleValue
+     * @return {?}
+     */
+    DomAdapter.prototype.hasStyle = function (element, styleName, styleValue) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @return {?}
+     */
+    DomAdapter.prototype.tagName = function (element) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @return {?}
+     */
+    DomAdapter.prototype.attributeMap = function (element) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} attribute
+     * @return {?}
+     */
+    DomAdapter.prototype.hasAttribute = function (element, attribute) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} ns
+     * @param {?} attribute
+     * @return {?}
+     */
+    DomAdapter.prototype.hasAttributeNS = function (element, ns, attribute) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} attribute
+     * @return {?}
+     */
+    DomAdapter.prototype.getAttribute = function (element, attribute) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} ns
+     * @param {?} attribute
+     * @return {?}
+     */
+    DomAdapter.prototype.getAttributeNS = function (element, ns, attribute) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} name
+     * @param {?} value
+     * @return {?}
+     */
+    DomAdapter.prototype.setAttribute = function (element, name, value) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} ns
+     * @param {?} name
+     * @param {?} value
+     * @return {?}
+     */
+    DomAdapter.prototype.setAttributeNS = function (element, ns, name, value) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} attribute
+     * @return {?}
+     */
+    DomAdapter.prototype.removeAttribute = function (element, attribute) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} ns
+     * @param {?} attribute
+     * @return {?}
+     */
+    DomAdapter.prototype.removeAttributeNS = function (element, ns, attribute) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.templateAwareRoot = function (el) { };
+    /**
+     * @abstract
+     * @return {?}
+     */
+    DomAdapter.prototype.createHtmlDocument = function () { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.getBoundingClientRect = function (el) { };
+    /**
+     * @abstract
+     * @param {?} doc
+     * @return {?}
+     */
+    DomAdapter.prototype.getTitle = function (doc) { };
+    /**
+     * @abstract
+     * @param {?} doc
+     * @param {?} newTitle
+     * @return {?}
+     */
+    DomAdapter.prototype.setTitle = function (doc, newTitle) { };
+    /**
+     * @abstract
+     * @param {?} n
+     * @param {?} selector
+     * @return {?}
+     */
+    DomAdapter.prototype.elementMatches = function (n, selector) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.isTemplateElement = function (el) { };
+    /**
+     * @abstract
+     * @param {?} node
+     * @return {?}
+     */
+    DomAdapter.prototype.isTextNode = function (node) { };
+    /**
+     * @abstract
+     * @param {?} node
+     * @return {?}
+     */
+    DomAdapter.prototype.isCommentNode = function (node) { };
+    /**
+     * @abstract
+     * @param {?} node
+     * @return {?}
+     */
+    DomAdapter.prototype.isElementNode = function (node) { };
+    /**
+     * @abstract
+     * @param {?} node
+     * @return {?}
+     */
+    DomAdapter.prototype.hasShadowRoot = function (node) { };
+    /**
+     * @abstract
+     * @param {?} node
+     * @return {?}
+     */
+    DomAdapter.prototype.isShadowRoot = function (node) { };
+    /**
+     * @abstract
+     * @param {?} node
+     * @return {?}
+     */
+    DomAdapter.prototype.importIntoDoc /*<T extends Node>*/ = function (node) { };
+    /**
+     * @abstract
+     * @param {?} node
+     * @return {?}
+     */
+    DomAdapter.prototype.adoptNode /*<T extends Node>*/ = function (node) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @return {?}
+     */
+    DomAdapter.prototype.getHref = function (element) { };
+    /**
+     * @abstract
+     * @param {?} event
+     * @return {?}
+     */
+    DomAdapter.prototype.getEventKey = function (event) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} baseUrl
+     * @param {?} href
+     * @return {?}
+     */
+    DomAdapter.prototype.resolveAndSetHref = function (element, baseUrl, href) { };
+    /**
+     * @abstract
+     * @return {?}
+     */
+    DomAdapter.prototype.supportsDOMEvents = function () { };
+    /**
+     * @abstract
+     * @return {?}
+     */
+    DomAdapter.prototype.supportsNativeShadowDOM = function () { };
+    /**
+     * @abstract
+     * @param {?} doc
+     * @param {?} target
+     * @return {?}
+     */
+    DomAdapter.prototype.getGlobalEventTarget = function (doc, target) { };
+    /**
+     * @abstract
+     * @return {?}
+     */
+    DomAdapter.prototype.getHistory = function () { };
+    /**
+     * @abstract
+     * @return {?}
+     */
+    DomAdapter.prototype.getLocation = function () { };
+    /**
+     * @abstract
+     * @param {?} doc
+     * @return {?}
+     */
+    DomAdapter.prototype.getBaseHref = function (doc) { };
+    /**
+     * @abstract
+     * @return {?}
+     */
+    DomAdapter.prototype.resetBaseElement = function () { };
+    /**
+     * @abstract
+     * @return {?}
+     */
+    DomAdapter.prototype.getUserAgent = function () { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} name
+     * @param {?} value
+     * @return {?}
+     */
+    DomAdapter.prototype.setData = function (element, name, value) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @return {?}
+     */
+    DomAdapter.prototype.getComputedStyle = function (element) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} name
+     * @return {?}
+     */
+    DomAdapter.prototype.getData = function (element, name) { };
+    /**
+     * @abstract
+     * @param {?} name
+     * @param {?} value
+     * @return {?}
+     */
+    DomAdapter.prototype.setGlobalVar = function (name, value) { };
+    /**
+     * @abstract
+     * @return {?}
+     */
+    DomAdapter.prototype.supportsWebAnimation = function () { };
+    /**
+     * @abstract
+     * @return {?}
+     */
+    DomAdapter.prototype.performanceNow = function () { };
+    /**
+     * @abstract
+     * @return {?}
+     */
+    DomAdapter.prototype.getAnimationPrefix = function () { };
+    /**
+     * @abstract
+     * @return {?}
+     */
+    DomAdapter.prototype.getTransitionEnd = function () { };
+    /**
+     * @abstract
+     * @return {?}
+     */
+    DomAdapter.prototype.supportsAnimation = function () { };
+    /**
+     * @abstract
+     * @return {?}
+     */
+    DomAdapter.prototype.supportsCookies = function () { };
+    /**
+     * @abstract
+     * @param {?} name
+     * @return {?}
+     */
+    DomAdapter.prototype.getCookie = function (name) { };
+    /**
+     * @abstract
+     * @param {?} name
+     * @param {?} value
+     * @return {?}
+     */
+    DomAdapter.prototype.setCookie = function (name, value) { };
+    return DomAdapter;
+}());
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * Provides DOM operations in any browser environment.
+ *
+ * \@security Tread carefully! Interacting with the DOM directly is dangerous and
+ * can introduce XSS risks.
+ * @abstract
+ */
+var GenericBrowserDomAdapter = (function (_super) {
+    __extends(GenericBrowserDomAdapter, _super);
+    function GenericBrowserDomAdapter() {
+        var _this = _super.call(this) || this;
+        _this._animationPrefix = null;
+        _this._transitionEnd = null;
+        try {
+            var element_1 = _this.createElement('div', document);
+            if (_this.getStyle(element_1, 'animationName') != null) {
+                _this._animationPrefix = '';
+            }
+            else {
+                var domPrefixes = ['Webkit', 'Moz', 'O', 'ms'];
+                for (var i = 0; i < domPrefixes.length; i++) {
+                    if (_this.getStyle(element_1, domPrefixes[i] + 'AnimationName') != null) {
+                        _this._animationPrefix = '-' + domPrefixes[i].toLowerCase() + '-';
+                        break;
+                    }
+                }
+            }
+            var transEndEventNames_1 = {
+                WebkitTransition: 'webkitTransitionEnd',
+                MozTransition: 'transitionend',
+                OTransition: 'oTransitionEnd otransitionend',
+                transition: 'transitionend'
+            };
+            Object.keys(transEndEventNames_1).forEach(function (key) {
+                if (_this.getStyle(element_1, key) != null) {
+                    _this._transitionEnd = transEndEventNames_1[key];
+                }
+            });
         }
-        if (!this.isStopped) {
-            var observers = this.observers;
-            var len = observers.length;
-            var copy = observers.slice();
-            for (var i = 0; i < len; i++) {
-                copy[i].next(value);
+        catch (e) {
+            _this._animationPrefix = null;
+            _this._transitionEnd = null;
+        }
+        return _this;
+    }
+    /**
+     * @param {?} el
+     * @return {?}
+     */
+    GenericBrowserDomAdapter.prototype.getDistributedNodes = function (el) { return ((el)).getDistributedNodes(); };
+    /**
+     * @param {?} el
+     * @param {?} baseUrl
+     * @param {?} href
+     * @return {?}
+     */
+    GenericBrowserDomAdapter.prototype.resolveAndSetHref = function (el, baseUrl, href) {
+        el.href = href == null ? baseUrl : baseUrl + '/../' + href;
+    };
+    /**
+     * @return {?}
+     */
+    GenericBrowserDomAdapter.prototype.supportsDOMEvents = function () { return true; };
+    /**
+     * @return {?}
+     */
+    GenericBrowserDomAdapter.prototype.supportsNativeShadowDOM = function () {
+        return typeof ((document.body)).createShadowRoot === 'function';
+    };
+    /**
+     * @return {?}
+     */
+    GenericBrowserDomAdapter.prototype.getAnimationPrefix = function () { return this._animationPrefix ? this._animationPrefix : ''; };
+    /**
+     * @return {?}
+     */
+    GenericBrowserDomAdapter.prototype.getTransitionEnd = function () { return this._transitionEnd ? this._transitionEnd : ''; };
+    /**
+     * @return {?}
+     */
+    GenericBrowserDomAdapter.prototype.supportsAnimation = function () {
+        return this._animationPrefix != null && this._transitionEnd != null;
+    };
+    return GenericBrowserDomAdapter;
+}(DomAdapter));
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+var _attrToPropMap = {
+    'class': 'className',
+    'innerHtml': 'innerHTML',
+    'readonly': 'readOnly',
+    'tabindex': 'tabIndex',
+};
+var DOM_KEY_LOCATION_NUMPAD = 3;
+// Map to convert some key or keyIdentifier values to what will be returned by getEventKey
+var _keyMap = {
+    // The following values are here for cross-browser compatibility and to match the W3C standard
+    // cf http://www.w3.org/TR/DOM-Level-3-Events-key/
+    '\b': 'Backspace',
+    '\t': 'Tab',
+    '\x7F': 'Delete',
+    '\x1B': 'Escape',
+    'Del': 'Delete',
+    'Esc': 'Escape',
+    'Left': 'ArrowLeft',
+    'Right': 'ArrowRight',
+    'Up': 'ArrowUp',
+    'Down': 'ArrowDown',
+    'Menu': 'ContextMenu',
+    'Scroll': 'ScrollLock',
+    'Win': 'OS'
+};
+// There is a bug in Chrome for numeric keypad keys:
+// https://code.google.com/p/chromium/issues/detail?id=155654
+// 1, 2, 3 ... are reported as A, B, C ...
+var _chromeNumKeyPadMap = {
+    'A': '1',
+    'B': '2',
+    'C': '3',
+    'D': '4',
+    'E': '5',
+    'F': '6',
+    'G': '7',
+    'H': '8',
+    'I': '9',
+    'J': '*',
+    'K': '+',
+    'M': '-',
+    'N': '.',
+    'O': '/',
+    '\x60': '0',
+    '\x90': 'NumLock'
+};
+var nodeContains;
+if (__WEBPACK_IMPORTED_MODULE_1__angular_core__["_11" /* ɵglobal */]['Node']) {
+    nodeContains = __WEBPACK_IMPORTED_MODULE_1__angular_core__["_11" /* ɵglobal */]['Node'].prototype.contains || function (node) {
+        return !!(this.compareDocumentPosition(node) & 16);
+    };
+}
+var BrowserDomAdapter = (function (_super) {
+    __extends(BrowserDomAdapter, _super);
+    function BrowserDomAdapter() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    /**
+     * @param {?} templateHtml
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.parse = function (templateHtml) { throw new Error('parse not implemented'); };
+    /**
+     * @return {?}
+     */
+    BrowserDomAdapter.makeCurrent = function () { setRootDomAdapter(new BrowserDomAdapter()); };
+    /**
+     * @param {?} element
+     * @param {?} name
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.hasProperty = function (element, name) { return name in element; };
+    /**
+     * @param {?} el
+     * @param {?} name
+     * @param {?} value
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.setProperty = function (el, name, value) { ((el))[name] = value; };
+    /**
+     * @param {?} el
+     * @param {?} name
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.getProperty = function (el, name) { return ((el))[name]; };
+    /**
+     * @param {?} el
+     * @param {?} methodName
+     * @param {?} args
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.invoke = function (el, methodName, args) { ((el))[methodName].apply(((el)), args); };
+    /**
+     * @param {?} error
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.logError = function (error) {
+        if (window.console) {
+            if (console.error) {
+                console.error(error);
+            }
+            else {
+                console.log(error);
             }
         }
     };
-    Subject.prototype.error = function (err) {
-        if (this.closed) {
-            throw new ObjectUnsubscribedError_1.ObjectUnsubscribedError();
+    /**
+     * @param {?} error
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.log = function (error) {
+        if (window.console) {
+            window.console.log && window.console.log(error);
         }
-        this.hasError = true;
-        this.thrownError = err;
-        this.isStopped = true;
-        var observers = this.observers;
-        var len = observers.length;
-        var copy = observers.slice();
-        for (var i = 0; i < len; i++) {
-            copy[i].error(err);
-        }
-        this.observers.length = 0;
     };
-    Subject.prototype.complete = function () {
-        if (this.closed) {
-            throw new ObjectUnsubscribedError_1.ObjectUnsubscribedError();
+    /**
+     * @param {?} error
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.logGroup = function (error) {
+        if (window.console) {
+            window.console.group && window.console.group(error);
         }
-        this.isStopped = true;
-        var observers = this.observers;
-        var len = observers.length;
-        var copy = observers.slice();
-        for (var i = 0; i < len; i++) {
-            copy[i].complete();
+    };
+    /**
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.logGroupEnd = function () {
+        if (window.console) {
+            window.console.groupEnd && window.console.groupEnd();
         }
-        this.observers.length = 0;
     };
-    Subject.prototype.unsubscribe = function () {
-        this.isStopped = true;
-        this.closed = true;
-        this.observers = null;
+    Object.defineProperty(BrowserDomAdapter.prototype, "attrToPropMap", {
+        /**
+         * @return {?}
+         */
+        get: function () { return _attrToPropMap; },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @param {?} nodeA
+     * @param {?} nodeB
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.contains = function (nodeA, nodeB) { return nodeContains.call(nodeA, nodeB); };
+    /**
+     * @param {?} el
+     * @param {?} selector
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.querySelector = function (el, selector) { return el.querySelector(selector); };
+    /**
+     * @param {?} el
+     * @param {?} selector
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.querySelectorAll = function (el, selector) { return el.querySelectorAll(selector); };
+    /**
+     * @param {?} el
+     * @param {?} evt
+     * @param {?} listener
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.on = function (el, evt, listener) { el.addEventListener(evt, listener, false); };
+    /**
+     * @param {?} el
+     * @param {?} evt
+     * @param {?} listener
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.onAndCancel = function (el, evt, listener) {
+        el.addEventListener(evt, listener, false);
+        // Needed to follow Dart's subscription semantic, until fix of
+        // https://code.google.com/p/dart/issues/detail?id=17406
+        return function () { el.removeEventListener(evt, listener, false); };
     };
-    Subject.prototype._trySubscribe = function (subscriber) {
-        if (this.closed) {
-            throw new ObjectUnsubscribedError_1.ObjectUnsubscribedError();
+    /**
+     * @param {?} el
+     * @param {?} evt
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.dispatchEvent = function (el, evt) { el.dispatchEvent(evt); };
+    /**
+     * @param {?} eventType
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.createMouseEvent = function (eventType) {
+        var /** @type {?} */ evt = document.createEvent('MouseEvent');
+        evt.initEvent(eventType, true, true);
+        return evt;
+    };
+    /**
+     * @param {?} eventType
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.createEvent = function (eventType) {
+        var /** @type {?} */ evt = document.createEvent('Event');
+        evt.initEvent(eventType, true, true);
+        return evt;
+    };
+    /**
+     * @param {?} evt
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.preventDefault = function (evt) {
+        evt.preventDefault();
+        evt.returnValue = false;
+    };
+    /**
+     * @param {?} evt
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.isPrevented = function (evt) {
+        return evt.defaultPrevented || evt.returnValue != null && !evt.returnValue;
+    };
+    /**
+     * @param {?} el
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.getInnerHTML = function (el) { return el.innerHTML; };
+    /**
+     * @param {?} el
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.getTemplateContent = function (el) {
+        return 'content' in el && el instanceof HTMLTemplateElement ? el.content : null;
+    };
+    /**
+     * @param {?} el
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.getOuterHTML = function (el) { return el.outerHTML; };
+    /**
+     * @param {?} node
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.nodeName = function (node) { return node.nodeName; };
+    /**
+     * @param {?} node
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.nodeValue = function (node) { return node.nodeValue; };
+    /**
+     * @param {?} node
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.type = function (node) { return node.type; };
+    /**
+     * @param {?} node
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.content = function (node) {
+        if (this.hasProperty(node, 'content')) {
+            return ((node)).content;
         }
         else {
-            return _super.prototype._trySubscribe.call(this, subscriber);
+            return node;
         }
     };
-    Subject.prototype._subscribe = function (subscriber) {
-        if (this.closed) {
-            throw new ObjectUnsubscribedError_1.ObjectUnsubscribedError();
+    /**
+     * @param {?} el
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.firstChild = function (el) { return el.firstChild; };
+    /**
+     * @param {?} el
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.nextSibling = function (el) { return el.nextSibling; };
+    /**
+     * @param {?} el
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.parentElement = function (el) { return el.parentNode; };
+    /**
+     * @param {?} el
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.childNodes = function (el) { return el.childNodes; };
+    /**
+     * @param {?} el
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.childNodesAsList = function (el) {
+        var /** @type {?} */ childNodes = el.childNodes;
+        var /** @type {?} */ res = new Array(childNodes.length);
+        for (var /** @type {?} */ i = 0; i < childNodes.length; i++) {
+            res[i] = childNodes[i];
         }
-        else if (this.hasError) {
-            subscriber.error(this.thrownError);
-            return Subscription_1.Subscription.EMPTY;
-        }
-        else if (this.isStopped) {
-            subscriber.complete();
-            return Subscription_1.Subscription.EMPTY;
-        }
-        else {
-            this.observers.push(subscriber);
-            return new SubjectSubscription_1.SubjectSubscription(this, subscriber);
+        return res;
+    };
+    /**
+     * @param {?} el
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.clearNodes = function (el) {
+        while (el.firstChild) {
+            el.removeChild(el.firstChild);
         }
     };
-    Subject.prototype.asObservable = function () {
-        var observable = new Observable_1.Observable();
-        observable.source = this;
-        return observable;
+    /**
+     * @param {?} el
+     * @param {?} node
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.appendChild = function (el, node) { el.appendChild(node); };
+    /**
+     * @param {?} el
+     * @param {?} node
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.removeChild = function (el, node) { el.removeChild(node); };
+    /**
+     * @param {?} el
+     * @param {?} newChild
+     * @param {?} oldChild
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.replaceChild = function (el, newChild, oldChild) { el.replaceChild(newChild, oldChild); };
+    /**
+     * @param {?} node
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.remove = function (node) {
+        if (node.parentNode) {
+            node.parentNode.removeChild(node);
+        }
+        return node;
     };
-    Subject.create = function (destination, source) {
-        return new AnonymousSubject(destination, source);
+    /**
+     * @param {?} parent
+     * @param {?} ref
+     * @param {?} node
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.insertBefore = function (parent, ref, node) { parent.insertBefore(node, ref); };
+    /**
+     * @param {?} parent
+     * @param {?} ref
+     * @param {?} nodes
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.insertAllBefore = function (parent, ref, nodes) {
+        nodes.forEach(function (n) { return parent.insertBefore(n, ref); });
     };
-    return Subject;
-}(Observable_1.Observable));
-exports.Subject = Subject;
+    /**
+     * @param {?} parent
+     * @param {?} ref
+     * @param {?} node
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.insertAfter = function (parent, ref, node) { parent.insertBefore(node, ref.nextSibling); };
+    /**
+     * @param {?} el
+     * @param {?} value
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.setInnerHTML = function (el, value) { el.innerHTML = value; };
+    /**
+     * @param {?} el
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.getText = function (el) { return el.textContent; };
+    /**
+     * @param {?} el
+     * @param {?} value
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.setText = function (el, value) { el.textContent = value; };
+    /**
+     * @param {?} el
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.getValue = function (el) { return el.value; };
+    /**
+     * @param {?} el
+     * @param {?} value
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.setValue = function (el, value) { el.value = value; };
+    /**
+     * @param {?} el
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.getChecked = function (el) { return el.checked; };
+    /**
+     * @param {?} el
+     * @param {?} value
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.setChecked = function (el, value) { el.checked = value; };
+    /**
+     * @param {?} text
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.createComment = function (text) { return document.createComment(text); };
+    /**
+     * @param {?} html
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.createTemplate = function (html) {
+        var /** @type {?} */ t = document.createElement('template');
+        t.innerHTML = html;
+        return t;
+    };
+    /**
+     * @param {?} tagName
+     * @param {?=} doc
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.createElement = function (tagName, doc) {
+        if (doc === void 0) { doc = document; }
+        return doc.createElement(tagName);
+    };
+    /**
+     * @param {?} ns
+     * @param {?} tagName
+     * @param {?=} doc
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.createElementNS = function (ns, tagName, doc) {
+        if (doc === void 0) { doc = document; }
+        return doc.createElementNS(ns, tagName);
+    };
+    /**
+     * @param {?} text
+     * @param {?=} doc
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.createTextNode = function (text, doc) {
+        if (doc === void 0) { doc = document; }
+        return doc.createTextNode(text);
+    };
+    /**
+     * @param {?} attrName
+     * @param {?} attrValue
+     * @param {?=} doc
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.createScriptTag = function (attrName, attrValue, doc) {
+        if (doc === void 0) { doc = document; }
+        var /** @type {?} */ el = (doc.createElement('SCRIPT'));
+        el.setAttribute(attrName, attrValue);
+        return el;
+    };
+    /**
+     * @param {?} css
+     * @param {?=} doc
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.createStyleElement = function (css, doc) {
+        if (doc === void 0) { doc = document; }
+        var /** @type {?} */ style = (doc.createElement('style'));
+        this.appendChild(style, this.createTextNode(css));
+        return style;
+    };
+    /**
+     * @param {?} el
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.createShadowRoot = function (el) { return ((el)).createShadowRoot(); };
+    /**
+     * @param {?} el
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.getShadowRoot = function (el) { return ((el)).shadowRoot; };
+    /**
+     * @param {?} el
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.getHost = function (el) { return ((el)).host; };
+    /**
+     * @param {?} node
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.clone = function (node) { return node.cloneNode(true); };
+    /**
+     * @param {?} element
+     * @param {?} name
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.getElementsByClassName = function (element, name) {
+        return element.getElementsByClassName(name);
+    };
+    /**
+     * @param {?} element
+     * @param {?} name
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.getElementsByTagName = function (element, name) {
+        return element.getElementsByTagName(name);
+    };
+    /**
+     * @param {?} element
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.classList = function (element) { return Array.prototype.slice.call(element.classList, 0); };
+    /**
+     * @param {?} element
+     * @param {?} className
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.addClass = function (element, className) { element.classList.add(className); };
+    /**
+     * @param {?} element
+     * @param {?} className
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.removeClass = function (element, className) { element.classList.remove(className); };
+    /**
+     * @param {?} element
+     * @param {?} className
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.hasClass = function (element, className) {
+        return element.classList.contains(className);
+    };
+    /**
+     * @param {?} element
+     * @param {?} styleName
+     * @param {?} styleValue
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.setStyle = function (element, styleName, styleValue) {
+        element.style[styleName] = styleValue;
+    };
+    /**
+     * @param {?} element
+     * @param {?} stylename
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.removeStyle = function (element, stylename) {
+        // IE requires '' instead of null
+        // see https://github.com/angular/angular/issues/7916
+        element.style[stylename] = '';
+    };
+    /**
+     * @param {?} element
+     * @param {?} stylename
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.getStyle = function (element, stylename) { return element.style[stylename]; };
+    /**
+     * @param {?} element
+     * @param {?} styleName
+     * @param {?=} styleValue
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.hasStyle = function (element, styleName, styleValue) {
+        if (styleValue === void 0) { styleValue = null; }
+        var /** @type {?} */ value = this.getStyle(element, styleName) || '';
+        return styleValue ? value == styleValue : value.length > 0;
+    };
+    /**
+     * @param {?} element
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.tagName = function (element) { return element.tagName; };
+    /**
+     * @param {?} element
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.attributeMap = function (element) {
+        var /** @type {?} */ res = new Map();
+        var /** @type {?} */ elAttrs = element.attributes;
+        for (var /** @type {?} */ i = 0; i < elAttrs.length; i++) {
+            var /** @type {?} */ attrib = elAttrs[i];
+            res.set(attrib.name, attrib.value);
+        }
+        return res;
+    };
+    /**
+     * @param {?} element
+     * @param {?} attribute
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.hasAttribute = function (element, attribute) {
+        return element.hasAttribute(attribute);
+    };
+    /**
+     * @param {?} element
+     * @param {?} ns
+     * @param {?} attribute
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.hasAttributeNS = function (element, ns, attribute) {
+        return element.hasAttributeNS(ns, attribute);
+    };
+    /**
+     * @param {?} element
+     * @param {?} attribute
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.getAttribute = function (element, attribute) {
+        return element.getAttribute(attribute);
+    };
+    /**
+     * @param {?} element
+     * @param {?} ns
+     * @param {?} name
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.getAttributeNS = function (element, ns, name) {
+        return element.getAttributeNS(ns, name);
+    };
+    /**
+     * @param {?} element
+     * @param {?} name
+     * @param {?} value
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.setAttribute = function (element, name, value) { element.setAttribute(name, value); };
+    /**
+     * @param {?} element
+     * @param {?} ns
+     * @param {?} name
+     * @param {?} value
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.setAttributeNS = function (element, ns, name, value) {
+        element.setAttributeNS(ns, name, value);
+    };
+    /**
+     * @param {?} element
+     * @param {?} attribute
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.removeAttribute = function (element, attribute) { element.removeAttribute(attribute); };
+    /**
+     * @param {?} element
+     * @param {?} ns
+     * @param {?} name
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.removeAttributeNS = function (element, ns, name) {
+        element.removeAttributeNS(ns, name);
+    };
+    /**
+     * @param {?} el
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.templateAwareRoot = function (el) { return this.isTemplateElement(el) ? this.content(el) : el; };
+    /**
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.createHtmlDocument = function () {
+        return document.implementation.createHTMLDocument('fakeTitle');
+    };
+    /**
+     * @param {?} el
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.getBoundingClientRect = function (el) {
+        try {
+            return el.getBoundingClientRect();
+        }
+        catch (e) {
+            return { top: 0, bottom: 0, left: 0, right: 0, width: 0, height: 0 };
+        }
+    };
+    /**
+     * @param {?} doc
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.getTitle = function (doc) { return document.title; };
+    /**
+     * @param {?} doc
+     * @param {?} newTitle
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.setTitle = function (doc, newTitle) { document.title = newTitle || ''; };
+    /**
+     * @param {?} n
+     * @param {?} selector
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.elementMatches = function (n, selector) {
+        if (n instanceof HTMLElement) {
+            return n.matches && n.matches(selector) ||
+                n.msMatchesSelector && n.msMatchesSelector(selector) ||
+                n.webkitMatchesSelector && n.webkitMatchesSelector(selector);
+        }
+        return false;
+    };
+    /**
+     * @param {?} el
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.isTemplateElement = function (el) {
+        return el instanceof HTMLElement && el.nodeName == 'TEMPLATE';
+    };
+    /**
+     * @param {?} node
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.isTextNode = function (node) { return node.nodeType === Node.TEXT_NODE; };
+    /**
+     * @param {?} node
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.isCommentNode = function (node) { return node.nodeType === Node.COMMENT_NODE; };
+    /**
+     * @param {?} node
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.isElementNode = function (node) { return node.nodeType === Node.ELEMENT_NODE; };
+    /**
+     * @param {?} node
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.hasShadowRoot = function (node) {
+        return node.shadowRoot != null && node instanceof HTMLElement;
+    };
+    /**
+     * @param {?} node
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.isShadowRoot = function (node) { return node instanceof DocumentFragment; };
+    /**
+     * @param {?} node
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.importIntoDoc = function (node) { return document.importNode(this.templateAwareRoot(node), true); };
+    /**
+     * @param {?} node
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.adoptNode = function (node) { return document.adoptNode(node); };
+    /**
+     * @param {?} el
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.getHref = function (el) { return ((el)).href; };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.getEventKey = function (event) {
+        var /** @type {?} */ key = event.key;
+        if (key == null) {
+            key = event.keyIdentifier;
+            // keyIdentifier is defined in the old draft of DOM Level 3 Events implemented by Chrome and
+            // Safari cf
+            // http://www.w3.org/TR/2007/WD-DOM-Level-3-Events-20071221/events.html#Events-KeyboardEvents-Interfaces
+            if (key == null) {
+                return 'Unidentified';
+            }
+            if (key.startsWith('U+')) {
+                key = String.fromCharCode(parseInt(key.substring(2), 16));
+                if (event.location === DOM_KEY_LOCATION_NUMPAD && _chromeNumKeyPadMap.hasOwnProperty(key)) {
+                    // There is a bug in Chrome for numeric keypad keys:
+                    // https://code.google.com/p/chromium/issues/detail?id=155654
+                    // 1, 2, 3 ... are reported as A, B, C ...
+                    key = ((_chromeNumKeyPadMap))[key];
+                }
+            }
+        }
+        return _keyMap[key] || key;
+    };
+    /**
+     * @param {?} doc
+     * @param {?} target
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.getGlobalEventTarget = function (doc, target) {
+        if (target === 'window') {
+            return window;
+        }
+        if (target === 'document') {
+            return document;
+        }
+        if (target === 'body') {
+            return document.body;
+        }
+    };
+    /**
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.getHistory = function () { return window.history; };
+    /**
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.getLocation = function () { return window.location; };
+    /**
+     * @param {?} doc
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.getBaseHref = function (doc) {
+        var /** @type {?} */ href = getBaseElementHref();
+        return href == null ? null : relativePath(href);
+    };
+    /**
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.resetBaseElement = function () { baseElement = null; };
+    /**
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.getUserAgent = function () { return window.navigator.userAgent; };
+    /**
+     * @param {?} element
+     * @param {?} name
+     * @param {?} value
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.setData = function (element, name, value) {
+        this.setAttribute(element, 'data-' + name, value);
+    };
+    /**
+     * @param {?} element
+     * @param {?} name
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.getData = function (element, name) {
+        return this.getAttribute(element, 'data-' + name);
+    };
+    /**
+     * @param {?} element
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.getComputedStyle = function (element) { return getComputedStyle(element); };
+    /**
+     * @param {?} path
+     * @param {?} value
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.setGlobalVar = function (path, value) { setValueOnPath(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_11" /* ɵglobal */], path, value); };
+    /**
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.supportsWebAnimation = function () {
+        return typeof ((Element)).prototype['animate'] === 'function';
+    };
+    /**
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.performanceNow = function () {
+        // performance.now() is not available in all browsers, see
+        // http://caniuse.com/#search=performance.now
+        return window.performance && window.performance.now ? window.performance.now() :
+            new Date().getTime();
+    };
+    /**
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.supportsCookies = function () { return true; };
+    /**
+     * @param {?} name
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.getCookie = function (name) { return parseCookieValue(document.cookie, name); };
+    /**
+     * @param {?} name
+     * @param {?} value
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.setCookie = function (name, value) {
+        // document.cookie is magical, assigning into it assigns/overrides one cookie value, but does
+        // not clear other cookies.
+        document.cookie = encodeURIComponent(name) + '=' + encodeURIComponent(value);
+    };
+    return BrowserDomAdapter;
+}(GenericBrowserDomAdapter));
+var baseElement = null;
 /**
- * @class AnonymousSubject<T>
+ * @return {?}
  */
-var AnonymousSubject = (function (_super) {
-    __extends(AnonymousSubject, _super);
-    function AnonymousSubject(destination, source) {
-        _super.call(this);
-        this.destination = destination;
-        this.source = source;
+function getBaseElementHref() {
+    if (!baseElement) {
+        baseElement = document.querySelector('base');
+        if (!baseElement) {
+            return null;
+        }
     }
-    AnonymousSubject.prototype.next = function (value) {
-        var destination = this.destination;
-        if (destination && destination.next) {
-            destination.next(value);
+    return baseElement.getAttribute('href');
+}
+// based on urlUtils.js in AngularJS 1
+var urlParsingNode;
+/**
+ * @param {?} url
+ * @return {?}
+ */
+function relativePath(url) {
+    if (!urlParsingNode) {
+        urlParsingNode = document.createElement('a');
+    }
+    urlParsingNode.setAttribute('href', url);
+    return (urlParsingNode.pathname.charAt(0) === '/') ? urlParsingNode.pathname :
+        '/' + urlParsingNode.pathname;
+}
+/**
+ * @param {?} cookieStr
+ * @param {?} name
+ * @return {?}
+ */
+function parseCookieValue(cookieStr, name) {
+    name = encodeURIComponent(name);
+    for (var _i = 0, _a = cookieStr.split(';'); _i < _a.length; _i++) {
+        var cookie = _a[_i];
+        var /** @type {?} */ eqIndex = cookie.indexOf('=');
+        var _b = eqIndex == -1 ? [cookie, ''] : [cookie.slice(0, eqIndex), cookie.slice(eqIndex + 1)], cookieName = _b[0], cookieValue = _b[1];
+        if (cookieName.trim() === name) {
+            return decodeURIComponent(cookieValue);
         }
-    };
-    AnonymousSubject.prototype.error = function (err) {
-        var destination = this.destination;
-        if (destination && destination.error) {
-            this.destination.error(err);
-        }
-    };
-    AnonymousSubject.prototype.complete = function () {
-        var destination = this.destination;
-        if (destination && destination.complete) {
-            this.destination.complete();
-        }
-    };
-    AnonymousSubject.prototype._subscribe = function (subscriber) {
-        var source = this.source;
-        if (source) {
-            return this.source.subscribe(subscriber);
+    }
+    return null;
+}
+/**
+ * @param {?} global
+ * @param {?} path
+ * @param {?} value
+ * @return {?}
+ */
+function setValueOnPath(global, path, value) {
+    var /** @type {?} */ parts = path.split('.');
+    var /** @type {?} */ obj = global;
+    while (parts.length > 1) {
+        var /** @type {?} */ name = parts.shift();
+        if (obj.hasOwnProperty(name) && obj[name] != null) {
+            obj = obj[name];
         }
         else {
-            return Subscription_1.Subscription.EMPTY;
+            obj = obj[name] = {};
+        }
+    }
+    if (obj === undefined || obj === null) {
+        obj = {};
+    }
+    obj[parts.shift()] = value;
+}
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * A DI Token representing the main rendering context. In a browser this is the DOM Document.
+ *
+ * Note: Document might not be available in the Application Context when Application and Rendering
+ * Contexts are not the same (e.g. when running the application into a Web Worker).
+ *
+ * \@stable
+ */
+var DOCUMENT = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["D" /* InjectionToken */]('DocumentToken');
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ * @return {?}
+ */
+function supportsState() {
+    return !!window.history.pushState;
+}
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * `PlatformLocation` encapsulates all of the direct calls to platform APIs.
+ * This class should not be used directly by an application developer. Instead, use
+ * {\@link Location}.
+ */
+var BrowserPlatformLocation = (function (_super) {
+    __extends(BrowserPlatformLocation, _super);
+    /**
+     * @param {?} _doc
+     */
+    function BrowserPlatformLocation(_doc) {
+        var _this = _super.call(this) || this;
+        _this._doc = _doc;
+        _this._init();
+        return _this;
+    }
+    /**
+     * \@internal
+     * @return {?}
+     */
+    BrowserPlatformLocation.prototype._init = function () {
+        this._location = getDOM().getLocation();
+        this._history = getDOM().getHistory();
+    };
+    Object.defineProperty(BrowserPlatformLocation.prototype, "location", {
+        /**
+         * @return {?}
+         */
+        get: function () { return this._location; },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    BrowserPlatformLocation.prototype.getBaseHrefFromDOM = function () { return getDOM().getBaseHref(this._doc); };
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+    BrowserPlatformLocation.prototype.onPopState = function (fn) {
+        getDOM().getGlobalEventTarget(this._doc, 'window').addEventListener('popstate', fn, false);
+    };
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+    BrowserPlatformLocation.prototype.onHashChange = function (fn) {
+        getDOM().getGlobalEventTarget(this._doc, 'window').addEventListener('hashchange', fn, false);
+    };
+    Object.defineProperty(BrowserPlatformLocation.prototype, "pathname", {
+        /**
+         * @return {?}
+         */
+        get: function () { return this._location.pathname; },
+        /**
+         * @param {?} newPath
+         * @return {?}
+         */
+        set: function (newPath) { this._location.pathname = newPath; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(BrowserPlatformLocation.prototype, "search", {
+        /**
+         * @return {?}
+         */
+        get: function () { return this._location.search; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(BrowserPlatformLocation.prototype, "hash", {
+        /**
+         * @return {?}
+         */
+        get: function () { return this._location.hash; },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @param {?} state
+     * @param {?} title
+     * @param {?} url
+     * @return {?}
+     */
+    BrowserPlatformLocation.prototype.pushState = function (state, title, url) {
+        if (supportsState()) {
+            this._history.pushState(state, title, url);
+        }
+        else {
+            this._location.hash = url;
         }
     };
-    return AnonymousSubject;
-}(Subject));
-exports.AnonymousSubject = AnonymousSubject;
-//# sourceMappingURL=Subject.js.map
+    /**
+     * @param {?} state
+     * @param {?} title
+     * @param {?} url
+     * @return {?}
+     */
+    BrowserPlatformLocation.prototype.replaceState = function (state, title, url) {
+        if (supportsState()) {
+            this._history.replaceState(state, title, url);
+        }
+        else {
+            this._location.hash = url;
+        }
+    };
+    /**
+     * @return {?}
+     */
+    BrowserPlatformLocation.prototype.forward = function () { this._history.forward(); };
+    /**
+     * @return {?}
+     */
+    BrowserPlatformLocation.prototype.back = function () { this._history.back(); };
+    return BrowserPlatformLocation;
+}(__WEBPACK_IMPORTED_MODULE_0__angular_common__["c" /* PlatformLocation */]));
+BrowserPlatformLocation.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["X" /* Injectable */] },
+];
+/**
+ * @nocollapse
+ */
+BrowserPlatformLocation.ctorParameters = function () { return [
+    { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["_1" /* Inject */], args: [DOCUMENT,] },] },
+]; };
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * A service that can be used to get and add meta tags.
+ *
+ * \@experimental
+ */
+var Meta = (function () {
+    /**
+     * @param {?} _doc
+     */
+    function Meta(_doc) {
+        this._doc = _doc;
+        this._dom = getDOM();
+    }
+    /**
+     * @param {?} tag
+     * @param {?=} forceCreation
+     * @return {?}
+     */
+    Meta.prototype.addTag = function (tag, forceCreation) {
+        if (forceCreation === void 0) { forceCreation = false; }
+        if (!tag)
+            return null;
+        return this._getOrCreateElement(tag, forceCreation);
+    };
+    /**
+     * @param {?} tags
+     * @param {?=} forceCreation
+     * @return {?}
+     */
+    Meta.prototype.addTags = function (tags, forceCreation) {
+        var _this = this;
+        if (forceCreation === void 0) { forceCreation = false; }
+        if (!tags)
+            return [];
+        return tags.reduce(function (result, tag) {
+            if (tag) {
+                result.push(_this._getOrCreateElement(tag, forceCreation));
+            }
+            return result;
+        }, []);
+    };
+    /**
+     * @param {?} attrSelector
+     * @return {?}
+     */
+    Meta.prototype.getTag = function (attrSelector) {
+        if (!attrSelector)
+            return null;
+        return this._dom.querySelector(this._doc, "meta[" + attrSelector + "]");
+    };
+    /**
+     * @param {?} attrSelector
+     * @return {?}
+     */
+    Meta.prototype.getTags = function (attrSelector) {
+        if (!attrSelector)
+            return [];
+        var /** @type {?} */ list /*NodeList*/ = this._dom.querySelectorAll(this._doc, "meta[" + attrSelector + "]");
+        return list ? [].slice.call(list) : [];
+    };
+    /**
+     * @param {?} tag
+     * @param {?=} selector
+     * @return {?}
+     */
+    Meta.prototype.updateTag = function (tag, selector) {
+        if (!tag)
+            return null;
+        selector = selector || this._parseSelector(tag);
+        var /** @type {?} */ meta = this.getTag(selector);
+        if (meta) {
+            return this._setMetaElementAttributes(tag, meta);
+        }
+        return this._getOrCreateElement(tag, true);
+    };
+    /**
+     * @param {?} attrSelector
+     * @return {?}
+     */
+    Meta.prototype.removeTag = function (attrSelector) { this.removeTagElement(this.getTag(attrSelector)); };
+    /**
+     * @param {?} meta
+     * @return {?}
+     */
+    Meta.prototype.removeTagElement = function (meta) {
+        if (meta) {
+            this._dom.remove(meta);
+        }
+    };
+    /**
+     * @param {?} meta
+     * @param {?=} forceCreation
+     * @return {?}
+     */
+    Meta.prototype._getOrCreateElement = function (meta, forceCreation) {
+        if (forceCreation === void 0) { forceCreation = false; }
+        if (!forceCreation) {
+            var /** @type {?} */ selector = this._parseSelector(meta);
+            var /** @type {?} */ elem = this.getTag(selector);
+            // It's allowed to have multiple elements with the same name so it's not enough to
+            // just check that element with the same name already present on the page. We also need to
+            // check if element has tag attributes
+            if (elem && this._containsAttributes(meta, elem))
+                return elem;
+        }
+        var /** @type {?} */ element = (this._dom.createElement('meta'));
+        this._setMetaElementAttributes(meta, element);
+        var /** @type {?} */ head = this._dom.getElementsByTagName(this._doc, 'head')[0];
+        this._dom.appendChild(head, element);
+        return element;
+    };
+    /**
+     * @param {?} tag
+     * @param {?} el
+     * @return {?}
+     */
+    Meta.prototype._setMetaElementAttributes = function (tag, el) {
+        var _this = this;
+        Object.keys(tag).forEach(function (prop) { return _this._dom.setAttribute(el, prop, tag[prop]); });
+        return el;
+    };
+    /**
+     * @param {?} tag
+     * @return {?}
+     */
+    Meta.prototype._parseSelector = function (tag) {
+        var /** @type {?} */ attr = tag.name ? 'name' : 'property';
+        return attr + "=\"" + tag[attr] + "\"";
+    };
+    /**
+     * @param {?} tag
+     * @param {?} elem
+     * @return {?}
+     */
+    Meta.prototype._containsAttributes = function (tag, elem) {
+        var _this = this;
+        return Object.keys(tag).every(function (key) { return _this._dom.getAttribute(elem, key) === tag[key]; });
+    };
+    return Meta;
+}());
+Meta.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["X" /* Injectable */] },
+];
+/**
+ * @nocollapse
+ */
+Meta.ctorParameters = function () { return [
+    { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["_1" /* Inject */], args: [DOCUMENT,] },] },
+]; };
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * An id that identifies a particular application being bootstrapped, that should
+ * match across the client/server boundary.
+ */
+var TRANSITION_ID = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["D" /* InjectionToken */]('TRANSITION_ID');
+/**
+ * @param {?} transitionId
+ * @param {?} document
+ * @return {?}
+ */
+function bootstrapListenerFactory(transitionId, document) {
+    var /** @type {?} */ factory = function () {
+        var /** @type {?} */ dom = getDOM();
+        var /** @type {?} */ styles = Array.prototype.slice.apply(dom.querySelectorAll(document, "style[ng-transition]"));
+        styles.filter(function (el) { return dom.getAttribute(el, 'ng-transition') === transitionId; })
+            .forEach(function (el) { return dom.remove(el); });
+    };
+    return factory;
+}
+var SERVER_TRANSITION_PROVIDERS = [
+    {
+        provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["s" /* APP_INITIALIZER */],
+        useFactory: bootstrapListenerFactory,
+        deps: [TRANSITION_ID, DOCUMENT],
+        multi: true
+    },
+];
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+var BrowserGetTestability = (function () {
+    function BrowserGetTestability() {
+    }
+    /**
+     * @return {?}
+     */
+    BrowserGetTestability.init = function () { __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_12" /* setTestabilityGetter */])(new BrowserGetTestability()); };
+    /**
+     * @param {?} registry
+     * @return {?}
+     */
+    BrowserGetTestability.prototype.addToWindow = function (registry) {
+        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_11" /* ɵglobal */]['getAngularTestability'] = function (elem, findInAncestors) {
+            if (findInAncestors === void 0) { findInAncestors = true; }
+            var /** @type {?} */ testability = registry.findTestabilityInTree(elem, findInAncestors);
+            if (testability == null) {
+                throw new Error('Could not find testability for element.');
+            }
+            return testability;
+        };
+        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_11" /* ɵglobal */]['getAllAngularTestabilities'] = function () { return registry.getAllTestabilities(); };
+        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_11" /* ɵglobal */]['getAllAngularRootElements'] = function () { return registry.getAllRootElements(); };
+        var /** @type {?} */ whenAllStable = function (callback /** TODO #9100 */) {
+            var /** @type {?} */ testabilities = __WEBPACK_IMPORTED_MODULE_1__angular_core__["_11" /* ɵglobal */]['getAllAngularTestabilities']();
+            var /** @type {?} */ count = testabilities.length;
+            var /** @type {?} */ didWork = false;
+            var /** @type {?} */ decrement = function (didWork_ /** TODO #9100 */) {
+                didWork = didWork || didWork_;
+                count--;
+                if (count == 0) {
+                    callback(didWork);
+                }
+            };
+            testabilities.forEach(function (testability /** TODO #9100 */) {
+                testability.whenStable(decrement);
+            });
+        };
+        if (!__WEBPACK_IMPORTED_MODULE_1__angular_core__["_11" /* ɵglobal */]['frameworkStabilizers']) {
+            __WEBPACK_IMPORTED_MODULE_1__angular_core__["_11" /* ɵglobal */]['frameworkStabilizers'] = [];
+        }
+        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_11" /* ɵglobal */]['frameworkStabilizers'].push(whenAllStable);
+    };
+    /**
+     * @param {?} registry
+     * @param {?} elem
+     * @param {?} findInAncestors
+     * @return {?}
+     */
+    BrowserGetTestability.prototype.findTestabilityInTree = function (registry, elem, findInAncestors) {
+        if (elem == null) {
+            return null;
+        }
+        var /** @type {?} */ t = registry.getTestability(elem);
+        if (t != null) {
+            return t;
+        }
+        else if (!findInAncestors) {
+            return null;
+        }
+        if (getDOM().isShadowRoot(elem)) {
+            return this.findTestabilityInTree(registry, getDOM().getHost(elem), true);
+        }
+        return this.findTestabilityInTree(registry, getDOM().parentElement(elem), true);
+    };
+    return BrowserGetTestability;
+}());
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * A service that can be used to get and set the title of a current HTML document.
+ *
+ * Since an Angular application can't be bootstrapped on the entire HTML document (`<html>` tag)
+ * it is not possible to bind to the `text` property of the `HTMLTitleElement` elements
+ * (representing the `<title>` tag). Instead, this service can be used to set and get the current
+ * title value.
+ *
+ * \@experimental
+ */
+var Title = (function () {
+    /**
+     * @param {?} _doc
+     */
+    function Title(_doc) {
+        this._doc = _doc;
+    }
+    /**
+     * Get the title of the current HTML document.
+     * @return {?}
+     */
+    Title.prototype.getTitle = function () { return getDOM().getTitle(this._doc); };
+    /**
+     * Set the title of the current HTML document.
+     * @param {?} newTitle
+     * @return {?}
+     */
+    Title.prototype.setTitle = function (newTitle) { getDOM().setTitle(this._doc, newTitle); };
+    return Title;
+}());
+Title.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["X" /* Injectable */] },
+];
+/**
+ * @nocollapse
+ */
+Title.ctorParameters = function () { return [
+    { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["_1" /* Inject */], args: [DOCUMENT,] },] },
+]; };
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+var __assign = (undefined && undefined.__assign) || Object.assign || function (t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s)
+            if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+    }
+    return t;
+};
+var CORE_TOKENS = {
+    'ApplicationRef': __WEBPACK_IMPORTED_MODULE_1__angular_core__["t" /* ApplicationRef */],
+    'NgZone': __WEBPACK_IMPORTED_MODULE_1__angular_core__["g" /* NgZone */],
+};
+var INSPECT_GLOBAL_NAME = 'ng.probe';
+var CORE_TOKENS_GLOBAL_NAME = 'ng.coreTokens';
+/**
+ * Returns a {\@link DebugElement} for the given native DOM element, or
+ * null if the given native element does not have an Angular view associated
+ * with it.
+ * @param {?} element
+ * @return {?}
+ */
+function inspectNativeElement(element) {
+    return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_13" /* getDebugNode */])(element);
+}
+/**
+ * Deprecated. Use the one from '\@angular/core'.
+ * @deprecated
+ */
+var NgProbeToken$1 = (function () {
+    /**
+     * @param {?} name
+     * @param {?} token
+     */
+    function NgProbeToken$1(name, token) {
+        this.name = name;
+        this.token = token;
+    }
+    return NgProbeToken$1;
+}());
+/**
+ * @param {?} extraTokens
+ * @param {?} coreTokens
+ * @return {?}
+ */
+function _createNgProbe(extraTokens, coreTokens) {
+    var /** @type {?} */ tokens = (extraTokens || []).concat(coreTokens || []);
+    getDOM().setGlobalVar(INSPECT_GLOBAL_NAME, inspectNativeElement);
+    getDOM().setGlobalVar(CORE_TOKENS_GLOBAL_NAME, __assign({}, CORE_TOKENS, _ngProbeTokensToMap(tokens || [])));
+    return function () { return inspectNativeElement; };
+}
+/**
+ * @param {?} tokens
+ * @return {?}
+ */
+function _ngProbeTokensToMap(tokens) {
+    return tokens.reduce(function (prev, t) { return (prev[t.name] = t.token, prev); }, {});
+}
+/**
+ * Providers which support debugging Angular applications (e.g. via `ng.probe`).
+ */
+var ELEMENT_PROBE_PROVIDERS = [
+    {
+        provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["s" /* APP_INITIALIZER */],
+        useFactory: _createNgProbe,
+        deps: [
+            [NgProbeToken$1, new __WEBPACK_IMPORTED_MODULE_1__angular_core__["Z" /* Optional */]()],
+            [__WEBPACK_IMPORTED_MODULE_1__angular_core__["r" /* NgProbeToken */], new __WEBPACK_IMPORTED_MODULE_1__angular_core__["Z" /* Optional */]()],
+        ],
+        multi: true,
+    },
+];
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * \@stable
+ */
+var EVENT_MANAGER_PLUGINS = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["D" /* InjectionToken */]('EventManagerPlugins');
+/**
+ * \@stable
+ */
+var EventManager = (function () {
+    /**
+     * @param {?} plugins
+     * @param {?} _zone
+     */
+    function EventManager(plugins, _zone) {
+        var _this = this;
+        this._zone = _zone;
+        this._eventNameToPlugin = new Map();
+        plugins.forEach(function (p) { return p.manager = _this; });
+        this._plugins = plugins.slice().reverse();
+    }
+    /**
+     * @param {?} element
+     * @param {?} eventName
+     * @param {?} handler
+     * @return {?}
+     */
+    EventManager.prototype.addEventListener = function (element, eventName, handler) {
+        var /** @type {?} */ plugin = this._findPluginFor(eventName);
+        return plugin.addEventListener(element, eventName, handler);
+    };
+    /**
+     * @param {?} target
+     * @param {?} eventName
+     * @param {?} handler
+     * @return {?}
+     */
+    EventManager.prototype.addGlobalEventListener = function (target, eventName, handler) {
+        var /** @type {?} */ plugin = this._findPluginFor(eventName);
+        return plugin.addGlobalEventListener(target, eventName, handler);
+    };
+    /**
+     * @return {?}
+     */
+    EventManager.prototype.getZone = function () { return this._zone; };
+    /**
+     * \@internal
+     * @param {?} eventName
+     * @return {?}
+     */
+    EventManager.prototype._findPluginFor = function (eventName) {
+        var /** @type {?} */ plugin = this._eventNameToPlugin.get(eventName);
+        if (plugin) {
+            return plugin;
+        }
+        var /** @type {?} */ plugins = this._plugins;
+        for (var /** @type {?} */ i = 0; i < plugins.length; i++) {
+            var /** @type {?} */ plugin_1 = plugins[i];
+            if (plugin_1.supports(eventName)) {
+                this._eventNameToPlugin.set(eventName, plugin_1);
+                return plugin_1;
+            }
+        }
+        throw new Error("No event manager plugin found for event " + eventName);
+    };
+    return EventManager;
+}());
+EventManager.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["X" /* Injectable */] },
+];
+/**
+ * @nocollapse
+ */
+EventManager.ctorParameters = function () { return [
+    { type: Array, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["_1" /* Inject */], args: [EVENT_MANAGER_PLUGINS,] },] },
+    { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["g" /* NgZone */], },
+]; };
+/**
+ * @abstract
+ */
+var EventManagerPlugin = (function () {
+    /**
+     * @param {?} _doc
+     */
+    function EventManagerPlugin(_doc) {
+        this._doc = _doc;
+    }
+    /**
+     * @abstract
+     * @param {?} eventName
+     * @return {?}
+     */
+    EventManagerPlugin.prototype.supports = function (eventName) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} eventName
+     * @param {?} handler
+     * @return {?}
+     */
+    EventManagerPlugin.prototype.addEventListener = function (element, eventName, handler) { };
+    /**
+     * @param {?} element
+     * @param {?} eventName
+     * @param {?} handler
+     * @return {?}
+     */
+    EventManagerPlugin.prototype.addGlobalEventListener = function (element, eventName, handler) {
+        var /** @type {?} */ target = getDOM().getGlobalEventTarget(this._doc, element);
+        if (!target) {
+            throw new Error("Unsupported event target " + target + " for event " + eventName);
+        }
+        return this.addEventListener(target, eventName, handler);
+    };
+    ;
+    return EventManagerPlugin;
+}());
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+var SharedStylesHost = (function () {
+    function SharedStylesHost() {
+        /**
+         * \@internal
+         */
+        this._stylesSet = new Set();
+    }
+    /**
+     * @param {?} styles
+     * @return {?}
+     */
+    SharedStylesHost.prototype.addStyles = function (styles) {
+        var _this = this;
+        var /** @type {?} */ additions = new Set();
+        styles.forEach(function (style) {
+            if (!_this._stylesSet.has(style)) {
+                _this._stylesSet.add(style);
+                additions.add(style);
+            }
+        });
+        this.onStylesAdded(additions);
+    };
+    /**
+     * @param {?} additions
+     * @return {?}
+     */
+    SharedStylesHost.prototype.onStylesAdded = function (additions) { };
+    /**
+     * @return {?}
+     */
+    SharedStylesHost.prototype.getAllStyles = function () { return Array.from(this._stylesSet); };
+    return SharedStylesHost;
+}());
+SharedStylesHost.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["X" /* Injectable */] },
+];
+/**
+ * @nocollapse
+ */
+SharedStylesHost.ctorParameters = function () { return []; };
+var DomSharedStylesHost = (function (_super) {
+    __extends(DomSharedStylesHost, _super);
+    /**
+     * @param {?} _doc
+     */
+    function DomSharedStylesHost(_doc) {
+        var _this = _super.call(this) || this;
+        _this._doc = _doc;
+        _this._hostNodes = new Set();
+        _this._styleNodes = new Set();
+        _this._hostNodes.add(_doc.head);
+        return _this;
+    }
+    /**
+     * @param {?} styles
+     * @param {?} host
+     * @return {?}
+     */
+    DomSharedStylesHost.prototype._addStylesToHost = function (styles, host) {
+        var _this = this;
+        styles.forEach(function (style) {
+            var /** @type {?} */ styleEl = _this._doc.createElement('style');
+            styleEl.textContent = style;
+            _this._styleNodes.add(host.appendChild(styleEl));
+        });
+    };
+    /**
+     * @param {?} hostNode
+     * @return {?}
+     */
+    DomSharedStylesHost.prototype.addHost = function (hostNode) {
+        this._addStylesToHost(this._stylesSet, hostNode);
+        this._hostNodes.add(hostNode);
+    };
+    /**
+     * @param {?} hostNode
+     * @return {?}
+     */
+    DomSharedStylesHost.prototype.removeHost = function (hostNode) { this._hostNodes.delete(hostNode); };
+    /**
+     * @param {?} additions
+     * @return {?}
+     */
+    DomSharedStylesHost.prototype.onStylesAdded = function (additions) {
+        var _this = this;
+        this._hostNodes.forEach(function (hostNode) { return _this._addStylesToHost(additions, hostNode); });
+    };
+    /**
+     * @return {?}
+     */
+    DomSharedStylesHost.prototype.ngOnDestroy = function () { this._styleNodes.forEach(function (styleNode) { return getDOM().remove(styleNode); }); };
+    return DomSharedStylesHost;
+}(SharedStylesHost));
+DomSharedStylesHost.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["X" /* Injectable */] },
+];
+/**
+ * @nocollapse
+ */
+DomSharedStylesHost.ctorParameters = function () { return [
+    { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["_1" /* Inject */], args: [DOCUMENT,] },] },
+]; };
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+var NAMESPACE_URIS = {
+    'svg': 'http://www.w3.org/2000/svg',
+    'xhtml': 'http://www.w3.org/1999/xhtml',
+    'xlink': 'http://www.w3.org/1999/xlink',
+    'xml': 'http://www.w3.org/XML/1998/namespace',
+    'xmlns': 'http://www.w3.org/2000/xmlns/',
+};
+var COMPONENT_REGEX = /%COMP%/g;
+var COMPONENT_VARIABLE = '%COMP%';
+var HOST_ATTR = "_nghost-" + COMPONENT_VARIABLE;
+var CONTENT_ATTR = "_ngcontent-" + COMPONENT_VARIABLE;
+/**
+ * @param {?} componentShortId
+ * @return {?}
+ */
+function shimContentAttribute(componentShortId) {
+    return CONTENT_ATTR.replace(COMPONENT_REGEX, componentShortId);
+}
+/**
+ * @param {?} componentShortId
+ * @return {?}
+ */
+function shimHostAttribute(componentShortId) {
+    return HOST_ATTR.replace(COMPONENT_REGEX, componentShortId);
+}
+/**
+ * @param {?} compId
+ * @param {?} styles
+ * @param {?} target
+ * @return {?}
+ */
+function flattenStyles(compId, styles, target) {
+    for (var /** @type {?} */ i = 0; i < styles.length; i++) {
+        var /** @type {?} */ style = styles[i];
+        if (Array.isArray(style)) {
+            flattenStyles(compId, style, target);
+        }
+        else {
+            style = style.replace(COMPONENT_REGEX, compId);
+            target.push(style);
+        }
+    }
+    return target;
+}
+/**
+ * @param {?} eventHandler
+ * @return {?}
+ */
+function decoratePreventDefault(eventHandler) {
+    return function (event) {
+        var /** @type {?} */ allowDefaultBehavior = eventHandler(event);
+        if (allowDefaultBehavior === false) {
+            // TODO(tbosch): move preventDefault into event plugins...
+            event.preventDefault();
+            event.returnValue = false;
+        }
+    };
+}
+var DomRendererFactory2 = (function () {
+    /**
+     * @param {?} eventManager
+     * @param {?} sharedStylesHost
+     */
+    function DomRendererFactory2(eventManager, sharedStylesHost) {
+        this.eventManager = eventManager;
+        this.sharedStylesHost = sharedStylesHost;
+        this.rendererByCompId = new Map();
+        this.defaultRenderer = new DefaultDomRenderer2(eventManager);
+    }
+    ;
+    /**
+     * @param {?} element
+     * @param {?} type
+     * @return {?}
+     */
+    DomRendererFactory2.prototype.createRenderer = function (element, type) {
+        if (!element || !type) {
+            return this.defaultRenderer;
+        }
+        switch (type.encapsulation) {
+            case __WEBPACK_IMPORTED_MODULE_1__angular_core__["_14" /* ViewEncapsulation */].Emulated: {
+                var /** @type {?} */ renderer = this.rendererByCompId.get(type.id);
+                if (!renderer) {
+                    renderer =
+                        new EmulatedEncapsulationDomRenderer2(this.eventManager, this.sharedStylesHost, type);
+                    this.rendererByCompId.set(type.id, renderer);
+                }
+                ((renderer)).applyToHost(element);
+                return renderer;
+            }
+            case __WEBPACK_IMPORTED_MODULE_1__angular_core__["_14" /* ViewEncapsulation */].Native:
+                return new ShadowDomRenderer(this.eventManager, this.sharedStylesHost, element, type);
+            default: {
+                if (!this.rendererByCompId.has(type.id)) {
+                    var /** @type {?} */ styles = flattenStyles(type.id, type.styles, []);
+                    this.sharedStylesHost.addStyles(styles);
+                    this.rendererByCompId.set(type.id, this.defaultRenderer);
+                }
+                return this.defaultRenderer;
+            }
+        }
+    };
+    return DomRendererFactory2;
+}());
+DomRendererFactory2.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["X" /* Injectable */] },
+];
+/**
+ * @nocollapse
+ */
+DomRendererFactory2.ctorParameters = function () { return [
+    { type: EventManager, },
+    { type: DomSharedStylesHost, },
+]; };
+var DefaultDomRenderer2 = (function () {
+    /**
+     * @param {?} eventManager
+     */
+    function DefaultDomRenderer2(eventManager) {
+        this.eventManager = eventManager;
+        this.data = Object.create(null);
+    }
+    /**
+     * @return {?}
+     */
+    DefaultDomRenderer2.prototype.destroy = function () { };
+    /**
+     * @param {?} name
+     * @param {?=} namespace
+     * @return {?}
+     */
+    DefaultDomRenderer2.prototype.createElement = function (name, namespace) {
+        if (namespace) {
+            return document.createElementNS(NAMESPACE_URIS[namespace], name);
+        }
+        return document.createElement(name);
+    };
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    DefaultDomRenderer2.prototype.createComment = function (value) { return document.createComment(value); };
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    DefaultDomRenderer2.prototype.createText = function (value) { return document.createTextNode(value); };
+    /**
+     * @param {?} parent
+     * @param {?} newChild
+     * @return {?}
+     */
+    DefaultDomRenderer2.prototype.appendChild = function (parent, newChild) { parent.appendChild(newChild); };
+    /**
+     * @param {?} parent
+     * @param {?} newChild
+     * @param {?} refChild
+     * @return {?}
+     */
+    DefaultDomRenderer2.prototype.insertBefore = function (parent, newChild, refChild) {
+        if (parent) {
+            parent.insertBefore(newChild, refChild);
+        }
+    };
+    /**
+     * @param {?} parent
+     * @param {?} oldChild
+     * @return {?}
+     */
+    DefaultDomRenderer2.prototype.removeChild = function (parent, oldChild) {
+        if (parent) {
+            parent.removeChild(oldChild);
+        }
+    };
+    /**
+     * @param {?} selectorOrNode
+     * @return {?}
+     */
+    DefaultDomRenderer2.prototype.selectRootElement = function (selectorOrNode) {
+        var /** @type {?} */ el = typeof selectorOrNode === 'string' ? document.querySelector(selectorOrNode) :
+            selectorOrNode;
+        if (!el) {
+            throw new Error("The selector \"" + selectorOrNode + "\" did not match any elements");
+        }
+        el.textContent = '';
+        return el;
+    };
+    /**
+     * @param {?} node
+     * @return {?}
+     */
+    DefaultDomRenderer2.prototype.parentNode = function (node) { return node.parentNode; };
+    /**
+     * @param {?} node
+     * @return {?}
+     */
+    DefaultDomRenderer2.prototype.nextSibling = function (node) { return node.nextSibling; };
+    /**
+     * @param {?} el
+     * @param {?} name
+     * @param {?} value
+     * @param {?=} namespace
+     * @return {?}
+     */
+    DefaultDomRenderer2.prototype.setAttribute = function (el, name, value, namespace) {
+        if (namespace) {
+            name = namespace + ":" + name;
+            var /** @type {?} */ namespaceUri = NAMESPACE_URIS[namespace];
+            if (namespaceUri) {
+                el.setAttributeNS(namespaceUri, name, value);
+            }
+            else {
+                el.setAttribute(name, value);
+            }
+        }
+        else {
+            el.setAttribute(name, value);
+        }
+    };
+    /**
+     * @param {?} el
+     * @param {?} name
+     * @param {?=} namespace
+     * @return {?}
+     */
+    DefaultDomRenderer2.prototype.removeAttribute = function (el, name, namespace) {
+        if (namespace) {
+            var /** @type {?} */ namespaceUri = NAMESPACE_URIS[namespace];
+            if (namespaceUri) {
+                el.removeAttributeNS(namespaceUri, name);
+            }
+            else {
+                el.removeAttribute(namespace + ":" + name);
+            }
+        }
+        else {
+            el.removeAttribute(name);
+        }
+    };
+    /**
+     * @param {?} el
+     * @param {?} name
+     * @return {?}
+     */
+    DefaultDomRenderer2.prototype.addClass = function (el, name) { el.classList.add(name); };
+    /**
+     * @param {?} el
+     * @param {?} name
+     * @return {?}
+     */
+    DefaultDomRenderer2.prototype.removeClass = function (el, name) { el.classList.remove(name); };
+    /**
+     * @param {?} el
+     * @param {?} style
+     * @param {?} value
+     * @param {?} flags
+     * @return {?}
+     */
+    DefaultDomRenderer2.prototype.setStyle = function (el, style, value, flags) {
+        if (flags & __WEBPACK_IMPORTED_MODULE_1__angular_core__["_15" /* RendererStyleFlags2 */].DashCase) {
+            el.style.setProperty(style, value, !!(flags & __WEBPACK_IMPORTED_MODULE_1__angular_core__["_15" /* RendererStyleFlags2 */].Important) ? 'important' : '');
+        }
+        else {
+            el.style[style] = value;
+        }
+    };
+    /**
+     * @param {?} el
+     * @param {?} style
+     * @param {?} flags
+     * @return {?}
+     */
+    DefaultDomRenderer2.prototype.removeStyle = function (el, style, flags) {
+        if (flags & __WEBPACK_IMPORTED_MODULE_1__angular_core__["_15" /* RendererStyleFlags2 */].DashCase) {
+            el.style.removeProperty(style);
+        }
+        else {
+            // IE requires '' instead of null
+            // see https://github.com/angular/angular/issues/7916
+            el.style[style] = '';
+        }
+    };
+    /**
+     * @param {?} el
+     * @param {?} name
+     * @param {?} value
+     * @return {?}
+     */
+    DefaultDomRenderer2.prototype.setProperty = function (el, name, value) {
+        checkNoSyntheticProp(name, 'property');
+        el[name] = value;
+    };
+    /**
+     * @param {?} node
+     * @param {?} value
+     * @return {?}
+     */
+    DefaultDomRenderer2.prototype.setValue = function (node, value) { node.nodeValue = value; };
+    /**
+     * @param {?} target
+     * @param {?} event
+     * @param {?} callback
+     * @return {?}
+     */
+    DefaultDomRenderer2.prototype.listen = function (target, event, callback) {
+        checkNoSyntheticProp(event, 'listener');
+        if (typeof target === 'string') {
+            return (this.eventManager.addGlobalEventListener(target, event, decoratePreventDefault(callback)));
+        }
+        return ((this.eventManager.addEventListener(target, event, decoratePreventDefault(callback))));
+    };
+    return DefaultDomRenderer2;
+}());
+var AT_CHARCODE = '@'.charCodeAt(0);
+/**
+ * @param {?} name
+ * @param {?} nameKind
+ * @return {?}
+ */
+function checkNoSyntheticProp(name, nameKind) {
+    if (name.charCodeAt(0) === AT_CHARCODE) {
+        throw new Error("Found the synthetic " + nameKind + " " + name + ". Please include either \"BrowserAnimationsModule\" or \"NoopAnimationsModule\" in your application.");
+    }
+}
+var EmulatedEncapsulationDomRenderer2 = (function (_super) {
+    __extends(EmulatedEncapsulationDomRenderer2, _super);
+    /**
+     * @param {?} eventManager
+     * @param {?} sharedStylesHost
+     * @param {?} component
+     */
+    function EmulatedEncapsulationDomRenderer2(eventManager, sharedStylesHost, component) {
+        var _this = _super.call(this, eventManager) || this;
+        _this.component = component;
+        var styles = flattenStyles(component.id, component.styles, []);
+        sharedStylesHost.addStyles(styles);
+        _this.contentAttr = shimContentAttribute(component.id);
+        _this.hostAttr = shimHostAttribute(component.id);
+        return _this;
+    }
+    /**
+     * @param {?} element
+     * @return {?}
+     */
+    EmulatedEncapsulationDomRenderer2.prototype.applyToHost = function (element) { _super.prototype.setAttribute.call(this, element, this.hostAttr, ''); };
+    /**
+     * @param {?} parent
+     * @param {?} name
+     * @return {?}
+     */
+    EmulatedEncapsulationDomRenderer2.prototype.createElement = function (parent, name) {
+        var /** @type {?} */ el = _super.prototype.createElement.call(this, parent, name);
+        _super.prototype.setAttribute.call(this, el, this.contentAttr, '');
+        return el;
+    };
+    return EmulatedEncapsulationDomRenderer2;
+}(DefaultDomRenderer2));
+var ShadowDomRenderer = (function (_super) {
+    __extends(ShadowDomRenderer, _super);
+    /**
+     * @param {?} eventManager
+     * @param {?} sharedStylesHost
+     * @param {?} hostEl
+     * @param {?} component
+     */
+    function ShadowDomRenderer(eventManager, sharedStylesHost, hostEl, component) {
+        var _this = _super.call(this, eventManager) || this;
+        _this.sharedStylesHost = sharedStylesHost;
+        _this.hostEl = hostEl;
+        _this.component = component;
+        _this.shadowRoot = hostEl.createShadowRoot();
+        _this.sharedStylesHost.addHost(_this.shadowRoot);
+        var styles = flattenStyles(component.id, component.styles, []);
+        for (var i = 0; i < styles.length; i++) {
+            var styleEl = document.createElement('style');
+            styleEl.textContent = styles[i];
+            _this.shadowRoot.appendChild(styleEl);
+        }
+        return _this;
+    }
+    /**
+     * @param {?} node
+     * @return {?}
+     */
+    ShadowDomRenderer.prototype.nodeOrShadowRoot = function (node) { return node === this.hostEl ? this.shadowRoot : node; };
+    /**
+     * @return {?}
+     */
+    ShadowDomRenderer.prototype.destroy = function () { this.sharedStylesHost.removeHost(this.shadowRoot); };
+    /**
+     * @param {?} parent
+     * @param {?} newChild
+     * @return {?}
+     */
+    ShadowDomRenderer.prototype.appendChild = function (parent, newChild) {
+        return _super.prototype.appendChild.call(this, this.nodeOrShadowRoot(parent), newChild);
+    };
+    /**
+     * @param {?} parent
+     * @param {?} newChild
+     * @param {?} refChild
+     * @return {?}
+     */
+    ShadowDomRenderer.prototype.insertBefore = function (parent, newChild, refChild) {
+        return _super.prototype.insertBefore.call(this, this.nodeOrShadowRoot(parent), newChild, refChild);
+    };
+    /**
+     * @param {?} parent
+     * @param {?} oldChild
+     * @return {?}
+     */
+    ShadowDomRenderer.prototype.removeChild = function (parent, oldChild) {
+        return _super.prototype.removeChild.call(this, this.nodeOrShadowRoot(parent), oldChild);
+    };
+    /**
+     * @param {?} node
+     * @return {?}
+     */
+    ShadowDomRenderer.prototype.parentNode = function (node) {
+        return this.nodeOrShadowRoot(_super.prototype.parentNode.call(this, this.nodeOrShadowRoot(node)));
+    };
+    return ShadowDomRenderer;
+}(DefaultDomRenderer2));
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+var DomEventsPlugin = (function (_super) {
+    __extends(DomEventsPlugin, _super);
+    /**
+     * @param {?} doc
+     */
+    function DomEventsPlugin(doc) {
+        return _super.call(this, doc) || this;
+    }
+    /**
+     * @param {?} eventName
+     * @return {?}
+     */
+    DomEventsPlugin.prototype.supports = function (eventName) { return true; };
+    /**
+     * @param {?} element
+     * @param {?} eventName
+     * @param {?} handler
+     * @return {?}
+     */
+    DomEventsPlugin.prototype.addEventListener = function (element, eventName, handler) {
+        element.addEventListener(eventName, /** @type {?} */ (handler), false);
+        return function () { return element.removeEventListener(eventName, /** @type {?} */ (handler), false); };
+    };
+    return DomEventsPlugin;
+}(EventManagerPlugin));
+DomEventsPlugin.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["X" /* Injectable */] },
+];
+/**
+ * @nocollapse
+ */
+DomEventsPlugin.ctorParameters = function () { return [
+    { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["_1" /* Inject */], args: [DOCUMENT,] },] },
+]; };
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+var EVENT_NAMES = {
+    // pan
+    'pan': true,
+    'panstart': true,
+    'panmove': true,
+    'panend': true,
+    'pancancel': true,
+    'panleft': true,
+    'panright': true,
+    'panup': true,
+    'pandown': true,
+    // pinch
+    'pinch': true,
+    'pinchstart': true,
+    'pinchmove': true,
+    'pinchend': true,
+    'pinchcancel': true,
+    'pinchin': true,
+    'pinchout': true,
+    // press
+    'press': true,
+    'pressup': true,
+    // rotate
+    'rotate': true,
+    'rotatestart': true,
+    'rotatemove': true,
+    'rotateend': true,
+    'rotatecancel': true,
+    // swipe
+    'swipe': true,
+    'swipeleft': true,
+    'swiperight': true,
+    'swipeup': true,
+    'swipedown': true,
+    // tap
+    'tap': true,
+};
+/**
+ * A DI token that you can use to provide{\@link HammerGestureConfig} to Angular. Use it to configure
+ * Hammer gestures.
+ *
+ * \@experimental
+ */
+var HAMMER_GESTURE_CONFIG = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["D" /* InjectionToken */]('HammerGestureConfig');
+/**
+ * \@experimental
+ */
+var HammerGestureConfig = (function () {
+    function HammerGestureConfig() {
+        this.events = [];
+        this.overrides = {};
+    }
+    /**
+     * @param {?} element
+     * @return {?}
+     */
+    HammerGestureConfig.prototype.buildHammer = function (element) {
+        var /** @type {?} */ mc = new Hammer(element);
+        mc.get('pinch').set({ enable: true });
+        mc.get('rotate').set({ enable: true });
+        for (var /** @type {?} */ eventName in this.overrides) {
+            mc.get(eventName).set(this.overrides[eventName]);
+        }
+        return mc;
+    };
+    return HammerGestureConfig;
+}());
+HammerGestureConfig.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["X" /* Injectable */] },
+];
+/**
+ * @nocollapse
+ */
+HammerGestureConfig.ctorParameters = function () { return []; };
+var HammerGesturesPlugin = (function (_super) {
+    __extends(HammerGesturesPlugin, _super);
+    /**
+     * @param {?} doc
+     * @param {?} _config
+     */
+    function HammerGesturesPlugin(doc, _config) {
+        var _this = _super.call(this, doc) || this;
+        _this._config = _config;
+        return _this;
+    }
+    /**
+     * @param {?} eventName
+     * @return {?}
+     */
+    HammerGesturesPlugin.prototype.supports = function (eventName) {
+        if (!EVENT_NAMES.hasOwnProperty(eventName.toLowerCase()) && !this.isCustomEvent(eventName)) {
+            return false;
+        }
+        if (!((window)).Hammer) {
+            throw new Error("Hammer.js is not loaded, can not bind " + eventName + " event");
+        }
+        return true;
+    };
+    /**
+     * @param {?} element
+     * @param {?} eventName
+     * @param {?} handler
+     * @return {?}
+     */
+    HammerGesturesPlugin.prototype.addEventListener = function (element, eventName, handler) {
+        var _this = this;
+        var /** @type {?} */ zone = this.manager.getZone();
+        eventName = eventName.toLowerCase();
+        return zone.runOutsideAngular(function () {
+            // Creating the manager bind events, must be done outside of angular
+            var /** @type {?} */ mc = _this._config.buildHammer(element);
+            var /** @type {?} */ callback = function (eventObj) {
+                zone.runGuarded(function () { handler(eventObj); });
+            };
+            mc.on(eventName, callback);
+            return function () { return mc.off(eventName, callback); };
+        });
+    };
+    /**
+     * @param {?} eventName
+     * @return {?}
+     */
+    HammerGesturesPlugin.prototype.isCustomEvent = function (eventName) { return this._config.events.indexOf(eventName) > -1; };
+    return HammerGesturesPlugin;
+}(EventManagerPlugin));
+HammerGesturesPlugin.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["X" /* Injectable */] },
+];
+/**
+ * @nocollapse
+ */
+HammerGesturesPlugin.ctorParameters = function () { return [
+    { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["_1" /* Inject */], args: [DOCUMENT,] },] },
+    { type: HammerGestureConfig, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["_1" /* Inject */], args: [HAMMER_GESTURE_CONFIG,] },] },
+]; };
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+var MODIFIER_KEYS = ['alt', 'control', 'meta', 'shift'];
+var MODIFIER_KEY_GETTERS = {
+    'alt': function (event) { return event.altKey; },
+    'control': function (event) { return event.ctrlKey; },
+    'meta': function (event) { return event.metaKey; },
+    'shift': function (event) { return event.shiftKey; }
+};
+/**
+ * \@experimental
+ */
+var KeyEventsPlugin = (function (_super) {
+    __extends(KeyEventsPlugin, _super);
+    /**
+     * @param {?} doc
+     */
+    function KeyEventsPlugin(doc) {
+        return _super.call(this, doc) || this;
+    }
+    /**
+     * @param {?} eventName
+     * @return {?}
+     */
+    KeyEventsPlugin.prototype.supports = function (eventName) { return KeyEventsPlugin.parseEventName(eventName) != null; };
+    /**
+     * @param {?} element
+     * @param {?} eventName
+     * @param {?} handler
+     * @return {?}
+     */
+    KeyEventsPlugin.prototype.addEventListener = function (element, eventName, handler) {
+        var /** @type {?} */ parsedEvent = KeyEventsPlugin.parseEventName(eventName);
+        var /** @type {?} */ outsideHandler = KeyEventsPlugin.eventCallback(parsedEvent['fullKey'], handler, this.manager.getZone());
+        return this.manager.getZone().runOutsideAngular(function () {
+            return getDOM().onAndCancel(element, parsedEvent['domEventName'], outsideHandler);
+        });
+    };
+    /**
+     * @param {?} eventName
+     * @return {?}
+     */
+    KeyEventsPlugin.parseEventName = function (eventName) {
+        var /** @type {?} */ parts = eventName.toLowerCase().split('.');
+        var /** @type {?} */ domEventName = parts.shift();
+        if ((parts.length === 0) || !(domEventName === 'keydown' || domEventName === 'keyup')) {
+            return null;
+        }
+        var /** @type {?} */ key = KeyEventsPlugin._normalizeKey(parts.pop());
+        var /** @type {?} */ fullKey = '';
+        MODIFIER_KEYS.forEach(function (modifierName) {
+            var /** @type {?} */ index = parts.indexOf(modifierName);
+            if (index > -1) {
+                parts.splice(index, 1);
+                fullKey += modifierName + '.';
+            }
+        });
+        fullKey += key;
+        if (parts.length != 0 || key.length === 0) {
+            // returning null instead of throwing to let another plugin process the event
+            return null;
+        }
+        var /** @type {?} */ result = {};
+        result['domEventName'] = domEventName;
+        result['fullKey'] = fullKey;
+        return result;
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    KeyEventsPlugin.getEventFullKey = function (event) {
+        var /** @type {?} */ fullKey = '';
+        var /** @type {?} */ key = getDOM().getEventKey(event);
+        key = key.toLowerCase();
+        if (key === ' ') {
+            key = 'space'; // for readability
+        }
+        else if (key === '.') {
+            key = 'dot'; // because '.' is used as a separator in event names
+        }
+        MODIFIER_KEYS.forEach(function (modifierName) {
+            if (modifierName != key) {
+                var /** @type {?} */ modifierGetter = MODIFIER_KEY_GETTERS[modifierName];
+                if (modifierGetter(event)) {
+                    fullKey += modifierName + '.';
+                }
+            }
+        });
+        fullKey += key;
+        return fullKey;
+    };
+    /**
+     * @param {?} fullKey
+     * @param {?} handler
+     * @param {?} zone
+     * @return {?}
+     */
+    KeyEventsPlugin.eventCallback = function (fullKey, handler, zone) {
+        return function (event /** TODO #9100 */) {
+            if (KeyEventsPlugin.getEventFullKey(event) === fullKey) {
+                zone.runGuarded(function () { return handler(event); });
+            }
+        };
+    };
+    /**
+     * \@internal
+     * @param {?} keyName
+     * @return {?}
+     */
+    KeyEventsPlugin._normalizeKey = function (keyName) {
+        // TODO: switch to a Map if the mapping grows too much
+        switch (keyName) {
+            case 'esc':
+                return 'escape';
+            default:
+                return keyName;
+        }
+    };
+    return KeyEventsPlugin;
+}(EventManagerPlugin));
+KeyEventsPlugin.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["X" /* Injectable */] },
+];
+/**
+ * @nocollapse
+ */
+KeyEventsPlugin.ctorParameters = function () { return [
+    { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["_1" /* Inject */], args: [DOCUMENT,] },] },
+]; };
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * A pattern that recognizes a commonly useful subset of URLs that are safe.
+ *
+ * This regular expression matches a subset of URLs that will not cause script
+ * execution if used in URL context within a HTML document. Specifically, this
+ * regular expression matches if (comment from here on and regex copied from
+ * Soy's EscapingConventions):
+ * (1) Either a protocol in a whitelist (http, https, mailto or ftp).
+ * (2) or no protocol.  A protocol must be followed by a colon. The below
+ *     allows that by allowing colons only after one of the characters [/?#].
+ *     A colon after a hash (#) must be in the fragment.
+ *     Otherwise, a colon after a (?) must be in a query.
+ *     Otherwise, a colon after a single solidus (/) must be in a path.
+ *     Otherwise, a colon after a double solidus (//) must be in the authority
+ *     (before port).
+ *
+ * The pattern disallows &, used in HTML entity declarations before
+ * one of the characters in [/?#]. This disallows HTML entities used in the
+ * protocol name, which should never happen, e.g. "h&#116;tp" for "http".
+ * It also disallows HTML entities in the first path part of a relative path,
+ * e.g. "foo&lt;bar/baz".  Our existing escaping functions should not produce
+ * that. More importantly, it disallows masking of a colon,
+ * e.g. "javascript&#58;...".
+ *
+ * This regular expression was taken from the Closure sanitization library.
+ */
+var SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file):|[^&:/?#]*(?:[/?#]|$))/gi;
+/** A pattern that matches safe data URLs. Only matches image, video and audio types. */
+var DATA_URL_PATTERN = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[a-z0-9+\/]+=*$/i;
+/**
+ * @param {?} url
+ * @return {?}
+ */
+function sanitizeUrl(url) {
+    url = String(url);
+    if (url.match(SAFE_URL_PATTERN) || url.match(DATA_URL_PATTERN))
+        return url;
+    if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["I" /* isDevMode */])()) {
+        getDOM().log("WARNING: sanitizing unsafe URL value " + url + " (see http://g.co/ng/security#xss)");
+    }
+    return 'unsafe:' + url;
+}
+/**
+ * @param {?} srcset
+ * @return {?}
+ */
+function sanitizeSrcset(srcset) {
+    srcset = String(srcset);
+    return srcset.split(',').map(function (srcset) { return sanitizeUrl(srcset.trim()); }).join(', ');
+}
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/** A <body> element that can be safely used to parse untrusted HTML. Lazily initialized below. */
+var inertElement = null;
+/** Lazily initialized to make sure the DOM adapter gets set before use. */
+var DOM = null;
+/**
+ * Returns an HTML element that is guaranteed to not execute code when creating elements in it.
+ * @return {?}
+ */
+function getInertElement() {
+    if (inertElement)
+        return inertElement;
+    DOM = getDOM();
+    // Prefer using <template> element if supported.
+    var /** @type {?} */ templateEl = DOM.createElement('template');
+    if ('content' in templateEl)
+        return templateEl;
+    var /** @type {?} */ doc = DOM.createHtmlDocument();
+    inertElement = DOM.querySelector(doc, 'body');
+    if (inertElement == null) {
+        // usually there should be only one body element in the document, but IE doesn't have any, so we
+        // need to create one.
+        var /** @type {?} */ html = DOM.createElement('html', doc);
+        inertElement = DOM.createElement('body', doc);
+        DOM.appendChild(html, inertElement);
+        DOM.appendChild(doc, html);
+    }
+    return inertElement;
+}
+/**
+ * @param {?} tags
+ * @return {?}
+ */
+function tagSet(tags) {
+    var /** @type {?} */ res = {};
+    for (var _i = 0, _a = tags.split(','); _i < _a.length; _i++) {
+        var t = _a[_i];
+        res[t] = true;
+    }
+    return res;
+}
+/**
+ * @param {...?} sets
+ * @return {?}
+ */
+function merge() {
+    var sets = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        sets[_i] = arguments[_i];
+    }
+    var /** @type {?} */ res = {};
+    for (var _a = 0, sets_1 = sets; _a < sets_1.length; _a++) {
+        var s = sets_1[_a];
+        for (var /** @type {?} */ v in s) {
+            if (s.hasOwnProperty(v))
+                res[v] = true;
+        }
+    }
+    return res;
+}
+// Good source of info about elements and attributes
+// http://dev.w3.org/html5/spec/Overview.html#semantics
+// http://simon.html5.org/html-elements
+// Safe Void Elements - HTML5
+// http://dev.w3.org/html5/spec/Overview.html#void-elements
+var VOID_ELEMENTS = tagSet('area,br,col,hr,img,wbr');
+// Elements that you can, intentionally, leave open (and which close themselves)
+// http://dev.w3.org/html5/spec/Overview.html#optional-tags
+var OPTIONAL_END_TAG_BLOCK_ELEMENTS = tagSet('colgroup,dd,dt,li,p,tbody,td,tfoot,th,thead,tr');
+var OPTIONAL_END_TAG_INLINE_ELEMENTS = tagSet('rp,rt');
+var OPTIONAL_END_TAG_ELEMENTS = merge(OPTIONAL_END_TAG_INLINE_ELEMENTS, OPTIONAL_END_TAG_BLOCK_ELEMENTS);
+// Safe Block Elements - HTML5
+var BLOCK_ELEMENTS = merge(OPTIONAL_END_TAG_BLOCK_ELEMENTS, tagSet('address,article,' +
+    'aside,blockquote,caption,center,del,details,dialog,dir,div,dl,figure,figcaption,footer,h1,h2,h3,h4,h5,' +
+    'h6,header,hgroup,hr,ins,main,map,menu,nav,ol,pre,section,summary,table,ul'));
+// Inline Elements - HTML5
+var INLINE_ELEMENTS = merge(OPTIONAL_END_TAG_INLINE_ELEMENTS, tagSet('a,abbr,acronym,audio,b,' +
+    'bdi,bdo,big,br,cite,code,del,dfn,em,font,i,img,ins,kbd,label,map,mark,picture,q,ruby,rp,rt,s,' +
+    'samp,small,source,span,strike,strong,sub,sup,time,track,tt,u,var,video'));
+var VALID_ELEMENTS = merge(VOID_ELEMENTS, BLOCK_ELEMENTS, INLINE_ELEMENTS, OPTIONAL_END_TAG_ELEMENTS);
+// Attributes that have href and hence need to be sanitized
+var URI_ATTRS = tagSet('background,cite,href,itemtype,longdesc,poster,src,xlink:href');
+// Attributes that have special href set hence need to be sanitized
+var SRCSET_ATTRS = tagSet('srcset');
+var HTML_ATTRS = tagSet('abbr,accesskey,align,alt,autoplay,axis,bgcolor,border,cellpadding,cellspacing,class,clear,color,cols,colspan,' +
+    'compact,controls,coords,datetime,default,dir,download,face,headers,height,hidden,hreflang,hspace,' +
+    'ismap,itemscope,itemprop,kind,label,lang,language,loop,media,muted,nohref,nowrap,open,preload,rel,rev,role,rows,rowspan,rules,' +
+    'scope,scrolling,shape,size,sizes,span,srclang,start,summary,tabindex,target,title,translate,type,usemap,' +
+    'valign,value,vspace,width');
+// NB: This currently conciously doesn't support SVG. SVG sanitization has had several security
+// issues in the past, so it seems safer to leave it out if possible. If support for binding SVG via
+// innerHTML is required, SVG attributes should be added here.
+// NB: Sanitization does not allow <form> elements or other active elements (<button> etc). Those
+// can be sanitized, but they increase security surface area without a legitimate use case, so they
+// are left out here.
+var VALID_ATTRS = merge(URI_ATTRS, SRCSET_ATTRS, HTML_ATTRS);
+/**
+ * SanitizingHtmlSerializer serializes a DOM fragment, stripping out any unsafe elements and unsafe
+ * attributes.
+ */
+var SanitizingHtmlSerializer = (function () {
+    function SanitizingHtmlSerializer() {
+        this.sanitizedSomething = false;
+        this.buf = [];
+    }
+    /**
+     * @param {?} el
+     * @return {?}
+     */
+    SanitizingHtmlSerializer.prototype.sanitizeChildren = function (el) {
+        // This cannot use a TreeWalker, as it has to run on Angular's various DOM adapters.
+        // However this code never accesses properties off of `document` before deleting its contents
+        // again, so it shouldn't be vulnerable to DOM clobbering.
+        var /** @type {?} */ current = el.firstChild;
+        while (current) {
+            if (DOM.isElementNode(current)) {
+                this.startElement(/** @type {?} */ (current));
+            }
+            else if (DOM.isTextNode(current)) {
+                this.chars(DOM.nodeValue(current));
+            }
+            else {
+                // Strip non-element, non-text nodes.
+                this.sanitizedSomething = true;
+            }
+            if (DOM.firstChild(current)) {
+                current = DOM.firstChild(current);
+                continue;
+            }
+            while (current) {
+                // Leaving the element. Walk up and to the right, closing tags as we go.
+                if (DOM.isElementNode(current)) {
+                    this.endElement(/** @type {?} */ (current));
+                }
+                var /** @type {?} */ next = checkClobberedElement(current, DOM.nextSibling(current));
+                if (next) {
+                    current = next;
+                    break;
+                }
+                current = checkClobberedElement(current, DOM.parentElement(current));
+            }
+        }
+        return this.buf.join('');
+    };
+    /**
+     * @param {?} element
+     * @return {?}
+     */
+    SanitizingHtmlSerializer.prototype.startElement = function (element) {
+        var _this = this;
+        var /** @type {?} */ tagName = DOM.nodeName(element).toLowerCase();
+        if (!VALID_ELEMENTS.hasOwnProperty(tagName)) {
+            this.sanitizedSomething = true;
+            return;
+        }
+        this.buf.push('<');
+        this.buf.push(tagName);
+        DOM.attributeMap(element).forEach(function (value, attrName) {
+            var /** @type {?} */ lower = attrName.toLowerCase();
+            if (!VALID_ATTRS.hasOwnProperty(lower)) {
+                _this.sanitizedSomething = true;
+                return;
+            }
+            // TODO(martinprobst): Special case image URIs for data:image/...
+            if (URI_ATTRS[lower])
+                value = sanitizeUrl(value);
+            if (SRCSET_ATTRS[lower])
+                value = sanitizeSrcset(value);
+            _this.buf.push(' ');
+            _this.buf.push(attrName);
+            _this.buf.push('="');
+            _this.buf.push(encodeEntities(value));
+            _this.buf.push('"');
+        });
+        this.buf.push('>');
+    };
+    /**
+     * @param {?} current
+     * @return {?}
+     */
+    SanitizingHtmlSerializer.prototype.endElement = function (current) {
+        var /** @type {?} */ tagName = DOM.nodeName(current).toLowerCase();
+        if (VALID_ELEMENTS.hasOwnProperty(tagName) && !VOID_ELEMENTS.hasOwnProperty(tagName)) {
+            this.buf.push('</');
+            this.buf.push(tagName);
+            this.buf.push('>');
+        }
+    };
+    /**
+     * @param {?} chars
+     * @return {?}
+     */
+    SanitizingHtmlSerializer.prototype.chars = function (chars) { this.buf.push(encodeEntities(chars)); };
+    return SanitizingHtmlSerializer;
+}());
+/**
+ * @param {?} node
+ * @param {?} nextNode
+ * @return {?}
+ */
+function checkClobberedElement(node, nextNode) {
+    if (nextNode && DOM.contains(node, nextNode)) {
+        throw new Error("Failed to sanitize html because the element is clobbered: " + DOM.getOuterHTML(node));
+    }
+    return nextNode;
+}
+// Regular Expressions for parsing tags and attributes
+var SURROGATE_PAIR_REGEXP = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g;
+// ! to ~ is the ASCII range.
+var NON_ALPHANUMERIC_REGEXP = /([^\#-~ |!])/g;
+/**
+ * Escapes all potentially dangerous characters, so that the
+ * resulting string can be safely inserted into attribute or
+ * element text.
+ * @param {?} value
+ * @return {?}
+ */
+function encodeEntities(value) {
+    return value.replace(/&/g, '&amp;')
+        .replace(SURROGATE_PAIR_REGEXP, function (match) {
+        var /** @type {?} */ hi = match.charCodeAt(0);
+        var /** @type {?} */ low = match.charCodeAt(1);
+        return '&#' + (((hi - 0xD800) * 0x400) + (low - 0xDC00) + 0x10000) + ';';
+    })
+        .replace(NON_ALPHANUMERIC_REGEXP, function (match) { return '&#' + match.charCodeAt(0) + ';'; })
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+}
+/**
+ * When IE9-11 comes across an unknown namespaced attribute e.g. 'xlink:foo' it adds 'xmlns:ns1'
+ * attribute to declare ns1 namespace and prefixes the attribute with 'ns1' (e.g. 'ns1:xlink:foo').
+ *
+ * This is undesirable since we don't want to allow any of these custom attributes. This method
+ * strips them all.
+ * @param {?} el
+ * @return {?}
+ */
+function stripCustomNsAttrs(el) {
+    DOM.attributeMap(el).forEach(function (_, attrName) {
+        if (attrName === 'xmlns:ns1' || attrName.indexOf('ns1:') === 0) {
+            DOM.removeAttribute(el, attrName);
+        }
+    });
+    for (var _i = 0, _a = DOM.childNodesAsList(el); _i < _a.length; _i++) {
+        var n = _a[_i];
+        if (DOM.isElementNode(n))
+            stripCustomNsAttrs(/** @type {?} */ (n));
+    }
+}
+/**
+ * Sanitizes the given unsafe, untrusted HTML fragment, and returns HTML text that is safe to add to
+ * the DOM in a browser environment.
+ * @param {?} defaultDoc
+ * @param {?} unsafeHtmlInput
+ * @return {?}
+ */
+function sanitizeHtml(defaultDoc, unsafeHtmlInput) {
+    try {
+        var /** @type {?} */ containerEl = getInertElement();
+        // Make sure unsafeHtml is actually a string (TypeScript types are not enforced at runtime).
+        var /** @type {?} */ unsafeHtml = unsafeHtmlInput ? String(unsafeHtmlInput) : '';
+        // mXSS protection. Repeatedly parse the document to make sure it stabilizes, so that a browser
+        // trying to auto-correct incorrect HTML cannot cause formerly inert HTML to become dangerous.
+        var /** @type {?} */ mXSSAttempts = 5;
+        var /** @type {?} */ parsedHtml = unsafeHtml;
+        do {
+            if (mXSSAttempts === 0) {
+                throw new Error('Failed to sanitize html because the input is unstable');
+            }
+            mXSSAttempts--;
+            unsafeHtml = parsedHtml;
+            DOM.setInnerHTML(containerEl, unsafeHtml);
+            if (defaultDoc.documentMode) {
+                // strip custom-namespaced attributes on IE<=11
+                stripCustomNsAttrs(containerEl);
+            }
+            parsedHtml = DOM.getInnerHTML(containerEl);
+        } while (unsafeHtml !== parsedHtml);
+        var /** @type {?} */ sanitizer = new SanitizingHtmlSerializer();
+        var /** @type {?} */ safeHtml = sanitizer.sanitizeChildren(DOM.getTemplateContent(containerEl) || containerEl);
+        // Clear out the body element.
+        var /** @type {?} */ parent = DOM.getTemplateContent(containerEl) || containerEl;
+        for (var _i = 0, _a = DOM.childNodesAsList(parent); _i < _a.length; _i++) {
+            var child = _a[_i];
+            DOM.removeChild(parent, child);
+        }
+        if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["I" /* isDevMode */])() && sanitizer.sanitizedSomething) {
+            DOM.log('WARNING: sanitizing HTML stripped some content (see http://g.co/ng/security#xss).');
+        }
+        return safeHtml;
+    }
+    catch (e) {
+        // In case anything goes wrong, clear out inertElement to reset the entire DOM structure.
+        inertElement = null;
+        throw e;
+    }
+}
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * Regular expression for safe style values.
+ *
+ * Quotes (" and ') are allowed, but a check must be done elsewhere to ensure they're balanced.
+ *
+ * ',' allows multiple values to be assigned to the same property (e.g. background-attachment or
+ * font-family) and hence could allow multiple values to get injected, but that should pose no risk
+ * of XSS.
+ *
+ * The function expression checks only for XSS safety, not for CSS validity.
+ *
+ * This regular expression was taken from the Closure sanitization library, and augmented for
+ * transformation values.
+ */
+var VALUES = '[-,."\'%_!# a-zA-Z0-9]+';
+var TRANSFORMATION_FNS = '(?:matrix|translate|scale|rotate|skew|perspective)(?:X|Y|3d)?';
+var COLOR_FNS = '(?:rgb|hsl)a?';
+var GRADIENTS = '(?:repeating-)?(?:linear|radial)-gradient';
+var CSS3_FNS = '(?:calc|attr)';
+var FN_ARGS = '\\([-0-9.%, #a-zA-Z]+\\)';
+var SAFE_STYLE_VALUE = new RegExp("^(" + VALUES + "|" +
+    ("(?:" + TRANSFORMATION_FNS + "|" + COLOR_FNS + "|" + GRADIENTS + "|" + CSS3_FNS + ")") +
+    (FN_ARGS + ")$"), 'g');
+/**
+ * Matches a `url(...)` value with an arbitrary argument as long as it does
+ * not contain parentheses.
+ *
+ * The URL value still needs to be sanitized separately.
+ *
+ * `url(...)` values are a very common use case, e.g. for `background-image`. With carefully crafted
+ * CSS style rules, it is possible to construct an information leak with `url` values in CSS, e.g.
+ * by observing whether scroll bars are displayed, or character ranges used by a font face
+ * definition.
+ *
+ * Angular only allows binding CSS values (as opposed to entire CSS rules), so it is unlikely that
+ * binding a URL value without further cooperation from the page will cause an information leak, and
+ * if so, it is just a leak, not a full blown XSS vulnerability.
+ *
+ * Given the common use case, low likelihood of attack vector, and low impact of an attack, this
+ * code is permissive and allows URLs that sanitize otherwise.
+ */
+var URL_RE = /^url\(([^)]+)\)$/;
+/**
+ * Checks that quotes (" and ') are properly balanced inside a string. Assumes
+ * that neither escape (\) nor any other character that could result in
+ * breaking out of a string parsing context are allowed;
+ * see http://www.w3.org/TR/css3-syntax/#string-token-diagram.
+ *
+ * This code was taken from the Closure sanitization library.
+ * @param {?} value
+ * @return {?}
+ */
+function hasBalancedQuotes(value) {
+    var /** @type {?} */ outsideSingle = true;
+    var /** @type {?} */ outsideDouble = true;
+    for (var /** @type {?} */ i = 0; i < value.length; i++) {
+        var /** @type {?} */ c = value.charAt(i);
+        if (c === '\'' && outsideDouble) {
+            outsideSingle = !outsideSingle;
+        }
+        else if (c === '"' && outsideSingle) {
+            outsideDouble = !outsideDouble;
+        }
+    }
+    return outsideSingle && outsideDouble;
+}
+/**
+ * Sanitizes the given untrusted CSS style property value (i.e. not an entire object, just a single
+ * value) and returns a value that is safe to use in a browser environment.
+ * @param {?} value
+ * @return {?}
+ */
+function sanitizeStyle(value) {
+    value = String(value).trim(); // Make sure it's actually a string.
+    if (!value)
+        return '';
+    // Single url(...) values are supported, but only for URLs that sanitize cleanly. See above for
+    // reasoning behind this.
+    var /** @type {?} */ urlMatch = value.match(URL_RE);
+    if ((urlMatch && sanitizeUrl(urlMatch[1]) === urlMatch[1]) ||
+        value.match(SAFE_STYLE_VALUE) && hasBalancedQuotes(value)) {
+        return value; // Safe style values.
+    }
+    if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["I" /* isDevMode */])()) {
+        getDOM().log("WARNING: sanitizing unsafe style value " + value + " (see http://g.co/ng/security#xss).");
+    }
+    return 'unsafe';
+}
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * DomSanitizer helps preventing Cross Site Scripting Security bugs (XSS) by sanitizing
+ * values to be safe to use in the different DOM contexts.
+ *
+ * For example, when binding a URL in an `<a [href]="someValue">` hyperlink, `someValue` will be
+ * sanitized so that an attacker cannot inject e.g. a `javascript:` URL that would execute code on
+ * the website.
+ *
+ * In specific situations, it might be necessary to disable sanitization, for example if the
+ * application genuinely needs to produce a `javascript:` style link with a dynamic value in it.
+ * Users can bypass security by constructing a value with one of the `bypassSecurityTrust...`
+ * methods, and then binding to that value from the template.
+ *
+ * These situations should be very rare, and extraordinary care must be taken to avoid creating a
+ * Cross Site Scripting (XSS) security bug!
+ *
+ * When using `bypassSecurityTrust...`, make sure to call the method as early as possible and as
+ * close as possible to the source of the value, to make it easy to verify no security bug is
+ * created by its use.
+ *
+ * It is not required (and not recommended) to bypass security if the value is safe, e.g. a URL that
+ * does not start with a suspicious protocol, or an HTML snippet that does not contain dangerous
+ * code. The sanitizer leaves safe values intact.
+ *
+ * \@security Calling any of the `bypassSecurityTrust...` APIs disables Angular's built-in
+ * sanitization for the value passed in. Carefully check and audit all values and code paths going
+ * into this call. Make sure any user data is appropriately escaped for this security context.
+ * For more detail, see the [Security Guide](http://g.co/ng/security).
+ *
+ * \@stable
+ * @abstract
+ */
+var DomSanitizer = (function () {
+    function DomSanitizer() {
+    }
+    /**
+     * Sanitizes a value for use in the given SecurityContext.
+     *
+     * If value is trusted for the context, this method will unwrap the contained safe value and use
+     * it directly. Otherwise, value will be sanitized to be safe in the given context, for example
+     * by replacing URLs that have an unsafe protocol part (such as `javascript:`). The implementation
+     * is responsible to make sure that the value can definitely be safely used in the given context.
+     * @abstract
+     * @param {?} context
+     * @param {?} value
+     * @return {?}
+     */
+    DomSanitizer.prototype.sanitize = function (context, value) { };
+    /**
+     * Bypass security and trust the given value to be safe HTML. Only use this when the bound HTML
+     * is unsafe (e.g. contains `<script>` tags) and the code should be executed. The sanitizer will
+     * leave safe HTML intact, so in most situations this method should not be used.
+     *
+     * **WARNING:** calling this method with untrusted user data exposes your application to XSS
+     * security risks!
+     * @abstract
+     * @param {?} value
+     * @return {?}
+     */
+    DomSanitizer.prototype.bypassSecurityTrustHtml = function (value) { };
+    /**
+     * Bypass security and trust the given value to be safe style value (CSS).
+     *
+     * **WARNING:** calling this method with untrusted user data exposes your application to XSS
+     * security risks!
+     * @abstract
+     * @param {?} value
+     * @return {?}
+     */
+    DomSanitizer.prototype.bypassSecurityTrustStyle = function (value) { };
+    /**
+     * Bypass security and trust the given value to be safe JavaScript.
+     *
+     * **WARNING:** calling this method with untrusted user data exposes your application to XSS
+     * security risks!
+     * @abstract
+     * @param {?} value
+     * @return {?}
+     */
+    DomSanitizer.prototype.bypassSecurityTrustScript = function (value) { };
+    /**
+     * Bypass security and trust the given value to be a safe style URL, i.e. a value that can be used
+     * in hyperlinks or `<img src>`.
+     *
+     * **WARNING:** calling this method with untrusted user data exposes your application to XSS
+     * security risks!
+     * @abstract
+     * @param {?} value
+     * @return {?}
+     */
+    DomSanitizer.prototype.bypassSecurityTrustUrl = function (value) { };
+    /**
+     * Bypass security and trust the given value to be a safe resource URL, i.e. a location that may
+     * be used to load executable code from, like `<script src>`, or `<iframe src>`.
+     *
+     * **WARNING:** calling this method with untrusted user data exposes your application to XSS
+     * security risks!
+     * @abstract
+     * @param {?} value
+     * @return {?}
+     */
+    DomSanitizer.prototype.bypassSecurityTrustResourceUrl = function (value) { };
+    return DomSanitizer;
+}());
+var DomSanitizerImpl = (function (_super) {
+    __extends(DomSanitizerImpl, _super);
+    /**
+     * @param {?} _doc
+     */
+    function DomSanitizerImpl(_doc) {
+        var _this = _super.call(this) || this;
+        _this._doc = _doc;
+        return _this;
+    }
+    /**
+     * @param {?} ctx
+     * @param {?} value
+     * @return {?}
+     */
+    DomSanitizerImpl.prototype.sanitize = function (ctx, value) {
+        if (value == null)
+            return null;
+        switch (ctx) {
+            case __WEBPACK_IMPORTED_MODULE_1__angular_core__["_16" /* SecurityContext */].NONE:
+                return value;
+            case __WEBPACK_IMPORTED_MODULE_1__angular_core__["_16" /* SecurityContext */].HTML:
+                if (value instanceof SafeHtmlImpl)
+                    return value.changingThisBreaksApplicationSecurity;
+                this.checkNotSafeValue(value, 'HTML');
+                return sanitizeHtml(this._doc, String(value));
+            case __WEBPACK_IMPORTED_MODULE_1__angular_core__["_16" /* SecurityContext */].STYLE:
+                if (value instanceof SafeStyleImpl)
+                    return value.changingThisBreaksApplicationSecurity;
+                this.checkNotSafeValue(value, 'Style');
+                return sanitizeStyle(value);
+            case __WEBPACK_IMPORTED_MODULE_1__angular_core__["_16" /* SecurityContext */].SCRIPT:
+                if (value instanceof SafeScriptImpl)
+                    return value.changingThisBreaksApplicationSecurity;
+                this.checkNotSafeValue(value, 'Script');
+                throw new Error('unsafe value used in a script context');
+            case __WEBPACK_IMPORTED_MODULE_1__angular_core__["_16" /* SecurityContext */].URL:
+                if (value instanceof SafeResourceUrlImpl || value instanceof SafeUrlImpl) {
+                    // Allow resource URLs in URL contexts, they are strictly more trusted.
+                    return value.changingThisBreaksApplicationSecurity;
+                }
+                this.checkNotSafeValue(value, 'URL');
+                return sanitizeUrl(String(value));
+            case __WEBPACK_IMPORTED_MODULE_1__angular_core__["_16" /* SecurityContext */].RESOURCE_URL:
+                if (value instanceof SafeResourceUrlImpl) {
+                    return value.changingThisBreaksApplicationSecurity;
+                }
+                this.checkNotSafeValue(value, 'ResourceURL');
+                throw new Error('unsafe value used in a resource URL context (see http://g.co/ng/security#xss)');
+            default:
+                throw new Error("Unexpected SecurityContext " + ctx + " (see http://g.co/ng/security#xss)");
+        }
+    };
+    /**
+     * @param {?} value
+     * @param {?} expectedType
+     * @return {?}
+     */
+    DomSanitizerImpl.prototype.checkNotSafeValue = function (value, expectedType) {
+        if (value instanceof SafeValueImpl) {
+            throw new Error("Required a safe " + expectedType + ", got a " + value.getTypeName() + " " +
+                "(see http://g.co/ng/security#xss)");
+        }
+    };
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    DomSanitizerImpl.prototype.bypassSecurityTrustHtml = function (value) { return new SafeHtmlImpl(value); };
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    DomSanitizerImpl.prototype.bypassSecurityTrustStyle = function (value) { return new SafeStyleImpl(value); };
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    DomSanitizerImpl.prototype.bypassSecurityTrustScript = function (value) { return new SafeScriptImpl(value); };
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    DomSanitizerImpl.prototype.bypassSecurityTrustUrl = function (value) { return new SafeUrlImpl(value); };
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    DomSanitizerImpl.prototype.bypassSecurityTrustResourceUrl = function (value) {
+        return new SafeResourceUrlImpl(value);
+    };
+    return DomSanitizerImpl;
+}(DomSanitizer));
+DomSanitizerImpl.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["X" /* Injectable */] },
+];
+/**
+ * @nocollapse
+ */
+DomSanitizerImpl.ctorParameters = function () { return [
+    { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["_1" /* Inject */], args: [DOCUMENT,] },] },
+]; };
+/**
+ * @abstract
+ */
+var SafeValueImpl = (function () {
+    /**
+     * @param {?} changingThisBreaksApplicationSecurity
+     */
+    function SafeValueImpl(changingThisBreaksApplicationSecurity) {
+        this.changingThisBreaksApplicationSecurity = changingThisBreaksApplicationSecurity;
+        // empty
+    }
+    /**
+     * @abstract
+     * @return {?}
+     */
+    SafeValueImpl.prototype.getTypeName = function () { };
+    /**
+     * @return {?}
+     */
+    SafeValueImpl.prototype.toString = function () {
+        return "SafeValue must use [property]=binding: " + this.changingThisBreaksApplicationSecurity +
+            " (see http://g.co/ng/security#xss)";
+    };
+    return SafeValueImpl;
+}());
+var SafeHtmlImpl = (function (_super) {
+    __extends(SafeHtmlImpl, _super);
+    function SafeHtmlImpl() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    /**
+     * @return {?}
+     */
+    SafeHtmlImpl.prototype.getTypeName = function () { return 'HTML'; };
+    return SafeHtmlImpl;
+}(SafeValueImpl));
+var SafeStyleImpl = (function (_super) {
+    __extends(SafeStyleImpl, _super);
+    function SafeStyleImpl() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    /**
+     * @return {?}
+     */
+    SafeStyleImpl.prototype.getTypeName = function () { return 'Style'; };
+    return SafeStyleImpl;
+}(SafeValueImpl));
+var SafeScriptImpl = (function (_super) {
+    __extends(SafeScriptImpl, _super);
+    function SafeScriptImpl() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    /**
+     * @return {?}
+     */
+    SafeScriptImpl.prototype.getTypeName = function () { return 'Script'; };
+    return SafeScriptImpl;
+}(SafeValueImpl));
+var SafeUrlImpl = (function (_super) {
+    __extends(SafeUrlImpl, _super);
+    function SafeUrlImpl() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    /**
+     * @return {?}
+     */
+    SafeUrlImpl.prototype.getTypeName = function () { return 'URL'; };
+    return SafeUrlImpl;
+}(SafeValueImpl));
+var SafeResourceUrlImpl = (function (_super) {
+    __extends(SafeResourceUrlImpl, _super);
+    function SafeResourceUrlImpl() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    /**
+     * @return {?}
+     */
+    SafeResourceUrlImpl.prototype.getTypeName = function () { return 'ResourceURL'; };
+    return SafeResourceUrlImpl;
+}(SafeValueImpl));
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+var INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
+    { provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["_17" /* PLATFORM_ID */], useValue: __WEBPACK_IMPORTED_MODULE_0__angular_common__["k" /* ɵPLATFORM_BROWSER_ID */] },
+    { provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["_18" /* PLATFORM_INITIALIZER */], useValue: initDomAdapter, multi: true },
+    { provide: __WEBPACK_IMPORTED_MODULE_0__angular_common__["c" /* PlatformLocation */], useClass: BrowserPlatformLocation },
+    { provide: DOCUMENT, useFactory: _document, deps: [] },
+];
+/**
+ * \@security Replacing built-in sanitization providers exposes the application to XSS risks.
+ * Attacker-controlled data introduced by an unsanitized provider could expose your
+ * application to XSS risks. For more detail, see the [Security Guide](http://g.co/ng/security).
+ * \@experimental
+ */
+var BROWSER_SANITIZATION_PROVIDERS = [
+    { provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["y" /* Sanitizer */], useExisting: DomSanitizer },
+    { provide: DomSanitizer, useClass: DomSanitizerImpl },
+];
+/**
+ * \@stable
+ */
+var platformBrowser = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_19" /* createPlatformFactory */])(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_20" /* platformCore */], 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
+/**
+ * @return {?}
+ */
+function initDomAdapter() {
+    BrowserDomAdapter.makeCurrent();
+    BrowserGetTestability.init();
+}
+/**
+ * @return {?}
+ */
+function errorHandler() {
+    return new __WEBPACK_IMPORTED_MODULE_1__angular_core__["q" /* ErrorHandler */]();
+}
+/**
+ * @return {?}
+ */
+function _document() {
+    return document;
+}
+/**
+ * The ng module for the browser.
+ *
+ * \@stable
+ */
+var BrowserModule = (function () {
+    /**
+     * @param {?} parentModule
+     */
+    function BrowserModule(parentModule) {
+        if (parentModule) {
+            throw new Error("BrowserModule has already been loaded. If you need access to common directives such as NgIf and NgFor from a lazy loaded module, import CommonModule instead.");
+        }
+    }
+    /**
+     * Configures a browser-based application to transition from a server-rendered app, if
+     * one is present on the page. The specified parameters must include an application id,
+     * which must match between the client and server applications.
+     *
+     * \@experimental
+     * @param {?} params
+     * @return {?}
+     */
+    BrowserModule.withServerTransition = function (params) {
+        return {
+            ngModule: BrowserModule,
+            providers: [
+                { provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["v" /* APP_ID */], useValue: params.appId },
+                { provide: TRANSITION_ID, useExisting: __WEBPACK_IMPORTED_MODULE_1__angular_core__["v" /* APP_ID */] },
+                SERVER_TRANSITION_PROVIDERS,
+            ],
+        };
+    };
+    return BrowserModule;
+}());
+BrowserModule.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["_2" /* NgModule */], args: [{
+                providers: [
+                    BROWSER_SANITIZATION_PROVIDERS,
+                    { provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["q" /* ErrorHandler */], useFactory: errorHandler, deps: [] },
+                    { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true },
+                    { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true },
+                    { provide: EVENT_MANAGER_PLUGINS, useClass: HammerGesturesPlugin, multi: true },
+                    { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig },
+                    DomRendererFactory2,
+                    { provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["z" /* RendererFactory2 */], useExisting: DomRendererFactory2 },
+                    { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
+                    DomSharedStylesHost,
+                    __WEBPACK_IMPORTED_MODULE_1__angular_core__["h" /* Testability */],
+                    EventManager,
+                    ELEMENT_PROBE_PROVIDERS,
+                    Meta,
+                    Title,
+                ],
+                exports: [__WEBPACK_IMPORTED_MODULE_0__angular_common__["b" /* CommonModule */], __WEBPACK_IMPORTED_MODULE_1__angular_core__["m" /* ApplicationModule */]]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+BrowserModule.ctorParameters = function () { return [
+    { type: BrowserModule, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["Z" /* Optional */] }, { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["_0" /* SkipSelf */] },] },
+]; };
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+var win = typeof window !== 'undefined' && window || {};
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+var ChangeDetectionPerfRecord = (function () {
+    /**
+     * @param {?} msPerTick
+     * @param {?} numTicks
+     */
+    function ChangeDetectionPerfRecord(msPerTick, numTicks) {
+        this.msPerTick = msPerTick;
+        this.numTicks = numTicks;
+    }
+    return ChangeDetectionPerfRecord;
+}());
+/**
+ * Entry point for all Angular profiling-related debug tools. This object
+ * corresponds to the `ng.profiler` in the dev console.
+ */
+var AngularProfiler = (function () {
+    /**
+     * @param {?} ref
+     */
+    function AngularProfiler(ref) {
+        this.appRef = ref.injector.get(__WEBPACK_IMPORTED_MODULE_1__angular_core__["t" /* ApplicationRef */]);
+    }
+    /**
+     * Exercises change detection in a loop and then prints the average amount of
+     * time in milliseconds how long a single round of change detection takes for
+     * the current state of the UI. It runs a minimum of 5 rounds for a minimum
+     * of 500 milliseconds.
+     *
+     * Optionally, a user may pass a `config` parameter containing a map of
+     * options. Supported options are:
+     *
+     * `record` (boolean) - causes the profiler to record a CPU profile while
+     * it exercises the change detector. Example:
+     *
+     * ```
+     * ng.profiler.timeChangeDetection({record: true})
+     * ```
+     * @param {?} config
+     * @return {?}
+     */
+    AngularProfiler.prototype.timeChangeDetection = function (config) {
+        var /** @type {?} */ record = config && config['record'];
+        var /** @type {?} */ profileName = 'Change Detection';
+        // Profiler is not available in Android browsers, nor in IE 9 without dev tools opened
+        var /** @type {?} */ isProfilerAvailable = win.console.profile != null;
+        if (record && isProfilerAvailable) {
+            win.console.profile(profileName);
+        }
+        var /** @type {?} */ start = getDOM().performanceNow();
+        var /** @type {?} */ numTicks = 0;
+        while (numTicks < 5 || (getDOM().performanceNow() - start) < 500) {
+            this.appRef.tick();
+            numTicks++;
+        }
+        var /** @type {?} */ end = getDOM().performanceNow();
+        if (record && isProfilerAvailable) {
+            // need to cast to <any> because type checker thinks there's no argument
+            // while in fact there is:
+            //
+            // https://developer.mozilla.org/en-US/docs/Web/API/Console/profileEnd
+            ((win.console.profileEnd))(profileName);
+        }
+        var /** @type {?} */ msPerTick = (end - start) / numTicks;
+        win.console.log("ran " + numTicks + " change detection cycles");
+        win.console.log(msPerTick.toFixed(2) + " ms per check");
+        return new ChangeDetectionPerfRecord(msPerTick, numTicks);
+    };
+    return AngularProfiler;
+}());
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+var PROFILER_GLOBAL_NAME = 'ng.profiler';
+/**
+ * Enabled Angular debug tools that are accessible via your browser's
+ * developer console.
+ *
+ * Usage:
+ *
+ * 1. Open developer console (e.g. in Chrome Ctrl + Shift + j)
+ * 1. Type `ng.` (usually the console will show auto-complete suggestion)
+ * 1. Try the change detection profiler `ng.profiler.timeChangeDetection()`
+ *    then hit Enter.
+ *
+ * \@experimental All debugging apis are currently experimental.
+ * @template T
+ * @param {?} ref
+ * @return {?}
+ */
+function enableDebugTools(ref) {
+    getDOM().setGlobalVar(PROFILER_GLOBAL_NAME, new AngularProfiler(ref));
+    return ref;
+}
+/**
+ * Disables Angular tools.
+ *
+ * \@experimental All debugging apis are currently experimental.
+ * @return {?}
+ */
+function disableDebugTools() {
+    getDOM().setGlobalVar(PROFILER_GLOBAL_NAME, null);
+}
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * Predicates for use with {\@link DebugElement}'s query functions.
+ *
+ * \@experimental All debugging apis are currently experimental.
+ */
+var By = (function () {
+    function By() {
+    }
+    /**
+     * Match all elements.
+     *
+     * ## Example
+     *
+     * {\@example platform-browser/dom/debug/ts/by/by.ts region='by_all'}
+     * @return {?}
+     */
+    By.all = function () { return function (debugElement) { return true; }; };
+    /**
+     * Match elements by the given CSS selector.
+     *
+     * ## Example
+     *
+     * {\@example platform-browser/dom/debug/ts/by/by.ts region='by_css'}
+     * @param {?} selector
+     * @return {?}
+     */
+    By.css = function (selector) {
+        return function (debugElement) {
+            return debugElement.nativeElement != null ?
+                getDOM().elementMatches(debugElement.nativeElement, selector) :
+                false;
+        };
+    };
+    /**
+     * Match elements that have the given directive present.
+     *
+     * ## Example
+     *
+     * {\@example platform-browser/dom/debug/ts/by/by.ts region='by_directive'}
+     * @param {?} type
+     * @return {?}
+     */
+    By.directive = function (type) {
+        return function (debugElement) { return debugElement.providerTokens.indexOf(type) !== -1; };
+    };
+    return By;
+}());
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @module
+ * @description
+ * Entry point for all public APIs of the common package.
+ */
+/**
+ * \@stable
+ */
+var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_4" /* Version */]('4.0.3');
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @module
+ * @description
+ * Entry point for all public APIs of the platform-browser package.
+ */
+// This file only reexports content of the `src` folder. Keep it that way.
+/**
+ * Generated bundle index. Do not edit.
+ */
+
+//# sourceMappingURL=platform-browser.es5.js.map
+
 
 /***/ }),
-/* 23 */
+/* 13 */,
+/* 14 */,
+/* 15 */,
+/* 16 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_scheduler_queue__ = __webpack_require__(140);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_scheduler_queue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_scheduler_queue__);
+/* harmony export (immutable) */ __webpack_exports__["c"] = isNil;
+/* harmony export (immutable) */ __webpack_exports__["d"] = hasKey;
+/* harmony export (immutable) */ __webpack_exports__["g"] = isString;
+/* harmony export (immutable) */ __webpack_exports__["h"] = isFirebaseRef;
+/* harmony export (immutable) */ __webpack_exports__["i"] = isFirebaseDataSnapshot;
+/* harmony export (immutable) */ __webpack_exports__["j"] = isAFUnwrappedSnapshot;
+/* unused harmony export isFirebaseQuery */
+/* harmony export (immutable) */ __webpack_exports__["k"] = isEmptyObject;
+/* harmony export (immutable) */ __webpack_exports__["f"] = unwrapMapFn;
+/* harmony export (immutable) */ __webpack_exports__["e"] = checkForUrlOrFirebaseRef;
+/* harmony export (immutable) */ __webpack_exports__["a"] = stripTrailingSlash;
+/* harmony export (immutable) */ __webpack_exports__["l"] = stripLeadingSlash;
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ZoneScheduler; });
+
+function isNil(obj) {
+    return obj === undefined || obj === null;
+}
+function hasKey(obj, key) {
+    return obj && obj[key] !== undefined;
+}
+function isString(value) {
+    return typeof value === 'string';
+}
+function isFirebaseRef(value) {
+    return typeof value.set === 'function';
+}
+function isFirebaseDataSnapshot(value) {
+    return typeof value.exportVal === 'function';
+}
+function isAFUnwrappedSnapshot(value) {
+    return typeof value.$key === 'string';
+}
+function isFirebaseQuery(value) {
+    return typeof value.orderByChild === 'function';
+}
+function isEmptyObject(obj) {
+    if (isNil(obj)) {
+        return false;
+    }
+    return Object.keys(obj).length === 0 && JSON.stringify(obj) === JSON.stringify({});
+}
+function unwrapMapFn(snapshot) {
+    var unwrapped = !isNil(snapshot.val()) ? snapshot.val() : { $value: null };
+    if ((/string|number|boolean/).test(typeof unwrapped)) {
+        unwrapped = {
+            $value: unwrapped
+        };
+    }
+    Object.defineProperty(unwrapped, '$key', {
+        value: snapshot.ref.key,
+        enumerable: false
+    });
+    Object.defineProperty(unwrapped, '$exists', {
+        value: function () {
+            return snapshot.exists();
+        },
+        enumerable: false
+    });
+    return unwrapped;
+}
+function checkForUrlOrFirebaseRef(urlOrRef, cases) {
+    if (isString(urlOrRef)) {
+        return cases.isUrl();
+    }
+    if (isFirebaseRef(urlOrRef)) {
+        return cases.isRef();
+    }
+    if (isFirebaseQuery(urlOrRef)) {
+        return cases.isQuery();
+    }
+    throw new Error('Provide a url or a Firebase database reference');
+}
+function stripTrailingSlash(value) {
+    if (value.substring(value.length - 1, value.length) === '/') {
+        return value.substring(0, value.length - 1);
+    }
+    else {
+        return value;
+    }
+}
+function stripLeadingSlash(value) {
+    if (value.substring(0, 1) === '/') {
+        return value.substring(1, value.length);
+    }
+    else {
+        return value;
+    }
+}
+var ZoneScheduler = (function () {
+    function ZoneScheduler(zone) {
+        this.zone = zone;
+    }
+    ZoneScheduler.prototype.schedule = function () {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
+        return this.zone.run(function () { return __WEBPACK_IMPORTED_MODULE_0_rxjs_scheduler_queue__["queue"].schedule.apply(__WEBPACK_IMPORTED_MODULE_0_rxjs_scheduler_queue__["queue"], args); });
+    };
+    return ZoneScheduler;
+}());
+
+//# sourceMappingURL=utils.js.map
+
+/***/ }),
+/* 17 */,
+/* 18 */,
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var Subscriber_1 = __webpack_require__(4);
+var isArray_1 = __webpack_require__(62);
+var isObject_1 = __webpack_require__(142);
+var isFunction_1 = __webpack_require__(97);
+var tryCatch_1 = __webpack_require__(144);
+var errorObject_1 = __webpack_require__(96);
+var UnsubscriptionError_1 = __webpack_require__(298);
 /**
- * Applies a given `project` function to each value emitted by the source
- * Observable, and emits the resulting values as an Observable.
+ * Represents a disposable resource, such as the execution of an Observable. A
+ * Subscription has one important method, `unsubscribe`, that takes no argument
+ * and just disposes the resource held by the subscription.
  *
- * <span class="informal">Like [Array.prototype.map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map),
- * it passes each source value through a transformation function to get
- * corresponding output values.</span>
+ * Additionally, subscriptions may be grouped together through the `add()`
+ * method, which will attach a child Subscription to the current Subscription.
+ * When a Subscription is unsubscribed, all its children (and its grandchildren)
+ * will be unsubscribed as well.
  *
- * <img src="./img/map.png" width="100%">
- *
- * Similar to the well known `Array.prototype.map` function, this operator
- * applies a projection to each value and emits that projection in the output
- * Observable.
- *
- * @example <caption>Map every every click to the clientX position of that click</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
- * var positions = clicks.map(ev => ev.clientX);
- * positions.subscribe(x => console.log(x));
- *
- * @see {@link mapTo}
- * @see {@link pluck}
- *
- * @param {function(value: T, index: number): R} project The function to apply
- * to each `value` emitted by the source Observable. The `index` parameter is
- * the number `i` for the i-th emission that has happened since the
- * subscription, starting from the number `0`.
- * @param {any} [thisArg] An optional argument to define what `this` is in the
- * `project` function.
- * @return {Observable<R>} An Observable that emits the values from the source
- * Observable transformed by the given `project` function.
- * @method map
- * @owner Observable
+ * @class Subscription
  */
-function map(project, thisArg) {
-    if (typeof project !== 'function') {
-        throw new TypeError('argument is not a function. Are you looking for `mapTo()`?');
-    }
-    return this.lift(new MapOperator(project, thisArg));
-}
-exports.map = map;
-var MapOperator = (function () {
-    function MapOperator(project, thisArg) {
-        this.project = project;
-        this.thisArg = thisArg;
-    }
-    MapOperator.prototype.call = function (subscriber, source) {
-        return source.subscribe(new MapSubscriber(subscriber, this.project, this.thisArg));
-    };
-    return MapOperator;
-}());
-exports.MapOperator = MapOperator;
-/**
- * We need this JSDoc comment for affecting ESDoc.
- * @ignore
- * @extends {Ignored}
- */
-var MapSubscriber = (function (_super) {
-    __extends(MapSubscriber, _super);
-    function MapSubscriber(destination, project, thisArg) {
-        _super.call(this, destination);
-        this.project = project;
-        this.count = 0;
-        this.thisArg = thisArg || this;
-    }
-    // NOTE: This looks unoptimized, but it's actually purposefully NOT
-    // using try/catch optimizations.
-    MapSubscriber.prototype._next = function (value) {
-        var result;
-        try {
-            result = this.project.call(this.thisArg, value, this.count++);
+var Subscription = (function () {
+    /**
+     * @param {function(): void} [unsubscribe] A function describing how to
+     * perform the disposal of resources when the `unsubscribe` method is called.
+     */
+    function Subscription(unsubscribe) {
+        /**
+         * A flag to indicate whether this Subscription has already been unsubscribed.
+         * @type {boolean}
+         */
+        this.closed = false;
+        this._parent = null;
+        this._parents = null;
+        this._subscriptions = null;
+        if (unsubscribe) {
+            this._unsubscribe = unsubscribe;
         }
-        catch (err) {
-            this.destination.error(err);
+    }
+    /**
+     * Disposes the resources held by the subscription. May, for instance, cancel
+     * an ongoing Observable execution or cancel any other type of work that
+     * started when the Subscription was created.
+     * @return {void}
+     */
+    Subscription.prototype.unsubscribe = function () {
+        var hasErrors = false;
+        var errors;
+        if (this.closed) {
             return;
         }
-        this.destination.next(result);
+        var _a = this, _parent = _a._parent, _parents = _a._parents, _unsubscribe = _a._unsubscribe, _subscriptions = _a._subscriptions;
+        this.closed = true;
+        this._parent = null;
+        this._parents = null;
+        // null out _subscriptions first so any child subscriptions that attempt
+        // to remove themselves from this subscription will noop
+        this._subscriptions = null;
+        var index = -1;
+        var len = _parents ? _parents.length : 0;
+        // if this._parent is null, then so is this._parents, and we
+        // don't have to remove ourselves from any parent subscriptions.
+        while (_parent) {
+            _parent.remove(this);
+            // if this._parents is null or index >= len,
+            // then _parent is set to null, and the loop exits
+            _parent = ++index < len && _parents[index] || null;
+        }
+        if (isFunction_1.isFunction(_unsubscribe)) {
+            var trial = tryCatch_1.tryCatch(_unsubscribe).call(this);
+            if (trial === errorObject_1.errorObject) {
+                hasErrors = true;
+                errors = errors || (errorObject_1.errorObject.e instanceof UnsubscriptionError_1.UnsubscriptionError ?
+                    flattenUnsubscriptionErrors(errorObject_1.errorObject.e.errors) : [errorObject_1.errorObject.e]);
+            }
+        }
+        if (isArray_1.isArray(_subscriptions)) {
+            index = -1;
+            len = _subscriptions.length;
+            while (++index < len) {
+                var sub = _subscriptions[index];
+                if (isObject_1.isObject(sub)) {
+                    var trial = tryCatch_1.tryCatch(sub.unsubscribe).call(sub);
+                    if (trial === errorObject_1.errorObject) {
+                        hasErrors = true;
+                        errors = errors || [];
+                        var err = errorObject_1.errorObject.e;
+                        if (err instanceof UnsubscriptionError_1.UnsubscriptionError) {
+                            errors = errors.concat(flattenUnsubscriptionErrors(err.errors));
+                        }
+                        else {
+                            errors.push(err);
+                        }
+                    }
+                }
+            }
+        }
+        if (hasErrors) {
+            throw new UnsubscriptionError_1.UnsubscriptionError(errors);
+        }
     };
-    return MapSubscriber;
-}(Subscriber_1.Subscriber));
-//# sourceMappingURL=map.js.map
+    /**
+     * Adds a tear down to be called during the unsubscribe() of this
+     * Subscription.
+     *
+     * If the tear down being added is a subscription that is already
+     * unsubscribed, is the same reference `add` is being called on, or is
+     * `Subscription.EMPTY`, it will not be added.
+     *
+     * If this subscription is already in an `closed` state, the passed
+     * tear down logic will be executed immediately.
+     *
+     * @param {TeardownLogic} teardown The additional logic to execute on
+     * teardown.
+     * @return {Subscription} Returns the Subscription used or created to be
+     * added to the inner subscriptions list. This Subscription can be used with
+     * `remove()` to remove the passed teardown logic from the inner subscriptions
+     * list.
+     */
+    Subscription.prototype.add = function (teardown) {
+        if (!teardown || (teardown === Subscription.EMPTY)) {
+            return Subscription.EMPTY;
+        }
+        if (teardown === this) {
+            return this;
+        }
+        var subscription = teardown;
+        switch (typeof teardown) {
+            case 'function':
+                subscription = new Subscription(teardown);
+            case 'object':
+                if (subscription.closed || typeof subscription.unsubscribe !== 'function') {
+                    return subscription;
+                }
+                else if (this.closed) {
+                    subscription.unsubscribe();
+                    return subscription;
+                }
+                else if (typeof subscription._addParent !== 'function' /* quack quack */) {
+                    var tmp = subscription;
+                    subscription = new Subscription();
+                    subscription._subscriptions = [tmp];
+                }
+                break;
+            default:
+                throw new Error('unrecognized teardown ' + teardown + ' added to Subscription.');
+        }
+        var subscriptions = this._subscriptions || (this._subscriptions = []);
+        subscriptions.push(subscription);
+        subscription._addParent(this);
+        return subscription;
+    };
+    /**
+     * Removes a Subscription from the internal list of subscriptions that will
+     * unsubscribe during the unsubscribe process of this Subscription.
+     * @param {Subscription} subscription The subscription to remove.
+     * @return {void}
+     */
+    Subscription.prototype.remove = function (subscription) {
+        var subscriptions = this._subscriptions;
+        if (subscriptions) {
+            var subscriptionIndex = subscriptions.indexOf(subscription);
+            if (subscriptionIndex !== -1) {
+                subscriptions.splice(subscriptionIndex, 1);
+            }
+        }
+    };
+    Subscription.prototype._addParent = function (parent) {
+        var _a = this, _parent = _a._parent, _parents = _a._parents;
+        if (!_parent || _parent === parent) {
+            // If we don't have a parent, or the new parent is the same as the
+            // current parent, then set this._parent to the new parent.
+            this._parent = parent;
+        }
+        else if (!_parents) {
+            // If there's already one parent, but not multiple, allocate an Array to
+            // store the rest of the parent Subscriptions.
+            this._parents = [parent];
+        }
+        else if (_parents.indexOf(parent) === -1) {
+            // Only add the new parent to the _parents list if it's not already there.
+            _parents.push(parent);
+        }
+    };
+    Subscription.EMPTY = (function (empty) {
+        empty.closed = true;
+        return empty;
+    }(new Subscription()));
+    return Subscription;
+}());
+exports.Subscription = Subscription;
+function flattenUnsubscriptionErrors(errors) {
+    return errors.reduce(function (errs, err) { return errs.concat((err instanceof UnsubscriptionError_1.UnsubscriptionError) ? err.errors : err); }, []);
+}
+//# sourceMappingURL=Subscription.js.map
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {
+/**
+ * window: browser in DOM main thread
+ * self: browser in WebWorker
+ * global: Node.js/other
+ */
+exports.root = (typeof window == 'object' && window.window === window && window
+    || typeof self == 'object' && self.self === self && self
+    || typeof global == 'object' && global.global === global && global);
+if (!exports.root) {
+    throw new Error('RxJS could not find any global context (window, self, global)');
+}
+//# sourceMappingURL=root.js.map
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(21)))
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 22 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__break_points_token__ = __webpack_require__(65);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BreakPointRegistry; });
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+/**
+ * Registry of 1..n MediaQuery breakpoint ranges
+ * This is published as a provider and may be overriden from custom, application-specific ranges
+ *
+ */
+var BreakPointRegistry = (function () {
+    function BreakPointRegistry(_registry) {
+        this._registry = _registry;
+    }
+    Object.defineProperty(BreakPointRegistry.prototype, "items", {
+        /**
+         * Accessor to raw list
+         */
+        get: function () {
+            return this._registry.slice();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Search breakpoints by alias (e.g. gt-xs)
+     */
+    BreakPointRegistry.prototype.findByAlias = function (alias) {
+        return this._registry.find(function (bp) { return bp.alias == alias; });
+    };
+    BreakPointRegistry.prototype.findByQuery = function (query) {
+        return this._registry.find(function (bp) { return bp.mediaQuery == query; });
+    };
+    Object.defineProperty(BreakPointRegistry.prototype, "overlappings", {
+        /**
+         * Get all the breakpoints whose ranges could overlapping `normal` ranges;
+         * e.g. gt-sm overlaps md, lg, and xl
+         */
+        get: function () {
+            return this._registry.filter(function (it) { return it.overlapping == true; });
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(BreakPointRegistry.prototype, "aliases", {
+        /**
+         * Get list of all registered (non-empty) breakpoint aliases
+         */
+        get: function () {
+            return this._registry.map(function (it) { return it.alias; });
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(BreakPointRegistry.prototype, "suffixes", {
+        /**
+         * Aliases are mapped to properties using suffixes
+         * e.g.  'gt-sm' for property 'layout'  uses suffix 'GtSm'
+         * for property layoutGtSM.
+         */
+        get: function () {
+            return this._registry.map(function (it) { return it.suffix; });
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return BreakPointRegistry;
+}());
+
+BreakPointRegistry.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["X" /* Injectable */] },
+];
+/** @nocollapse */
+BreakPointRegistry.ctorParameters = function () { return [
+    { type: Array, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_1" /* Inject */], args: [__WEBPACK_IMPORTED_MODULE_1__break_points_token__["a" /* BREAKPOINTS */],] },] },
+]; };
+//# sourceMappingURL=break-point-registry.js.map
+
+/***/ }),
+/* 23 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = extendObject;
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * Extends an object with the *enumerable* and *own* properties of one or more source objects,
+ * similar to Object.assign.
+ *
+ * @param dest The object which will have properties copied to it.
+ * @param sources The source objects from which properties will be copied.
+ */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */ function extendObject(dest) {
+    var sources = [];
+    for (var _i = 1; _i < arguments.length; _i++) {
+        sources[_i - 1] = arguments[_i];
+    }
+    if (dest == null) {
+        throw TypeError('Cannot convert undefined or null to object');
+    }
+    for (var _a = 0, sources_1 = sources; _a < sources_1.length; _a++) {
+        var source = sources_1[_a];
+        if (source != null) {
+            for (var key in source) {
+                if (source.hasOwnProperty(key)) {
+                    dest[key] = source[key];
+                }
+            }
+        }
+    }
+    return dest;
+}
+//# sourceMappingURL=object-extend.js.map
 
 /***/ }),
 /* 24 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(2);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return FirebaseConfig; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return FirebaseApp; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return FirebaseAuthConfig; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FirebaseUserConfig; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return FirebaseAppName; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return WindowLocation; });
-/* unused harmony export FirebaseRef */
-/* unused harmony export FirebaseUrl */
-
-var FirebaseConfig = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* OpaqueToken */]('FirebaseUrl');
-var FirebaseApp = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* OpaqueToken */]('FirebaseApp');
-var FirebaseAuthConfig = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* OpaqueToken */]('FirebaseAuthConfig');
-var FirebaseUserConfig = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* OpaqueToken */]('FirebaseUserConfig');
-var FirebaseAppName = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* OpaqueToken */]('FirebaseAppName');
-var WindowLocation = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* OpaqueToken */]('WindowLocation');
-var FirebaseRef = FirebaseApp;
-var FirebaseUrl = FirebaseConfig;
-//# sourceMappingURL=tokens.js.map
-
-/***/ }),
-/* 25 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var Subscriber_1 = __webpack_require__(4);
-/**
- * We need this JSDoc comment for affecting ESDoc.
- * @ignore
- * @extends {Ignored}
- */
-var OuterSubscriber = (function (_super) {
-    __extends(OuterSubscriber, _super);
-    function OuterSubscriber() {
-        _super.apply(this, arguments);
-    }
-    OuterSubscriber.prototype.notifyNext = function (outerValue, innerValue, outerIndex, innerIndex, innerSub) {
-        this.destination.next(innerValue);
-    };
-    OuterSubscriber.prototype.notifyError = function (error, innerSub) {
-        this.destination.error(error);
-    };
-    OuterSubscriber.prototype.notifyComplete = function (innerSub) {
-        this.destination.complete();
-    };
-    return OuterSubscriber;
-}(Subscriber_1.Subscriber));
-exports.OuterSubscriber = OuterSubscriber;
-//# sourceMappingURL=OuterSubscriber.js.map
-
-/***/ }),
-/* 26 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var Observable_1 = __webpack_require__(0);
-var ScalarObservable_1 = __webpack_require__(75);
-var EmptyObservable_1 = __webpack_require__(45);
-var isScheduler_1 = __webpack_require__(50);
-/**
- * We need this JSDoc comment for affecting ESDoc.
- * @extends {Ignored}
- * @hide true
- */
-var ArrayObservable = (function (_super) {
-    __extends(ArrayObservable, _super);
-    function ArrayObservable(array, scheduler) {
-        _super.call(this);
-        this.array = array;
-        this.scheduler = scheduler;
-        if (!scheduler && array.length === 1) {
-            this._isScalar = true;
-            this.value = array[0];
-        }
-    }
-    ArrayObservable.create = function (array, scheduler) {
-        return new ArrayObservable(array, scheduler);
-    };
-    /**
-     * Creates an Observable that emits some values you specify as arguments,
-     * immediately one after the other, and then emits a complete notification.
-     *
-     * <span class="informal">Emits the arguments you provide, then completes.
-     * </span>
-     *
-     * <img src="./img/of.png" width="100%">
-     *
-     * This static operator is useful for creating a simple Observable that only
-     * emits the arguments given, and the complete notification thereafter. It can
-     * be used for composing with other Observables, such as with {@link concat}.
-     * By default, it uses a `null` IScheduler, which means the `next`
-     * notifications are sent synchronously, although with a different IScheduler
-     * it is possible to determine when those notifications will be delivered.
-     *
-     * @example <caption>Emit 10, 20, 30, then 'a', 'b', 'c', then start ticking every second.</caption>
-     * var numbers = Rx.Observable.of(10, 20, 30);
-     * var letters = Rx.Observable.of('a', 'b', 'c');
-     * var interval = Rx.Observable.interval(1000);
-     * var result = numbers.concat(letters).concat(interval);
-     * result.subscribe(x => console.log(x));
-     *
-     * @see {@link create}
-     * @see {@link empty}
-     * @see {@link never}
-     * @see {@link throw}
-     *
-     * @param {...T} values Arguments that represent `next` values to be emitted.
-     * @param {Scheduler} [scheduler] A {@link IScheduler} to use for scheduling
-     * the emissions of the `next` notifications.
-     * @return {Observable<T>} An Observable that emits each given input value.
-     * @static true
-     * @name of
-     * @owner Observable
-     */
-    ArrayObservable.of = function () {
-        var array = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            array[_i - 0] = arguments[_i];
-        }
-        var scheduler = array[array.length - 1];
-        if (isScheduler_1.isScheduler(scheduler)) {
-            array.pop();
-        }
-        else {
-            scheduler = null;
-        }
-        var len = array.length;
-        if (len > 1) {
-            return new ArrayObservable(array, scheduler);
-        }
-        else if (len === 1) {
-            return new ScalarObservable_1.ScalarObservable(array[0], scheduler);
-        }
-        else {
-            return new EmptyObservable_1.EmptyObservable(scheduler);
-        }
-    };
-    ArrayObservable.dispatch = function (state) {
-        var array = state.array, index = state.index, count = state.count, subscriber = state.subscriber;
-        if (index >= count) {
-            subscriber.complete();
-            return;
-        }
-        subscriber.next(array[index]);
-        if (subscriber.closed) {
-            return;
-        }
-        state.index = index + 1;
-        this.schedule(state);
-    };
-    ArrayObservable.prototype._subscribe = function (subscriber) {
-        var index = 0;
-        var array = this.array;
-        var count = array.length;
-        var scheduler = this.scheduler;
-        if (scheduler) {
-            return scheduler.schedule(ArrayObservable.dispatch, 0, {
-                array: array, index: index, count: count, subscriber: subscriber
-            });
-        }
-        else {
-            for (var i = 0; i < count && !subscriber.closed; i++) {
-                subscriber.next(array[i]);
-            }
-            subscriber.complete();
-        }
-    };
-    return ArrayObservable;
-}(Observable_1.Observable));
-exports.ArrayObservable = ArrayObservable;
-//# sourceMappingURL=ArrayObservable.js.map
-
-/***/ }),
-/* 27 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var root_1 = __webpack_require__(16);
-var isArrayLike_1 = __webpack_require__(121);
-var isPromise_1 = __webpack_require__(123);
-var isObject_1 = __webpack_require__(122);
-var Observable_1 = __webpack_require__(0);
-var iterator_1 = __webpack_require__(77);
-var InnerSubscriber_1 = __webpack_require__(213);
-var observable_1 = __webpack_require__(78);
-function subscribeToResult(outerSubscriber, result, outerValue, outerIndex) {
-    var destination = new InnerSubscriber_1.InnerSubscriber(outerSubscriber, outerValue, outerIndex);
-    if (destination.closed) {
-        return null;
-    }
-    if (result instanceof Observable_1.Observable) {
-        if (result._isScalar) {
-            destination.next(result.value);
-            destination.complete();
-            return null;
-        }
-        else {
-            return result.subscribe(destination);
-        }
-    }
-    else if (isArrayLike_1.isArrayLike(result)) {
-        for (var i = 0, len = result.length; i < len && !destination.closed; i++) {
-            destination.next(result[i]);
-        }
-        if (!destination.closed) {
-            destination.complete();
-        }
-    }
-    else if (isPromise_1.isPromise(result)) {
-        result.then(function (value) {
-            if (!destination.closed) {
-                destination.next(value);
-                destination.complete();
-            }
-        }, function (err) { return destination.error(err); })
-            .then(null, function (err) {
-            // Escaping the Promise trap: globally throw unhandled errors
-            root_1.root.setTimeout(function () { throw err; });
-        });
-        return destination;
-    }
-    else if (result && typeof result[iterator_1.iterator] === 'function') {
-        var iterator = result[iterator_1.iterator]();
-        do {
-            var item = iterator.next();
-            if (item.done) {
-                destination.complete();
-                break;
-            }
-            destination.next(item.value);
-            if (destination.closed) {
-                break;
-            }
-        } while (true);
-    }
-    else if (result && typeof result[observable_1.observable] === 'function') {
-        var obs = result[observable_1.observable]();
-        if (typeof obs.subscribe !== 'function') {
-            destination.error(new TypeError('Provided object does not correctly implement Symbol.observable'));
-        }
-        else {
-            return obs.subscribe(new InnerSubscriber_1.InnerSubscriber(outerSubscriber, outerValue, outerIndex));
-        }
-    }
-    else {
-        var value = isObject_1.isObject(result) ? 'an invalid object' : "'" + result + "'";
-        var msg = ("You provided " + value + " where a stream was expected.")
-            + ' You can provide an Observable, Promise, Array, or Iterable.';
-        destination.error(new TypeError(msg));
-    }
-    return null;
-}
-exports.subscribeToResult = subscribeToResult;
-//# sourceMappingURL=subscribeToResult.js.map
-
-/***/ }),
-/* 28 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_observable_forkJoin__ = __webpack_require__(110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_observable_forkJoin__ = __webpack_require__(130);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_observable_forkJoin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_observable_forkJoin__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_observable_fromPromise__ = __webpack_require__(76);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_observable_fromPromise__ = __webpack_require__(90);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_observable_fromPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_observable_fromPromise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_operator_map__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_operator_map__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_platform_browser__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_platform_browser__ = __webpack_require__(12);
 /* unused harmony export AbstractControlDirective */
 /* unused harmony export AbstractFormGroupDirective */
 /* unused harmony export CheckboxControlValueAccessor */
@@ -43736,7 +43628,7 @@ function isEmptyInputValue(value) {
  * {\@example core/forms/ts/ng_validators/ng_validators.ts region='ng_validators'}
  * \@stable
  */
-var NG_VALIDATORS = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["H" /* InjectionToken */]('NgValidators');
+var NG_VALIDATORS = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* InjectionToken */]('NgValidators');
 /**
  * Providers for asynchronous validators to be used for {\@link FormControl}s
  * in a form.
@@ -43747,7 +43639,7 @@ var NG_VALIDATORS = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["H" /* Injec
  *
  * \@stable
  */
-var NG_ASYNC_VALIDATORS = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["H" /* InjectionToken */]('NgAsyncValidators');
+var NG_ASYNC_VALIDATORS = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* InjectionToken */]('NgAsyncValidators');
 var EMAIL_REGEXP = /^(?=.{1,254}$)(?=.{1,64}@)[-!#$%&'*+/0-9=?A-Z^_`a-z{|}~]+(\.[-!#$%&'*+/0-9=?A-Z^_`a-z{|}~]+)*@[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?(\.[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?)*$/;
 /**
  * Provides a set of validators used by form controls.
@@ -43897,8 +43789,8 @@ function isPresent(o) {
  * @return {?}
  */
 function toObservable(r) {
-    var /** @type {?} */ obs = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* ɵisPromise */])(r) ? __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_rxjs_observable_fromPromise__["fromPromise"])(r) : r;
-    if (!(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["E" /* ɵisObservable */])(obs))) {
+    var /** @type {?} */ obs = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* ɵisPromise */])(r) ? __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_rxjs_observable_fromPromise__["fromPromise"])(r) : r;
+    if (!(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* ɵisObservable */])(obs))) {
         throw new Error("Expected validator to return Promise or Observable.");
     }
     return obs;
@@ -43942,7 +43834,7 @@ function _mergeErrors(arrayOfErrors) {
  * See {\@link DefaultValueAccessor} for how to implement one.
  * \@stable
  */
-var NG_VALUE_ACCESSOR = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["H" /* InjectionToken */]('NgValueAccessor');
+var NG_VALUE_ACCESSOR = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* InjectionToken */]('NgValueAccessor');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -44041,7 +43933,7 @@ function _isAndroid() {
  * Turn this mode on if you want form directives to buffer IME input until compositionend
  * \@experimental
  */
-var COMPOSITION_BUFFER_MODE = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["H" /* InjectionToken */]('CompositionEventMode');
+var COMPOSITION_BUFFER_MODE = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* InjectionToken */]('CompositionEventMode');
 /**
  * The default accessor for writing a value and listening to changes that is used by the
  * {\@link NgModel}, {\@link FormControlDirective}, and {\@link FormControlName} directives.
@@ -49489,21 +49381,995 @@ ReactiveFormsModule.ctorParameters = function () { return []; };
 
 
 /***/ }),
-/* 29 */,
-/* 30 */,
-/* 31 */,
-/* 32 */,
+/* 25 */,
+/* 26 */,
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var Observable_1 = __webpack_require__(1);
+var Subscriber_1 = __webpack_require__(5);
+var Subscription_1 = __webpack_require__(19);
+var ObjectUnsubscribedError_1 = __webpack_require__(95);
+var SubjectSubscription_1 = __webpack_require__(128);
+var rxSubscriber_1 = __webpack_require__(93);
+/**
+ * @class SubjectSubscriber<T>
+ */
+var SubjectSubscriber = (function (_super) {
+    __extends(SubjectSubscriber, _super);
+    function SubjectSubscriber(destination) {
+        _super.call(this, destination);
+        this.destination = destination;
+    }
+    return SubjectSubscriber;
+}(Subscriber_1.Subscriber));
+exports.SubjectSubscriber = SubjectSubscriber;
+/**
+ * @class Subject<T>
+ */
+var Subject = (function (_super) {
+    __extends(Subject, _super);
+    function Subject() {
+        _super.call(this);
+        this.observers = [];
+        this.closed = false;
+        this.isStopped = false;
+        this.hasError = false;
+        this.thrownError = null;
+    }
+    Subject.prototype[rxSubscriber_1.rxSubscriber] = function () {
+        return new SubjectSubscriber(this);
+    };
+    Subject.prototype.lift = function (operator) {
+        var subject = new AnonymousSubject(this, this);
+        subject.operator = operator;
+        return subject;
+    };
+    Subject.prototype.next = function (value) {
+        if (this.closed) {
+            throw new ObjectUnsubscribedError_1.ObjectUnsubscribedError();
+        }
+        if (!this.isStopped) {
+            var observers = this.observers;
+            var len = observers.length;
+            var copy = observers.slice();
+            for (var i = 0; i < len; i++) {
+                copy[i].next(value);
+            }
+        }
+    };
+    Subject.prototype.error = function (err) {
+        if (this.closed) {
+            throw new ObjectUnsubscribedError_1.ObjectUnsubscribedError();
+        }
+        this.hasError = true;
+        this.thrownError = err;
+        this.isStopped = true;
+        var observers = this.observers;
+        var len = observers.length;
+        var copy = observers.slice();
+        for (var i = 0; i < len; i++) {
+            copy[i].error(err);
+        }
+        this.observers.length = 0;
+    };
+    Subject.prototype.complete = function () {
+        if (this.closed) {
+            throw new ObjectUnsubscribedError_1.ObjectUnsubscribedError();
+        }
+        this.isStopped = true;
+        var observers = this.observers;
+        var len = observers.length;
+        var copy = observers.slice();
+        for (var i = 0; i < len; i++) {
+            copy[i].complete();
+        }
+        this.observers.length = 0;
+    };
+    Subject.prototype.unsubscribe = function () {
+        this.isStopped = true;
+        this.closed = true;
+        this.observers = null;
+    };
+    Subject.prototype._trySubscribe = function (subscriber) {
+        if (this.closed) {
+            throw new ObjectUnsubscribedError_1.ObjectUnsubscribedError();
+        }
+        else {
+            return _super.prototype._trySubscribe.call(this, subscriber);
+        }
+    };
+    Subject.prototype._subscribe = function (subscriber) {
+        if (this.closed) {
+            throw new ObjectUnsubscribedError_1.ObjectUnsubscribedError();
+        }
+        else if (this.hasError) {
+            subscriber.error(this.thrownError);
+            return Subscription_1.Subscription.EMPTY;
+        }
+        else if (this.isStopped) {
+            subscriber.complete();
+            return Subscription_1.Subscription.EMPTY;
+        }
+        else {
+            this.observers.push(subscriber);
+            return new SubjectSubscription_1.SubjectSubscription(this, subscriber);
+        }
+    };
+    Subject.prototype.asObservable = function () {
+        var observable = new Observable_1.Observable();
+        observable.source = this;
+        return observable;
+    };
+    Subject.create = function (destination, source) {
+        return new AnonymousSubject(destination, source);
+    };
+    return Subject;
+}(Observable_1.Observable));
+exports.Subject = Subject;
+/**
+ * @class AnonymousSubject<T>
+ */
+var AnonymousSubject = (function (_super) {
+    __extends(AnonymousSubject, _super);
+    function AnonymousSubject(destination, source) {
+        _super.call(this);
+        this.destination = destination;
+        this.source = source;
+    }
+    AnonymousSubject.prototype.next = function (value) {
+        var destination = this.destination;
+        if (destination && destination.next) {
+            destination.next(value);
+        }
+    };
+    AnonymousSubject.prototype.error = function (err) {
+        var destination = this.destination;
+        if (destination && destination.error) {
+            this.destination.error(err);
+        }
+    };
+    AnonymousSubject.prototype.complete = function () {
+        var destination = this.destination;
+        if (destination && destination.complete) {
+            this.destination.complete();
+        }
+    };
+    AnonymousSubject.prototype._subscribe = function (subscriber) {
+        var source = this.source;
+        if (source) {
+            return this.source.subscribe(subscriber);
+        }
+        else {
+            return Subscription_1.Subscription.EMPTY;
+        }
+    };
+    return AnonymousSubject;
+}(Subject));
+exports.AnonymousSubject = AnonymousSubject;
+//# sourceMappingURL=Subject.js.map
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var Observable_1 = __webpack_require__(1);
+var map_1 = __webpack_require__(29);
+Observable_1.Observable.prototype.map = map_1.map;
+//# sourceMappingURL=map.js.map
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var Subscriber_1 = __webpack_require__(5);
+/**
+ * Applies a given `project` function to each value emitted by the source
+ * Observable, and emits the resulting values as an Observable.
+ *
+ * <span class="informal">Like [Array.prototype.map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map),
+ * it passes each source value through a transformation function to get
+ * corresponding output values.</span>
+ *
+ * <img src="./img/map.png" width="100%">
+ *
+ * Similar to the well known `Array.prototype.map` function, this operator
+ * applies a projection to each value and emits that projection in the output
+ * Observable.
+ *
+ * @example <caption>Map every every click to the clientX position of that click</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var positions = clicks.map(ev => ev.clientX);
+ * positions.subscribe(x => console.log(x));
+ *
+ * @see {@link mapTo}
+ * @see {@link pluck}
+ *
+ * @param {function(value: T, index: number): R} project The function to apply
+ * to each `value` emitted by the source Observable. The `index` parameter is
+ * the number `i` for the i-th emission that has happened since the
+ * subscription, starting from the number `0`.
+ * @param {any} [thisArg] An optional argument to define what `this` is in the
+ * `project` function.
+ * @return {Observable<R>} An Observable that emits the values from the source
+ * Observable transformed by the given `project` function.
+ * @method map
+ * @owner Observable
+ */
+function map(project, thisArg) {
+    if (typeof project !== 'function') {
+        throw new TypeError('argument is not a function. Are you looking for `mapTo()`?');
+    }
+    return this.lift(new MapOperator(project, thisArg));
+}
+exports.map = map;
+var MapOperator = (function () {
+    function MapOperator(project, thisArg) {
+        this.project = project;
+        this.thisArg = thisArg;
+    }
+    MapOperator.prototype.call = function (subscriber, source) {
+        return source.subscribe(new MapSubscriber(subscriber, this.project, this.thisArg));
+    };
+    return MapOperator;
+}());
+exports.MapOperator = MapOperator;
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
+var MapSubscriber = (function (_super) {
+    __extends(MapSubscriber, _super);
+    function MapSubscriber(destination, project, thisArg) {
+        _super.call(this, destination);
+        this.project = project;
+        this.count = 0;
+        this.thisArg = thisArg || this;
+    }
+    // NOTE: This looks unoptimized, but it's actually purposefully NOT
+    // using try/catch optimizations.
+    MapSubscriber.prototype._next = function (value) {
+        var result;
+        try {
+            result = this.project.call(this.thisArg, value, this.count++);
+        }
+        catch (err) {
+            this.destination.error(err);
+            return;
+        }
+        this.destination.next(result);
+    };
+    return MapSubscriber;
+}(Subscriber_1.Subscriber));
+//# sourceMappingURL=map.js.map
+
+/***/ }),
+/* 30 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__base_adapter__ = __webpack_require__(100);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__media_query_media_monitor__ = __webpack_require__(3);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ClassDirective; });
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+
+/**
+ * Directive to add responsive support for ngClass.
+ */
+var ClassDirective = (function (_super) {
+    __extends(ClassDirective, _super);
+    /* tslint:enable */
+    function ClassDirective(monitor, _iterableDiffers, _keyValueDiffers, _ngEl, _oldRenderer, _renderer) {
+        var _this = 
+        // TODO: this should use Renderer2 as well, but NgClass hasn't switched over yet.
+        _super.call(this, _iterableDiffers, _keyValueDiffers, _ngEl, _oldRenderer) || this;
+        _this.monitor = monitor;
+        _this._classAdapter = new __WEBPACK_IMPORTED_MODULE_2__base_adapter__["a" /* BaseFxDirectiveAdapter */]('class', monitor, _ngEl, _renderer);
+        _this._ngClassAdapter = new __WEBPACK_IMPORTED_MODULE_2__base_adapter__["a" /* BaseFxDirectiveAdapter */]('ngClass', monitor, _ngEl, _renderer);
+        return _this;
+    }
+    Object.defineProperty(ClassDirective.prototype, "ngClassBase", {
+        /**
+         * Intercept ngClass assignments so we cache the default classes
+         * which are merged with activated styles or used as fallbacks.
+         * Note: Base ngClass values are applied during ngDoCheck()
+         */
+        set: function (val) {
+            this._ngClassAdapter.cacheInput('ngClass', val, true);
+            this.ngClass = val;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ClassDirective.prototype, "ngClassXs", {
+        /* tslint:disable */
+        set: function (val) { this._ngClassAdapter.cacheInput('ngClassXs', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ClassDirective.prototype, "ngClassSm", {
+        set: function (val) { this._ngClassAdapter.cacheInput('ngClassSm', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ClassDirective.prototype, "ngClassMd", {
+        set: function (val) { this._ngClassAdapter.cacheInput('ngClassMd', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ClassDirective.prototype, "ngClassLg", {
+        set: function (val) { this._ngClassAdapter.cacheInput('ngClassLg', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ClassDirective.prototype, "ngClassXl", {
+        set: function (val) { this._ngClassAdapter.cacheInput('ngClassXl', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ClassDirective.prototype, "ngClassLtSm", {
+        set: function (val) { this._ngClassAdapter.cacheInput('ngClassLtSm', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ClassDirective.prototype, "ngClassLtMd", {
+        set: function (val) { this._ngClassAdapter.cacheInput('ngClassLtMd', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ClassDirective.prototype, "ngClassLtLg", {
+        set: function (val) { this._ngClassAdapter.cacheInput('ngClassLtLg', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ClassDirective.prototype, "ngClassLtXl", {
+        set: function (val) { this._ngClassAdapter.cacheInput('ngClassLtXl', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ClassDirective.prototype, "ngClassGtXs", {
+        set: function (val) { this._ngClassAdapter.cacheInput('ngClassGtXs', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ClassDirective.prototype, "ngClassGtSm", {
+        set: function (val) { this._ngClassAdapter.cacheInput('ngClassGtSm', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ClassDirective.prototype, "ngClassGtMd", {
+        set: function (val) { this._ngClassAdapter.cacheInput('ngClassGtMd', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ClassDirective.prototype, "ngClassGtLg", {
+        set: function (val) { this._ngClassAdapter.cacheInput('ngClassGtLg', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ClassDirective.prototype, "classBase", {
+        /** Deprecated selectors */
+        /**
+         * Base class selector values get applied immediately and are considered destructive overwrites to
+         * all previous class assignments
+         *
+         * Delegate to NgClass:klass setter and cache value for base fallback from responsive APIs.
+         */
+        set: function (val) {
+            this._classAdapter.cacheInput('_rawClass', val, true);
+            this.klass = val;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ClassDirective.prototype, "classXs", {
+        set: function (val) { this._classAdapter.cacheInput('classXs', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ClassDirective.prototype, "classSm", {
+        set: function (val) { this._classAdapter.cacheInput('classSm', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ClassDirective.prototype, "classMd", {
+        set: function (val) { this._classAdapter.cacheInput('classMd', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ClassDirective.prototype, "classLg", {
+        set: function (val) { this._classAdapter.cacheInput('classLg', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ClassDirective.prototype, "classXl", {
+        set: function (val) { this._classAdapter.cacheInput('classXl', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ClassDirective.prototype, "classLtSm", {
+        set: function (val) { this._classAdapter.cacheInput('classLtSm', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ClassDirective.prototype, "classLtMd", {
+        set: function (val) { this._classAdapter.cacheInput('classLtMd', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ClassDirective.prototype, "classLtLg", {
+        set: function (val) { this._classAdapter.cacheInput('classLtLg', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ClassDirective.prototype, "classLtXl", {
+        set: function (val) { this._classAdapter.cacheInput('classLtXl', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ClassDirective.prototype, "classGtXs", {
+        set: function (val) { this._classAdapter.cacheInput('classGtXs', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ClassDirective.prototype, "classGtSm", {
+        set: function (val) { this._classAdapter.cacheInput('classGtSm', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ClassDirective.prototype, "classGtMd", {
+        set: function (val) { this._classAdapter.cacheInput('classGtMd', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ClassDirective.prototype, "classGtLg", {
+        set: function (val) { this._classAdapter.cacheInput('classGtLg', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ClassDirective.prototype, "initialClasses", {
+        /**
+         * Initial value of the `class` attribute; used as
+         * fallback and will be merged with nay `ngClass` values
+         */
+        get: function () {
+            return this._classAdapter.queryInput('_rawClass') || "";
+        },
+        enumerable: true,
+        configurable: true
+    });
+    // ******************************************************************
+    // Lifecycle Hooks
+    // ******************************************************************
+    /**
+     * For @Input changes on the current mq activation property
+     */
+    ClassDirective.prototype.ngOnChanges = function (changes) {
+        if (this._classAdapter.activeKey in changes) {
+            this._updateKlass();
+        }
+        if (this._ngClassAdapter.activeKey in changes) {
+            this._updateNgClass();
+        }
+    };
+    /**
+     * For ChangeDetectionStrategy.onPush and ngOnChanges() updates
+     */
+    ClassDirective.prototype.ngDoCheck = function () {
+        if (!this._classAdapter.hasMediaQueryListener) {
+            this._configureMQListener();
+        }
+        _super.prototype.ngDoCheck.call(this);
+    };
+    ClassDirective.prototype.ngOnDestroy = function () {
+        this._classAdapter.ngOnDestroy();
+        this._ngClassAdapter.ngOnDestroy();
+    };
+    // ******************************************************************
+    // Internal Methods
+    // ******************************************************************
+    /**
+     * Build an mqActivation object that bridges
+     * mql change events to onMediaQueryChange handlers
+     */
+    ClassDirective.prototype._configureMQListener = function () {
+        var _this = this;
+        this._classAdapter.listenForMediaQueryChanges('class', '', function (changes) {
+            _this._updateKlass(changes.value);
+        });
+        this._ngClassAdapter.listenForMediaQueryChanges('ngClass', '', function (changes) {
+            _this._updateNgClass(changes.value);
+            _super.prototype.ngDoCheck.call(_this); // trigger NgClass::_applyIterableChanges()
+        });
+    };
+    /**
+     *  Apply updates directly to the NgClass:klass property
+     *  ::ngDoCheck() is not needed
+     */
+    ClassDirective.prototype._updateKlass = function (value) {
+        var klass = value || this._classAdapter.queryInput('class') || '';
+        if (this._classAdapter.mqActivation) {
+            klass = this._classAdapter.mqActivation.activatedInput;
+        }
+        this.klass = klass || this.initialClasses;
+    };
+    /**
+     *  Identify the activated input value and update the ngClass iterables...
+     *  needs ngDoCheck() to actually apply the values to the element
+     */
+    ClassDirective.prototype._updateNgClass = function (value) {
+        if (this._ngClassAdapter.mqActivation) {
+            value = this._ngClassAdapter.mqActivation.activatedInput;
+        }
+        this.ngClass = value || ''; // Delegate subsequent activity to the NgClass logic
+    };
+    return ClassDirective;
+}(__WEBPACK_IMPORTED_MODULE_1__angular_common__["m" /* NgClass */]));
+
+ClassDirective.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Directive */], args: [{
+                selector: "\n    [class], [class.xs], [class.sm], [class.md], [class.lg], [class.xl],\n    [class.lt-sm], [class.lt-md], [class.lt-lg], [class.lt-xl],\n    [class.gt-xs], [class.gt-sm], [class.gt-md], [class.gt-lg],\n\n    [ngClass], [ngClass.xs], [ngClass.sm], [ngClass.md], [ngClass.lg], [ngClass.xl],\n    [ngClass.lt-sm], [ngClass.lt-md], [ngClass.lt-lg], [ngClass.lt-xl],\n    [ngClass.gt-xs], [ngClass.gt-sm], [ngClass.gt-md], [ngClass.gt-lg]\n  "
+            },] },
+];
+/** @nocollapse */
+ClassDirective.ctorParameters = function () { return [
+    { type: __WEBPACK_IMPORTED_MODULE_3__media_query_media_monitor__["a" /* MediaMonitor */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["w" /* IterableDiffers */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* KeyValueDiffers */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* ElementRef */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["L" /* Renderer */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_28" /* Renderer2 */], },
+]; };
+ClassDirective.propDecorators = {
+    'ngClassBase': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['ngClass',] },],
+    'ngClassXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['ngClass.xs',] },],
+    'ngClassSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['ngClass.sm',] },],
+    'ngClassMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['ngClass.md',] },],
+    'ngClassLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['ngClass.lg',] },],
+    'ngClassXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['ngClass.xl',] },],
+    'ngClassLtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['ngClass.lt-sm',] },],
+    'ngClassLtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['ngClass.lt-md',] },],
+    'ngClassLtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['ngClass.lt-lg',] },],
+    'ngClassLtXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['ngClass.lt-xl',] },],
+    'ngClassGtXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['ngClass.gt-xs',] },],
+    'ngClassGtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['ngClass.gt-sm',] },],
+    'ngClassGtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['ngClass.gt-md',] },],
+    'ngClassGtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['ngClass.gt-lg',] },],
+    'classBase': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['class',] },],
+    'classXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['class.xs',] },],
+    'classSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['class.sm',] },],
+    'classMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['class.md',] },],
+    'classLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['class.lg',] },],
+    'classXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['class.xl',] },],
+    'classLtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['class.lt-sm',] },],
+    'classLtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['class.lt-md',] },],
+    'classLtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['class.lt-lg',] },],
+    'classLtXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['class.lt-xl',] },],
+    'classGtXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['class.gt-xs',] },],
+    'classGtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['class.gt-sm',] },],
+    'classGtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['class.gt-md',] },],
+    'classGtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['class.gt-lg',] },],
+};
+//# sourceMappingURL=class.js.map
+
+/***/ }),
+/* 31 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__base__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__media_query_media_monitor__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_layout_validator__ = __webpack_require__(39);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LayoutDirective; });
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+
+
+/**
+ * 'layout' flexbox styling directive
+ * Defines the positioning flow direction for the child elements: row or column
+ * Optional values: column or row (default)
+ * @see https://css-tricks.com/almanac/properties/f/flex-direction/
+ *
+ */
+var LayoutDirective = (function (_super) {
+    __extends(LayoutDirective, _super);
+    /* tslint:enable */
+    /**
+     *
+     */
+    function LayoutDirective(monitor, elRef, renderer) {
+        var _this = _super.call(this, monitor, elRef, renderer) || this;
+        _this._announcer = new __WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject__["BehaviorSubject"]("row");
+        _this.layout$ = _this._announcer.asObservable();
+        return _this;
+    }
+    Object.defineProperty(LayoutDirective.prototype, "layout", {
+        /* tslint:disable */
+        set: function (val) { this._cacheInput("layout", val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutDirective.prototype, "layoutXs", {
+        set: function (val) { this._cacheInput('layoutXs', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutDirective.prototype, "layoutSm", {
+        set: function (val) { this._cacheInput('layoutSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutDirective.prototype, "layoutMd", {
+        set: function (val) { this._cacheInput('layoutMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutDirective.prototype, "layoutLg", {
+        set: function (val) { this._cacheInput('layoutLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutDirective.prototype, "layoutXl", {
+        set: function (val) { this._cacheInput('layoutXl', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutDirective.prototype, "layoutGtXs", {
+        set: function (val) { this._cacheInput('layoutGtXs', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutDirective.prototype, "layoutGtSm", {
+        set: function (val) { this._cacheInput('layoutGtSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutDirective.prototype, "layoutGtMd", {
+        set: function (val) { this._cacheInput('layoutGtMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutDirective.prototype, "layoutGtLg", {
+        set: function (val) { this._cacheInput('layoutGtLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutDirective.prototype, "layoutLtSm", {
+        set: function (val) { this._cacheInput('layoutLtSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutDirective.prototype, "layoutLtMd", {
+        set: function (val) { this._cacheInput('layoutLtMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutDirective.prototype, "layoutLtLg", {
+        set: function (val) { this._cacheInput('layoutLtLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutDirective.prototype, "layoutLtXl", {
+        set: function (val) { this._cacheInput('layoutLtXl', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    // *********************************************
+    // Lifecycle Methods
+    // *********************************************
+    /**
+     * On changes to any @Input properties...
+     * Default to use the non-responsive Input value ('fxLayout')
+     * Then conditionally override with the mq-activated Input's current value
+     */
+    LayoutDirective.prototype.ngOnChanges = function (changes) {
+        if (changes['layout'] != null || this._mqActivation) {
+            this._updateWithDirection();
+        }
+    };
+    /**
+     * After the initial onChanges, build an mqActivation object that bridges
+     * mql change events to onMediaQueryChange handlers
+     */
+    LayoutDirective.prototype.ngOnInit = function () {
+        var _this = this;
+        this._listenForMediaQueryChanges('layout', 'row', function (changes) {
+            _this._updateWithDirection(changes.value);
+        });
+        this._updateWithDirection();
+    };
+    // *********************************************
+    // Protected methods
+    // *********************************************
+    /**
+     * Validate the direction value and then update the host's inline flexbox styles
+     */
+    LayoutDirective.prototype._updateWithDirection = function (value) {
+        value = value || this._queryInput("layout") || 'row';
+        if (this._mqActivation) {
+            value = this._mqActivation.activatedInput;
+        }
+        // Update styles and announce to subscribers the *new* direction
+        var css = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__utils_layout_validator__["a" /* buildLayoutCSS */])(value);
+        this._applyStyleToElement(css);
+        this._announcer.next(css['flex-direction']);
+    };
+    return LayoutDirective;
+}(__WEBPACK_IMPORTED_MODULE_2__base__["a" /* BaseFxDirective */]));
+
+LayoutDirective.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Directive */], args: [{ selector: "\n  [fxLayout],\n  [fxLayout.xs], [fxLayout.sm], [fxLayout.md], [fxLayout.lg], [fxLayout.xl],\n  [fxLayout.lt-sm], [fxLayout.lt-md], [fxLayout.lt-lg], [fxLayout.lt-xl],\n  [fxLayout.gt-xs], [fxLayout.gt-sm], [fxLayout.gt-md], [fxLayout.gt-lg]\n" },] },
+];
+/** @nocollapse */
+LayoutDirective.ctorParameters = function () { return [
+    { type: __WEBPACK_IMPORTED_MODULE_3__media_query_media_monitor__["a" /* MediaMonitor */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* ElementRef */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_28" /* Renderer2 */], },
+]; };
+LayoutDirective.propDecorators = {
+    'layout': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout',] },],
+    'layoutXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.xs',] },],
+    'layoutSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.sm',] },],
+    'layoutMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.md',] },],
+    'layoutLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.lg',] },],
+    'layoutXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.xl',] },],
+    'layoutGtXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.gt-xs',] },],
+    'layoutGtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.gt-sm',] },],
+    'layoutGtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.gt-md',] },],
+    'layoutGtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.gt-lg',] },],
+    'layoutLtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.lt-sm',] },],
+    'layoutLtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.lt-md',] },],
+    'layoutLtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.lt-lg',] },],
+    'layoutLtXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.lt-xl',] },],
+};
+//# sourceMappingURL=layout.js.map
+
+/***/ }),
+/* 32 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__media_change__ = __webpack_require__(162);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MatchMedia; });
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+// RxJS Operators used by the classes...
+
+
+
+/**
+ * MediaMonitor configures listeners to mediaQuery changes and publishes an Observable facade to
+ * convert mediaQuery change callbacks to subscriber notifications. These notifications will be
+ * performed within the ng Zone to trigger change detections and component updates.
+ *
+ * NOTE: both mediaQuery activations and de-activations are announced in notifications
+ */
+var MatchMedia = (function () {
+    function MatchMedia(_zone) {
+        this._zone = _zone;
+        this._registry = new Map();
+        this._source = new __WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject__["BehaviorSubject"](new __WEBPACK_IMPORTED_MODULE_4__media_change__["a" /* MediaChange */](true));
+        this._observable$ = this._source.asObservable();
+    }
+    /**
+     * For the specified mediaQuery?
+     */
+    MatchMedia.prototype.isActive = function (mediaQuery) {
+        if (this._registry.has(mediaQuery)) {
+            var mql = this._registry.get(mediaQuery);
+            return mql.matches;
+        }
+        return false;
+    };
+    /**
+     * External observers can watch for all (or a specific) mql changes.
+     * Typically used by the MediaQueryAdaptor; optionally available to components
+     * who wish to use the MediaMonitor as mediaMonitor$ observable service.
+     *
+     * NOTE: if a mediaQuery is not specified, then ALL mediaQuery activations will
+     *       be announced.
+     */
+    MatchMedia.prototype.observe = function (mediaQuery) {
+        this.registerQuery(mediaQuery);
+        return this._observable$.filter(function (change) {
+            return mediaQuery ? (change.mediaQuery === mediaQuery) : true;
+        });
+    };
+    /**
+     * Based on the BreakPointRegistry provider, register internal listeners for each unique
+     * mediaQuery. Each listener emits specific MediaChange data to observers
+     */
+    MatchMedia.prototype.registerQuery = function (mediaQuery) {
+        var _this = this;
+        if (mediaQuery) {
+            var mql = this._registry.get(mediaQuery);
+            var onMQLEvent = function (e) {
+                _this._zone.run(function () {
+                    var change = new __WEBPACK_IMPORTED_MODULE_4__media_change__["a" /* MediaChange */](e.matches, mediaQuery);
+                    _this._source.next(change);
+                });
+            };
+            if (!mql) {
+                mql = this._buildMQL(mediaQuery);
+                mql.addListener(onMQLEvent);
+                this._registry.set(mediaQuery, mql);
+            }
+            if (mql.matches) {
+                onMQLEvent(mql); // Announce activate range for initial subscribers
+            }
+        }
+    };
+    /**
+     * Call window.matchMedia() to build a MediaQueryList; which
+     * supports 0..n listeners for activation/deactivation
+     */
+    MatchMedia.prototype._buildMQL = function (query) {
+        prepareQueryCSS(query);
+        var canListen = !!window.matchMedia('all').addListener;
+        return canListen ? window.matchMedia(query) : {
+            matches: query === 'all' || query === '',
+            media: query,
+            addListener: function () {
+            },
+            removeListener: function () {
+            }
+        };
+    };
+    return MatchMedia;
+}());
+
+MatchMedia.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["X" /* Injectable */] },
+];
+/** @nocollapse */
+MatchMedia.ctorParameters = function () { return [
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["g" /* NgZone */], },
+]; };
+/**
+ * Private global registry for all dynamically-created, injected style tags
+ * @see prepare(query)
+ */
+var ALL_STYLES = {};
+/**
+ * For Webkit engines that only trigger the MediaQueryListListener
+ * when there is at least one CSS selector for the respective media query.
+ *
+ * @param query string The mediaQuery used to create a faux CSS selector
+ *
+ */
+function prepareQueryCSS(query) {
+    if (!ALL_STYLES[query]) {
+        try {
+            var style = document.createElement('style');
+            style.setAttribute('type', 'text/css');
+            if (!style['styleSheet']) {
+                var cssText = "@media " + query + " {.fx-query-test{ }}";
+                style.appendChild(document.createTextNode(cssText));
+            }
+            document.getElementsByTagName('head')[0].appendChild(style);
+            // Store in private global registry
+            ALL_STYLES[query] = style;
+        }
+        catch (e) {
+            console.error(e);
+        }
+    }
+}
+//# sourceMappingURL=match-media.js.map
+
+/***/ }),
 /* 33 */,
 /* 34 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-/*! @license Firebase v3.8.0
-Build: rev-69367dd
-Terms: https://firebase.google.com/terms/ */
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return FirebaseConfig; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return FirebaseApp; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return FirebaseAuthConfig; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FirebaseUserConfig; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return FirebaseAppName; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return WindowLocation; });
+/* unused harmony export FirebaseRef */
+/* unused harmony export FirebaseUrl */
 
-var firebase=function(e){function t(r){if(n[r])return n[r].exports;var i=n[r]={i:r,l:!1,exports:{}};return e[r].call(i.exports,i,i.exports,t),i.l=!0,i.exports}var n={};return t.m=e,t.c=n,t.i=function(e){return e},t.d=function(e,n,r){t.o(e,n)||Object.defineProperty(e,n,{configurable:!1,enumerable:!0,get:r})},t.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(n,"a",n),n},t.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},t.p="",t(t.s=11)}([function(e,t,n){"use strict";(function(e){Object.defineProperty(t,"__esModule",{value:!0});var r=void 0;if(void 0!==e)r=e;else if("undefined"!=typeof self)r=self;else try{r=Function("return this")()}catch(e){throw new Error("polyfill failed because global object is unavailable in this environment")}var i=r.Promise||n(8);t.local={Promise:i,GoogPromise:i}}).call(t,n(1))},function(e,t){var n;n=function(){return this}();try{n=n||Function("return this")()||(0,eval)("this")}catch(e){"object"==typeof window&&(n=window)}e.exports=n},function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var r=n(5),i=(0,r.createFirebaseNamespace)();t.default=i,e.exports=t.default},function(e,t,n){"use strict";function r(e){return i(void 0,e)}function i(e,t){if(!(t instanceof Object))return t;switch(t.constructor){case Date:return new Date(t.getTime());case Object:void 0===e&&(e={});break;case Array:e=[];break;default:return t}for(var n in t)t.hasOwnProperty(n)&&(e[n]=i(e[n],t[n]));return e}function o(e,t,n){e[t]=n}Object.defineProperty(t,"__esModule",{value:!0}),t.deepCopy=r,t.deepExtend=i,t.patchProperty=o},function(e,t,n){"use strict";function r(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function i(e){var t=a;return a=e,t}Object.defineProperty(t,"__esModule",{value:!0});var o=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}();t.patchCapture=i;var a=Error.captureStackTrace,c=function e(t,n){if(r(this,e),this.code=t,this.message=n,a)a(this,s.prototype.create);else{var i=Error.apply(this,arguments);this.name="FirebaseError",Object.defineProperty(this,"stack",{get:function(){return i.stack}})}};c.prototype=Object.create(Error.prototype),c.prototype.constructor=c,c.prototype.name="FirebaseError";var s=t.ErrorFactory=function(){function e(t,n,i){r(this,e),this.service=t,this.serviceName=n,this.errors=i,this.pattern=/\{\$([^}]+)}/g}return o(e,[{key:"create",value:function(e,t){void 0===t&&(t={});var n=this.errors[e],r=this.service+"/"+e,i=void 0;i=void 0===n?"Error":n.replace(this.pattern,function(e,n){var r=t[n];return void 0!==r?r.toString():"<"+n+"?>"}),i=this.serviceName+": "+i+" ("+r+").";var o=new c(r,i);for(var a in t)t.hasOwnProperty(a)&&"_"!==a.slice(-1)&&(o[a]=t[a]);return o}}]),e}()},function(e,t,n){"use strict";function r(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function i(){function e(e){e=e||d;var t=r[e];return void 0===t&&o("no-app",{name:e}),t}function t(e,t){Object.keys(a).forEach(function(r){var i=n(e,r);null!==i&&h[i]&&h[i](t,e)})}function n(e,t){if("serverAuth"===t)return null;var n=t,r=e.options;return"auth"===t&&(r.serviceAccount||r.credential)&&(n="serverAuth","serverAuth"in a||o("sa-not-supported")),n}var r={},a={},h={},v={__esModule:!0,initializeApp:function(e,n){void 0===n?n=d:"string"==typeof n&&""!==n||o("bad-app-name",{name:n+""}),void 0!==r[n]&&o("duplicate-app",{name:n});var i=new p(e,n,v);return r[n]=i,t(i,"create"),void 0!=i.INTERNAL&&void 0!=i.INTERNAL.getToken||(0,c.deepExtend)(i,{INTERNAL:{getUid:function(){return null},getToken:function(){return l.resolve(null)},addAuthTokenListener:function(){},removeAuthTokenListener:function(){}}}),i},app:e,apps:null,Promise:l,SDK_VERSION:"3.8.0",INTERNAL:{registerService:function(t,n,r,i,s){a[t]&&o("duplicate-service",{name:t}),a[t]=s?n:function(e,t){return n(e,t,d)},i&&(h[t]=i);var u=void 0;return u=function(n){return void 0===n&&(n=e()),"function"!=typeof n[t]&&o("invalid-app-argument",{name:t}),n[t]()},void 0!==r&&(0,c.deepExtend)(u,r),v[t]=u,u},createFirebaseNamespace:i,extendNamespace:function(e){(0,c.deepExtend)(v,e)},createSubscribe:s.createSubscribe,ErrorFactory:u.ErrorFactory,removeApp:function(e){t(r[e],"delete"),delete r[e]},factories:a,useAsService:n,Promise:f.local.GoogPromise,deepExtend:c.deepExtend}};return(0,c.patchProperty)(v,"default",v),Object.defineProperty(v,"apps",{get:function(){return Object.keys(r).map(function(e){return r[e]})}}),(0,c.patchProperty)(e,"App",p),v}function o(e,t){throw v.create(e,t)}Object.defineProperty(t,"__esModule",{value:!0});var a=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}();t.createFirebaseNamespace=i;var c=n(3),s=n(6),u=n(4),f=n(0),l=f.local.Promise,d="[DEFAULT]",p=function(){function e(t,n,i){var o=this;r(this,e),this.firebase_=i,this.isDeleted_=!1,this.services_={},this.name_=n,this.options_=(0,c.deepCopy)(t);var a="credential"in this.options_,s="serviceAccount"in this.options_;if(a||s){var u=s?"serviceAccount":"credential";"undefined"!=typeof console&&console.log("The '"+u+"' property specified in the first argument to initializeApp() is deprecated and will be removed in the next major version. You should instead use the 'firebase-admin' package. See https://firebase.google.com/docs/admin/setup for details on how to get started.")}Object.keys(i.INTERNAL.factories).forEach(function(e){var t=i.INTERNAL.useAsService(o,e);if(null!==t){var n=o.getService.bind(o,t);(0,c.patchProperty)(o,e,n)}})}return a(e,[{key:"delete",value:function(){var e=this;return new l(function(t){e.checkDestroyed_(),t()}).then(function(){e.firebase_.INTERNAL.removeApp(e.name_);var t=[];return Object.keys(e.services_).forEach(function(n){Object.keys(e.services_[n]).forEach(function(r){t.push(e.services_[n][r])})}),l.all(t.map(function(e){return e.INTERNAL.delete()}))}).then(function(){e.isDeleted_=!0,e.services_={}})}},{key:"getService",value:function(e,t){this.checkDestroyed_(),void 0===this.services_[e]&&(this.services_[e]={});var n=t||d;if(void 0===this.services_[e][n]){var r=this.firebase_.INTERNAL.factories[e](this,this.extendApp.bind(this),t);return this.services_[e][n]=r,r}return this.services_[e][n]}},{key:"extendApp",value:function(e){(0,c.deepExtend)(this,e)}},{key:"checkDestroyed_",value:function(){this.isDeleted_&&o("app-deleted",{name:this.name_})}},{key:"name",get:function(){return this.checkDestroyed_(),this.name_}},{key:"options",get:function(){return this.checkDestroyed_(),this.options_}}]),e}();p.prototype.name&&p.prototype.options||p.prototype.delete||console.log("dc");var h={"no-app":"No Firebase App '{$name}' has been created - call Firebase App.initializeApp()","bad-app-name":"Illegal App name: '{$name}","duplicate-app":"Firebase App named '{$name}' already exists","app-deleted":"Firebase App named '{$name}' already deleted","duplicate-service":"Firebase service named '{$name}' already registered","sa-not-supported":"Initializing the Firebase SDK with a service account is only allowed in a Node.js environment. On client devices, you should instead initialize the SDK with an api key and auth domain","invalid-app-argument":"firebase.{$name}() takes either no argument or a Firebase App instance."},v=new u.ErrorFactory("app","Firebase",h)},function(e,t,n){"use strict";function r(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function i(e,t){var n=new d(e,t);return n.subscribe.bind(n)}function o(e,t){return function(){for(var n=arguments.length,r=Array(n),i=0;i<n;i++)r[i]=arguments[i];l.resolve(!0).then(function(){e.apply(void 0,r)}).catch(function(e){t&&t(e)})}}function a(e,t){if("object"!==(void 0===e?"undefined":s(e))||null===e)return!1;var n=!0,r=!1,i=void 0;try{for(var o,a=t[Symbol.iterator]();!(n=(o=a.next()).done);n=!0){var c=o.value;if(c in e&&"function"==typeof e[c])return!0}}catch(e){r=!0,i=e}finally{try{!n&&a.return&&a.return()}finally{if(r)throw i}}return!1}function c(){}Object.defineProperty(t,"__esModule",{value:!0});var s="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},u=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}();t.createSubscribe=i,t.async=o;var f=n(0),l=f.local.Promise,d=function(){function e(t,n){var i=this;r(this,e),this.observers=[],this.unsubscribes=[],this.observerCount=0,this.task=l.resolve(),this.finalized=!1,this.onNoObservers=n,this.task.then(function(){t(i)}).catch(function(e){i.error(e)})}return u(e,[{key:"next",value:function(e){this.forEachObserver(function(t){t.next(e)})}},{key:"error",value:function(e){this.forEachObserver(function(t){t.error(e)}),this.close(e)}},{key:"complete",value:function(){this.forEachObserver(function(e){e.complete()}),this.close()}},{key:"subscribe",value:function(e,t,n){var r=this,i=void 0;if(void 0===e&&void 0===t&&void 0===n)throw new Error("Missing Observer.");i=a(e,["next","error","complete"])?e:{next:e,error:t,complete:n},void 0===i.next&&(i.next=c),void 0===i.error&&(i.error=c),void 0===i.complete&&(i.complete=c);var o=this.unsubscribeOne.bind(this,this.observers.length);return this.finalized&&this.task.then(function(){try{r.finalError?i.error(r.finalError):i.complete()}catch(e){}}),this.observers.push(i),o}},{key:"unsubscribeOne",value:function(e){void 0!==this.observers&&void 0!==this.observers[e]&&(delete this.observers[e],this.observerCount-=1,0===this.observerCount&&void 0!==this.onNoObservers&&this.onNoObservers(this))}},{key:"forEachObserver",value:function(e){if(!this.finalized)for(var t=0;t<this.observers.length;t++)this.sendOne(t,e)}},{key:"sendOne",value:function(e,t){var n=this;this.task.then(function(){if(void 0!==n.observers&&void 0!==n.observers[e])try{t(n.observers[e])}catch(e){"undefined"!=typeof console&&console.error&&console.error(e)}})}},{key:"close",value:function(e){var t=this;this.finalized||(this.finalized=!0,void 0!==e&&(this.finalError=e),this.task.then(function(){t.observers=void 0,t.onNoObservers=void 0}))}}]),e}()},function(e,t){function n(){throw new Error("setTimeout has not been defined")}function r(){throw new Error("clearTimeout has not been defined")}function i(e){if(f===setTimeout)return setTimeout(e,0);if((f===n||!f)&&setTimeout)return f=setTimeout,setTimeout(e,0);try{return f(e,0)}catch(t){try{return f.call(null,e,0)}catch(t){return f.call(this,e,0)}}}function o(e){if(l===clearTimeout)return clearTimeout(e);if((l===r||!l)&&clearTimeout)return l=clearTimeout,clearTimeout(e);try{return l(e)}catch(t){try{return l.call(null,e)}catch(t){return l.call(this,e)}}}function a(){v&&p&&(v=!1,p.length?h=p.concat(h):m=-1,h.length&&c())}function c(){if(!v){var e=i(a);v=!0;for(var t=h.length;t;){for(p=h,h=[];++m<t;)p&&p[m].run();m=-1,t=h.length}p=null,v=!1,o(e)}}function s(e,t){this.fun=e,this.array=t}function u(){}var f,l,d=e.exports={};!function(){try{f="function"==typeof setTimeout?setTimeout:n}catch(e){f=n}try{l="function"==typeof clearTimeout?clearTimeout:r}catch(e){l=r}}();var p,h=[],v=!1,m=-1;d.nextTick=function(e){var t=new Array(arguments.length-1);if(arguments.length>1)for(var n=1;n<arguments.length;n++)t[n-1]=arguments[n];h.push(new s(e,t)),1!==h.length||v||i(c)},s.prototype.run=function(){this.fun.apply(null,this.array)},d.title="browser",d.browser=!0,d.env={},d.argv=[],d.version="",d.versions={},d.on=u,d.addListener=u,d.once=u,d.off=u,d.removeListener=u,d.removeAllListeners=u,d.emit=u,d.binding=function(e){throw new Error("process.binding is not supported")},d.cwd=function(){return"/"},d.chdir=function(e){throw new Error("process.chdir is not supported")},d.umask=function(){return 0}},function(e,t,n){(function(t){!function(n){function r(){}function i(e,t){return function(){e.apply(t,arguments)}}function o(e){if("object"!=typeof this)throw new TypeError("Promises must be constructed via new");if("function"!=typeof e)throw new TypeError("not a function");this._state=0,this._handled=!1,this._value=void 0,this._deferreds=[],l(e,this)}function a(e,t){for(;3===e._state;)e=e._value;if(0===e._state)return void e._deferreds.push(t);e._handled=!0,o._immediateFn(function(){var n=1===e._state?t.onFulfilled:t.onRejected;if(null===n)return void(1===e._state?c:s)(t.promise,e._value);var r;try{r=n(e._value)}catch(e){return void s(t.promise,e)}c(t.promise,r)})}function c(e,t){try{if(t===e)throw new TypeError("A promise cannot be resolved with itself.");if(t&&("object"==typeof t||"function"==typeof t)){var n=t.then;if(t instanceof o)return e._state=3,e._value=t,void u(e);if("function"==typeof n)return void l(i(n,t),e)}e._state=1,e._value=t,u(e)}catch(t){s(e,t)}}function s(e,t){e._state=2,e._value=t,u(e)}function u(e){2===e._state&&0===e._deferreds.length&&o._immediateFn(function(){e._handled||o._unhandledRejectionFn(e._value)});for(var t=0,n=e._deferreds.length;t<n;t++)a(e,e._deferreds[t]);e._deferreds=null}function f(e,t,n){this.onFulfilled="function"==typeof e?e:null,this.onRejected="function"==typeof t?t:null,this.promise=n}function l(e,t){var n=!1;try{e(function(e){n||(n=!0,c(t,e))},function(e){n||(n=!0,s(t,e))})}catch(e){if(n)return;n=!0,s(t,e)}}var d=setTimeout;o.prototype.catch=function(e){return this.then(null,e)},o.prototype.then=function(e,t){var n=new this.constructor(r);return a(this,new f(e,t,n)),n},o.all=function(e){var t=Array.prototype.slice.call(e);return new o(function(e,n){function r(o,a){try{if(a&&("object"==typeof a||"function"==typeof a)){var c=a.then;if("function"==typeof c)return void c.call(a,function(e){r(o,e)},n)}t[o]=a,0==--i&&e(t)}catch(e){n(e)}}if(0===t.length)return e([]);for(var i=t.length,o=0;o<t.length;o++)r(o,t[o])})},o.resolve=function(e){return e&&"object"==typeof e&&e.constructor===o?e:new o(function(t){t(e)})},o.reject=function(e){return new o(function(t,n){n(e)})},o.race=function(e){return new o(function(t,n){for(var r=0,i=e.length;r<i;r++)e[r].then(t,n)})},o._immediateFn="function"==typeof t&&function(e){t(e)}||function(e){d(e,0)},o._unhandledRejectionFn=function(e){"undefined"!=typeof console&&console&&console.warn("Possible Unhandled Promise Rejection:",e)},o._setImmediateFn=function(e){o._immediateFn=e},o._setUnhandledRejectionFn=function(e){o._unhandledRejectionFn=e},void 0!==e&&e.exports?e.exports=o:n.Promise||(n.Promise=o)}(this)}).call(t,n(10).setImmediate)},function(e,t,n){(function(e,t){!function(e,n){"use strict";function r(e){"function"!=typeof e&&(e=new Function(""+e));for(var t=new Array(arguments.length-1),n=0;n<t.length;n++)t[n]=arguments[n+1];var r={callback:e,args:t};return u[s]=r,c(s),s++}function i(e){delete u[e]}function o(e){var t=e.callback,r=e.args;switch(r.length){case 0:t();break;case 1:t(r[0]);break;case 2:t(r[0],r[1]);break;case 3:t(r[0],r[1],r[2]);break;default:t.apply(n,r)}}function a(e){if(f)setTimeout(a,0,e);else{var t=u[e];if(t){f=!0;try{o(t)}finally{i(e),f=!1}}}}if(!e.setImmediate){var c,s=1,u={},f=!1,l=e.document,d=Object.getPrototypeOf&&Object.getPrototypeOf(e);d=d&&d.setTimeout?d:e,"[object process]"==={}.toString.call(e.process)?function(){c=function(e){t.nextTick(function(){a(e)})}}():function(){if(e.postMessage&&!e.importScripts){var t=!0,n=e.onmessage;return e.onmessage=function(){t=!1},e.postMessage("","*"),e.onmessage=n,t}}()?function(){var t="setImmediate$"+Math.random()+"$",n=function(n){n.source===e&&"string"==typeof n.data&&0===n.data.indexOf(t)&&a(+n.data.slice(t.length))};e.addEventListener?e.addEventListener("message",n,!1):e.attachEvent("onmessage",n),c=function(n){e.postMessage(t+n,"*")}}():e.MessageChannel?function(){var e=new MessageChannel;e.port1.onmessage=function(e){a(e.data)},c=function(t){e.port2.postMessage(t)}}():l&&"onreadystatechange"in l.createElement("script")?function(){var e=l.documentElement;c=function(t){var n=l.createElement("script");n.onreadystatechange=function(){a(t),n.onreadystatechange=null,e.removeChild(n),n=null},e.appendChild(n)}}():function(){c=function(e){setTimeout(a,0,e)}}(),d.setImmediate=r,d.clearImmediate=i}}("undefined"==typeof self?void 0===e?this:e:self)}).call(t,n(1),n(7))},function(e,t,n){function r(e,t){this._id=e,this._clearFn=t}var i=Function.prototype.apply;t.setTimeout=function(){return new r(i.call(setTimeout,window,arguments),clearTimeout)},t.setInterval=function(){return new r(i.call(setInterval,window,arguments),clearInterval)},t.clearTimeout=t.clearInterval=function(e){e&&e.close()},r.prototype.unref=r.prototype.ref=function(){},r.prototype.close=function(){this._clearFn.call(window,this._id)},t.enroll=function(e,t){clearTimeout(e._idleTimeoutId),e._idleTimeout=t},t.unenroll=function(e){clearTimeout(e._idleTimeoutId),e._idleTimeout=-1},t._unrefActive=t.active=function(e){clearTimeout(e._idleTimeoutId);var t=e._idleTimeout;t>=0&&(e._idleTimeoutId=setTimeout(function(){e._onTimeout&&e._onTimeout()},t))},n(9),t.setImmediate=setImmediate,t.clearImmediate=clearImmediate},function(e,t,n){e.exports=n(2)}]);module.exports=firebase;
-//# sourceMappingURL=app.js.map
-
+var FirebaseConfig = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["E" /* OpaqueToken */]('FirebaseUrl');
+var FirebaseApp = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["E" /* OpaqueToken */]('FirebaseApp');
+var FirebaseAuthConfig = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["E" /* OpaqueToken */]('FirebaseAuthConfig');
+var FirebaseUserConfig = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["E" /* OpaqueToken */]('FirebaseUserConfig');
+var FirebaseAppName = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["E" /* OpaqueToken */]('FirebaseAppName');
+var WindowLocation = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["E" /* OpaqueToken */]('WindowLocation');
+var FirebaseRef = FirebaseApp;
+var FirebaseUrl = FirebaseConfig;
+//# sourceMappingURL=tokens.js.map
 
 /***/ }),
 /* 35 */
@@ -49516,8 +50382,370 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var Subscriber_1 = __webpack_require__(4);
-var Notification_1 = __webpack_require__(214);
+var Subscriber_1 = __webpack_require__(5);
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
+var OuterSubscriber = (function (_super) {
+    __extends(OuterSubscriber, _super);
+    function OuterSubscriber() {
+        _super.apply(this, arguments);
+    }
+    OuterSubscriber.prototype.notifyNext = function (outerValue, innerValue, outerIndex, innerIndex, innerSub) {
+        this.destination.next(innerValue);
+    };
+    OuterSubscriber.prototype.notifyError = function (error, innerSub) {
+        this.destination.error(error);
+    };
+    OuterSubscriber.prototype.notifyComplete = function (innerSub) {
+        this.destination.complete();
+    };
+    return OuterSubscriber;
+}(Subscriber_1.Subscriber));
+exports.OuterSubscriber = OuterSubscriber;
+//# sourceMappingURL=OuterSubscriber.js.map
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var Observable_1 = __webpack_require__(1);
+var filter_1 = __webpack_require__(134);
+Observable_1.Observable.prototype.filter = filter_1.filter;
+//# sourceMappingURL=filter.js.map
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var Observable_1 = __webpack_require__(1);
+var ScalarObservable_1 = __webpack_require__(89);
+var EmptyObservable_1 = __webpack_require__(58);
+var isScheduler_1 = __webpack_require__(63);
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @extends {Ignored}
+ * @hide true
+ */
+var ArrayObservable = (function (_super) {
+    __extends(ArrayObservable, _super);
+    function ArrayObservable(array, scheduler) {
+        _super.call(this);
+        this.array = array;
+        this.scheduler = scheduler;
+        if (!scheduler && array.length === 1) {
+            this._isScalar = true;
+            this.value = array[0];
+        }
+    }
+    ArrayObservable.create = function (array, scheduler) {
+        return new ArrayObservable(array, scheduler);
+    };
+    /**
+     * Creates an Observable that emits some values you specify as arguments,
+     * immediately one after the other, and then emits a complete notification.
+     *
+     * <span class="informal">Emits the arguments you provide, then completes.
+     * </span>
+     *
+     * <img src="./img/of.png" width="100%">
+     *
+     * This static operator is useful for creating a simple Observable that only
+     * emits the arguments given, and the complete notification thereafter. It can
+     * be used for composing with other Observables, such as with {@link concat}.
+     * By default, it uses a `null` IScheduler, which means the `next`
+     * notifications are sent synchronously, although with a different IScheduler
+     * it is possible to determine when those notifications will be delivered.
+     *
+     * @example <caption>Emit 10, 20, 30, then 'a', 'b', 'c', then start ticking every second.</caption>
+     * var numbers = Rx.Observable.of(10, 20, 30);
+     * var letters = Rx.Observable.of('a', 'b', 'c');
+     * var interval = Rx.Observable.interval(1000);
+     * var result = numbers.concat(letters).concat(interval);
+     * result.subscribe(x => console.log(x));
+     *
+     * @see {@link create}
+     * @see {@link empty}
+     * @see {@link never}
+     * @see {@link throw}
+     *
+     * @param {...T} values Arguments that represent `next` values to be emitted.
+     * @param {Scheduler} [scheduler] A {@link IScheduler} to use for scheduling
+     * the emissions of the `next` notifications.
+     * @return {Observable<T>} An Observable that emits each given input value.
+     * @static true
+     * @name of
+     * @owner Observable
+     */
+    ArrayObservable.of = function () {
+        var array = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            array[_i - 0] = arguments[_i];
+        }
+        var scheduler = array[array.length - 1];
+        if (isScheduler_1.isScheduler(scheduler)) {
+            array.pop();
+        }
+        else {
+            scheduler = null;
+        }
+        var len = array.length;
+        if (len > 1) {
+            return new ArrayObservable(array, scheduler);
+        }
+        else if (len === 1) {
+            return new ScalarObservable_1.ScalarObservable(array[0], scheduler);
+        }
+        else {
+            return new EmptyObservable_1.EmptyObservable(scheduler);
+        }
+    };
+    ArrayObservable.dispatch = function (state) {
+        var array = state.array, index = state.index, count = state.count, subscriber = state.subscriber;
+        if (index >= count) {
+            subscriber.complete();
+            return;
+        }
+        subscriber.next(array[index]);
+        if (subscriber.closed) {
+            return;
+        }
+        state.index = index + 1;
+        this.schedule(state);
+    };
+    ArrayObservable.prototype._subscribe = function (subscriber) {
+        var index = 0;
+        var array = this.array;
+        var count = array.length;
+        var scheduler = this.scheduler;
+        if (scheduler) {
+            return scheduler.schedule(ArrayObservable.dispatch, 0, {
+                array: array, index: index, count: count, subscriber: subscriber
+            });
+        }
+        else {
+            for (var i = 0; i < count && !subscriber.closed; i++) {
+                subscriber.next(array[i]);
+            }
+            subscriber.complete();
+        }
+    };
+    return ArrayObservable;
+}(Observable_1.Observable));
+exports.ArrayObservable = ArrayObservable;
+//# sourceMappingURL=ArrayObservable.js.map
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var root_1 = __webpack_require__(20);
+var isArrayLike_1 = __webpack_require__(141);
+var isPromise_1 = __webpack_require__(143);
+var isObject_1 = __webpack_require__(142);
+var Observable_1 = __webpack_require__(1);
+var iterator_1 = __webpack_require__(91);
+var InnerSubscriber_1 = __webpack_require__(255);
+var observable_1 = __webpack_require__(92);
+function subscribeToResult(outerSubscriber, result, outerValue, outerIndex) {
+    var destination = new InnerSubscriber_1.InnerSubscriber(outerSubscriber, outerValue, outerIndex);
+    if (destination.closed) {
+        return null;
+    }
+    if (result instanceof Observable_1.Observable) {
+        if (result._isScalar) {
+            destination.next(result.value);
+            destination.complete();
+            return null;
+        }
+        else {
+            return result.subscribe(destination);
+        }
+    }
+    else if (isArrayLike_1.isArrayLike(result)) {
+        for (var i = 0, len = result.length; i < len && !destination.closed; i++) {
+            destination.next(result[i]);
+        }
+        if (!destination.closed) {
+            destination.complete();
+        }
+    }
+    else if (isPromise_1.isPromise(result)) {
+        result.then(function (value) {
+            if (!destination.closed) {
+                destination.next(value);
+                destination.complete();
+            }
+        }, function (err) { return destination.error(err); })
+            .then(null, function (err) {
+            // Escaping the Promise trap: globally throw unhandled errors
+            root_1.root.setTimeout(function () { throw err; });
+        });
+        return destination;
+    }
+    else if (result && typeof result[iterator_1.iterator] === 'function') {
+        var iterator = result[iterator_1.iterator]();
+        do {
+            var item = iterator.next();
+            if (item.done) {
+                destination.complete();
+                break;
+            }
+            destination.next(item.value);
+            if (destination.closed) {
+                break;
+            }
+        } while (true);
+    }
+    else if (result && typeof result[observable_1.observable] === 'function') {
+        var obs = result[observable_1.observable]();
+        if (typeof obs.subscribe !== 'function') {
+            destination.error(new TypeError('Provided object does not correctly implement Symbol.observable'));
+        }
+        else {
+            return obs.subscribe(new InnerSubscriber_1.InnerSubscriber(outerSubscriber, outerValue, outerIndex));
+        }
+    }
+    else {
+        var value = isObject_1.isObject(result) ? 'an invalid object' : "'" + result + "'";
+        var msg = ("You provided " + value + " where a stream was expected.")
+            + ' You can provide an Observable, Promise, Array, or Iterable.';
+        destination.error(new TypeError(msg));
+    }
+    return null;
+}
+exports.subscribeToResult = subscribeToResult;
+//# sourceMappingURL=subscribeToResult.js.map
+
+/***/ }),
+/* 39 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return LAYOUT_VALUES; });
+/* harmony export (immutable) */ __webpack_exports__["a"] = buildLayoutCSS;
+/* harmony export (immutable) */ __webpack_exports__["c"] = validateWrapValue;
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */ var LAYOUT_VALUES = ['row', 'column', 'row-reverse', 'column-reverse'];
+/**
+ * Validate the direction|"direction wrap" value and then update the host's inline flexbox styles
+ */
+function buildLayoutCSS(value) {
+    var _a = validateValue(value), direction = _a[0], wrap = _a[1];
+    return buildCSS(direction, wrap);
+}
+/**
+  * Validate the value to be one of the acceptable value options
+  * Use default fallback of "row"
+  */
+function validateValue(value) {
+    value = value ? value.toLowerCase() : '';
+    var _a = value.split(" "), direction = _a[0], wrap = _a[1];
+    if (!LAYOUT_VALUES.find(function (x) { return x === direction; })) {
+        direction = LAYOUT_VALUES[0];
+    }
+    return [direction, validateWrapValue(wrap)];
+}
+/**
+ * Convert layout-wrap="<value>" to expected flex-wrap style
+ */
+function validateWrapValue(value) {
+    if (!!value) {
+        switch (value.toLowerCase()) {
+            case 'reverse':
+            case 'wrap-reverse':
+            case 'reverse-wrap':
+                value = 'wrap-reverse';
+                break;
+            case 'no':
+            case 'none':
+            case 'nowrap':
+                value = 'nowrap';
+                break;
+            // All other values fallback to "wrap"
+            default:
+                value = 'wrap';
+                break;
+        }
+    }
+    return value;
+}
+/**
+ * Build the CSS that should be assigned to the element instance
+ * BUG:
+ *   1) min-height on a column flex container won’t apply to its flex item children in IE 10-11.
+ *      Use height instead if possible; height : <xxx>vh;
+ *
+ *  This way any padding or border specified on the child elements are
+ *  laid out and drawn inside that element's specified width and height.
+ */
+function buildCSS(direction, wrap) {
+    if (wrap === void 0) { wrap = null; }
+    return {
+        'display': 'flex',
+        'box-sizing': 'border-box',
+        'flex-direction': direction,
+        'flex-wrap': !!wrap ? wrap : null
+    };
+}
+//# sourceMappingURL=layout-validator.js.map
+
+/***/ }),
+/* 40 */,
+/* 41 */,
+/* 42 */,
+/* 43 */,
+/* 44 */,
+/* 45 */,
+/* 46 */
+/***/ (function(module, exports) {
+
+/*! @license Firebase v3.8.0
+Build: rev-69367dd
+Terms: https://firebase.google.com/terms/ */
+
+var firebase=function(e){function t(r){if(n[r])return n[r].exports;var i=n[r]={i:r,l:!1,exports:{}};return e[r].call(i.exports,i,i.exports,t),i.l=!0,i.exports}var n={};return t.m=e,t.c=n,t.i=function(e){return e},t.d=function(e,n,r){t.o(e,n)||Object.defineProperty(e,n,{configurable:!1,enumerable:!0,get:r})},t.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(n,"a",n),n},t.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},t.p="",t(t.s=11)}([function(e,t,n){"use strict";(function(e){Object.defineProperty(t,"__esModule",{value:!0});var r=void 0;if(void 0!==e)r=e;else if("undefined"!=typeof self)r=self;else try{r=Function("return this")()}catch(e){throw new Error("polyfill failed because global object is unavailable in this environment")}var i=r.Promise||n(8);t.local={Promise:i,GoogPromise:i}}).call(t,n(1))},function(e,t){var n;n=function(){return this}();try{n=n||Function("return this")()||(0,eval)("this")}catch(e){"object"==typeof window&&(n=window)}e.exports=n},function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var r=n(5),i=(0,r.createFirebaseNamespace)();t.default=i,e.exports=t.default},function(e,t,n){"use strict";function r(e){return i(void 0,e)}function i(e,t){if(!(t instanceof Object))return t;switch(t.constructor){case Date:return new Date(t.getTime());case Object:void 0===e&&(e={});break;case Array:e=[];break;default:return t}for(var n in t)t.hasOwnProperty(n)&&(e[n]=i(e[n],t[n]));return e}function o(e,t,n){e[t]=n}Object.defineProperty(t,"__esModule",{value:!0}),t.deepCopy=r,t.deepExtend=i,t.patchProperty=o},function(e,t,n){"use strict";function r(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function i(e){var t=a;return a=e,t}Object.defineProperty(t,"__esModule",{value:!0});var o=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}();t.patchCapture=i;var a=Error.captureStackTrace,c=function e(t,n){if(r(this,e),this.code=t,this.message=n,a)a(this,s.prototype.create);else{var i=Error.apply(this,arguments);this.name="FirebaseError",Object.defineProperty(this,"stack",{get:function(){return i.stack}})}};c.prototype=Object.create(Error.prototype),c.prototype.constructor=c,c.prototype.name="FirebaseError";var s=t.ErrorFactory=function(){function e(t,n,i){r(this,e),this.service=t,this.serviceName=n,this.errors=i,this.pattern=/\{\$([^}]+)}/g}return o(e,[{key:"create",value:function(e,t){void 0===t&&(t={});var n=this.errors[e],r=this.service+"/"+e,i=void 0;i=void 0===n?"Error":n.replace(this.pattern,function(e,n){var r=t[n];return void 0!==r?r.toString():"<"+n+"?>"}),i=this.serviceName+": "+i+" ("+r+").";var o=new c(r,i);for(var a in t)t.hasOwnProperty(a)&&"_"!==a.slice(-1)&&(o[a]=t[a]);return o}}]),e}()},function(e,t,n){"use strict";function r(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function i(){function e(e){e=e||d;var t=r[e];return void 0===t&&o("no-app",{name:e}),t}function t(e,t){Object.keys(a).forEach(function(r){var i=n(e,r);null!==i&&h[i]&&h[i](t,e)})}function n(e,t){if("serverAuth"===t)return null;var n=t,r=e.options;return"auth"===t&&(r.serviceAccount||r.credential)&&(n="serverAuth","serverAuth"in a||o("sa-not-supported")),n}var r={},a={},h={},v={__esModule:!0,initializeApp:function(e,n){void 0===n?n=d:"string"==typeof n&&""!==n||o("bad-app-name",{name:n+""}),void 0!==r[n]&&o("duplicate-app",{name:n});var i=new p(e,n,v);return r[n]=i,t(i,"create"),void 0!=i.INTERNAL&&void 0!=i.INTERNAL.getToken||(0,c.deepExtend)(i,{INTERNAL:{getUid:function(){return null},getToken:function(){return l.resolve(null)},addAuthTokenListener:function(){},removeAuthTokenListener:function(){}}}),i},app:e,apps:null,Promise:l,SDK_VERSION:"3.8.0",INTERNAL:{registerService:function(t,n,r,i,s){a[t]&&o("duplicate-service",{name:t}),a[t]=s?n:function(e,t){return n(e,t,d)},i&&(h[t]=i);var u=void 0;return u=function(n){return void 0===n&&(n=e()),"function"!=typeof n[t]&&o("invalid-app-argument",{name:t}),n[t]()},void 0!==r&&(0,c.deepExtend)(u,r),v[t]=u,u},createFirebaseNamespace:i,extendNamespace:function(e){(0,c.deepExtend)(v,e)},createSubscribe:s.createSubscribe,ErrorFactory:u.ErrorFactory,removeApp:function(e){t(r[e],"delete"),delete r[e]},factories:a,useAsService:n,Promise:f.local.GoogPromise,deepExtend:c.deepExtend}};return(0,c.patchProperty)(v,"default",v),Object.defineProperty(v,"apps",{get:function(){return Object.keys(r).map(function(e){return r[e]})}}),(0,c.patchProperty)(e,"App",p),v}function o(e,t){throw v.create(e,t)}Object.defineProperty(t,"__esModule",{value:!0});var a=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}();t.createFirebaseNamespace=i;var c=n(3),s=n(6),u=n(4),f=n(0),l=f.local.Promise,d="[DEFAULT]",p=function(){function e(t,n,i){var o=this;r(this,e),this.firebase_=i,this.isDeleted_=!1,this.services_={},this.name_=n,this.options_=(0,c.deepCopy)(t);var a="credential"in this.options_,s="serviceAccount"in this.options_;if(a||s){var u=s?"serviceAccount":"credential";"undefined"!=typeof console&&console.log("The '"+u+"' property specified in the first argument to initializeApp() is deprecated and will be removed in the next major version. You should instead use the 'firebase-admin' package. See https://firebase.google.com/docs/admin/setup for details on how to get started.")}Object.keys(i.INTERNAL.factories).forEach(function(e){var t=i.INTERNAL.useAsService(o,e);if(null!==t){var n=o.getService.bind(o,t);(0,c.patchProperty)(o,e,n)}})}return a(e,[{key:"delete",value:function(){var e=this;return new l(function(t){e.checkDestroyed_(),t()}).then(function(){e.firebase_.INTERNAL.removeApp(e.name_);var t=[];return Object.keys(e.services_).forEach(function(n){Object.keys(e.services_[n]).forEach(function(r){t.push(e.services_[n][r])})}),l.all(t.map(function(e){return e.INTERNAL.delete()}))}).then(function(){e.isDeleted_=!0,e.services_={}})}},{key:"getService",value:function(e,t){this.checkDestroyed_(),void 0===this.services_[e]&&(this.services_[e]={});var n=t||d;if(void 0===this.services_[e][n]){var r=this.firebase_.INTERNAL.factories[e](this,this.extendApp.bind(this),t);return this.services_[e][n]=r,r}return this.services_[e][n]}},{key:"extendApp",value:function(e){(0,c.deepExtend)(this,e)}},{key:"checkDestroyed_",value:function(){this.isDeleted_&&o("app-deleted",{name:this.name_})}},{key:"name",get:function(){return this.checkDestroyed_(),this.name_}},{key:"options",get:function(){return this.checkDestroyed_(),this.options_}}]),e}();p.prototype.name&&p.prototype.options||p.prototype.delete||console.log("dc");var h={"no-app":"No Firebase App '{$name}' has been created - call Firebase App.initializeApp()","bad-app-name":"Illegal App name: '{$name}","duplicate-app":"Firebase App named '{$name}' already exists","app-deleted":"Firebase App named '{$name}' already deleted","duplicate-service":"Firebase service named '{$name}' already registered","sa-not-supported":"Initializing the Firebase SDK with a service account is only allowed in a Node.js environment. On client devices, you should instead initialize the SDK with an api key and auth domain","invalid-app-argument":"firebase.{$name}() takes either no argument or a Firebase App instance."},v=new u.ErrorFactory("app","Firebase",h)},function(e,t,n){"use strict";function r(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function i(e,t){var n=new d(e,t);return n.subscribe.bind(n)}function o(e,t){return function(){for(var n=arguments.length,r=Array(n),i=0;i<n;i++)r[i]=arguments[i];l.resolve(!0).then(function(){e.apply(void 0,r)}).catch(function(e){t&&t(e)})}}function a(e,t){if("object"!==(void 0===e?"undefined":s(e))||null===e)return!1;var n=!0,r=!1,i=void 0;try{for(var o,a=t[Symbol.iterator]();!(n=(o=a.next()).done);n=!0){var c=o.value;if(c in e&&"function"==typeof e[c])return!0}}catch(e){r=!0,i=e}finally{try{!n&&a.return&&a.return()}finally{if(r)throw i}}return!1}function c(){}Object.defineProperty(t,"__esModule",{value:!0});var s="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},u=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}();t.createSubscribe=i,t.async=o;var f=n(0),l=f.local.Promise,d=function(){function e(t,n){var i=this;r(this,e),this.observers=[],this.unsubscribes=[],this.observerCount=0,this.task=l.resolve(),this.finalized=!1,this.onNoObservers=n,this.task.then(function(){t(i)}).catch(function(e){i.error(e)})}return u(e,[{key:"next",value:function(e){this.forEachObserver(function(t){t.next(e)})}},{key:"error",value:function(e){this.forEachObserver(function(t){t.error(e)}),this.close(e)}},{key:"complete",value:function(){this.forEachObserver(function(e){e.complete()}),this.close()}},{key:"subscribe",value:function(e,t,n){var r=this,i=void 0;if(void 0===e&&void 0===t&&void 0===n)throw new Error("Missing Observer.");i=a(e,["next","error","complete"])?e:{next:e,error:t,complete:n},void 0===i.next&&(i.next=c),void 0===i.error&&(i.error=c),void 0===i.complete&&(i.complete=c);var o=this.unsubscribeOne.bind(this,this.observers.length);return this.finalized&&this.task.then(function(){try{r.finalError?i.error(r.finalError):i.complete()}catch(e){}}),this.observers.push(i),o}},{key:"unsubscribeOne",value:function(e){void 0!==this.observers&&void 0!==this.observers[e]&&(delete this.observers[e],this.observerCount-=1,0===this.observerCount&&void 0!==this.onNoObservers&&this.onNoObservers(this))}},{key:"forEachObserver",value:function(e){if(!this.finalized)for(var t=0;t<this.observers.length;t++)this.sendOne(t,e)}},{key:"sendOne",value:function(e,t){var n=this;this.task.then(function(){if(void 0!==n.observers&&void 0!==n.observers[e])try{t(n.observers[e])}catch(e){"undefined"!=typeof console&&console.error&&console.error(e)}})}},{key:"close",value:function(e){var t=this;this.finalized||(this.finalized=!0,void 0!==e&&(this.finalError=e),this.task.then(function(){t.observers=void 0,t.onNoObservers=void 0}))}}]),e}()},function(e,t){function n(){throw new Error("setTimeout has not been defined")}function r(){throw new Error("clearTimeout has not been defined")}function i(e){if(f===setTimeout)return setTimeout(e,0);if((f===n||!f)&&setTimeout)return f=setTimeout,setTimeout(e,0);try{return f(e,0)}catch(t){try{return f.call(null,e,0)}catch(t){return f.call(this,e,0)}}}function o(e){if(l===clearTimeout)return clearTimeout(e);if((l===r||!l)&&clearTimeout)return l=clearTimeout,clearTimeout(e);try{return l(e)}catch(t){try{return l.call(null,e)}catch(t){return l.call(this,e)}}}function a(){v&&p&&(v=!1,p.length?h=p.concat(h):m=-1,h.length&&c())}function c(){if(!v){var e=i(a);v=!0;for(var t=h.length;t;){for(p=h,h=[];++m<t;)p&&p[m].run();m=-1,t=h.length}p=null,v=!1,o(e)}}function s(e,t){this.fun=e,this.array=t}function u(){}var f,l,d=e.exports={};!function(){try{f="function"==typeof setTimeout?setTimeout:n}catch(e){f=n}try{l="function"==typeof clearTimeout?clearTimeout:r}catch(e){l=r}}();var p,h=[],v=!1,m=-1;d.nextTick=function(e){var t=new Array(arguments.length-1);if(arguments.length>1)for(var n=1;n<arguments.length;n++)t[n-1]=arguments[n];h.push(new s(e,t)),1!==h.length||v||i(c)},s.prototype.run=function(){this.fun.apply(null,this.array)},d.title="browser",d.browser=!0,d.env={},d.argv=[],d.version="",d.versions={},d.on=u,d.addListener=u,d.once=u,d.off=u,d.removeListener=u,d.removeAllListeners=u,d.emit=u,d.binding=function(e){throw new Error("process.binding is not supported")},d.cwd=function(){return"/"},d.chdir=function(e){throw new Error("process.chdir is not supported")},d.umask=function(){return 0}},function(e,t,n){(function(t){!function(n){function r(){}function i(e,t){return function(){e.apply(t,arguments)}}function o(e){if("object"!=typeof this)throw new TypeError("Promises must be constructed via new");if("function"!=typeof e)throw new TypeError("not a function");this._state=0,this._handled=!1,this._value=void 0,this._deferreds=[],l(e,this)}function a(e,t){for(;3===e._state;)e=e._value;if(0===e._state)return void e._deferreds.push(t);e._handled=!0,o._immediateFn(function(){var n=1===e._state?t.onFulfilled:t.onRejected;if(null===n)return void(1===e._state?c:s)(t.promise,e._value);var r;try{r=n(e._value)}catch(e){return void s(t.promise,e)}c(t.promise,r)})}function c(e,t){try{if(t===e)throw new TypeError("A promise cannot be resolved with itself.");if(t&&("object"==typeof t||"function"==typeof t)){var n=t.then;if(t instanceof o)return e._state=3,e._value=t,void u(e);if("function"==typeof n)return void l(i(n,t),e)}e._state=1,e._value=t,u(e)}catch(t){s(e,t)}}function s(e,t){e._state=2,e._value=t,u(e)}function u(e){2===e._state&&0===e._deferreds.length&&o._immediateFn(function(){e._handled||o._unhandledRejectionFn(e._value)});for(var t=0,n=e._deferreds.length;t<n;t++)a(e,e._deferreds[t]);e._deferreds=null}function f(e,t,n){this.onFulfilled="function"==typeof e?e:null,this.onRejected="function"==typeof t?t:null,this.promise=n}function l(e,t){var n=!1;try{e(function(e){n||(n=!0,c(t,e))},function(e){n||(n=!0,s(t,e))})}catch(e){if(n)return;n=!0,s(t,e)}}var d=setTimeout;o.prototype.catch=function(e){return this.then(null,e)},o.prototype.then=function(e,t){var n=new this.constructor(r);return a(this,new f(e,t,n)),n},o.all=function(e){var t=Array.prototype.slice.call(e);return new o(function(e,n){function r(o,a){try{if(a&&("object"==typeof a||"function"==typeof a)){var c=a.then;if("function"==typeof c)return void c.call(a,function(e){r(o,e)},n)}t[o]=a,0==--i&&e(t)}catch(e){n(e)}}if(0===t.length)return e([]);for(var i=t.length,o=0;o<t.length;o++)r(o,t[o])})},o.resolve=function(e){return e&&"object"==typeof e&&e.constructor===o?e:new o(function(t){t(e)})},o.reject=function(e){return new o(function(t,n){n(e)})},o.race=function(e){return new o(function(t,n){for(var r=0,i=e.length;r<i;r++)e[r].then(t,n)})},o._immediateFn="function"==typeof t&&function(e){t(e)}||function(e){d(e,0)},o._unhandledRejectionFn=function(e){"undefined"!=typeof console&&console&&console.warn("Possible Unhandled Promise Rejection:",e)},o._setImmediateFn=function(e){o._immediateFn=e},o._setUnhandledRejectionFn=function(e){o._unhandledRejectionFn=e},void 0!==e&&e.exports?e.exports=o:n.Promise||(n.Promise=o)}(this)}).call(t,n(10).setImmediate)},function(e,t,n){(function(e,t){!function(e,n){"use strict";function r(e){"function"!=typeof e&&(e=new Function(""+e));for(var t=new Array(arguments.length-1),n=0;n<t.length;n++)t[n]=arguments[n+1];var r={callback:e,args:t};return u[s]=r,c(s),s++}function i(e){delete u[e]}function o(e){var t=e.callback,r=e.args;switch(r.length){case 0:t();break;case 1:t(r[0]);break;case 2:t(r[0],r[1]);break;case 3:t(r[0],r[1],r[2]);break;default:t.apply(n,r)}}function a(e){if(f)setTimeout(a,0,e);else{var t=u[e];if(t){f=!0;try{o(t)}finally{i(e),f=!1}}}}if(!e.setImmediate){var c,s=1,u={},f=!1,l=e.document,d=Object.getPrototypeOf&&Object.getPrototypeOf(e);d=d&&d.setTimeout?d:e,"[object process]"==={}.toString.call(e.process)?function(){c=function(e){t.nextTick(function(){a(e)})}}():function(){if(e.postMessage&&!e.importScripts){var t=!0,n=e.onmessage;return e.onmessage=function(){t=!1},e.postMessage("","*"),e.onmessage=n,t}}()?function(){var t="setImmediate$"+Math.random()+"$",n=function(n){n.source===e&&"string"==typeof n.data&&0===n.data.indexOf(t)&&a(+n.data.slice(t.length))};e.addEventListener?e.addEventListener("message",n,!1):e.attachEvent("onmessage",n),c=function(n){e.postMessage(t+n,"*")}}():e.MessageChannel?function(){var e=new MessageChannel;e.port1.onmessage=function(e){a(e.data)},c=function(t){e.port2.postMessage(t)}}():l&&"onreadystatechange"in l.createElement("script")?function(){var e=l.documentElement;c=function(t){var n=l.createElement("script");n.onreadystatechange=function(){a(t),n.onreadystatechange=null,e.removeChild(n),n=null},e.appendChild(n)}}():function(){c=function(e){setTimeout(a,0,e)}}(),d.setImmediate=r,d.clearImmediate=i}}("undefined"==typeof self?void 0===e?this:e:self)}).call(t,n(1),n(7))},function(e,t,n){function r(e,t){this._id=e,this._clearFn=t}var i=Function.prototype.apply;t.setTimeout=function(){return new r(i.call(setTimeout,window,arguments),clearTimeout)},t.setInterval=function(){return new r(i.call(setInterval,window,arguments),clearInterval)},t.clearTimeout=t.clearInterval=function(e){e&&e.close()},r.prototype.unref=r.prototype.ref=function(){},r.prototype.close=function(){this._clearFn.call(window,this._id)},t.enroll=function(e,t){clearTimeout(e._idleTimeoutId),e._idleTimeout=t},t.unenroll=function(e){clearTimeout(e._idleTimeoutId),e._idleTimeout=-1},t._unrefActive=t.active=function(e){clearTimeout(e._idleTimeoutId);var t=e._idleTimeout;t>=0&&(e._idleTimeoutId=setTimeout(function(){e._onTimeout&&e._onTimeout()},t))},n(9),t.setImmediate=setImmediate,t.clearImmediate=clearImmediate},function(e,t,n){e.exports=n(2)}]);module.exports=firebase;
+//# sourceMappingURL=app.js.map
+
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var Subscriber_1 = __webpack_require__(5);
+var Notification_1 = __webpack_require__(256);
 /**
  * @see {@link Notification}
  *
@@ -49588,8 +50816,7 @@ exports.ObserveOnMessage = ObserveOnMessage;
 //# sourceMappingURL=observeOn.js.map
 
 /***/ }),
-/* 36 */,
-/* 37 */
+/* 48 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -49683,21 +50910,21 @@ function stripProviderId(providerId) {
 //# sourceMappingURL=auth_backend.js.map
 
 /***/ }),
-/* 38 */
+/* 49 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__database__ = __webpack_require__(91);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__database__ = __webpack_require__(112);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__database__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__firebase_list_factory__ = __webpack_require__(149);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__firebase_list_factory__ = __webpack_require__(191);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_1__firebase_list_factory__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__firebase_list_observable__ = __webpack_require__(92);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__firebase_list_observable__ = __webpack_require__(113);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__firebase_object_factory__ = __webpack_require__(150);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__firebase_object_factory__ = __webpack_require__(192);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_3__firebase_object_factory__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__firebase_object_observable__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__firebase_object_observable__ = __webpack_require__(193);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_4__firebase_object_observable__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__query_observable__ = __webpack_require__(93);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__query_observable__ = __webpack_require__(114);
 /* unused harmony namespace reexport */
 
 
@@ -49708,12 +50935,24 @@ function stripProviderId(providerId) {
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 39 */,
-/* 40 */,
-/* 41 */,
-/* 42 */,
-/* 43 */,
-/* 44 */
+/* 50 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angularfire2__ = __webpack_require__(110);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__angularfire2__["e"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__angularfire2__["g"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_0__angularfire2__["h"]; });
+
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+/* 51 */,
+/* 52 */,
+/* 53 */,
+/* 54 */,
+/* 55 */,
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49726,22 +50965,22 @@ Terms: https://firebase.google.com/terms/ */
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-var firebase = __webpack_require__(34);
-__webpack_require__(207);
+var firebase = __webpack_require__(46);
+__webpack_require__(249);
 var Storage, XMLHttpRequest;
 
-__webpack_require__(208);
-__webpack_require__(210);
+__webpack_require__(250);
+__webpack_require__(252);
 var AsyncStorage;
 
-__webpack_require__(209);
+__webpack_require__(251);
 exports.default = firebase;
 module.exports = exports['default'];
 //# sourceMappingURL=firebase.js.map
 
 
 /***/ }),
-/* 45 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49751,7 +50990,62 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var Observable_1 = __webpack_require__(0);
+var Subject_1 = __webpack_require__(27);
+var ObjectUnsubscribedError_1 = __webpack_require__(95);
+/**
+ * @class BehaviorSubject<T>
+ */
+var BehaviorSubject = (function (_super) {
+    __extends(BehaviorSubject, _super);
+    function BehaviorSubject(_value) {
+        _super.call(this);
+        this._value = _value;
+    }
+    Object.defineProperty(BehaviorSubject.prototype, "value", {
+        get: function () {
+            return this.getValue();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    BehaviorSubject.prototype._subscribe = function (subscriber) {
+        var subscription = _super.prototype._subscribe.call(this, subscriber);
+        if (subscription && !subscription.closed) {
+            subscriber.next(this._value);
+        }
+        return subscription;
+    };
+    BehaviorSubject.prototype.getValue = function () {
+        if (this.hasError) {
+            throw this.thrownError;
+        }
+        else if (this.closed) {
+            throw new ObjectUnsubscribedError_1.ObjectUnsubscribedError();
+        }
+        else {
+            return this._value;
+        }
+    };
+    BehaviorSubject.prototype.next = function (value) {
+        _super.prototype.next.call(this, this._value = value);
+    };
+    return BehaviorSubject;
+}(Subject_1.Subject));
+exports.BehaviorSubject = BehaviorSubject;
+//# sourceMappingURL=BehaviorSubject.js.map
+
+/***/ }),
+/* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var Observable_1 = __webpack_require__(1);
 /**
  * We need this JSDoc comment for affecting ESDoc.
  * @extends {Ignored}
@@ -49828,17 +51122,17 @@ exports.EmptyObservable = EmptyObservable;
 //# sourceMappingURL=EmptyObservable.js.map
 
 /***/ }),
-/* 46 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var ArrayObservable_1 = __webpack_require__(26);
+var ArrayObservable_1 = __webpack_require__(37);
 exports.of = ArrayObservable_1.ArrayObservable.of;
 //# sourceMappingURL=of.js.map
 
 /***/ }),
-/* 47 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49848,8 +51142,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var OuterSubscriber_1 = __webpack_require__(25);
-var subscribeToResult_1 = __webpack_require__(27);
+var OuterSubscriber_1 = __webpack_require__(35);
+var subscribeToResult_1 = __webpack_require__(38);
 /**
  * Converts a higher-order Observable into a first-order Observable which
  * concurrently delivers all values that are emitted on the inner Observables.
@@ -49955,7 +51249,7 @@ exports.MergeAllSubscriber = MergeAllSubscriber;
 //# sourceMappingURL=mergeAll.js.map
 
 /***/ }),
-/* 48 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49965,8 +51259,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var subscribeToResult_1 = __webpack_require__(27);
-var OuterSubscriber_1 = __webpack_require__(25);
+var subscribeToResult_1 = __webpack_require__(38);
+var OuterSubscriber_1 = __webpack_require__(35);
 /* tslint:enable:max-line-length */
 /**
  * Projects each source value to an Observable which is merged in the output
@@ -50132,7 +51426,7 @@ exports.MergeMapSubscriber = MergeMapSubscriber;
 //# sourceMappingURL=mergeMap.js.map
 
 /***/ }),
-/* 49 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50141,7 +51435,7 @@ exports.isArray = Array.isArray || (function (x) { return x && typeof x.length =
 //# sourceMappingURL=isArray.js.map
 
 /***/ }),
-/* 50 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50153,14 +51447,148 @@ exports.isScheduler = isScheduler;
 //# sourceMappingURL=isScheduler.js.map
 
 /***/ }),
-/* 51 */
+/* 64 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__break_points_token__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_break_points__ = __webpack_require__(160);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__data_orientation_break_points__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_object_extend__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_breakpoint_tools__ = __webpack_require__(165);
+/* unused harmony export buildMergedBreakPoints */
+/* harmony export (immutable) */ __webpack_exports__["a"] = DEFAULT_BREAKPOINTS_PROVIDER_FACTORY;
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return DEFAULT_BREAKPOINTS_PROVIDER; });
+/* harmony export (immutable) */ __webpack_exports__["b"] = CUSTOM_BREAKPOINTS_PROVIDER_FACTORY;
+
+
+
+
+
+/**
+ * Add new custom items to the default list or override existing default with custom overrides
+ */
+function buildMergedBreakPoints(_custom, options) {
+    options = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__utils_object_extend__["a" /* extendObject */])({}, {
+        defaults: true,
+        orientation: false // exclude pre-configured, internal orientations breakpoints
+    }, options || {});
+    return function () {
+        // Order so the defaults are loaded last; so ObservableMedia will report these last!
+        var defaults = options.orientations ? __WEBPACK_IMPORTED_MODULE_2__data_orientation_break_points__["a" /* ORIENTATION_BREAKPOINTS */].concat(__WEBPACK_IMPORTED_MODULE_1__data_break_points__["a" /* DEFAULT_BREAKPOINTS */]) :
+            __WEBPACK_IMPORTED_MODULE_1__data_break_points__["a" /* DEFAULT_BREAKPOINTS */];
+        return options.defaults ? __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__utils_breakpoint_tools__["a" /* mergeByAlias */])(defaults, _custom || []) : __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__utils_breakpoint_tools__["a" /* mergeByAlias */])(_custom);
+    };
+}
+/**
+ *  Ensure that only a single global BreakPoint list is instantiated...
+ */
+function DEFAULT_BREAKPOINTS_PROVIDER_FACTORY() {
+    return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__utils_breakpoint_tools__["b" /* validateSuffixes */])(__WEBPACK_IMPORTED_MODULE_1__data_break_points__["a" /* DEFAULT_BREAKPOINTS */]);
+}
+/**
+ * Default Provider that does not support external customization nor provide
+ * the extra extended breakpoints:   "handset", "tablet", and "web"
+ *
+ *  NOTE: !! breakpoints are considered to have unique 'alias' properties,
+ *        custom breakpoints matching existing breakpoints will override the properties
+ *        of the existing (and not be added as an extra breakpoint entry).
+ *        [xs, gt-xs, sm, gt-sm, md, gt-md, lg, gt-lg, xl]
+ */
+var DEFAULT_BREAKPOINTS_PROVIDER = {
+    provide: __WEBPACK_IMPORTED_MODULE_0__break_points_token__["a" /* BREAKPOINTS */],
+    useFactory: DEFAULT_BREAKPOINTS_PROVIDER_FACTORY
+};
+/**
+ * Use with FlexLayoutModule.CUSTOM_BREAKPOINTS_PROVIDER_FACTORY!
+ */
+function CUSTOM_BREAKPOINTS_PROVIDER_FACTORY(_custom, options) {
+    return {
+        provide: __WEBPACK_IMPORTED_MODULE_0__break_points_token__["a" /* BREAKPOINTS */],
+        useFactory: buildMergedBreakPoints(_custom, options)
+    };
+}
+//# sourceMappingURL=break-points-provider.js.map
+
+/***/ }),
+/* 65 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BREAKPOINTS; });
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+/**
+ *  Injection token unique to the flex-layout library.
+ *  Use this token when build a custom provider (see below).
+ */
+var BREAKPOINTS = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* InjectionToken */]('Token (@angular/flex-layout) Breakpoints');
+//# sourceMappingURL=break-points-token.js.map
+
+/***/ }),
+/* 66 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__breakpoints_break_point_registry__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__match_media__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__observable_media__ = __webpack_require__(104);
+/* harmony export (immutable) */ __webpack_exports__["a"] = OBSERVABLE_MEDIA_PROVIDER_FACTORY;
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return OBSERVABLE_MEDIA_PROVIDER; });
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+
+
+
+/**
+ * Ensure a single global ObservableMedia service provider
+ */
+function OBSERVABLE_MEDIA_PROVIDER_FACTORY(parentService, matchMedia, breakpoints) {
+    return parentService || new __WEBPACK_IMPORTED_MODULE_5__observable_media__["b" /* MediaService */](matchMedia, breakpoints);
+}
+/**
+ *  Provider to return global service for observable service for all MediaQuery activations
+ */
+var OBSERVABLE_MEDIA_PROVIDER = {
+    provide: __WEBPACK_IMPORTED_MODULE_5__observable_media__["a" /* ObservableMedia */],
+    deps: [
+        [new __WEBPACK_IMPORTED_MODULE_0__angular_core__["Z" /* Optional */](), new __WEBPACK_IMPORTED_MODULE_0__angular_core__["_0" /* SkipSelf */](), __WEBPACK_IMPORTED_MODULE_5__observable_media__["a" /* ObservableMedia */]],
+        __WEBPACK_IMPORTED_MODULE_4__match_media__["a" /* MatchMedia */],
+        __WEBPACK_IMPORTED_MODULE_3__breakpoints_break_point_registry__["a" /* BreakPointRegistry */]
+    ],
+    useFactory: OBSERVABLE_MEDIA_PROVIDER_FACTORY
+};
+//# sourceMappingURL=observable-media-provider.js.map
+
+/***/ }),
+/* 67 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__ = __webpack_require__(12);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BrowserXhr; });
 /* unused harmony export JSONPBackend */
 /* unused harmony export JSONPConnection */
@@ -52334,48 +53762,48 @@ var VERSION = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["_4" /* Version */
 
 
 /***/ }),
-/* 52 */
+/* 68 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__ = __webpack_require__(106);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__ = __webpack_require__(57);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Subject__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Subject__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Subject__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_observable_from__ = __webpack_require__(239);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_observable_from__ = __webpack_require__(279);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_observable_from___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_observable_from__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_observable_of__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_observable_of__ = __webpack_require__(59);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_observable_of___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_observable_of__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_operator_concatMap__ = __webpack_require__(245);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_operator_concatMap__ = __webpack_require__(285);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_operator_concatMap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_operator_concatMap__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_operator_every__ = __webpack_require__(247);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_operator_every__ = __webpack_require__(287);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_operator_every___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_rxjs_operator_every__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_operator_first__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_operator_first__ = __webpack_require__(135);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_operator_first___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_rxjs_operator_first__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_operator_map__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_operator_map__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_rxjs_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_operator_mergeMap__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_operator_mergeMap__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_operator_mergeMap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_rxjs_operator_mergeMap__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_rxjs_operator_reduce__ = __webpack_require__(251);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_rxjs_operator_reduce__ = __webpack_require__(291);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_rxjs_operator_reduce___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_rxjs_operator_reduce__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_rxjs_Observable__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_rxjs_Observable__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_rxjs_operator_catch__ = __webpack_require__(113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_rxjs_operator_catch__ = __webpack_require__(133);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_rxjs_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13_rxjs_operator_catch__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_rxjs_operator_concatAll__ = __webpack_require__(244);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_rxjs_operator_concatAll__ = __webpack_require__(284);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_rxjs_operator_concatAll___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14_rxjs_operator_concatAll__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_rxjs_util_EmptyError__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_rxjs_util_EmptyError__ = __webpack_require__(94);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_rxjs_util_EmptyError___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15_rxjs_util_EmptyError__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_rxjs_observable_fromPromise__ = __webpack_require__(76);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_rxjs_observable_fromPromise__ = __webpack_require__(90);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_rxjs_observable_fromPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16_rxjs_observable_fromPromise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17_rxjs_operator_last__ = __webpack_require__(249);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17_rxjs_operator_last__ = __webpack_require__(289);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17_rxjs_operator_last___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17_rxjs_operator_last__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18_rxjs_operator_mergeAll__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18_rxjs_operator_mergeAll__ = __webpack_require__(60);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18_rxjs_operator_mergeAll___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18_rxjs_operator_mergeAll__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__angular_platform_browser__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20_rxjs_operator_filter__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__angular_platform_browser__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20_rxjs_operator_filter__ = __webpack_require__(134);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20_rxjs_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_20_rxjs_operator_filter__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "z", function() { return RouterLink; });
 /* unused harmony export RouterLinkWithHref */
@@ -52956,10 +54384,10 @@ function andObservables(observables) {
  * @return {?}
  */
 function wrapIntoObservable(value) {
-    if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["E" /* ɵisObservable */])(value)) {
+    if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["F" /* ɵisObservable */])(value)) {
         return value;
     }
-    if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["F" /* ɵisPromise */])(value)) {
+    if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["G" /* ɵisPromise */])(value)) {
         return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_16_rxjs_observable_fromPromise__["fromPromise"])(value);
     }
     return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_rxjs_observable_of__["of"])(value);
@@ -53732,7 +55160,7 @@ var ApplyRedirects = (function () {
         this.urlTree = urlTree;
         this.config = config;
         this.allowRedirects = true;
-        this.ngModule = moduleInjector.get(__WEBPACK_IMPORTED_MODULE_1__angular_core__["G" /* NgModuleRef */]);
+        this.ngModule = moduleInjector.get(__WEBPACK_IMPORTED_MODULE_1__angular_core__["H" /* NgModuleRef */]);
     }
     /**
      * @return {?}
@@ -55709,7 +57137,7 @@ function getResolve(route) {
  * \@docsNotRequired
  * \@experimental
  */
-var ROUTES = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["H" /* InjectionToken */]('ROUTES');
+var ROUTES = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["D" /* InjectionToken */]('ROUTES');
 var RouterConfigLoader = (function () {
     /**
      * @param {?} loader
@@ -55992,7 +57420,7 @@ var Router = (function () {
         this.routeReuseStrategy = new DefaultRouteReuseStrategy();
         var onLoadStart = function (r) { return _this.triggerEvent(new RouteConfigLoadStart(r)); };
         var onLoadEnd = function (r) { return _this.triggerEvent(new RouteConfigLoadEnd(r)); };
-        this.ngModule = injector.get(__WEBPACK_IMPORTED_MODULE_1__angular_core__["G" /* NgModuleRef */]);
+        this.ngModule = injector.get(__WEBPACK_IMPORTED_MODULE_1__angular_core__["H" /* NgModuleRef */]);
         this.resetConfig(config);
         this.currentUrlTree = createEmptyUrlTree();
         this.rawUrlTree = this.currentUrlTree;
@@ -57984,7 +59412,7 @@ var RouterPreloader = (function () {
      * @return {?}
      */
     RouterPreloader.prototype.preload = function () {
-        var /** @type {?} */ ngModule = this.injector.get(__WEBPACK_IMPORTED_MODULE_1__angular_core__["G" /* NgModuleRef */]);
+        var /** @type {?} */ ngModule = this.injector.get(__WEBPACK_IMPORTED_MODULE_1__angular_core__["H" /* NgModuleRef */]);
         return this.processRoutes(ngModule, this.router.config);
     };
     /**
@@ -58060,11 +59488,11 @@ var ROUTER_DIRECTIVES = [RouterOutlet, RouterLink, RouterLinkWithHref, RouterLin
  * \@whatItDoes Is used in DI to configure the router.
  * \@stable
  */
-var ROUTER_CONFIGURATION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["H" /* InjectionToken */]('ROUTER_CONFIGURATION');
+var ROUTER_CONFIGURATION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["D" /* InjectionToken */]('ROUTER_CONFIGURATION');
 /**
  * \@docsNotRequired
  */
-var ROUTER_FORROOT_GUARD = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["H" /* InjectionToken */]('ROUTER_FORROOT_GUARD');
+var ROUTER_FORROOT_GUARD = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["D" /* InjectionToken */]('ROUTER_FORROOT_GUARD');
 var ROUTER_PROVIDERS = [
     __WEBPACK_IMPORTED_MODULE_0__angular_common__["e" /* Location */],
     { provide: UrlSerializer, useClass: DefaultUrlSerializer },
@@ -58426,7 +59854,7 @@ function getBootstrapListener(r) {
  *
  * \@experimental
  */
-var ROUTER_INITIALIZER = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["H" /* InjectionToken */]('Router Initializer');
+var ROUTER_INITIALIZER = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["D" /* InjectionToken */]('Router Initializer');
 /**
  * @return {?}
  */
@@ -58494,40 +59922,27 @@ var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_4" /* Version */
 
 
 /***/ }),
-/* 53 */,
-/* 54 */,
-/* 55 */,
-/* 56 */,
-/* 57 */,
-/* 58 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angularfire2__ = __webpack_require__(89);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__angularfire2__["e"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__angularfire2__["g"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_0__angularfire2__["h"]; });
-
-//# sourceMappingURL=index.js.map
-
-/***/ }),
-/* 59 */,
-/* 60 */,
-/* 61 */,
-/* 62 */,
-/* 63 */,
-/* 64 */,
-/* 65 */,
-/* 66 */,
-/* 67 */,
-/* 68 */,
 /* 69 */,
 /* 70 */,
 /* 71 */,
 /* 72 */,
 /* 73 */,
 /* 74 */,
-/* 75 */
+/* 75 */,
+/* 76 */,
+/* 77 */,
+/* 78 */,
+/* 79 */,
+/* 80 */,
+/* 81 */,
+/* 82 */,
+/* 83 */,
+/* 84 */,
+/* 85 */,
+/* 86 */,
+/* 87 */,
+/* 88 */,
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58537,7 +59952,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var Observable_1 = __webpack_require__(0);
+var Observable_1 = __webpack_require__(1);
 /**
  * We need this JSDoc comment for affecting ESDoc.
  * @extends {Ignored}
@@ -58591,22 +60006,22 @@ exports.ScalarObservable = ScalarObservable;
 //# sourceMappingURL=ScalarObservable.js.map
 
 /***/ }),
-/* 76 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var PromiseObservable_1 = __webpack_require__(109);
+var PromiseObservable_1 = __webpack_require__(129);
 exports.fromPromise = PromiseObservable_1.PromiseObservable.create;
 //# sourceMappingURL=fromPromise.js.map
 
 /***/ }),
-/* 77 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var root_1 = __webpack_require__(16);
+var root_1 = __webpack_require__(20);
 function symbolIteratorPonyfill(root) {
     var Symbol = root.Symbol;
     if (typeof Symbol === 'function') {
@@ -58645,12 +60060,12 @@ exports.$$iterator = exports.iterator;
 //# sourceMappingURL=iterator.js.map
 
 /***/ }),
-/* 78 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var root_1 = __webpack_require__(16);
+var root_1 = __webpack_require__(20);
 function getSymbolObservable(context) {
     var $$observable;
     var Symbol = context.Symbol;
@@ -58677,12 +60092,12 @@ exports.$$observable = exports.observable;
 //# sourceMappingURL=observable.js.map
 
 /***/ }),
-/* 79 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var root_1 = __webpack_require__(16);
+var root_1 = __webpack_require__(20);
 var Symbol = root_1.root.Symbol;
 exports.rxSubscriber = (typeof Symbol === 'function' && typeof Symbol.for === 'function') ?
     Symbol.for('rxSubscriber') : '@@rxSubscriber';
@@ -58693,7 +60108,7 @@ exports.$$rxSubscriber = exports.rxSubscriber;
 //# sourceMappingURL=rxSubscriber.js.map
 
 /***/ }),
-/* 80 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58727,7 +60142,7 @@ exports.EmptyError = EmptyError;
 //# sourceMappingURL=EmptyError.js.map
 
 /***/ }),
-/* 81 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58760,7 +60175,7 @@ exports.ObjectUnsubscribedError = ObjectUnsubscribedError;
 //# sourceMappingURL=ObjectUnsubscribedError.js.map
 
 /***/ }),
-/* 82 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58770,7 +60185,7 @@ exports.errorObject = { e: {} };
 //# sourceMappingURL=errorObject.js.map
 
 /***/ }),
-/* 83 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58782,7 +60197,7 @@ exports.isFunction = isFunction;
 //# sourceMappingURL=isFunction.js.map
 
 /***/ }),
-/* 84 */
+/* 98 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -59652,11 +61067,11 @@ var AnimationGroupPlayer = (function () {
 
 
 /***/ }),
-/* 85 */
+/* 99 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_animations__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_animations__ = __webpack_require__(98);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AnimationDriver; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return AnimationEngine; });
 /* unused harmony export ɵAnimation */
@@ -62194,20 +63609,696 @@ function supportsWebAnimations() {
 
 
 /***/ }),
-/* 86 */,
-/* 87 */,
-/* 88 */,
-/* 89 */
+/* 100 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_firebase__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__base__ = __webpack_require__(8);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BaseFxDirectiveAdapter; });
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+/**
+ * Adapter to the BaseFxDirective abstract class so it can be used via composition.
+ * @see BaseFxDirective
+ */
+var BaseFxDirectiveAdapter = (function (_super) {
+    __extends(BaseFxDirectiveAdapter, _super);
+    /**
+     * BaseFxDirectiveAdapter constructor
+     */
+    function BaseFxDirectiveAdapter(_baseKey, // non-responsive @Input property name
+        _mediaMonitor, _elementRef, _renderer) {
+        var _this = _super.call(this, _mediaMonitor, _elementRef, _renderer) || this;
+        _this._baseKey = _baseKey;
+        _this._mediaMonitor = _mediaMonitor;
+        _this._elementRef = _elementRef;
+        _this._renderer = _renderer;
+        return _this;
+    }
+    Object.defineProperty(BaseFxDirectiveAdapter.prototype, "activeKey", {
+        /**
+         * Accessor to determine which @Input property is "active"
+         * e.g. which property value will be used.
+         */
+        get: function () {
+            var mqa = this._mqActivation;
+            var key = mqa ? mqa.activatedInputKey : this._baseKey;
+            // Note: ClassDirective::SimpleChanges uses 'klazz' instead of 'class' as a key
+            return (key === 'class') ? 'klazz' : key;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(BaseFxDirectiveAdapter.prototype, "inputMap", {
+        /** Hash map of all @Input keys/values defined/used */
+        get: function () {
+            return this._inputMap;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(BaseFxDirectiveAdapter.prototype, "mqActivation", {
+        /**
+         * @see BaseFxDirective._mqActivation
+         */
+        get: function () {
+            return this._mqActivation;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @see BaseFxDirective._queryInput
+     */
+    BaseFxDirectiveAdapter.prototype.queryInput = function (key) {
+        return key ? this._queryInput(key) : undefined;
+    };
+    /**
+     *  Save the property value.
+     */
+    BaseFxDirectiveAdapter.prototype.cacheInput = function (key, source, cacheRaw) {
+        if (cacheRaw === void 0) { cacheRaw = false; }
+        if (cacheRaw) {
+            this._cacheInputRaw(key, source);
+        }
+        else if (Array.isArray(source)) {
+            this._cacheInputArray(key, source);
+        }
+        else if (typeof source === 'object') {
+            this._cacheInputObject(key, source);
+        }
+        else if (typeof source === 'string') {
+            this._cacheInputString(key, source);
+        }
+        else {
+            throw new Error('Invalid class value provided. Did you want to cache the raw value?');
+        }
+    };
+    /**
+     * @see BaseFxDirective._listenForMediaQueryChanges
+     */
+    BaseFxDirectiveAdapter.prototype.listenForMediaQueryChanges = function (key, defaultValue, onMediaQueryChange) {
+        return this._listenForMediaQueryChanges(key, defaultValue, onMediaQueryChange);
+    };
+    // ************************************************************
+    // Protected Methods
+    // ************************************************************
+    /**
+     * No implicit transforms of the source.
+     * Required when caching values expected later for KeyValueDiffers
+     */
+    BaseFxDirectiveAdapter.prototype._cacheInputRaw = function (key, source) {
+        this._inputMap[key] = source;
+    };
+    /**
+     *  Save the property value for Array values.
+     */
+    BaseFxDirectiveAdapter.prototype._cacheInputArray = function (key, source) {
+        this._inputMap[key] = source.join(' ');
+    };
+    /**
+     *  Save the property value for key/value pair values.
+     */
+    BaseFxDirectiveAdapter.prototype._cacheInputObject = function (key, source) {
+        var classes = [];
+        for (var prop in source) {
+            if (!!source[prop]) {
+                classes.push(prop);
+            }
+        }
+        this._inputMap[key] = classes.join(' ');
+    };
+    /**
+     *  Save the property value for string values.
+     */
+    BaseFxDirectiveAdapter.prototype._cacheInputString = function (key, source) {
+        this._inputMap[key] = source;
+    };
+    return BaseFxDirectiveAdapter;
+}(__WEBPACK_IMPORTED_MODULE_0__base__["a" /* BaseFxDirective */]));
+
+//# sourceMappingURL=base-adapter.js.map
+
+/***/ }),
+/* 101 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__layout__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__media_query_media_monitor__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_layout_validator__ = __webpack_require__(39);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LayoutWrapDirective; });
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+
+
+/**
+ * @deprecated
+ * This functionality is now part of the `fxLayout` API
+ *
+ * 'layout-wrap' flexbox styling directive
+ * Defines wrapping of child elements in layout container
+ * Optional values: reverse, wrap-reverse, none, nowrap, wrap (default)]
+ *
+ *
+ * @see https://css-tricks.com/almanac/properties/f/flex-wrap/
+ */
+var LayoutWrapDirective = (function (_super) {
+    __extends(LayoutWrapDirective, _super);
+    /* tslint:enable */
+    function LayoutWrapDirective(monitor, elRef, renderer, container) {
+        var _this = _super.call(this, monitor, elRef, renderer) || this;
+        _this._layout = 'row'; // default flex-direction
+        if (container) {
+            _this._layoutWatcher = container.layout$.subscribe(_this._onLayoutChange.bind(_this));
+        }
+        return _this;
+    }
+    Object.defineProperty(LayoutWrapDirective.prototype, "wrap", {
+        /* tslint:disable */
+        set: function (val) { this._cacheInput("wrap", val); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(LayoutWrapDirective.prototype, "wrapXs", {
+        set: function (val) { this._cacheInput('wrapXs', val); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(LayoutWrapDirective.prototype, "wrapSm", {
+        set: function (val) { this._cacheInput('wrapSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutWrapDirective.prototype, "wrapMd", {
+        set: function (val) { this._cacheInput('wrapMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutWrapDirective.prototype, "wrapLg", {
+        set: function (val) { this._cacheInput('wrapLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutWrapDirective.prototype, "wrapXl", {
+        set: function (val) { this._cacheInput('wrapXl', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutWrapDirective.prototype, "wrapGtXs", {
+        set: function (val) { this._cacheInput('wrapGtXs', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutWrapDirective.prototype, "wrapGtSm", {
+        set: function (val) { this._cacheInput('wrapGtSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutWrapDirective.prototype, "wrapGtMd", {
+        set: function (val) { this._cacheInput('wrapGtMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutWrapDirective.prototype, "wrapGtLg", {
+        set: function (val) { this._cacheInput('wrapGtLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutWrapDirective.prototype, "wrapLtSm", {
+        set: function (val) { this._cacheInput('wrapLtSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutWrapDirective.prototype, "wrapLtMd", {
+        set: function (val) { this._cacheInput('wrapLtMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutWrapDirective.prototype, "wrapLtLg", {
+        set: function (val) { this._cacheInput('wrapLtLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutWrapDirective.prototype, "wrapLtXl", {
+        set: function (val) { this._cacheInput('wrapLtXl', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    // *********************************************
+    // Lifecycle Methods
+    // *********************************************
+    LayoutWrapDirective.prototype.ngOnChanges = function (changes) {
+        if (changes['wrap'] != null || this._mqActivation) {
+            this._updateWithValue();
+        }
+    };
+    /**
+     * After the initial onChanges, build an mqActivation object that bridges
+     * mql change events to onMediaQueryChange handlers
+     */
+    LayoutWrapDirective.prototype.ngOnInit = function () {
+        var _this = this;
+        this._listenForMediaQueryChanges('wrap', 'wrap', function (changes) {
+            _this._updateWithValue(changes.value);
+        });
+        this._updateWithValue();
+    };
+    LayoutWrapDirective.prototype.ngOnDestroy = function () {
+        _super.prototype.ngOnDestroy.call(this);
+        if (this._layoutWatcher) {
+            this._layoutWatcher.unsubscribe();
+        }
+    };
+    // *********************************************
+    // Protected methods
+    // *********************************************
+    /**
+     * Cache the parent container 'flex-direction' and update the 'flex' styles
+     */
+    LayoutWrapDirective.prototype._onLayoutChange = function (direction) {
+        var _this = this;
+        this._layout = (direction || '').toLowerCase().replace('-reverse', '');
+        if (!__WEBPACK_IMPORTED_MODULE_4__utils_layout_validator__["b" /* LAYOUT_VALUES */].find(function (x) { return x === _this._layout; })) {
+            this._layout = 'row';
+        }
+        this._updateWithValue();
+    };
+    LayoutWrapDirective.prototype._updateWithValue = function (value) {
+        value = value || this._queryInput("wrap");
+        if (this._mqActivation) {
+            value = this._mqActivation.activatedInput;
+        }
+        value = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__utils_layout_validator__["c" /* validateWrapValue */])(value || 'wrap');
+        this._applyStyleToElement(this._buildCSS(value));
+    };
+    /**
+     * Build the CSS that should be assigned to the element instance
+     */
+    LayoutWrapDirective.prototype._buildCSS = function (value) {
+        return {
+            'display': 'flex',
+            'flex-wrap': value,
+            'flex-direction': this.flowDirection
+        };
+    };
+    Object.defineProperty(LayoutWrapDirective.prototype, "flowDirection", {
+        get: function () {
+            var _this = this;
+            var computeFlowDirection = function () { return _this._getFlowDirection(_this._elementRef.nativeElement); };
+            return this._layoutWatcher ? this._layout : computeFlowDirection();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return LayoutWrapDirective;
+}(__WEBPACK_IMPORTED_MODULE_1__base__["a" /* BaseFxDirective */]));
+
+LayoutWrapDirective.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Directive */], args: [{ selector: "\n  [fxLayoutWrap], [fxLayoutWrap.xs], [fxLayoutWrap.sm], [fxLayoutWrap.lg], [fxLayoutWrap.xl],\n  [fxLayoutWrap.gt-xs], [fxLayoutWrap.gt-sm], [fxLayoutWrap.gt-md], [fxLayoutWrap.gt-lg],\n  [fxLayoutWrap.lt-xs], [fxLayoutWrap.lt-sm], [fxLayoutWrap.lt-md], [fxLayoutWrap.lt-lg]\n" },] },
+];
+/** @nocollapse */
+LayoutWrapDirective.ctorParameters = function () { return [
+    { type: __WEBPACK_IMPORTED_MODULE_3__media_query_media_monitor__["a" /* MediaMonitor */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* ElementRef */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_28" /* Renderer2 */], },
+    { type: __WEBPACK_IMPORTED_MODULE_2__layout__["a" /* LayoutDirective */], decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Z" /* Optional */] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_25" /* Self */] },] },
+]; };
+LayoutWrapDirective.propDecorators = {
+    'wrap': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap',] },],
+    'wrapXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.xs',] },],
+    'wrapSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.sm',] },],
+    'wrapMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.md',] },],
+    'wrapLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.lg',] },],
+    'wrapXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.xl',] },],
+    'wrapGtXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.gt-xs',] },],
+    'wrapGtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.gt-sm',] },],
+    'wrapGtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.gt-md',] },],
+    'wrapGtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.gt-lg',] },],
+    'wrapLtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.lt-sm',] },],
+    'wrapLtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.lt-md',] },],
+    'wrapLtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.lt-lg',] },],
+    'wrapLtXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.lt-xl',] },],
+};
+//# sourceMappingURL=layout-wrap.js.map
+
+/***/ }),
+/* 102 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__match_media__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__media_monitor__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__observable_media_provider__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__breakpoints_break_points_provider__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__breakpoints_break_point_registry__ = __webpack_require__(22);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MediaQueriesModule; });
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+
+
+
+/**
+ * *****************************************************************
+ * Define module for the MediaQuery API
+ * *****************************************************************
+ */
+var MediaQueriesModule = (function () {
+    function MediaQueriesModule() {
+    }
+    return MediaQueriesModule;
+}());
+
+MediaQueriesModule.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_2" /* NgModule */], args: [{
+                providers: [
+                    __WEBPACK_IMPORTED_MODULE_4__breakpoints_break_points_provider__["c" /* DEFAULT_BREAKPOINTS_PROVIDER */],
+                    __WEBPACK_IMPORTED_MODULE_5__breakpoints_break_point_registry__["a" /* BreakPointRegistry */],
+                    __WEBPACK_IMPORTED_MODULE_1__match_media__["a" /* MatchMedia */],
+                    __WEBPACK_IMPORTED_MODULE_2__media_monitor__["a" /* MediaMonitor */],
+                    __WEBPACK_IMPORTED_MODULE_3__observable_media_provider__["b" /* OBSERVABLE_MEDIA_PROVIDER */] // easy subscription injectable `media$` matchMedia observable
+                ]
+            },] },
+];
+/** @nocollapse */
+MediaQueriesModule.ctorParameters = function () { return []; };
+//# sourceMappingURL=_module.js.map
+
+/***/ }),
+/* 103 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__media_monitor__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__match_media__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__breakpoints_break_point_registry__ = __webpack_require__(22);
+/* harmony export (immutable) */ __webpack_exports__["a"] = MEDIA_MONITOR_PROVIDER_FACTORY;
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return MEDIA_MONITOR_PROVIDER; });
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+
+/**
+ * Ensure a single global service provider
+ */
+function MEDIA_MONITOR_PROVIDER_FACTORY(parentMonitor, breakpoints, matchMedia) {
+    return parentMonitor || new __WEBPACK_IMPORTED_MODULE_1__media_monitor__["a" /* MediaMonitor */](breakpoints, matchMedia);
+}
+/**
+ * Export provider that uses a global service factory (above)
+ */
+var MEDIA_MONITOR_PROVIDER = {
+    provide: __WEBPACK_IMPORTED_MODULE_1__media_monitor__["a" /* MediaMonitor */],
+    deps: [
+        [new __WEBPACK_IMPORTED_MODULE_0__angular_core__["Z" /* Optional */](), new __WEBPACK_IMPORTED_MODULE_0__angular_core__["_0" /* SkipSelf */](), __WEBPACK_IMPORTED_MODULE_1__media_monitor__["a" /* MediaMonitor */]],
+        __WEBPACK_IMPORTED_MODULE_3__breakpoints_break_point_registry__["a" /* BreakPointRegistry */],
+        __WEBPACK_IMPORTED_MODULE_2__match_media__["a" /* MatchMedia */],
+    ],
+    useFactory: MEDIA_MONITOR_PROVIDER_FACTORY
+};
+//# sourceMappingURL=media-monitor-provider.js.map
+
+/***/ }),
+/* 104 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__breakpoints_break_point_registry__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__match_media__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_add_alias__ = __webpack_require__(105);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ObservableMedia; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return MediaService; });
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+
+
+
+/**
+ * Base class for MediaService and pseudo-token for
+ */
+var ObservableMedia = (function () {
+    function ObservableMedia() {
+    }
+    return ObservableMedia;
+}());
+
+/**
+ * Class internalizes a MatchMedia service and exposes an Subscribable and Observable interface.
+
+ * This an Observable with that exposes a feature to subscribe to mediaQuery
+ * changes and a validator method (`isActive(<alias>)`) to test if a mediaQuery (or alias) is
+ * currently active.
+ *
+ * !! Only mediaChange activations (not de-activations) are announced by the ObservableMedia
+ *
+ * This class uses the BreakPoint Registry to inject alias information into the raw MediaChange
+ * notification. For custom mediaQuery notifications, alias information will not be injected and
+ * those fields will be ''.
+ *
+ * !! This is not an actual Observable. It is a wrapper of an Observable used to publish additional
+ * methods like `isActive(<alias>). To access the Observable and use RxJS operators, use
+ * `.asObservable()` with syntax like media.asObservable().map(....).
+ *
+ *  @usage
+ *
+ *  // RxJS
+ *  import 'rxjs/add/operator/filter';
+ *  import { ObservableMedia } from '@angular/flex-layout';
+ *
+ *  @Component({ ... })
+ *  export class AppComponent {
+ *    status : string = '';
+ *
+ *    constructor(  media:ObservableMedia ) {
+ *      let onChange = (change:MediaChange) => {
+ *        this.status = change ? `'${change.mqAlias}' = (${change.mediaQuery})` : "";
+ *      };
+ *
+ *      // Subscribe directly or access observable to use filter/map operators
+ *      // e.g.
+ *      //      media.subscribe(onChange);
+ *
+ *      media.asObservable()
+ *        .filter((change:MediaChange) => true)   // silly noop filter
+ *        .subscribe(onChange);
+ *    }
+ *  }
+ */
+var MediaService = (function () {
+    function MediaService(mediaWatcher, breakpoints) {
+        this.mediaWatcher = mediaWatcher;
+        this.breakpoints = breakpoints;
+        /**
+         * Should we announce gt-<xxx> breakpoint activations ?
+         */
+        this.filterOverlaps = true;
+        this.observable$ = this._buildObservable();
+        this._registerBreakPoints();
+    }
+    /**
+     * Test if specified query/alias is active.
+     */
+    MediaService.prototype.isActive = function (alias) {
+        var query = this._toMediaQuery(alias);
+        return this.mediaWatcher.isActive(query);
+    };
+    ;
+    /**
+     * Proxy to the Observable subscribe method
+     */
+    MediaService.prototype.subscribe = function (next, error, complete) {
+        return this.observable$.subscribe(next, error, complete);
+    };
+    ;
+    /**
+     * Access to observable for use with operators like
+     * .filter(), .map(), etc.
+     */
+    MediaService.prototype.asObservable = function () {
+        return this.observable$;
+    };
+    // ************************************************
+    // Internal Methods
+    // ************************************************
+    /**
+     * Register all the mediaQueries registered in the BreakPointRegistry
+     * This is needed so subscribers can be auto-notified of all standard, registered
+     * mediaQuery activations
+     */
+    MediaService.prototype._registerBreakPoints = function () {
+        var _this = this;
+        this.breakpoints.items.forEach(function (bp) {
+            _this.mediaWatcher.registerQuery(bp.mediaQuery);
+            return bp;
+        });
+    };
+    /**
+     * Prepare internal observable
+     * NOTE: the raw MediaChange events [from MatchMedia] do not contain important alias information
+     * these must be injected into the MediaChange
+     */
+    MediaService.prototype._buildObservable = function () {
+        var _this = this;
+        var self = this;
+        // Only pass/announce activations (not de-activations)
+        // Inject associated (if any) alias information into the MediaChange event
+        // Exclude mediaQuery activations for overlapping mQs. List bounded mQ ranges only
+        var activationsOnly = function (change) {
+            return change.matches === true;
+        };
+        var addAliasInformation = function (change) {
+            return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__utils_add_alias__["a" /* mergeAlias */])(change, _this._findByQuery(change.mediaQuery));
+        };
+        var excludeOverlaps = function (change) {
+            var bp = _this.breakpoints.findByQuery(change.mediaQuery);
+            return !bp ? true : !(self.filterOverlaps && bp.overlapping);
+        };
+        return this.mediaWatcher.observe()
+            .filter(activationsOnly)
+            .map(addAliasInformation)
+            .filter(excludeOverlaps);
+    };
+    /**
+     * Breakpoint locator by alias
+     */
+    MediaService.prototype._findByAlias = function (alias) {
+        return this.breakpoints.findByAlias(alias);
+    };
+    /**
+     * Breakpoint locator by mediaQuery
+     */
+    MediaService.prototype._findByQuery = function (query) {
+        return this.breakpoints.findByQuery(query);
+    };
+    ;
+    /**
+     * Find associated breakpoint (if any)
+     */
+    MediaService.prototype._toMediaQuery = function (query) {
+        var bp = this._findByAlias(query) || this._findByQuery(query);
+        return bp ? bp.mediaQuery : query;
+    };
+    ;
+    return MediaService;
+}());
+
+MediaService.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["X" /* Injectable */] },
+];
+/** @nocollapse */
+MediaService.ctorParameters = function () { return [
+    { type: __WEBPACK_IMPORTED_MODULE_4__match_media__["a" /* MatchMedia */], },
+    { type: __WEBPACK_IMPORTED_MODULE_3__breakpoints_break_point_registry__["a" /* BreakPointRegistry */], },
+]; };
+//# sourceMappingURL=observable-media.js.map
+
+/***/ }),
+/* 105 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__object_extend__ = __webpack_require__(23);
+/* harmony export (immutable) */ __webpack_exports__["a"] = mergeAlias;
+
+/**
+ * For the specified MediaChange, make sure it contains the breakpoint alias
+ * and suffix (if available).
+ */
+function mergeAlias(dest, source) {
+    return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__object_extend__["a" /* extendObject */])(dest, source ? {
+        mqAlias: source.alias,
+        suffix: source.suffix
+    } : {});
+}
+//# sourceMappingURL=add-alias.js.map
+
+/***/ }),
+/* 106 */,
+/* 107 */,
+/* 108 */,
+/* 109 */,
+/* 110 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_firebase__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_firebase__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tokens__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_core__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__auth_index__ = __webpack_require__(148);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__database_index__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tokens__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__auth_index__ = __webpack_require__(190);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__database_index__ = __webpack_require__(49);
 /* unused harmony reexport AngularFireAuth */
 /* unused harmony reexport AngularFireDatabase */
 /* unused harmony reexport FirebaseListObservable */
@@ -62345,21 +64436,21 @@ var AngularFireModule_1;
 //# sourceMappingURL=angularfire2.js.map
 
 /***/ }),
-/* 90 */
+/* 111 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_ReplaySubject__ = __webpack_require__(215);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_ReplaySubject__ = __webpack_require__(257);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_ReplaySubject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_ReplaySubject__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tokens__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__auth_backend__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_operator_mergeMap__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tokens__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__auth_backend__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_operator_mergeMap__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_operator_mergeMap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_operator_mergeMap__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_observable_of__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_observable_of__ = __webpack_require__(59);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_observable_of___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_observable_of__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_operator_map__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_operator_map__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_rxjs_operator_map__);
 /* unused harmony export firebaseAuthConfig */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AngularFireAuth; });
@@ -62536,14 +64627,14 @@ function attachCredentialToAuthState(authState, credential, providerId) {
 //# sourceMappingURL=auth.js.map
 
 /***/ }),
-/* 91 */
+/* 112 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tokens__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__index__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tokens__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__index__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils__ = __webpack_require__(16);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AngularFireDatabase; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -62599,13 +64690,13 @@ function getAbsUrl(root, url) {
 //# sourceMappingURL=database.js.map
 
 /***/ }),
-/* 92 */
+/* 113 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils__ = __webpack_require__(16);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FirebaseListObservable; });
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -62676,24 +64767,24 @@ var FirebaseListObservable = (function (_super) {
 //# sourceMappingURL=firebase_list_observable.js.map
 
 /***/ }),
-/* 93 */
+/* 114 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_observable_of__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_observable_of__ = __webpack_require__(59);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_observable_of___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_observable_of__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_operator_combineLatest__ = __webpack_require__(242);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_operator_combineLatest__ = __webpack_require__(282);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_operator_combineLatest___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_operator_combineLatest__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_operator_merge__ = __webpack_require__(116);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_operator_merge__ = __webpack_require__(136);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_operator_merge___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_operator_merge__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_operator_map__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_operator_map__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_operator_auditTime__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_operator_auditTime__ = __webpack_require__(132);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_operator_auditTime___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_operator_auditTime__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__interfaces__ = __webpack_require__(152);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__utils__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__interfaces__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__utils__ = __webpack_require__(16);
 /* harmony export (immutable) */ __webpack_exports__["a"] = observeQuery;
 /* unused harmony export getOrderObservables */
 /* unused harmony export getLimitToObservables */
@@ -62888,74 +64979,19 @@ function hasObservableProperties(query) {
 //# sourceMappingURL=query_observable.js.map
 
 /***/ }),
-/* 94 */,
-/* 95 */,
-/* 96 */,
-/* 97 */,
-/* 98 */,
-/* 99 */,
-/* 100 */,
-/* 101 */,
-/* 102 */,
-/* 103 */,
-/* 104 */,
-/* 105 */,
-/* 106 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var Subject_1 = __webpack_require__(22);
-var ObjectUnsubscribedError_1 = __webpack_require__(81);
-/**
- * @class BehaviorSubject<T>
- */
-var BehaviorSubject = (function (_super) {
-    __extends(BehaviorSubject, _super);
-    function BehaviorSubject(_value) {
-        _super.call(this);
-        this._value = _value;
-    }
-    Object.defineProperty(BehaviorSubject.prototype, "value", {
-        get: function () {
-            return this.getValue();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    BehaviorSubject.prototype._subscribe = function (subscriber) {
-        var subscription = _super.prototype._subscribe.call(this, subscriber);
-        if (subscription && !subscription.closed) {
-            subscriber.next(this._value);
-        }
-        return subscription;
-    };
-    BehaviorSubject.prototype.getValue = function () {
-        if (this.hasError) {
-            throw this.thrownError;
-        }
-        else if (this.closed) {
-            throw new ObjectUnsubscribedError_1.ObjectUnsubscribedError();
-        }
-        else {
-            return this._value;
-        }
-    };
-    BehaviorSubject.prototype.next = function (value) {
-        _super.prototype.next.call(this, this._value = value);
-    };
-    return BehaviorSubject;
-}(Subject_1.Subject));
-exports.BehaviorSubject = BehaviorSubject;
-//# sourceMappingURL=BehaviorSubject.js.map
-
-/***/ }),
-/* 107 */
+/* 115 */,
+/* 116 */,
+/* 117 */,
+/* 118 */,
+/* 119 */,
+/* 120 */,
+/* 121 */,
+/* 122 */,
+/* 123 */,
+/* 124 */,
+/* 125 */,
+/* 126 */,
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62969,7 +65005,7 @@ exports.empty = {
 //# sourceMappingURL=Observer.js.map
 
 /***/ }),
-/* 108 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62979,7 +65015,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var Subscription_1 = __webpack_require__(15);
+var Subscription_1 = __webpack_require__(19);
 /**
  * We need this JSDoc comment for affecting ESDoc.
  * @ignore
@@ -63015,7 +65051,7 @@ exports.SubjectSubscription = SubjectSubscription;
 //# sourceMappingURL=SubjectSubscription.js.map
 
 /***/ }),
-/* 109 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63025,8 +65061,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var root_1 = __webpack_require__(16);
-var Observable_1 = __webpack_require__(0);
+var root_1 = __webpack_require__(20);
+var Observable_1 = __webpack_require__(1);
 /**
  * We need this JSDoc comment for affecting ESDoc.
  * @extends {Ignored}
@@ -63142,27 +65178,27 @@ function dispatchError(arg) {
 //# sourceMappingURL=PromiseObservable.js.map
 
 /***/ }),
-/* 110 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var ForkJoinObservable_1 = __webpack_require__(235);
+var ForkJoinObservable_1 = __webpack_require__(275);
 exports.forkJoin = ForkJoinObservable_1.ForkJoinObservable.create;
 //# sourceMappingURL=forkJoin.js.map
 
 /***/ }),
-/* 111 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var merge_1 = __webpack_require__(116);
+var merge_1 = __webpack_require__(136);
 exports.merge = merge_1.mergeStatic;
 //# sourceMappingURL=merge.js.map
 
 /***/ }),
-/* 112 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63172,8 +65208,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var async_1 = __webpack_require__(257);
-var Subscriber_1 = __webpack_require__(4);
+var async_1 = __webpack_require__(297);
+var Subscriber_1 = __webpack_require__(5);
 /**
  * Ignores source values for `duration` milliseconds, then emits the most recent
  * value from the source Observable, then repeats this process.
@@ -63272,7 +65308,7 @@ function dispatchNext(subscriber) {
 //# sourceMappingURL=auditTime.js.map
 
 /***/ }),
-/* 113 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63282,8 +65318,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var OuterSubscriber_1 = __webpack_require__(25);
-var subscribeToResult_1 = __webpack_require__(27);
+var OuterSubscriber_1 = __webpack_require__(35);
+var subscribeToResult_1 = __webpack_require__(38);
 /**
  * Catches errors on the observable to be handled by returning a new observable or throwing an error.
  *
@@ -63394,7 +65430,7 @@ var CatchSubscriber = (function (_super) {
 //# sourceMappingURL=catch.js.map
 
 /***/ }),
-/* 114 */
+/* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63404,7 +65440,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var Subscriber_1 = __webpack_require__(4);
+var Subscriber_1 = __webpack_require__(5);
 /* tslint:enable:max-line-length */
 /**
  * Filter items emitted by the source Observable by only emitting those that
@@ -63493,7 +65529,7 @@ var FilterSubscriber = (function (_super) {
 //# sourceMappingURL=filter.js.map
 
 /***/ }),
-/* 115 */
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63503,8 +65539,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var Subscriber_1 = __webpack_require__(4);
-var EmptyError_1 = __webpack_require__(80);
+var Subscriber_1 = __webpack_require__(5);
+var EmptyError_1 = __webpack_require__(94);
 /**
  * Emits only the first value (or the first value that meets some condition)
  * emitted by the source Observable.
@@ -63651,15 +65687,15 @@ var FirstSubscriber = (function (_super) {
 //# sourceMappingURL=first.js.map
 
 /***/ }),
-/* 116 */
+/* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var Observable_1 = __webpack_require__(0);
-var ArrayObservable_1 = __webpack_require__(26);
-var mergeAll_1 = __webpack_require__(47);
-var isScheduler_1 = __webpack_require__(50);
+var Observable_1 = __webpack_require__(1);
+var ArrayObservable_1 = __webpack_require__(37);
+var mergeAll_1 = __webpack_require__(60);
+var isScheduler_1 = __webpack_require__(63);
 /* tslint:enable:max-line-length */
 /**
  * Creates an output Observable which concurrently emits all values from every
@@ -63802,13 +65838,13 @@ exports.mergeStatic = mergeStatic;
 //# sourceMappingURL=merge.js.map
 
 /***/ }),
-/* 117 */
+/* 137 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var multicast_1 = __webpack_require__(250);
-var Subject_1 = __webpack_require__(22);
+var multicast_1 = __webpack_require__(290);
+var Subject_1 = __webpack_require__(27);
 function shareSubjectFactory() {
     return new Subject_1.Subject();
 }
@@ -63832,7 +65868,7 @@ exports.share = share;
 //# sourceMappingURL=share.js.map
 
 /***/ }),
-/* 118 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63842,8 +65878,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var root_1 = __webpack_require__(16);
-var Action_1 = __webpack_require__(254);
+var root_1 = __webpack_require__(20);
+var Action_1 = __webpack_require__(294);
 /**
  * We need this JSDoc comment for affecting ESDoc.
  * @ignore
@@ -63980,7 +66016,7 @@ exports.AsyncAction = AsyncAction;
 //# sourceMappingURL=AsyncAction.js.map
 
 /***/ }),
-/* 119 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63990,7 +66026,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var Scheduler_1 = __webpack_require__(216);
+var Scheduler_1 = __webpack_require__(258);
 var AsyncScheduler = (function (_super) {
     __extends(AsyncScheduler, _super);
     function AsyncScheduler() {
@@ -64037,13 +66073,13 @@ exports.AsyncScheduler = AsyncScheduler;
 //# sourceMappingURL=AsyncScheduler.js.map
 
 /***/ }),
-/* 120 */
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var QueueAction_1 = __webpack_require__(255);
-var QueueScheduler_1 = __webpack_require__(256);
+var QueueAction_1 = __webpack_require__(295);
+var QueueScheduler_1 = __webpack_require__(296);
 /**
  *
  * Queue Scheduler
@@ -64109,7 +66145,7 @@ exports.queue = new QueueScheduler_1.QueueScheduler(QueueAction_1.QueueAction);
 //# sourceMappingURL=queue.js.map
 
 /***/ }),
-/* 121 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64118,7 +66154,7 @@ exports.isArrayLike = (function (x) { return x && typeof x.length === 'number'; 
 //# sourceMappingURL=isArrayLike.js.map
 
 /***/ }),
-/* 122 */
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64130,7 +66166,7 @@ exports.isObject = isObject;
 //# sourceMappingURL=isObject.js.map
 
 /***/ }),
-/* 123 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64142,12 +66178,12 @@ exports.isPromise = isPromise;
 //# sourceMappingURL=isPromise.js.map
 
 /***/ }),
-/* 124 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var errorObject_1 = __webpack_require__(82);
+var errorObject_1 = __webpack_require__(96);
 var tryCatchTarget;
 function tryCatcher() {
     try {
@@ -64167,17 +66203,3107 @@ exports.tryCatch = tryCatch;
 //# sourceMappingURL=tryCatch.js.map
 
 /***/ }),
-/* 125 */,
-/* 126 */,
-/* 127 */,
-/* 128 */,
-/* 129 */
+/* 145 */,
+/* 146 */,
+/* 147 */,
+/* 148 */,
+/* 149 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_animations_browser__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_filter__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_filter__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__media_query_module__ = __webpack_require__(102);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__media_query_breakpoints_break_points_provider__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__media_query_media_monitor_provider__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__media_query_observable_media_provider__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__api_flex__ = __webpack_require__(154);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__api_layout__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__api_show_hide__ = __webpack_require__(157);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__api_flex_align__ = __webpack_require__(150);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__api_flex_fill__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__api_flex_offset__ = __webpack_require__(152);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__api_flex_order__ = __webpack_require__(153);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__api_layout_align__ = __webpack_require__(155);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__api_layout_wrap__ = __webpack_require__(101);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__api_layout_gap__ = __webpack_require__(156);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__api_class__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__api_style__ = __webpack_require__(158);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FlexLayoutModule; });
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Since the equivalent results are easily achieved with a css class attached to each
+ * layout child, these have been deprecated and removed from the API.
+ *
+ *  import {LayoutPaddingDirective} from './api/layout-padding';
+ *  import {LayoutMarginDirective} from './api/layout-margin';
+ */
+var ALL_DIRECTIVES = [
+    __WEBPACK_IMPORTED_MODULE_8__api_layout__["a" /* LayoutDirective */],
+    __WEBPACK_IMPORTED_MODULE_15__api_layout_wrap__["a" /* LayoutWrapDirective */],
+    __WEBPACK_IMPORTED_MODULE_16__api_layout_gap__["a" /* LayoutGapDirective */],
+    __WEBPACK_IMPORTED_MODULE_14__api_layout_align__["a" /* LayoutAlignDirective */],
+    __WEBPACK_IMPORTED_MODULE_7__api_flex__["a" /* FlexDirective */],
+    __WEBPACK_IMPORTED_MODULE_13__api_flex_order__["a" /* FlexOrderDirective */],
+    __WEBPACK_IMPORTED_MODULE_12__api_flex_offset__["a" /* FlexOffsetDirective */],
+    __WEBPACK_IMPORTED_MODULE_11__api_flex_fill__["a" /* FlexFillDirective */],
+    __WEBPACK_IMPORTED_MODULE_10__api_flex_align__["a" /* FlexAlignDirective */],
+    __WEBPACK_IMPORTED_MODULE_9__api_show_hide__["a" /* ShowHideDirective */],
+    __WEBPACK_IMPORTED_MODULE_17__api_class__["a" /* ClassDirective */],
+    __WEBPACK_IMPORTED_MODULE_18__api_style__["a" /* StyleDirective */],
+];
+/**
+ *
+ */
+var FlexLayoutModule = (function () {
+    function FlexLayoutModule() {
+    }
+    /**
+     * External uses can easily add custom breakpoints AND include internal orientations
+     * breakpoints; which are not available by default.
+     *
+     * !! Selector aliases are not auto-configured. Developers must subclass
+     * the API directives to support extra selectors for the orientations breakpoints !!
+     */
+    FlexLayoutModule.provideBreakPoints = function (breakpoints, options) {
+        return {
+            ngModule: FlexLayoutModule,
+            providers: [
+                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__media_query_breakpoints_break_points_provider__["b" /* CUSTOM_BREAKPOINTS_PROVIDER_FACTORY */])(breakpoints, options || { orientations: false })
+            ]
+        };
+    };
+    return FlexLayoutModule;
+}());
+
+FlexLayoutModule.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_2__angular_core__["_2" /* NgModule */], args: [{
+                declarations: ALL_DIRECTIVES,
+                imports: [__WEBPACK_IMPORTED_MODULE_3__media_query_module__["a" /* MediaQueriesModule */]],
+                exports: [__WEBPACK_IMPORTED_MODULE_3__media_query_module__["a" /* MediaQueriesModule */]].concat(ALL_DIRECTIVES),
+                providers: [
+                    __WEBPACK_IMPORTED_MODULE_5__media_query_media_monitor_provider__["b" /* MEDIA_MONITOR_PROVIDER */],
+                    __WEBPACK_IMPORTED_MODULE_4__media_query_breakpoints_break_points_provider__["c" /* DEFAULT_BREAKPOINTS_PROVIDER */],
+                    __WEBPACK_IMPORTED_MODULE_6__media_query_observable_media_provider__["b" /* OBSERVABLE_MEDIA_PROVIDER */]
+                ]
+            },] },
+];
+/** @nocollapse */
+FlexLayoutModule.ctorParameters = function () { return []; };
+//# sourceMappingURL=_module.js.map
+
+/***/ }),
+/* 150 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__media_query_media_monitor__ = __webpack_require__(3);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FlexAlignDirective; });
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+/**
+ * 'flex-align' flexbox styling directive
+ * Allows element-specific overrides for cross-axis alignments in a layout container
+ * @see https://css-tricks.com/almanac/properties/a/align-self/
+ */
+var FlexAlignDirective = (function (_super) {
+    __extends(FlexAlignDirective, _super);
+    /* tslint:enable */
+    function FlexAlignDirective(monitor, elRef, renderer) {
+        return _super.call(this, monitor, elRef, renderer) || this;
+    }
+    Object.defineProperty(FlexAlignDirective.prototype, "align", {
+        /* tslint:disable */
+        set: function (val) { this._cacheInput('align', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexAlignDirective.prototype, "alignXs", {
+        set: function (val) { this._cacheInput('alignXs', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexAlignDirective.prototype, "alignSm", {
+        set: function (val) { this._cacheInput('alignSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexAlignDirective.prototype, "alignMd", {
+        set: function (val) { this._cacheInput('alignMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexAlignDirective.prototype, "alignLg", {
+        set: function (val) { this._cacheInput('alignLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexAlignDirective.prototype, "alignXl", {
+        set: function (val) { this._cacheInput('alignXl', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexAlignDirective.prototype, "alignLtSm", {
+        set: function (val) { this._cacheInput('alignLtSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexAlignDirective.prototype, "alignLtMd", {
+        set: function (val) { this._cacheInput('alignLtMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexAlignDirective.prototype, "alignLtLg", {
+        set: function (val) { this._cacheInput('alignLtLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexAlignDirective.prototype, "alignLtXl", {
+        set: function (val) { this._cacheInput('alignLtXl', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexAlignDirective.prototype, "alignGtXs", {
+        set: function (val) { this._cacheInput('alignGtXs', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexAlignDirective.prototype, "alignGtSm", {
+        set: function (val) { this._cacheInput('alignGtSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexAlignDirective.prototype, "alignGtMd", {
+        set: function (val) { this._cacheInput('alignGtMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexAlignDirective.prototype, "alignGtLg", {
+        set: function (val) { this._cacheInput('alignGtLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    // *********************************************
+    // Lifecycle Methods
+    // *********************************************
+    /**
+     * For @Input changes on the current mq activation property, see onMediaQueryChanges()
+     */
+    FlexAlignDirective.prototype.ngOnChanges = function (changes) {
+        if (changes['align'] != null || this._mqActivation) {
+            this._updateWithValue();
+        }
+    };
+    /**
+     * After the initial onChanges, build an mqActivation object that bridges
+     * mql change events to onMediaQueryChange handlers
+     */
+    FlexAlignDirective.prototype.ngOnInit = function () {
+        var _this = this;
+        this._listenForMediaQueryChanges('align', 'stretch', function (changes) {
+            _this._updateWithValue(changes.value);
+        });
+        this._updateWithValue();
+    };
+    // *********************************************
+    // Protected methods
+    // *********************************************
+    FlexAlignDirective.prototype._updateWithValue = function (value) {
+        value = value || this._queryInput("align") || 'stretch';
+        if (this._mqActivation) {
+            value = this._mqActivation.activatedInput;
+        }
+        this._applyStyleToElement(this._buildCSS(value));
+    };
+    FlexAlignDirective.prototype._buildCSS = function (align) {
+        var css = {};
+        // Cross-axis
+        switch (align) {
+            case 'start':
+                css['align-self'] = 'flex-start';
+                break;
+            case 'end':
+                css['align-self'] = 'flex-end';
+                break;
+            default:
+                css['align-self'] = align;
+                break;
+        }
+        return css;
+    };
+    return FlexAlignDirective;
+}(__WEBPACK_IMPORTED_MODULE_1__base__["a" /* BaseFxDirective */]));
+
+FlexAlignDirective.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Directive */], args: [{
+                selector: "\n  [fxFlexAlign],\n  [fxFlexAlign.xs], [fxFlexAlign.sm], [fxFlexAlign.md], [fxFlexAlign.lg], [fxFlexAlign.xl],\n  [fxFlexAlign.lt-sm], [fxFlexAlign.lt-md], [fxFlexAlign.lt-lg], [fxFlexAlign.lt-xl],\n  [fxFlexAlign.gt-xs], [fxFlexAlign.gt-sm], [fxFlexAlign.gt-md], [fxFlexAlign.gt-lg]\n"
+            },] },
+];
+/** @nocollapse */
+FlexAlignDirective.ctorParameters = function () { return [
+    { type: __WEBPACK_IMPORTED_MODULE_2__media_query_media_monitor__["a" /* MediaMonitor */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* ElementRef */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_28" /* Renderer2 */], },
+]; };
+FlexAlignDirective.propDecorators = {
+    'align': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign',] },],
+    'alignXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.xs',] },],
+    'alignSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.sm',] },],
+    'alignMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.md',] },],
+    'alignLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.lg',] },],
+    'alignXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.xl',] },],
+    'alignLtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.lt-sm',] },],
+    'alignLtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.lt-md',] },],
+    'alignLtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.lt-lg',] },],
+    'alignLtXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.lt-xl',] },],
+    'alignGtXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.gt-xs',] },],
+    'alignGtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.gt-sm',] },],
+    'alignGtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.gt-md',] },],
+    'alignGtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.gt-lg',] },],
+};
+//# sourceMappingURL=flex-align.js.map
+
+/***/ }),
+/* 151 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__media_query_media_monitor__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__base__ = __webpack_require__(8);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FlexFillDirective; });
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+var FLEX_FILL_CSS = {
+    'margin': 0,
+    'width': '100%',
+    'height': '100%',
+    'min-width': '100%',
+    'min-height': '100%'
+};
+/**
+ * 'fxFill' flexbox styling directive
+ *  Maximizes width and height of element in a layout container
+ *
+ *  NOTE: fxFill is NOT responsive API!!
+ */
+var FlexFillDirective = (function (_super) {
+    __extends(FlexFillDirective, _super);
+    function FlexFillDirective(monitor, elRef, renderer) {
+        var _this = _super.call(this, monitor, elRef, renderer) || this;
+        _this.elRef = elRef;
+        _this.renderer = renderer;
+        _this._applyStyleToElement(FLEX_FILL_CSS);
+        return _this;
+    }
+    return FlexFillDirective;
+}(__WEBPACK_IMPORTED_MODULE_2__base__["a" /* BaseFxDirective */]));
+
+FlexFillDirective.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Directive */], args: [{ selector: "\n  [fxFill],\n  [fxFlexFill]\n" },] },
+];
+/** @nocollapse */
+FlexFillDirective.ctorParameters = function () { return [
+    { type: __WEBPACK_IMPORTED_MODULE_1__media_query_media_monitor__["a" /* MediaMonitor */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* ElementRef */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_28" /* Renderer2 */], },
+]; };
+//# sourceMappingURL=flex-fill.js.map
+
+/***/ }),
+/* 152 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__media_query_media_monitor__ = __webpack_require__(3);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FlexOffsetDirective; });
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+/**
+ * 'flex-offset' flexbox styling directive
+ * Configures the 'margin-left' of the element in a layout container
+ */
+var FlexOffsetDirective = (function (_super) {
+    __extends(FlexOffsetDirective, _super);
+    /* tslint:enable */
+    function FlexOffsetDirective(monitor, elRef, renderer) {
+        return _super.call(this, monitor, elRef, renderer) || this;
+    }
+    Object.defineProperty(FlexOffsetDirective.prototype, "offset", {
+        /* tslint:disable */
+        set: function (val) { this._cacheInput('offset', val); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FlexOffsetDirective.prototype, "offsetXs", {
+        set: function (val) { this._cacheInput('offsetXs', val); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FlexOffsetDirective.prototype, "offsetSm", {
+        set: function (val) { this._cacheInput('offsetSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOffsetDirective.prototype, "offsetMd", {
+        set: function (val) { this._cacheInput('offsetMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOffsetDirective.prototype, "offsetLg", {
+        set: function (val) { this._cacheInput('offsetLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOffsetDirective.prototype, "offsetXl", {
+        set: function (val) { this._cacheInput('offsetXl', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOffsetDirective.prototype, "offsetLtSm", {
+        set: function (val) { this._cacheInput('offsetLtSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOffsetDirective.prototype, "offsetLtMd", {
+        set: function (val) { this._cacheInput('offsetLtMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOffsetDirective.prototype, "offsetLtLg", {
+        set: function (val) { this._cacheInput('offsetLtLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOffsetDirective.prototype, "offsetLtXl", {
+        set: function (val) { this._cacheInput('offsetLtXl', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOffsetDirective.prototype, "offsetGtXs", {
+        set: function (val) { this._cacheInput('offsetGtXs', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOffsetDirective.prototype, "offsetGtSm", {
+        set: function (val) { this._cacheInput('offsetGtSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOffsetDirective.prototype, "offsetGtMd", {
+        set: function (val) { this._cacheInput('offsetGtMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOffsetDirective.prototype, "offsetGtLg", {
+        set: function (val) { this._cacheInput('offsetGtLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    // *********************************************
+    // Lifecycle Methods
+    // *********************************************
+    /**
+     * For @Input changes on the current mq activation property, see onMediaQueryChanges()
+     */
+    FlexOffsetDirective.prototype.ngOnChanges = function (changes) {
+        if (changes['offset'] != null || this._mqActivation) {
+            this._updateWithValue();
+        }
+    };
+    /**
+     * After the initial onChanges, build an mqActivation object that bridges
+     * mql change events to onMediaQueryChange handlers
+     */
+    FlexOffsetDirective.prototype.ngOnInit = function () {
+        var _this = this;
+        this._listenForMediaQueryChanges('offset', 0, function (changes) {
+            _this._updateWithValue(changes.value);
+        });
+    };
+    // *********************************************
+    // Protected methods
+    // *********************************************
+    FlexOffsetDirective.prototype._updateWithValue = function (value) {
+        value = value || this._queryInput("offset") || 0;
+        if (this._mqActivation) {
+            value = this._mqActivation.activatedInput;
+        }
+        this._applyStyleToElement(this._buildCSS(value));
+    };
+    FlexOffsetDirective.prototype._buildCSS = function (offset) {
+        var isPercent = String(offset).indexOf('%') > -1;
+        var isPx = String(offset).indexOf('px') > -1;
+        if (!isPx && !isPercent && !isNaN(offset)) {
+            offset = offset + '%';
+        }
+        return { 'margin-left': "" + offset };
+    };
+    return FlexOffsetDirective;
+}(__WEBPACK_IMPORTED_MODULE_1__base__["a" /* BaseFxDirective */]));
+
+FlexOffsetDirective.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Directive */], args: [{ selector: "\n  [fxFlexOffset],\n  [fxFlexOffset.xs], [fxFlexOffset.sm], [fxFlexOffset.md], [fxFlexOffset.lg], [fxFlexOffset.xl],\n  [fxFlexOffset.lt-sm], [fxFlexOffset.lt-md], [fxFlexOffset.lt-lg], [fxFlexOffset.lt-xl],\n  [fxFlexOffset.gt-xs], [fxFlexOffset.gt-sm], [fxFlexOffset.gt-md], [fxFlexOffset.gt-lg]\n" },] },
+];
+/** @nocollapse */
+FlexOffsetDirective.ctorParameters = function () { return [
+    { type: __WEBPACK_IMPORTED_MODULE_2__media_query_media_monitor__["a" /* MediaMonitor */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* ElementRef */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_28" /* Renderer2 */], },
+]; };
+FlexOffsetDirective.propDecorators = {
+    'offset': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset',] },],
+    'offsetXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.xs',] },],
+    'offsetSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.sm',] },],
+    'offsetMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.md',] },],
+    'offsetLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.lg',] },],
+    'offsetXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.xl',] },],
+    'offsetLtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.lt-sm',] },],
+    'offsetLtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.lt-md',] },],
+    'offsetLtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.lt-lg',] },],
+    'offsetLtXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.lt-xl',] },],
+    'offsetGtXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.gt-xs',] },],
+    'offsetGtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.gt-sm',] },],
+    'offsetGtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.gt-md',] },],
+    'offsetGtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.gt-lg',] },],
+};
+//# sourceMappingURL=flex-offset.js.map
+
+/***/ }),
+/* 153 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__media_query_media_monitor__ = __webpack_require__(3);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FlexOrderDirective; });
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+/**
+ * 'flex-order' flexbox styling directive
+ * Configures the positional ordering of the element in a sorted layout container
+ * @see https://css-tricks.com/almanac/properties/o/order/
+ */
+var FlexOrderDirective = (function (_super) {
+    __extends(FlexOrderDirective, _super);
+    /* tslint:enable */
+    function FlexOrderDirective(monitor, elRef, renderer) {
+        return _super.call(this, monitor, elRef, renderer) || this;
+    }
+    Object.defineProperty(FlexOrderDirective.prototype, "order", {
+        /* tslint:disable */
+        set: function (val) { this._cacheInput('order', val); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FlexOrderDirective.prototype, "orderXs", {
+        set: function (val) { this._cacheInput('orderXs', val); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FlexOrderDirective.prototype, "orderSm", {
+        set: function (val) { this._cacheInput('orderSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOrderDirective.prototype, "orderMd", {
+        set: function (val) { this._cacheInput('orderMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOrderDirective.prototype, "orderLg", {
+        set: function (val) { this._cacheInput('orderLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOrderDirective.prototype, "orderXl", {
+        set: function (val) { this._cacheInput('orderXl', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOrderDirective.prototype, "orderGtXs", {
+        set: function (val) { this._cacheInput('orderGtXs', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOrderDirective.prototype, "orderGtSm", {
+        set: function (val) { this._cacheInput('orderGtSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOrderDirective.prototype, "orderGtMd", {
+        set: function (val) { this._cacheInput('orderGtMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOrderDirective.prototype, "orderGtLg", {
+        set: function (val) { this._cacheInput('orderGtLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOrderDirective.prototype, "orderLtSm", {
+        set: function (val) { this._cacheInput('orderLtSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOrderDirective.prototype, "orderLtMd", {
+        set: function (val) { this._cacheInput('orderLtMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOrderDirective.prototype, "orderLtLg", {
+        set: function (val) { this._cacheInput('orderLtLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOrderDirective.prototype, "orderLtXl", {
+        set: function (val) { this._cacheInput('orderLtXl', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    // *********************************************
+    // Lifecycle Methods
+    // *********************************************
+    /**
+     * For @Input changes on the current mq activation property, see onMediaQueryChanges()
+     */
+    FlexOrderDirective.prototype.ngOnChanges = function (changes) {
+        if (changes['order'] != null || this._mqActivation) {
+            this._updateWithValue();
+        }
+    };
+    /**
+     * After the initial onChanges, build an mqActivation object that bridges
+     * mql change events to onMediaQueryChange handlers
+     */
+    FlexOrderDirective.prototype.ngOnInit = function () {
+        var _this = this;
+        this._listenForMediaQueryChanges('order', '0', function (changes) {
+            _this._updateWithValue(changes.value);
+        });
+        this._updateWithValue();
+    };
+    // *********************************************
+    // Protected methods
+    // *********************************************
+    FlexOrderDirective.prototype._updateWithValue = function (value) {
+        value = value || this._queryInput("order") || '0';
+        if (this._mqActivation) {
+            value = this._mqActivation.activatedInput;
+        }
+        this._applyStyleToElement(this._buildCSS(value));
+    };
+    FlexOrderDirective.prototype._buildCSS = function (value) {
+        value = parseInt(value, 10);
+        return { order: isNaN(value) ? 0 : value };
+    };
+    return FlexOrderDirective;
+}(__WEBPACK_IMPORTED_MODULE_1__base__["a" /* BaseFxDirective */]));
+
+FlexOrderDirective.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Directive */], args: [{ selector: "\n  [fxFlexOrder],\n  [fxFlexOrder.xs], [fxFlexOrder.sm], [fxFlexOrder.md], [fxFlexOrder.lg], [fxFlexOrder.xl],\n  [fxFlexOrder.lt-sm], [fxFlexOrder.lt-md], [fxFlexOrder.lt-lg], [fxFlexOrder.lt-xl],\n  [fxFlexOrder.gt-xs], [fxFlexOrder.gt-sm], [fxFlexOrder.gt-md], [fxFlexOrder.gt-lg]\n" },] },
+];
+/** @nocollapse */
+FlexOrderDirective.ctorParameters = function () { return [
+    { type: __WEBPACK_IMPORTED_MODULE_2__media_query_media_monitor__["a" /* MediaMonitor */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* ElementRef */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_28" /* Renderer2 */], },
+]; };
+FlexOrderDirective.propDecorators = {
+    'order': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder',] },],
+    'orderXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.xs',] },],
+    'orderSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.sm',] },],
+    'orderMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.md',] },],
+    'orderLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.lg',] },],
+    'orderXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.xl',] },],
+    'orderGtXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.gt-xs',] },],
+    'orderGtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.gt-sm',] },],
+    'orderGtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.gt-md',] },],
+    'orderGtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.gt-lg',] },],
+    'orderLtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.lt-sm',] },],
+    'orderLtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.lt-md',] },],
+    'orderLtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.lt-lg',] },],
+    'orderLtXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.lt-xl',] },],
+};
+//# sourceMappingURL=flex-order.js.map
+
+/***/ }),
+/* 154 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_object_extend__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__base__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__media_query_media_monitor__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__layout__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__layout_wrap__ = __webpack_require__(101);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__utils_basis_validator__ = __webpack_require__(164);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FlexDirective; });
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+
+
+
+
+/**
+ * Directive to control the size of a flex item using flex-basis, flex-grow, and flex-shrink.
+ * Corresponds to the css `flex` shorthand property.
+ *
+ * @see https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+ */
+var FlexDirective = (function (_super) {
+    __extends(FlexDirective, _super);
+    /* tslint:enable */
+    // Explicitly @SkipSelf on LayoutDirective and LayoutWrapDirective because we want the
+    // parent flex container for this flex item.
+    function FlexDirective(monitor, elRef, renderer, _container, _wrap) {
+        var _this = _super.call(this, monitor, elRef, renderer) || this;
+        _this._container = _container;
+        _this._wrap = _wrap;
+        /** The flex-direction of this element's flex container. Defaults to 'row'. */
+        _this._layout = 'row';
+        _this._cacheInput("flex", "");
+        _this._cacheInput("shrink", 1);
+        _this._cacheInput("grow", 1);
+        if (_container) {
+            // If this flex item is inside of a flex container marked with
+            // Subscribe to layout immediate parent direction changes
+            _this._layoutWatcher = _container.layout$.subscribe(function (direction) {
+                // `direction` === null if parent container does not have a `fxLayout`
+                _this._onLayoutChange(direction);
+            });
+        }
+        return _this;
+    }
+    Object.defineProperty(FlexDirective.prototype, "shrink", {
+        /* tslint:disable */
+        set: function (val) { this._cacheInput("shrink", val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexDirective.prototype, "grow", {
+        set: function (val) { this._cacheInput("grow", val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexDirective.prototype, "flex", {
+        set: function (val) { this._cacheInput("flex", val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexDirective.prototype, "flexXs", {
+        set: function (val) { this._cacheInput('flexXs', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexDirective.prototype, "flexSm", {
+        set: function (val) { this._cacheInput('flexSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexDirective.prototype, "flexMd", {
+        set: function (val) { this._cacheInput('flexMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexDirective.prototype, "flexLg", {
+        set: function (val) { this._cacheInput('flexLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexDirective.prototype, "flexXl", {
+        set: function (val) { this._cacheInput('flexXl', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexDirective.prototype, "flexGtXs", {
+        set: function (val) { this._cacheInput('flexGtXs', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexDirective.prototype, "flexGtSm", {
+        set: function (val) { this._cacheInput('flexGtSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexDirective.prototype, "flexGtMd", {
+        set: function (val) { this._cacheInput('flexGtMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexDirective.prototype, "flexGtLg", {
+        set: function (val) { this._cacheInput('flexGtLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexDirective.prototype, "flexLtSm", {
+        set: function (val) { this._cacheInput('flexLtSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexDirective.prototype, "flexLtMd", {
+        set: function (val) { this._cacheInput('flexLtMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexDirective.prototype, "flexLtLg", {
+        set: function (val) { this._cacheInput('flexLtLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexDirective.prototype, "flexLtXl", {
+        set: function (val) { this._cacheInput('flexLtXl', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    /**
+     * For @Input changes on the current mq activation property, see onMediaQueryChanges()
+     */
+    FlexDirective.prototype.ngOnChanges = function (changes) {
+        if (changes['flex'] != null || this._mqActivation) {
+            this._updateStyle();
+        }
+    };
+    /**
+     * After the initial onChanges, build an mqActivation object that bridges
+     * mql change events to onMediaQueryChange handlers
+     */
+    FlexDirective.prototype.ngOnInit = function () {
+        var _this = this;
+        this._listenForMediaQueryChanges('flex', '', function (changes) {
+            _this._updateStyle(changes.value);
+        });
+        this._updateStyle();
+    };
+    FlexDirective.prototype.ngOnDestroy = function () {
+        _super.prototype.ngOnDestroy.call(this);
+        if (this._layoutWatcher) {
+            this._layoutWatcher.unsubscribe();
+        }
+    };
+    /**
+     * Caches the parent container's 'flex-direction' and updates the element's style.
+     * Used as a handler for layout change events from the parent flex container.
+     */
+    FlexDirective.prototype._onLayoutChange = function (direction) {
+        this._layout = direction || this._layout || "row";
+        this._updateStyle();
+    };
+    FlexDirective.prototype._updateStyle = function (value) {
+        var flexBasis = value || this._queryInput("flex") || '';
+        if (this._mqActivation) {
+            flexBasis = this._mqActivation.activatedInput;
+        }
+        var basis = String(flexBasis).replace(";", "");
+        var parts = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__utils_basis_validator__["a" /* validateBasis */])(basis, this._queryInput("grow"), this._queryInput("shrink"));
+        this._applyStyleToElement(this._validateValue.apply(this, parts));
+    };
+    /**
+     * Validate the value to be one of the acceptable value options
+     * Use default fallback of "row"
+     */
+    FlexDirective.prototype._validateValue = function (grow, shrink, basis) {
+        // The flex-direction of this element's flex container. Defaults to 'row'.
+        var layout = this._getFlowDirection(this.parentElement, true);
+        var direction = (layout.indexOf('column') > -1) ? 'column' : 'row';
+        var css, isValue;
+        grow = (grow == "0") ? 0 : grow;
+        shrink = (shrink == "0") ? 0 : shrink;
+        // flex-basis allows you to specify the initial/starting main-axis size of the element,
+        // before anything else is computed. It can either be a percentage or an absolute value.
+        // It is, however, not the breaking point for flex-grow/shrink properties
+        //
+        // flex-grow can be seen as this:
+        //   0: Do not stretch. Either size to element's content width, or obey 'flex-basis'.
+        //   1: (Default value). Stretch; will be the same size to all other flex items on
+        //       the same row since they have a default value of 1.
+        //   ≥2 (integer n): Stretch. Will be n times the size of other elements
+        //      with 'flex-grow: 1' on the same row.
+        // Use `null` to clear existing styles.
+        var clearStyles = {
+            'max-width': null,
+            'max-height': null,
+            'min-width': null,
+            'min-height': null
+        };
+        switch (basis || '') {
+            case '':
+                css = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__utils_object_extend__["a" /* extendObject */])(clearStyles, { 'flex': '1 1 0.000000001px' });
+                break;
+            case 'initial': // default
+            case 'nogrow':
+                grow = 0;
+                css = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__utils_object_extend__["a" /* extendObject */])(clearStyles, { 'flex': '0 1 auto' });
+                break;
+            case 'grow':
+                css = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__utils_object_extend__["a" /* extendObject */])(clearStyles, { 'flex': '1 1 100%' });
+                break;
+            case 'noshrink':
+                shrink = 0;
+                css = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__utils_object_extend__["a" /* extendObject */])(clearStyles, { 'flex': '1 0 auto' });
+                break;
+            case 'auto':
+                css = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__utils_object_extend__["a" /* extendObject */])(clearStyles, { 'flex': grow + " " + shrink + " auto" });
+                break;
+            case 'none':
+                grow = 0;
+                shrink = 0;
+                css = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__utils_object_extend__["a" /* extendObject */])(clearStyles, { 'flex': '0 0 auto' });
+                break;
+            default:
+                var hasCalc = String(basis).indexOf('calc') > -1;
+                var isPercent = String(basis).indexOf('%') > -1 && !hasCalc;
+                isValue = hasCalc ||
+                    String(basis).indexOf('px') > -1 ||
+                    String(basis).indexOf('em') > -1 ||
+                    String(basis).indexOf('vw') > -1 ||
+                    String(basis).indexOf('vh') > -1;
+                // Defaults to percentage sizing unless `px` is explicitly set
+                if (!isValue && !isPercent && !isNaN(basis)) {
+                    basis = basis + '%';
+                }
+                if (basis === '0px') {
+                    basis = '0%';
+                }
+                // Set max-width = basis if using layout-wrap
+                // tslint:disable-next-line:max-line-length
+                // @see https://github.com/philipwalton/flexbugs#11-min-and-max-size-declarations-are-ignored-when-wrappifl-flex-items
+                css = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__utils_object_extend__["a" /* extendObject */])(clearStyles, {
+                    'flex': grow + " " + shrink + " " + ((isValue || this._wrap) ? basis : '100%'),
+                });
+                break;
+        }
+        var max = (direction === 'row') ? 'max-width' : 'max-height';
+        var min = (direction === 'row') ? 'min-width' : 'min-height';
+        var usingCalc = (String(basis).indexOf('calc') > -1) || (basis == 'auto');
+        var isPx = String(basis).indexOf('px') > -1 || usingCalc;
+        // make box inflexible when shrink and grow are both zero
+        // should not set a min when the grow is zero
+        // should not set a max when the shrink is zero
+        var isFixed = !grow && !shrink;
+        css[min] = (basis == '0%') ? 0 : isFixed || (isPx && grow) ? basis : null;
+        css[max] = (basis == '0%') ? 0 : isFixed || (!usingCalc && shrink) ? basis : null;
+        return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__utils_object_extend__["a" /* extendObject */])(css, { 'box-sizing': 'border-box' });
+    };
+    Object.defineProperty(FlexDirective.prototype, "parentElement", {
+        get: function () {
+            return this._elementRef.nativeElement.parentNode;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return FlexDirective;
+}(__WEBPACK_IMPORTED_MODULE_2__base__["a" /* BaseFxDirective */]));
+
+FlexDirective.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Directive */], args: [{ selector: "\n  [fxFlex],\n  [fxFlex.xs], [fxFlex.sm], [fxFlex.md], [fxFlex.lg], [fxFlex.xl],\n  [fxFlex.lt-sm], [fxFlex.lt-md], [fxFlex.lt-lg], [fxFlex.lt-xl],\n  [fxFlex.gt-xs], [fxFlex.gt-sm], [fxFlex.gt-md], [fxFlex.gt-lg],\n"
+            },] },
+];
+/** @nocollapse */
+FlexDirective.ctorParameters = function () { return [
+    { type: __WEBPACK_IMPORTED_MODULE_3__media_query_media_monitor__["a" /* MediaMonitor */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* ElementRef */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_28" /* Renderer2 */], },
+    { type: __WEBPACK_IMPORTED_MODULE_4__layout__["a" /* LayoutDirective */], decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Z" /* Optional */] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_0" /* SkipSelf */] },] },
+    { type: __WEBPACK_IMPORTED_MODULE_5__layout_wrap__["a" /* LayoutWrapDirective */], decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Z" /* Optional */] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_0" /* SkipSelf */] },] },
+]; };
+FlexDirective.propDecorators = {
+    'shrink': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxShrink',] },],
+    'grow': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxGrow',] },],
+    'flex': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlex',] },],
+    'flexXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlex.xs',] },],
+    'flexSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlex.sm',] },],
+    'flexMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlex.md',] },],
+    'flexLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlex.lg',] },],
+    'flexXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlex.xl',] },],
+    'flexGtXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlex.gt-xs',] },],
+    'flexGtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlex.gt-sm',] },],
+    'flexGtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlex.gt-md',] },],
+    'flexGtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlex.gt-lg',] },],
+    'flexLtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlex.lt-sm',] },],
+    'flexLtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlex.lt-md',] },],
+    'flexLtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlex.lt-lg',] },],
+    'flexLtXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlex.lt-xl',] },],
+};
+//# sourceMappingURL=flex.js.map
+
+/***/ }),
+/* 155 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_object_extend__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__base__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__media_query_media_monitor__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__layout__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_layout_validator__ = __webpack_require__(39);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LayoutAlignDirective; });
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+
+
+
+/**
+ * 'layout-align' flexbox styling directive
+ *  Defines positioning of child elements along main and cross axis in a layout container
+ *  Optional values: {main-axis} values or {main-axis cross-axis} value pairs
+ *
+ *  @see https://css-tricks.com/almanac/properties/j/justify-content/
+ *  @see https://css-tricks.com/almanac/properties/a/align-items/
+ *  @see https://css-tricks.com/almanac/properties/a/align-content/
+ */
+var LayoutAlignDirective = (function (_super) {
+    __extends(LayoutAlignDirective, _super);
+    /* tslint:enable */
+    function LayoutAlignDirective(monitor, elRef, renderer, container) {
+        var _this = _super.call(this, monitor, elRef, renderer) || this;
+        _this._layout = 'row'; // default flex-direction
+        if (container) {
+            _this._layoutWatcher = container.layout$.subscribe(_this._onLayoutChange.bind(_this));
+        }
+        return _this;
+    }
+    Object.defineProperty(LayoutAlignDirective.prototype, "align", {
+        /* tslint:disable */
+        set: function (val) { this._cacheInput('align', val); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(LayoutAlignDirective.prototype, "alignXs", {
+        set: function (val) { this._cacheInput('alignXs', val); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(LayoutAlignDirective.prototype, "alignSm", {
+        set: function (val) { this._cacheInput('alignSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutAlignDirective.prototype, "alignMd", {
+        set: function (val) { this._cacheInput('alignMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutAlignDirective.prototype, "alignLg", {
+        set: function (val) { this._cacheInput('alignLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutAlignDirective.prototype, "alignXl", {
+        set: function (val) { this._cacheInput('alignXl', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutAlignDirective.prototype, "alignGtXs", {
+        set: function (val) { this._cacheInput('alignGtXs', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutAlignDirective.prototype, "alignGtSm", {
+        set: function (val) { this._cacheInput('alignGtSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutAlignDirective.prototype, "alignGtMd", {
+        set: function (val) { this._cacheInput('alignGtMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutAlignDirective.prototype, "alignGtLg", {
+        set: function (val) { this._cacheInput('alignGtLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutAlignDirective.prototype, "alignLtSm", {
+        set: function (val) { this._cacheInput('alignLtSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutAlignDirective.prototype, "alignLtMd", {
+        set: function (val) { this._cacheInput('alignLtMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutAlignDirective.prototype, "alignLtLg", {
+        set: function (val) { this._cacheInput('alignLtLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutAlignDirective.prototype, "alignLtXl", {
+        set: function (val) { this._cacheInput('alignLtXl', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    // *********************************************
+    // Lifecycle Methods
+    // *********************************************
+    LayoutAlignDirective.prototype.ngOnChanges = function (changes) {
+        if (changes['align'] != null || this._mqActivation) {
+            this._updateWithValue();
+        }
+    };
+    /**
+     * After the initial onChanges, build an mqActivation object that bridges
+     * mql change events to onMediaQueryChange handlers
+     */
+    LayoutAlignDirective.prototype.ngOnInit = function () {
+        var _this = this;
+        this._listenForMediaQueryChanges('align', 'start stretch', function (changes) {
+            _this._updateWithValue(changes.value);
+        });
+        this._updateWithValue();
+    };
+    LayoutAlignDirective.prototype.ngOnDestroy = function () {
+        _super.prototype.ngOnDestroy.call(this);
+        if (this._layoutWatcher) {
+            this._layoutWatcher.unsubscribe();
+        }
+    };
+    // *********************************************
+    // Protected methods
+    // *********************************************
+    /**
+     *
+     */
+    LayoutAlignDirective.prototype._updateWithValue = function (value) {
+        value = value || this._queryInput("align") || 'start stretch';
+        if (this._mqActivation) {
+            value = this._mqActivation.activatedInput;
+        }
+        this._applyStyleToElement(this._buildCSS(value));
+        this._allowStretching(value, !this._layout ? "row" : this._layout);
+    };
+    /**
+     * Cache the parent container 'flex-direction' and update the 'flex' styles
+     */
+    LayoutAlignDirective.prototype._onLayoutChange = function (direction) {
+        var _this = this;
+        this._layout = (direction || '').toLowerCase();
+        if (!__WEBPACK_IMPORTED_MODULE_5__utils_layout_validator__["b" /* LAYOUT_VALUES */].find(function (x) { return x === _this._layout; })) {
+            this._layout = 'row';
+        }
+        var value = this._queryInput("align") || 'start stretch';
+        if (this._mqActivation) {
+            value = this._mqActivation.activatedInput;
+        }
+        this._allowStretching(value, this._layout || "row");
+    };
+    LayoutAlignDirective.prototype._buildCSS = function (align) {
+        var css = {}, _a = align.split(' '), main_axis = _a[0], cross_axis = _a[1]; // tslint:disable-line:variable-name
+        // Main axis
+        switch (main_axis) {
+            case 'center':
+                css['justify-content'] = 'center';
+                break;
+            case 'space-around':
+                css['justify-content'] = 'space-around';
+                break;
+            case 'space-between':
+                css['justify-content'] = 'space-between';
+                break;
+            case 'end':
+            case 'flex-end':
+                css['justify-content'] = 'flex-end';
+                break;
+            case 'start':
+            case 'flex-start':
+            default:
+                css['justify-content'] = 'flex-start'; // default main axis
+                break;
+        }
+        // Cross-axis
+        switch (cross_axis) {
+            case 'start':
+            case 'flex-start':
+                css['align-items'] = css['align-content'] = 'flex-start';
+                break;
+            case 'baseline':
+                css['align-items'] = 'baseline';
+                break;
+            case 'center':
+                css['align-items'] = css['align-content'] = 'center';
+                break;
+            case 'end':
+            case 'flex-end':
+                css['align-items'] = css['align-content'] = 'flex-end';
+                break;
+            case 'stretch':
+            default:
+                css['align-items'] = css['align-content'] = 'stretch'; // default cross axis
+                break;
+        }
+        return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__utils_object_extend__["a" /* extendObject */])(css, {
+            'display': 'flex',
+            'flex-direction': this._layout || "row",
+            'box-sizing': 'border-box'
+        });
+    };
+    /**
+     * Update container element to 'stretch' as needed...
+     * NOTE: this is only done if the crossAxis is explicitly set to 'stretch'
+     */
+    LayoutAlignDirective.prototype._allowStretching = function (align, layout) {
+        var _a = align.split(' '), cross_axis = _a[1]; // tslint:disable-line:variable-name
+        if (cross_axis == 'stretch') {
+            // Use `null` values to remove style
+            this._applyStyleToElement({
+                'box-sizing': 'border-box',
+                'max-width': (layout === 'column') ? '100%' : null,
+                'max-height': (layout === 'row') ? '100%' : null
+            });
+        }
+    };
+    return LayoutAlignDirective;
+}(__WEBPACK_IMPORTED_MODULE_2__base__["a" /* BaseFxDirective */]));
+
+LayoutAlignDirective.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Directive */], args: [{ selector: "\n  [fxLayoutAlign],\n  [fxLayoutAlign.xs], [fxLayoutAlign.sm], [fxLayoutAlign.md], [fxLayoutAlign.lg],[fxLayoutAlign.xl],\n  [fxLayoutAlign.lt-sm], [fxLayoutAlign.lt-md], [fxLayoutAlign.lt-lg], [fxLayoutAlign.lt-xl],\n  [fxLayoutAlign.gt-xs], [fxLayoutAlign.gt-sm], [fxLayoutAlign.gt-md], [fxLayoutAlign.gt-lg]\n" },] },
+];
+/** @nocollapse */
+LayoutAlignDirective.ctorParameters = function () { return [
+    { type: __WEBPACK_IMPORTED_MODULE_3__media_query_media_monitor__["a" /* MediaMonitor */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* ElementRef */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_28" /* Renderer2 */], },
+    { type: __WEBPACK_IMPORTED_MODULE_4__layout__["a" /* LayoutDirective */], decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Z" /* Optional */] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_25" /* Self */] },] },
+]; };
+LayoutAlignDirective.propDecorators = {
+    'align': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutAlign',] },],
+    'alignXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutAlign.xs',] },],
+    'alignSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutAlign.sm',] },],
+    'alignMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutAlign.md',] },],
+    'alignLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutAlign.lg',] },],
+    'alignXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutAlign.xl',] },],
+    'alignGtXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutAlign.gt-xs',] },],
+    'alignGtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutAlign.gt-sm',] },],
+    'alignGtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutAlign.gt-md',] },],
+    'alignGtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutAlign.gt-lg',] },],
+    'alignLtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutAlign.lt-sm',] },],
+    'alignLtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutAlign.lt-md',] },],
+    'alignLtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutAlign.lt-lg',] },],
+    'alignLtXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutAlign.lt-xl',] },],
+};
+//# sourceMappingURL=layout-align.js.map
+
+/***/ }),
+/* 156 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__layout__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__media_query_media_monitor__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_layout_validator__ = __webpack_require__(39);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LayoutGapDirective; });
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+
+
+/**
+ * 'layout-padding' styling directive
+ *  Defines padding of child elements in a layout container
+ */
+var LayoutGapDirective = (function (_super) {
+    __extends(LayoutGapDirective, _super);
+    /* tslint:enable */
+    function LayoutGapDirective(monitor, elRef, renderer, container) {
+        var _this = _super.call(this, monitor, elRef, renderer) || this;
+        _this._layout = 'row'; // default flex-direction
+        if (container) {
+            _this._layoutWatcher = container.layout$.subscribe(_this._onLayoutChange.bind(_this));
+        }
+        return _this;
+    }
+    Object.defineProperty(LayoutGapDirective.prototype, "gap", {
+        /* tslint:disable */
+        set: function (val) { this._cacheInput('gap', val); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(LayoutGapDirective.prototype, "gapXs", {
+        set: function (val) { this._cacheInput('gapXs', val); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(LayoutGapDirective.prototype, "gapSm", {
+        set: function (val) { this._cacheInput('gapSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutGapDirective.prototype, "gapMd", {
+        set: function (val) { this._cacheInput('gapMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutGapDirective.prototype, "gapLg", {
+        set: function (val) { this._cacheInput('gapLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutGapDirective.prototype, "gapXl", {
+        set: function (val) { this._cacheInput('gapXl', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutGapDirective.prototype, "gapGtXs", {
+        set: function (val) { this._cacheInput('gapGtXs', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutGapDirective.prototype, "gapGtSm", {
+        set: function (val) { this._cacheInput('gapGtSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutGapDirective.prototype, "gapGtMd", {
+        set: function (val) { this._cacheInput('gapGtMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutGapDirective.prototype, "gapGtLg", {
+        set: function (val) { this._cacheInput('gapGtLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutGapDirective.prototype, "gapLtSm", {
+        set: function (val) { this._cacheInput('gapLtSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutGapDirective.prototype, "gapLtMd", {
+        set: function (val) { this._cacheInput('gapLtMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutGapDirective.prototype, "gapLtLg", {
+        set: function (val) { this._cacheInput('gapLtLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutGapDirective.prototype, "gapLtXl", {
+        set: function (val) { this._cacheInput('gapLtXl', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    // *********************************************
+    // Lifecycle Methods
+    // *********************************************
+    LayoutGapDirective.prototype.ngOnChanges = function (changes) {
+        if (changes['gap'] != null || this._mqActivation) {
+            this._updateWithValue();
+        }
+    };
+    /**
+     * After the initial onChanges, build an mqActivation object that bridges
+     * mql change events to onMediaQueryChange handlers
+     */
+    LayoutGapDirective.prototype.ngAfterContentInit = function () {
+        var _this = this;
+        this._watchContentChanges();
+        this._listenForMediaQueryChanges('gap', '0', function (changes) {
+            _this._updateWithValue(changes.value);
+        });
+        this._updateWithValue();
+    };
+    LayoutGapDirective.prototype.ngOnDestroy = function () {
+        _super.prototype.ngOnDestroy.call(this);
+        if (this._layoutWatcher) {
+            this._layoutWatcher.unsubscribe();
+        }
+        if (this._observer) {
+            this._observer.disconnect();
+        }
+    };
+    // *********************************************
+    // Protected methods
+    // *********************************************
+    /**
+     * Watch for child nodes to be added... and apply the layout gap styles to each.
+     * NOTE: this does NOT! differentiate between viewChildren and contentChildren
+     */
+    LayoutGapDirective.prototype._watchContentChanges = function () {
+        var _this = this;
+        var onMutationCallback = function (mutations) {
+            var validatedChanges = function (it) {
+                return (it.addedNodes && it.addedNodes.length) ||
+                    (it.removedNodes && it.removedNodes.length);
+            };
+            // update gap styles only for child 'added' or 'removed' events
+            if (mutations.filter(validatedChanges).length) {
+                _this._updateWithValue();
+            }
+        };
+        this._observer = new MutationObserver(onMutationCallback);
+        this._observer.observe(this._elementRef.nativeElement, { childList: true });
+    };
+    /**
+     * Cache the parent container 'flex-direction' and update the 'margin' styles
+     */
+    LayoutGapDirective.prototype._onLayoutChange = function (direction) {
+        var _this = this;
+        this._layout = (direction || '').toLowerCase();
+        if (!__WEBPACK_IMPORTED_MODULE_4__utils_layout_validator__["b" /* LAYOUT_VALUES */].find(function (x) { return x === _this._layout; })) {
+            this._layout = 'row';
+        }
+        this._updateWithValue();
+    };
+    /**
+     *
+     */
+    LayoutGapDirective.prototype._updateWithValue = function (value) {
+        var _this = this;
+        value = value || this._queryInput("gap") || '0';
+        if (this._mqActivation) {
+            value = this._mqActivation.activatedInput;
+        }
+        // Gather all non-hidden Element nodes
+        var items = this.childrenNodes
+            .filter(function (el) { return el.nodeType === 1 && _this._getDisplayStyle(el) != "none"; });
+        var numItems = items.length;
+        if (numItems > 1) {
+            var lastItem = items[numItems - 1];
+            // For each `element` children EXCEPT the last,
+            // set the margin right/bottom styles...
+            items = items.filter(function (el, j) { return j < numItems - 1; });
+            this._applyStyleToElements(this._buildCSS(value), items);
+            // Clear all gaps for all visible elements
+            this._applyStyleToElements(this._buildCSS(), [lastItem]);
+        }
+    };
+    /**
+     * Prepare margin CSS, remove any previous explicitly
+     * assigned margin assignments
+     */
+    LayoutGapDirective.prototype._buildCSS = function (value) {
+        if (value === void 0) { value = null; }
+        var key, margins = {
+            'margin-left': null,
+            'margin-right': null,
+            'margin-top': null,
+            'margin-bottom': null
+        };
+        switch (this._layout) {
+            case 'column':
+            case 'column-reverse':
+                key = 'margin-bottom';
+                break;
+            case "row":
+            case 'row-reverse':
+            default:
+                key = 'margin-right';
+                break;
+        }
+        margins[key] = value;
+        return margins;
+    };
+    return LayoutGapDirective;
+}(__WEBPACK_IMPORTED_MODULE_1__base__["a" /* BaseFxDirective */]));
+
+LayoutGapDirective.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Directive */], args: [{ selector: "\n  [fxLayoutGap],\n  [fxLayoutGap.xs], [fxLayoutGap.sm], [fxLayoutGap.md], [fxLayoutGap.lg], [fxLayoutGap.xl],\n  [fxLayoutGap.lt-sm], [fxLayoutGap.lt-md], [fxLayoutGap.lt-lg], [fxLayoutGap.lt-xl],\n  [fxLayoutGap.gt-xs], [fxLayoutGap.gt-sm], [fxLayoutGap.gt-md], [fxLayoutGap.gt-lg]\n"
+            },] },
+];
+/** @nocollapse */
+LayoutGapDirective.ctorParameters = function () { return [
+    { type: __WEBPACK_IMPORTED_MODULE_3__media_query_media_monitor__["a" /* MediaMonitor */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* ElementRef */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_28" /* Renderer2 */], },
+    { type: __WEBPACK_IMPORTED_MODULE_2__layout__["a" /* LayoutDirective */], decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Z" /* Optional */] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_25" /* Self */] },] },
+]; };
+LayoutGapDirective.propDecorators = {
+    'gap': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutGap',] },],
+    'gapXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutGap.xs',] },],
+    'gapSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutGap.sm',] },],
+    'gapMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutGap.md',] },],
+    'gapLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutGap.lg',] },],
+    'gapXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutGap.xl',] },],
+    'gapGtXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutGap.gt-xs',] },],
+    'gapGtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutGap.gt-sm',] },],
+    'gapGtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutGap.gt-md',] },],
+    'gapGtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutGap.gt-lg',] },],
+    'gapLtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutGap.lt-sm',] },],
+    'gapLtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutGap.lt-md',] },],
+    'gapLtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutGap.lt-lg',] },],
+    'gapLtXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutGap.lt-xl',] },],
+};
+//# sourceMappingURL=layout-gap.js.map
+
+/***/ }),
+/* 157 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__media_query_media_monitor__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__layout__ = __webpack_require__(31);
+/* unused harmony export negativeOf */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ShowHideDirective; });
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+
+var FALSY = ['false', false, 0];
+/**
+ * For fxHide selectors, we invert the 'value'
+ * and assign to the equivalent fxShow selector cache
+ *  - When 'hide' === '' === true, do NOT show the element
+ *  - When 'hide' === false or 0... we WILL show the element
+ */
+function negativeOf(hide) {
+    return (hide === "") ? false :
+        ((hide === "false") || (hide === 0)) ? true : !hide;
+}
+/**
+ * 'show' Layout API directive
+ *
+ */
+var ShowHideDirective = (function (_super) {
+    __extends(ShowHideDirective, _super);
+    /* tslint:enable */
+    /**
+     *
+     */
+    function ShowHideDirective(monitor, _layout, elRef, renderer) {
+        var _this = _super.call(this, monitor, elRef, renderer) || this;
+        _this._layout = _layout;
+        _this.elRef = elRef;
+        _this.renderer = renderer;
+        _this._display = _this._getDisplayStyle(); // re-invoke override to use `this._layout`
+        if (_layout) {
+            /**
+             * The Layout can set the display:flex (and incorrectly affect the Hide/Show directives.
+             * Whenever Layout [on the same element] resets its CSS, then update the Hide/Show CSS
+             */
+            _this._layoutWatcher = _layout.layout$.subscribe(function () { return _this._updateWithValue(); });
+        }
+        return _this;
+    }
+    Object.defineProperty(ShowHideDirective.prototype, "show", {
+        /* tslint:disable */
+        set: function (val) { this._cacheInput("show", val); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ShowHideDirective.prototype, "showXs", {
+        set: function (val) { this._cacheInput('showXs', val); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ShowHideDirective.prototype, "showSm", {
+        set: function (val) { this._cacheInput('showSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(ShowHideDirective.prototype, "showMd", {
+        set: function (val) { this._cacheInput('showMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(ShowHideDirective.prototype, "showLg", {
+        set: function (val) { this._cacheInput('showLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(ShowHideDirective.prototype, "showXl", {
+        set: function (val) { this._cacheInput('showXl', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(ShowHideDirective.prototype, "showLtSm", {
+        set: function (val) { this._cacheInput('showLtSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(ShowHideDirective.prototype, "showLtMd", {
+        set: function (val) { this._cacheInput('showLtMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(ShowHideDirective.prototype, "showLtLg", {
+        set: function (val) { this._cacheInput('showLtLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(ShowHideDirective.prototype, "showLtXl", {
+        set: function (val) { this._cacheInput('showLtXl', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(ShowHideDirective.prototype, "showGtXs", {
+        set: function (val) { this._cacheInput('showGtXs', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(ShowHideDirective.prototype, "showGtSm", {
+        set: function (val) { this._cacheInput('showGtSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(ShowHideDirective.prototype, "showGtMd", {
+        set: function (val) { this._cacheInput('showGtMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(ShowHideDirective.prototype, "showGtLg", {
+        set: function (val) { this._cacheInput('showGtLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(ShowHideDirective.prototype, "hide", {
+        set: function (val) { this._cacheInput("show", negativeOf(val)); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ShowHideDirective.prototype, "hideXs", {
+        set: function (val) { this._cacheInput("showXs", negativeOf(val)); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ShowHideDirective.prototype, "hideSm", {
+        set: function (val) { this._cacheInput('showSm', negativeOf(val)); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(ShowHideDirective.prototype, "hideMd", {
+        set: function (val) { this._cacheInput('showMd', negativeOf(val)); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(ShowHideDirective.prototype, "hideLg", {
+        set: function (val) { this._cacheInput('showLg', negativeOf(val)); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(ShowHideDirective.prototype, "hideXl", {
+        set: function (val) { this._cacheInput('showXl', negativeOf(val)); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(ShowHideDirective.prototype, "hideLtSm", {
+        set: function (val) { this._cacheInput('showLtSm', negativeOf(val)); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(ShowHideDirective.prototype, "hideLtMd", {
+        set: function (val) { this._cacheInput('showLtMd', negativeOf(val)); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(ShowHideDirective.prototype, "hideLtLg", {
+        set: function (val) { this._cacheInput('showLtLg', negativeOf(val)); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(ShowHideDirective.prototype, "hideLtXl", {
+        set: function (val) { this._cacheInput('showLtXl', negativeOf(val)); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(ShowHideDirective.prototype, "hideGtXs", {
+        set: function (val) { this._cacheInput('showGtXs', negativeOf(val)); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(ShowHideDirective.prototype, "hideGtSm", {
+        set: function (val) { this._cacheInput('showGtSm', negativeOf(val)); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(ShowHideDirective.prototype, "hideGtMd", {
+        set: function (val) { this._cacheInput('showGtMd', negativeOf(val)); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(ShowHideDirective.prototype, "hideGtLg", {
+        set: function (val) { this._cacheInput('showGtLg', negativeOf(val)); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    // *********************************************
+    // Lifecycle Methods
+    // *********************************************
+    /**
+     * Override accessor to the current HTMLElement's `display` style
+     * Note: Show/Hide will not change the display to 'flex' but will set it to 'block'
+     * unless it was already explicitly defined.
+     */
+    ShowHideDirective.prototype._getDisplayStyle = function () {
+        return this._layout ? "flex" : _super.prototype._getDisplayStyle.call(this);
+    };
+    /**
+     * On changes to any @Input properties...
+     * Default to use the non-responsive Input value ('fxShow')
+     * Then conditionally override with the mq-activated Input's current value
+     */
+    ShowHideDirective.prototype.ngOnChanges = function (changes) {
+        if (changes['show'] != null || this._mqActivation) {
+            this._updateWithValue();
+        }
+    };
+    /**
+     * After the initial onChanges, build an mqActivation object that bridges
+     * mql change events to onMediaQueryChange handlers
+     */
+    ShowHideDirective.prototype.ngOnInit = function () {
+        var _this = this;
+        var value = this._getDefaultVal("show", true);
+        // Build _mqActivation controller
+        this._listenForMediaQueryChanges('show', value, function (changes) {
+            _this._updateWithValue(changes.value);
+        });
+        this._updateWithValue();
+    };
+    ShowHideDirective.prototype.ngOnDestroy = function () {
+        _super.prototype.ngOnDestroy.call(this);
+        if (this._layoutWatcher) {
+            this._layoutWatcher.unsubscribe();
+        }
+    };
+    // *********************************************
+    // Protected methods
+    // *********************************************
+    /** Validate the visibility value and then update the host's inline display style */
+    ShowHideDirective.prototype._updateWithValue = function (value) {
+        value = value || this._getDefaultVal("show", true);
+        if (this._mqActivation) {
+            value = this._mqActivation.activatedInput;
+        }
+        var shouldShow = this._validateTruthy(value);
+        this._applyStyleToElement(this._buildCSS(shouldShow));
+    };
+    /** Build the CSS that should be assigned to the element instance */
+    ShowHideDirective.prototype._buildCSS = function (show) {
+        return { 'display': show ? this._display : 'none' };
+    };
+    /**  Validate the to be not FALSY */
+    ShowHideDirective.prototype._validateTruthy = function (show) {
+        return (FALSY.indexOf(show) == -1);
+    };
+    return ShowHideDirective;
+}(__WEBPACK_IMPORTED_MODULE_1__base__["a" /* BaseFxDirective */]));
+
+ShowHideDirective.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Directive */], args: [{
+                selector: "\n  [fxShow],\n  [fxShow.xs], [fxShow.sm], [fxShow.md], [fxShow.lg], [fxShow.xl],\n  [fxShow.lt-sm], [fxShow.lt-md], [fxShow.lt-lg], [fxShow.lt-xl],\n  [fxShow.gt-xs], [fxShow.gt-sm], [fxShow.gt-md], [fxShow.gt-lg],\n  [fxHide],\n  [fxHide.xs], [fxHide.sm], [fxHide.md], [fxHide.lg], [fxHide.xl],\n  [fxHide.lt-sm], [fxHide.lt-md], [fxHide.lt-lg], [fxHide.lt-xl],\n  [fxHide.gt-xs], [fxHide.gt-sm], [fxHide.gt-md], [fxHide.gt-lg]\n"
+            },] },
+];
+/** @nocollapse */
+ShowHideDirective.ctorParameters = function () { return [
+    { type: __WEBPACK_IMPORTED_MODULE_2__media_query_media_monitor__["a" /* MediaMonitor */], },
+    { type: __WEBPACK_IMPORTED_MODULE_3__layout__["a" /* LayoutDirective */], decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Z" /* Optional */] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_25" /* Self */] },] },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* ElementRef */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_28" /* Renderer2 */], },
+]; };
+ShowHideDirective.propDecorators = {
+    'show': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxShow',] },],
+    'showXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxShow.xs',] },],
+    'showSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxShow.sm',] },],
+    'showMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxShow.md',] },],
+    'showLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxShow.lg',] },],
+    'showXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxShow.xl',] },],
+    'showLtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxShow.lt-sm',] },],
+    'showLtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxShow.lt-md',] },],
+    'showLtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxShow.lt-lg',] },],
+    'showLtXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxShow.lt-xl',] },],
+    'showGtXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxShow.gt-xs',] },],
+    'showGtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxShow.gt-sm',] },],
+    'showGtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxShow.gt-md',] },],
+    'showGtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxShow.gt-lg',] },],
+    'hide': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxHide',] },],
+    'hideXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxHide.xs',] },],
+    'hideSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxHide.sm',] },],
+    'hideMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxHide.md',] },],
+    'hideLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxHide.lg',] },],
+    'hideXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxHide.xl',] },],
+    'hideLtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxHide.lt-sm',] },],
+    'hideLtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxHide.lt-md',] },],
+    'hideLtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxHide.lt-lg',] },],
+    'hideLtXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxHide.lt-xl',] },],
+    'hideGtXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxHide.gt-xs',] },],
+    'hideGtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxHide.gt-sm',] },],
+    'hideGtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxHide.gt-md',] },],
+    'hideGtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxHide.gt-lg',] },],
+};
+//# sourceMappingURL=show-hide.js.map
+
+/***/ }),
+/* 158 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__base_adapter__ = __webpack_require__(100);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__media_query_breakpoints_break_point_registry__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__media_query_media_monitor__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_object_extend__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_platform_browser__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__utils_style_transforms__ = __webpack_require__(166);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return StyleDirective; });
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+
+
+
+
+
+/**
+ * Directive to add responsive support for ngStyle.
+ *
+ */
+var StyleDirective = (function (_super) {
+    __extends(StyleDirective, _super);
+    /* tslint:enable */
+    /**
+     *  Constructor for the ngStyle subclass; which adds selectors and
+     *  a MediaQuery Activation Adapter
+     */
+    function StyleDirective(monitor, _bpRegistry, _sanitizer, _differs, _ngEl, _oldRenderer, _renderer) {
+        var _this = 
+        // TODO: this should use Renderer2 when the NgStyle signature is switched over to it.
+        _super.call(this, _differs, _ngEl, _oldRenderer) || this;
+        _this.monitor = monitor;
+        _this._bpRegistry = _bpRegistry;
+        _this._sanitizer = _sanitizer;
+        // Build adapter, `cacheInput()` interceptor, and get current inline style if any
+        _this._buildAdapter(monitor, _ngEl, _renderer);
+        _this._base.cacheInput('style', _ngEl.nativeElement.getAttribute("style"), true);
+        return _this;
+    }
+    Object.defineProperty(StyleDirective.prototype, "styleBase", {
+        /**
+         * Intercept ngStyle assignments so we cache the default styles
+         * which are merged with activated styles or used as fallbacks.
+         */
+        set: function (val) {
+            this._base.cacheInput('style', val, true);
+            this.ngStyle = this._base.inputMap['style'];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(StyleDirective.prototype, "ngStyleXs", {
+        /* tslint:disable */
+        set: function (val) { this._base.cacheInput('styleXs', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(StyleDirective.prototype, "ngStyleSm", {
+        set: function (val) { this._base.cacheInput('styleSm', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(StyleDirective.prototype, "ngStyleMd", {
+        set: function (val) { this._base.cacheInput('styleMd', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(StyleDirective.prototype, "ngStyleLg", {
+        set: function (val) { this._base.cacheInput('styleLg', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(StyleDirective.prototype, "ngStyleXl", {
+        set: function (val) { this._base.cacheInput('styleXl', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(StyleDirective.prototype, "ngStyleLtSm", {
+        set: function (val) { this._base.cacheInput('styleLtSm', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(StyleDirective.prototype, "ngStyleLtMd", {
+        set: function (val) { this._base.cacheInput('styleLtMd', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(StyleDirective.prototype, "ngStyleLtLg", {
+        set: function (val) { this._base.cacheInput('styleLtLg', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(StyleDirective.prototype, "ngStyleLtXl", {
+        set: function (val) { this._base.cacheInput('styleLtXl', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(StyleDirective.prototype, "ngStyleGtXs", {
+        set: function (val) { this._base.cacheInput('styleGtXs', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(StyleDirective.prototype, "ngStyleGtSm", {
+        set: function (val) { this._base.cacheInput('styleGtSm', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(StyleDirective.prototype, "ngStyleGtMd", {
+        set: function (val) { this._base.cacheInput('styleGtMd', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(StyleDirective.prototype, "ngStyleGtLg", {
+        set: function (val) { this._base.cacheInput('styleGtLg', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(StyleDirective.prototype, "styleXs", {
+        /** Deprecated selectors */
+        set: function (val) { this._base.cacheInput('styleXs', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(StyleDirective.prototype, "styleSm", {
+        set: function (val) { this._base.cacheInput('styleSm', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(StyleDirective.prototype, "styleMd", {
+        set: function (val) { this._base.cacheInput('styleMd', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(StyleDirective.prototype, "styleLg", {
+        set: function (val) { this._base.cacheInput('styleLg', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(StyleDirective.prototype, "styleXl", {
+        set: function (val) { this._base.cacheInput('styleXl', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(StyleDirective.prototype, "styleLtSm", {
+        set: function (val) { this._base.cacheInput('styleLtSm', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(StyleDirective.prototype, "styleLtMd", {
+        set: function (val) { this._base.cacheInput('styleLtMd', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(StyleDirective.prototype, "styleLtLg", {
+        set: function (val) { this._base.cacheInput('styleLtLg', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(StyleDirective.prototype, "styleLtXl", {
+        set: function (val) { this._base.cacheInput('styleLtXl', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(StyleDirective.prototype, "styleGtXs", {
+        set: function (val) { this._base.cacheInput('styleGtXs', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(StyleDirective.prototype, "styleGtSm", {
+        set: function (val) { this._base.cacheInput('styleGtSm', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(StyleDirective.prototype, "styleGtMd", {
+        set: function (val) { this._base.cacheInput('styleGtMd', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(StyleDirective.prototype, "styleGtLg", {
+        set: function (val) { this._base.cacheInput('styleGtLg', val, true); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    // ******************************************************************
+    // Lifecycle Hookks
+    // ******************************************************************
+    /**
+     * For @Input changes on the current mq activation property
+     */
+    StyleDirective.prototype.ngOnChanges = function (changes) {
+        if (this._base.activeKey in changes) {
+            this._updateStyle();
+        }
+    };
+    /**
+     * For ChangeDetectionStrategy.onPush and ngOnChanges() updates
+     */
+    StyleDirective.prototype.ngDoCheck = function () {
+        if (!this._base.hasMediaQueryListener) {
+            this._configureMQListener();
+        }
+        _super.prototype.ngDoCheck.call(this);
+    };
+    StyleDirective.prototype.ngOnDestroy = function () {
+        this._base.ngOnDestroy();
+    };
+    // ******************************************************************
+    // Internal Methods
+    // ******************************************************************
+    /**
+       * Build an mqActivation object that bridges
+       * mql change events to onMediaQueryChange handlers
+       */
+    StyleDirective.prototype._configureMQListener = function () {
+        var _this = this;
+        this._base.listenForMediaQueryChanges('style', '', function (changes) {
+            _this._updateStyle(changes.value);
+            // trigger NgClass::_applyIterableChanges()
+            _super.prototype.ngDoCheck.call(_this);
+        });
+    };
+    // ************************************************************************
+    // Private Internal Methods
+    // ************************************************************************
+    /**
+     * Use the currently activated input property and assign to
+     * `ngStyle` which does the style injections...
+     */
+    StyleDirective.prototype._updateStyle = function (value) {
+        var style = value || this._base.queryInput("style") || '';
+        if (this._base.mqActivation) {
+            style = this._base.mqActivation.activatedInput;
+        }
+        // Delegate subsequent activity to the NgStyle logic
+        this.ngStyle = style;
+    };
+    /**
+     * Build MediaQuery Activation Adapter
+     * This adapter manages listening to mediaQuery change events and identifying
+     * which property value should be used for the style update
+     */
+    StyleDirective.prototype._buildAdapter = function (monitor, _ngEl, _renderer) {
+        this._base = new __WEBPACK_IMPORTED_MODULE_2__base_adapter__["a" /* BaseFxDirectiveAdapter */]('style', monitor, _ngEl, _renderer);
+        this._buildCacheInterceptor();
+    };
+    /**
+     * Build intercept to convert raw strings to ngStyleMap
+     */
+    StyleDirective.prototype._buildCacheInterceptor = function () {
+        var _this = this;
+        var cacheInput = this._base.cacheInput.bind(this._base);
+        this._base.cacheInput = function (key, source, cacheRaw, merge) {
+            if (cacheRaw === void 0) { cacheRaw = false; }
+            if (merge === void 0) { merge = true; }
+            var styles = _this._buildStyleMap(source);
+            if (merge) {
+                styles = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__utils_object_extend__["a" /* extendObject */])({}, _this._base.inputMap['style'], styles);
+            }
+            cacheInput(key, styles, cacheRaw);
+        };
+    };
+    /**
+     * Convert raw strings to ngStyleMap; which is required by ngStyle
+     * NOTE: Raw string key-value pairs MUST be delimited by `;`
+     *       Comma-delimiters are not supported due to complexities of
+     *       possible style values such as `rgba(x,x,x,x)` and others
+     */
+    StyleDirective.prototype._buildStyleMap = function (styles) {
+        var _this = this;
+        var sanitizer = function (val) {
+            // Always safe-guard (aka sanitize) style property values
+            return _this._sanitizer.sanitize(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* SecurityContext */].STYLE, val);
+        };
+        if (styles) {
+            switch (__WEBPACK_IMPORTED_MODULE_7__utils_style_transforms__["a" /* ngStyleUtils */].getType(styles)) {
+                case 'string': return __WEBPACK_IMPORTED_MODULE_7__utils_style_transforms__["a" /* ngStyleUtils */].buildMapFromList(__WEBPACK_IMPORTED_MODULE_7__utils_style_transforms__["a" /* ngStyleUtils */].buildRawList(styles), sanitizer);
+                case 'array': return __WEBPACK_IMPORTED_MODULE_7__utils_style_transforms__["a" /* ngStyleUtils */].buildMapFromList(styles, sanitizer);
+                case 'set': return __WEBPACK_IMPORTED_MODULE_7__utils_style_transforms__["a" /* ngStyleUtils */].buildMapFromSet(styles, sanitizer);
+                default: return __WEBPACK_IMPORTED_MODULE_7__utils_style_transforms__["a" /* ngStyleUtils */].buildMapFromSet(styles, sanitizer);
+            }
+        }
+        return styles;
+    };
+    return StyleDirective;
+}(__WEBPACK_IMPORTED_MODULE_1__angular_common__["l" /* NgStyle */]));
+
+StyleDirective.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Directive */], args: [{
+                selector: "\n    [style.xs], [style.sm], [style.md], [style.lg], [style.xl],\n    [style.lt-sm], [style.lt-md], [style.lt-lg], [style.lt-xl],\n    [style.gt-xs], [style.gt-sm], [style.gt-md], [style.gt-lg],\n    [ngStyle],\n    [ngStyle.xs], [ngStyle.sm], [ngStyle.lg], [ngStyle.xl],\n    [ngStyle.lt-sm], [ngStyle.lt-md], [ngStyle.lt-lg], [ngStyle.lt-xl],\n    [ngStyle.gt-xs], [ngStyle.gt-sm], [ngStyle.gt-md], [ngStyle.gt-lg]\n  "
+            },] },
+];
+/** @nocollapse */
+StyleDirective.ctorParameters = function () { return [
+    { type: __WEBPACK_IMPORTED_MODULE_4__media_query_media_monitor__["a" /* MediaMonitor */], },
+    { type: __WEBPACK_IMPORTED_MODULE_3__media_query_breakpoints_break_point_registry__["a" /* BreakPointRegistry */], },
+    { type: __WEBPACK_IMPORTED_MODULE_6__angular_platform_browser__["q" /* DomSanitizer */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* KeyValueDiffers */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* ElementRef */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["L" /* Renderer */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_28" /* Renderer2 */], },
+]; };
+StyleDirective.propDecorators = {
+    'styleBase': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['ngStyle',] },],
+    'ngStyleXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['ngStyle.xs',] },],
+    'ngStyleSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['ngStyle.sm',] },],
+    'ngStyleMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['ngStyle.md',] },],
+    'ngStyleLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['ngStyle.lg',] },],
+    'ngStyleXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['ngStyle.xl',] },],
+    'ngStyleLtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['ngStyle.lt-sm',] },],
+    'ngStyleLtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['ngStyle.lt-md',] },],
+    'ngStyleLtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['ngStyle.lt-lg',] },],
+    'ngStyleLtXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['ngStyle.lt-xl',] },],
+    'ngStyleGtXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['ngStyle.gt-xs',] },],
+    'ngStyleGtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['ngStyle.gt-sm',] },],
+    'ngStyleGtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['ngStyle.gt-md',] },],
+    'ngStyleGtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['ngStyle.gt-lg',] },],
+    'styleXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['style.xs',] },],
+    'styleSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['style.sm',] },],
+    'styleMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['style.md',] },],
+    'styleLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['style.lg',] },],
+    'styleXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['style.xl',] },],
+    'styleLtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['style.lt-sm',] },],
+    'styleLtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['style.lt-md',] },],
+    'styleLtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['style.lt-lg',] },],
+    'styleLtXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['style.lt-xl',] },],
+    'styleGtXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['style.gt-xs',] },],
+    'styleGtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['style.gt-sm',] },],
+    'styleGtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['style.gt-md',] },],
+    'styleGtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['style.gt-lg',] },],
+};
+//# sourceMappingURL=style.js.map
+
+/***/ }),
+/* 159 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_map__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_filter__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_filter__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_object_extend__ = __webpack_require__(23);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return KeyOptions; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ResponsiveActivation; });
+
+
+
+var KeyOptions = (function () {
+    function KeyOptions(baseKey, defaultValue, inputKeys) {
+        this.baseKey = baseKey;
+        this.defaultValue = defaultValue;
+        this.inputKeys = inputKeys;
+    }
+    return KeyOptions;
+}());
+
+/**
+ * ResponsiveActivation acts as a proxy between the MonitorMedia service (which emits mediaQuery
+ * changes) and the fx API directives. The MQA proxies mediaQuery change events and notifies the
+ * directive via the specified callback.
+ *
+ * - The MQA also determines which directive property should be used to determine the
+ *   current change 'value'... BEFORE the original `onMediaQueryChanges()` method is called.
+ * - The `ngOnDestroy()` method is also head-hooked to enable auto-unsubscribe from the
+ *   MediaQueryServices.
+ *
+ * NOTE: these interceptions enables the logic in the fx API directives to remain terse and clean.
+ */
+var ResponsiveActivation = (function () {
+    /**
+     * Constructor
+     */
+    function ResponsiveActivation(_options, _mediaMonitor, _onMediaChanges) {
+        this._options = _options;
+        this._mediaMonitor = _mediaMonitor;
+        this._onMediaChanges = _onMediaChanges;
+        this._subscribers = [];
+        this._subscribers = this._configureChangeObservers();
+    }
+    Object.defineProperty(ResponsiveActivation.prototype, "mediaMonitor", {
+        /**
+         * Accessor to the DI'ed directive property
+         * Each directive instance has a reference to the MediaMonitor which is
+         * used HERE to subscribe to mediaQuery change notifications.
+         */
+        get: function () {
+            return this._mediaMonitor;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ResponsiveActivation.prototype, "activatedInputKey", {
+        /**
+         * Determine which directive @Input() property is currently active (for the viewport size):
+         * The key must be defined (in use) or fallback to the 'closest' overlapping property key
+         * that is defined; otherwise the default property key will be used.
+         * e.g.
+         *      if `<div fxHide fxHide.gt-sm="false">` is used but the current activated mediaQuery alias
+         *      key is `.md` then `.gt-sm` should be used instead
+         */
+        get: function () {
+            return this._activatedInputKey || this._options.baseKey;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ResponsiveActivation.prototype, "activatedInput", {
+        /**
+         * Get the currently activated @Input value or the fallback default @Input value
+         */
+        get: function () {
+            var key = this.activatedInputKey;
+            return this.hasKeyValue(key) ? this._lookupKeyValue(key) : this._options.defaultValue;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Fast validator for presence of attribute on the host element
+     */
+    ResponsiveActivation.prototype.hasKeyValue = function (key) {
+        var value = this._options.inputKeys[key];
+        return typeof value !== 'undefined';
+    };
+    /**
+     * Remove interceptors, restore original functions, and forward the onDestroy() call
+     */
+    ResponsiveActivation.prototype.destroy = function () {
+        this._subscribers.forEach(function (link) {
+            link.unsubscribe();
+        });
+        this._subscribers = [];
+    };
+    /**
+     * For each *defined* API property, register a callback to `_onMonitorEvents( )`
+     * Cache 1..n subscriptions for internal auto-unsubscribes when the the directive destructs
+     */
+    ResponsiveActivation.prototype._configureChangeObservers = function () {
+        var _this = this;
+        var subscriptions = [];
+        this._buildRegistryMap().forEach(function (bp) {
+            if (_this._keyInUse(bp.key)) {
+                // Inject directive default property key name: to let onMediaChange() calls
+                // know which property is being triggered...
+                var buildChanges = function (change) {
+                    change = change.clone();
+                    change.property = _this._options.baseKey;
+                    return change;
+                };
+                subscriptions.push(_this.mediaMonitor.observe(bp.alias)
+                    .map(buildChanges)
+                    .subscribe(function (change) {
+                    _this._onMonitorEvents(change);
+                }));
+            }
+        });
+        return subscriptions;
+    };
+    /**
+     * Build mediaQuery key-hashmap; only for the directive properties that are actually defined/used
+     * in the HTML markup
+     */
+    ResponsiveActivation.prototype._buildRegistryMap = function () {
+        var _this = this;
+        return this.mediaMonitor.breakpoints
+            .map(function (bp) {
+            return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils_object_extend__["a" /* extendObject */])({}, bp, {
+                baseKey: _this._options.baseKey,
+                key: _this._options.baseKey + bp.suffix // e.g.  layoutGtSm, layoutMd, layoutGtLg
+            });
+        })
+            .filter(function (bp) { return _this._keyInUse(bp.key); });
+    };
+    /**
+     * Synchronizes change notifications with the current mq-activated @Input and calculates the
+     * mq-activated input value or the default value
+     */
+    ResponsiveActivation.prototype._onMonitorEvents = function (change) {
+        if (change.property == this._options.baseKey) {
+            change.value = this._calculateActivatedValue(change);
+            this._onMediaChanges(change);
+        }
+    };
+    /**
+     * Has the key been specified in the HTML markup and thus is intended
+     * to participate in activation processes.
+     */
+    ResponsiveActivation.prototype._keyInUse = function (key) {
+        return this._lookupKeyValue(key) !== undefined;
+    };
+    /**
+     *  Map input key associated with mediaQuery activation to closest defined input key
+     *  then return the values associated with the targeted input property
+     *
+     *  !! change events may arrive out-of-order (activate before deactivate)
+     *     so make sure the deactivate is used ONLY when the keys match
+     *     (since a different activate may be in use)
+     */
+    ResponsiveActivation.prototype._calculateActivatedValue = function (current) {
+        var currentKey = this._options.baseKey + current.suffix; // e.g. suffix == 'GtSm',
+        var newKey = this._activatedInputKey; // e.g. newKey == hideGtSm
+        newKey = current.matches ? currentKey : ((newKey == currentKey) ? null : newKey);
+        this._activatedInputKey = this._validateInputKey(newKey);
+        return this.activatedInput;
+    };
+    /**
+     * For the specified input property key, validate it is defined (used in the markup)
+     * If not see if a overlapping mediaQuery-related input key fallback has been defined
+     *
+     * NOTE: scans in the order defined by activeOverLaps (largest viewport ranges -> smallest ranges)
+     */
+    ResponsiveActivation.prototype._validateInputKey = function (inputKey) {
+        var _this = this;
+        var items = this.mediaMonitor.activeOverlaps;
+        var isMissingKey = function (key) { return !_this._keyInUse(key); };
+        if (isMissingKey(inputKey)) {
+            items.some(function (bp) {
+                var key = _this._options.baseKey + bp.suffix;
+                if (!isMissingKey(key)) {
+                    inputKey = key;
+                    return true; // exit .some()
+                }
+                return false;
+            });
+        }
+        return inputKey;
+    };
+    /**
+     * Get the value (if any) for the directive instances @Input property (aka key)
+     */
+    ResponsiveActivation.prototype._lookupKeyValue = function (key) {
+        return this._options.inputKeys[key];
+    };
+    return ResponsiveActivation;
+}());
+
+//# sourceMappingURL=responsive-activation.js.map
+
+/***/ }),
+/* 160 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export RESPONSIVE_ALIASES */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DEFAULT_BREAKPOINTS; });
+var RESPONSIVE_ALIASES = [
+    'xs', 'gt-xs', 'sm', 'gt-sm', 'md', 'gt-md', 'lg', 'gt-lg', 'xl'
+];
+var DEFAULT_BREAKPOINTS = [
+    {
+        alias: 'xs',
+        mediaQuery: 'screen and (max-width: 599px)'
+    },
+    {
+        alias: 'gt-xs',
+        overlapping: true,
+        mediaQuery: 'screen and (min-width: 600px)'
+    },
+    {
+        alias: 'lt-sm',
+        overlapping: true,
+        mediaQuery: 'screen and (max-width: 599px)'
+    },
+    {
+        alias: 'sm',
+        mediaQuery: 'screen and (min-width: 600px) and (max-width: 959px)'
+    },
+    {
+        alias: 'gt-sm',
+        overlapping: true,
+        mediaQuery: 'screen and (min-width: 960px)'
+    },
+    {
+        alias: 'lt-md',
+        overlapping: true,
+        mediaQuery: 'screen and (max-width: 959px)'
+    },
+    {
+        alias: 'md',
+        mediaQuery: 'screen and (min-width: 960px) and (max-width: 1279px)'
+    },
+    {
+        alias: 'gt-md',
+        overlapping: true,
+        mediaQuery: 'screen and (min-width: 1280px)'
+    },
+    {
+        alias: 'lt-lg',
+        overlapping: true,
+        mediaQuery: 'screen and (max-width: 1279px)'
+    },
+    {
+        alias: 'lg',
+        mediaQuery: 'screen and (min-width: 1280px) and (max-width: 1919px)'
+    },
+    {
+        alias: 'gt-lg',
+        overlapping: true,
+        mediaQuery: 'screen and (min-width: 1920px)'
+    },
+    {
+        alias: 'lt-xl',
+        overlapping: true,
+        mediaQuery: 'screen and (max-width: 1920px)'
+    },
+    {
+        alias: 'xl',
+        mediaQuery: 'screen and (min-width: 1920px) and (max-width: 5000px)'
+    }
+];
+//# sourceMappingURL=break-points.js.map
+
+/***/ }),
+/* 161 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export ScreenTypes */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ORIENTATION_BREAKPOINTS; });
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/* tslint:disable */
+var HANDSET_PORTRAIT = '(orientations: portrait) and (max-width: 599px)';
+var HANDSET_LANDSCAPE = '(orientations: landscape) and (max-width: 959px)';
+var TABLET_LANDSCAPE = '(orientations: landscape) and (min-width: 960px) and (max-width: 1279px)';
+var TABLET_PORTRAIT = '(orientations: portrait) and (min-width: 600px) and (max-width: 839px)';
+var WEB_PORTRAIT = '(orientations: portrait) and (min-width: 840px)';
+var WEB_LANDSCAPE = '(orientations: landscape) and (min-width: 1280px)';
+var ScreenTypes = {
+    'HANDSET': HANDSET_PORTRAIT + ", " + HANDSET_LANDSCAPE,
+    'TABLET': TABLET_PORTRAIT + " , " + TABLET_LANDSCAPE,
+    'WEB': WEB_PORTRAIT + ", " + WEB_LANDSCAPE + " ",
+    'HANDSET_PORTRAIT': "" + HANDSET_PORTRAIT,
+    'TABLET_PORTRAIT': TABLET_PORTRAIT + " ",
+    'WEB_PORTRAIT': "" + WEB_PORTRAIT,
+    'HANDSET_LANDSCAPE': HANDSET_LANDSCAPE + "]",
+    'TABLET_LANDSCAPE': "" + TABLET_LANDSCAPE,
+    'WEB_LANDSCAPE': "" + WEB_LANDSCAPE
+};
+/**
+ * Extended Breakpoints for handset/tablets with landscape or portrait orientations
+ */
+var ORIENTATION_BREAKPOINTS = [
+    { 'alias': 'handset', 'mediaQuery': ScreenTypes.HANDSET },
+    { 'alias': 'handset.landscape', 'mediaQuery': ScreenTypes.HANDSET_LANDSCAPE },
+    { 'alias': 'handset.portrait', 'mediaQuery': ScreenTypes.HANDSET_PORTRAIT },
+    { 'alias': 'tablet', 'mediaQuery': ScreenTypes.TABLET },
+    { 'alias': 'tablet.landscape', 'mediaQuery': ScreenTypes.TABLET },
+    { 'alias': 'tablet.portrait', 'mediaQuery': ScreenTypes.TABLET_PORTRAIT },
+    { 'alias': 'web', 'mediaQuery': ScreenTypes.WEB, overlapping: true },
+    { 'alias': 'web.landscape', 'mediaQuery': ScreenTypes.WEB_LANDSCAPE, overlapping: true },
+    { 'alias': 'web.portrait', 'mediaQuery': ScreenTypes.WEB_PORTRAIT, overlapping: true }
+];
+//# sourceMappingURL=orientation-break-points.js.map
+
+/***/ }),
+/* 162 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MediaChange; });
+/**
+ * Class instances emitted [to observers] for each mql notification
+ */
+var MediaChange = (function () {
+    function MediaChange(matches, // Is the mq currently activated
+        mediaQuery, // e.g.   (min-width: 600px) and (max-width: 959px)
+        mqAlias, // e.g.   gt-sm, md, gt-lg
+        suffix // e.g.   GtSM, Md, GtLg
+    ) {
+        if (matches === void 0) { matches = false; }
+        if (mediaQuery === void 0) { mediaQuery = 'all'; }
+        if (mqAlias === void 0) { mqAlias = ''; }
+        if (suffix === void 0) { suffix = ''; } // e.g.   GtSM, Md, GtLg
+        this.matches = matches;
+        this.mediaQuery = mediaQuery;
+        this.mqAlias = mqAlias;
+        this.suffix = suffix; // e.g.   GtSM, Md, GtLg
+    }
+    MediaChange.prototype.clone = function () {
+        return new MediaChange(this.matches, this.mediaQuery, this.mqAlias, this.suffix);
+    };
+    return MediaChange;
+}());
+
+//# sourceMappingURL=media-change.js.map
+
+/***/ }),
+/* 163 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = applyCssPrefixes;
+/* unused harmony export toAlignContentValue */
+/* unused harmony export toBoxValue */
+/* unused harmony export toBoxOrient */
+/* unused harmony export toBoxDirection */
+/* unused harmony export toBoxOrdinal */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/** Applies CSS prefixes to appropriate style keys.*/
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */ function applyCssPrefixes(target) {
+    for (var key in target) {
+        var value = target[key];
+        switch (key) {
+            case 'display':
+                target['display'] = value;
+                // also need 'display : -webkit-box' and 'display : -ms-flexbox;'
+                break;
+            case 'flex':
+                target['-ms-flex'] = value;
+                target['-webkit-box-flex'] = value.split(" ")[0];
+                break;
+            case 'flex-direction':
+                value = value || "row";
+                target['flex-direction'] = value;
+                target['-ms-flex-direction'] = value;
+                target['-webkit-box-orient'] = toBoxOrient(value);
+                target['-webkit-box-direction'] = toBoxDirection(value);
+                break;
+            case 'flex-wrap':
+                target['-ms-flex-wrap'] = value;
+                break;
+            case 'order':
+                if (isNaN(value)) {
+                    value = "0";
+                }
+                target['order'] = value;
+                target['-ms-flex-order'] = value;
+                target['-webkit-box-ordinal-group'] = toBoxOrdinal(value);
+                break;
+            case 'justify-content':
+                target['-ms-flex-pack'] = toBoxValue(value);
+                target['-webkit-box-pack'] = toBoxValue(value);
+                break;
+            case 'align-items':
+                target['-ms-flex-align'] = toBoxValue(value);
+                target['-webkit-box-align'] = toBoxValue(value);
+                break;
+            case 'align-self':
+                target['-ms-flex-item-align'] = toBoxValue(value);
+                break;
+            case 'align-content':
+                target['-ms-align-content'] = toAlignContentValue(value);
+                target['-ms-flex-line-pack'] = toAlignContentValue(value);
+                break;
+        }
+    }
+    return target;
+}
+function toAlignContentValue(value) {
+    switch (value) {
+        case "space-between":
+            return "justify";
+        case "space-around":
+            return "distribute";
+        default:
+            return toBoxValue(value);
+    }
+}
+/** Convert flex values flex-start, flex-end to start, end. */
+function toBoxValue(value) {
+    if (value === void 0) { value = ""; }
+    return (value == 'flex-start') ? 'start' : ((value == 'flex-end') ? 'end' : value);
+}
+/** Convert flex Direction to Box orientations */
+function toBoxOrient(flexDirection) {
+    if (flexDirection === void 0) { flexDirection = 'row'; }
+    return flexDirection.indexOf('column') === -1 ? 'horizontal' : 'vertical';
+}
+/** Convert flex Direction to Box direction type */
+function toBoxDirection(flexDirection) {
+    if (flexDirection === void 0) { flexDirection = 'row'; }
+    return flexDirection.indexOf('reverse') !== -1 ? 'reverse' : 'normal';
+}
+/** Convert flex order to Box ordinal group */
+function toBoxOrdinal(order) {
+    if (order === void 0) { order = '0'; }
+    var value = order ? parseInt(order) + 1 : 1;
+    return isNaN(value) ? "0" : value.toString();
+}
+//# sourceMappingURL=auto-prefixer.js.map
+
+/***/ }),
+/* 164 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = validateBasis;
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+* The flex API permits 3 or 1 parts of the value:
+*    - `flex-grow flex-shrink flex-basis`, or
+*    - `flex-basis`
+*/
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */ function validateBasis(basis, grow, shrink) {
+    if (grow === void 0) { grow = "1"; }
+    if (shrink === void 0) { shrink = "1"; }
+    var parts = [grow, shrink, basis];
+    var j = basis.indexOf('calc');
+    if (j > 0) {
+        parts[2] = _validateCalcValue(basis.substring(j).trim());
+        var matches = basis.substr(0, j).trim().split(" ");
+        if (matches.length == 2) {
+            parts[0] = matches[0];
+            parts[1] = matches[1];
+        }
+    }
+    else if (j == 0) {
+        parts[2] = _validateCalcValue(basis.trim());
+    }
+    else {
+        var matches = basis.split(" ");
+        parts = (matches.length === 3) ? matches : [
+            grow, shrink, basis
+        ];
+    }
+    return parts;
+}
+/**
+ * Calc expressions require whitespace before & after any expression operators
+ * This is a simple, crude whitespace padding solution.
+ *   - "3 3 calc(15em + 20px)"
+ *   - calc(100% / 7 * 2)
+ *   - "calc(15em + 20px)"
+ *   - "calc(15em+20px)"
+ *   - "37px"
+ *   = "43%"
+ */
+function _validateCalcValue(calc) {
+    return calc.replace(/[\s]/g, "").replace(/[\/\*\+\-]/g, " $& ");
+}
+//# sourceMappingURL=basis-validator.js.map
+
+/***/ }),
+/* 165 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__object_extend__ = __webpack_require__(23);
+/* harmony export (immutable) */ __webpack_exports__["b"] = validateSuffixes;
+/* harmony export (immutable) */ __webpack_exports__["a"] = mergeByAlias;
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+var ALIAS_DELIMITERS = /(\.|-|_)/g;
+function firstUpperCase(part) {
+    var first = part.length > 0 ? part.charAt(0) : "";
+    var remainder = (part.length > 1) ? part.slice(1) : "";
+    return first.toUpperCase() + remainder;
+}
+/**
+ * Converts snake-case to SnakeCase.
+ * @param name Text to UpperCamelCase
+ */
+function camelCase(name) {
+    return name
+        .replace(ALIAS_DELIMITERS, "|")
+        .split("|")
+        .map(firstUpperCase)
+        .join("");
+}
+/**
+ * For each breakpoint, ensure that a Suffix is defined;
+ * fallback to UpperCamelCase the unique Alias value
+ */
+function validateSuffixes(list) {
+    list.forEach(function (bp) {
+        if (!bp.suffix || bp.suffix === "") {
+            bp.suffix = camelCase(bp.alias); // create Suffix value based on alias
+            bp.overlapping = bp.overlapping || false; // ensure default value
+        }
+    });
+    return list;
+}
+/**
+ * Merge a custom breakpoint list with the default list based on unique alias values
+ *  - Items are added if the alias is not in the default list
+ *  - Items are merged with the custom override if the alias exists in the default list
+ */
+function mergeByAlias(defaults, custom) {
+    if (custom === void 0) { custom = []; }
+    var merged = defaults.map(function (bp) { return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__object_extend__["a" /* extendObject */])({}, bp); });
+    var findByAlias = function (alias) { return merged.reduce(function (result, bp) {
+        return result || ((bp.alias === alias) ? bp : null);
+    }, null); };
+    // Merge custom breakpoints
+    custom.forEach(function (bp) {
+        var target = findByAlias(bp.alias);
+        if (target) {
+            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__object_extend__["a" /* extendObject */])(target, bp);
+        }
+        else {
+            merged.push(bp);
+        }
+    });
+    return validateSuffixes(merged);
+}
+//# sourceMappingURL=breakpoint-tools.js.map
+
+/***/ }),
+/* 166 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export NgStyleKeyValue */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ngStyleUtils; });
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * NgStyle allowed inputs
+ */
+var NgStyleKeyValue = (function () {
+    function NgStyleKeyValue(key, value, noQuotes) {
+        if (noQuotes === void 0) { noQuotes = true; }
+        this.key = key;
+        this.value = value;
+        this.key = noQuotes ? key.replace(/['"]/g, "").trim() : key.trim();
+        this.value = noQuotes ? value.replace(/['"]/g, "").trim() : value.trim();
+        this.value = this.value.replace(/;/, "");
+    }
+    return NgStyleKeyValue;
+}());
+
+/**
+ * Transform Operators for @angular/flex-layout NgStyle Directive
+ */
+var ngStyleUtils = {
+    getType: getType,
+    buildRawList: buildRawList,
+    buildMapFromList: buildMapFromList,
+    buildMapFromSet: buildMapFromSet
+};
+function getType(target) {
+    var what = typeof target;
+    if (what === 'object') {
+        return (target.constructor === Array) ? 'array' :
+            (target.constructor === Set) ? 'set' : 'object';
+    }
+    return what;
+}
+/**
+ * Split string of key:value pairs into Array of k-v pairs
+ * e.g.  'key:value; key:value; key:value;' -> ['key:value',...]
+ */
+function buildRawList(source, delimiter) {
+    if (delimiter === void 0) { delimiter = ";"; }
+    return String(source)
+        .trim()
+        .split(delimiter)
+        .map(function (val) { return val.trim(); })
+        .filter(function (val) { return val !== ""; });
+}
+/**
+ * Convert array of key:value strings to a iterable map object
+ */
+function buildMapFromList(styles, sanitize) {
+    var sanitizeValue = function (it) {
+        if (sanitize) {
+            it.value = sanitize(it.value);
+        }
+        return it;
+    };
+    return styles
+        .map(stringToKeyValue)
+        .filter(function (entry) { return !!entry; })
+        .map(sanitizeValue)
+        .reduce(keyValuesToMap, {});
+}
+;
+/**
+ * Convert Set<string> or raw Object to an iterable NgStyleMap
+ */
+function buildMapFromSet(source, sanitize) {
+    var list = new Array();
+    if (getType(source) == 'set') {
+        source.forEach(function (entry) { return list.push(entry); });
+    }
+    else {
+        Object.keys(source).forEach(function (key) {
+            list.push(key + ":" + source[key]);
+        });
+    }
+    return buildMapFromList(list, sanitize);
+}
+/**
+ * Convert "key:value" -> [key, value]
+ */
+function stringToKeyValue(it) {
+    var _a = it.split(":"), key = _a[0], val = _a[1];
+    return val ? new NgStyleKeyValue(key, val) : null;
+}
+;
+/**
+ * Convert [ [key,value] ] -> { key : value }
+ */
+function keyValuesToMap(map, entry) {
+    if (!!entry.key) {
+        map[entry.key] = entry.value;
+    }
+    return map;
+}
+//# sourceMappingURL=style-transforms.js.map
+
+/***/ }),
+/* 167 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_animations_browser__ = __webpack_require__(99);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return BrowserAnimationsModule; });
 /* unused harmony export NoopAnimationsModule */
 /* unused harmony export ɵAnimationRenderer */
@@ -64657,40 +69783,44 @@ NoopAnimationsModule.ctorParameters = function () { return []; };
 
 
 /***/ }),
-/* 130 */,
-/* 131 */,
-/* 132 */,
-/* 133 */,
-/* 134 */,
-/* 135 */,
-/* 136 */,
-/* 137 */,
-/* 138 */,
-/* 139 */,
-/* 140 */,
-/* 141 */,
-/* 142 */,
-/* 143 */,
-/* 144 */,
-/* 145 */,
-/* 146 */,
-/* 147 */
+/* 168 */,
+/* 169 */,
+/* 170 */,
+/* 171 */,
+/* 172 */,
+/* 173 */,
+/* 174 */,
+/* 175 */,
+/* 176 */,
+/* 177 */,
+/* 178 */,
+/* 179 */,
+/* 180 */,
+/* 181 */,
+/* 182 */,
+/* 183 */,
+/* 184 */,
+/* 185 */,
+/* 186 */,
+/* 187 */,
+/* 188 */,
+/* 189 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_firebase__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_firebase__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_firebase__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tokens__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__auth_backend__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_operator_map__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tokens__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__auth_backend__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_operator_map__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_observable_fromPromise__ = __webpack_require__(76);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_observable_fromPromise__ = __webpack_require__(90);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_observable_fromPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_rxjs_observable_fromPromise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_operator_observeOn__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_operator_observeOn__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_operator_observeOn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_rxjs_operator_observeOn__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FirebaseSdkAuthBackend; });
 var __extends = (this && this.__extends) || function (d, b) {
@@ -64806,17 +69936,17 @@ function castPromise(promiseLike) {
 //# sourceMappingURL=firebase_sdk_auth_backend.js.map
 
 /***/ }),
-/* 148 */
+/* 190 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__auth__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__auth__ = __webpack_require__(111);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__auth__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__auth_backend__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__auth_backend__ = __webpack_require__(48);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_1__auth_backend__["a"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_1__auth_backend__["d"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_1__auth_backend__["c"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__firebase_sdk_auth_backend__ = __webpack_require__(147);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__firebase_sdk_auth_backend__ = __webpack_require__(189);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_2__firebase_sdk_auth_backend__["a"]; });
 
 
@@ -64824,20 +69954,20 @@ function castPromise(promiseLike) {
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 149 */
+/* 191 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_firebase__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_firebase__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_firebase__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__firebase_list_observable__ = __webpack_require__(92);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_operator_observeOn__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__firebase_list_observable__ = __webpack_require__(113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_operator_observeOn__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_operator_observeOn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_operator_observeOn__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__query_observable__ = __webpack_require__(93);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_operator_mergeMap__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__query_observable__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_operator_mergeMap__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_operator_mergeMap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_operator_mergeMap__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_operator_map__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_operator_map__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_operator_map__);
 /* harmony export (immutable) */ __webpack_exports__["a"] = FirebaseListFactory;
 /* unused harmony export onChildAdded */
@@ -65053,16 +70183,16 @@ function onChildUpdated(arr, child, toKey, prevKey) {
 //# sourceMappingURL=firebase_list_factory.js.map
 
 /***/ }),
-/* 150 */
+/* 192 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_operator_observeOn__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_operator_observeOn__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_operator_observeOn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_operator_observeOn__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_firebase__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_firebase__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_firebase__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils__ = __webpack_require__(16);
 /* harmony export (immutable) */ __webpack_exports__["a"] = FirebaseObjectFactory;
 
 
@@ -65091,11 +70221,11 @@ function FirebaseObjectFactory(absoluteUrlOrDbRef, _a) {
 //# sourceMappingURL=firebase_object_factory.js.map
 
 /***/ }),
-/* 151 */
+/* 193 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FirebaseObjectObservable; });
 var __extends = (this && this.__extends) || function (d, b) {
@@ -65142,7 +70272,7 @@ var FirebaseObjectObservable = (function (_super) {
 //# sourceMappingURL=firebase_object_observable.js.map
 
 /***/ }),
-/* 152 */
+/* 194 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -65170,48 +70300,6 @@ var QueryOptions;
 //# sourceMappingURL=interfaces.js.map
 
 /***/ }),
-/* 153 */,
-/* 154 */,
-/* 155 */,
-/* 156 */,
-/* 157 */,
-/* 158 */,
-/* 159 */,
-/* 160 */,
-/* 161 */,
-/* 162 */,
-/* 163 */,
-/* 164 */,
-/* 165 */,
-/* 166 */,
-/* 167 */,
-/* 168 */,
-/* 169 */,
-/* 170 */,
-/* 171 */,
-/* 172 */,
-/* 173 */,
-/* 174 */,
-/* 175 */,
-/* 176 */,
-/* 177 */,
-/* 178 */,
-/* 179 */,
-/* 180 */,
-/* 181 */,
-/* 182 */,
-/* 183 */,
-/* 184 */,
-/* 185 */,
-/* 186 */,
-/* 187 */,
-/* 188 */,
-/* 189 */,
-/* 190 */,
-/* 191 */,
-/* 192 */,
-/* 193 */,
-/* 194 */,
 /* 195 */,
 /* 196 */,
 /* 197 */,
@@ -65224,14 +70312,56 @@ var QueryOptions;
 /* 204 */,
 /* 205 */,
 /* 206 */,
-/* 207 */
+/* 207 */,
+/* 208 */,
+/* 209 */,
+/* 210 */,
+/* 211 */,
+/* 212 */,
+/* 213 */,
+/* 214 */,
+/* 215 */,
+/* 216 */,
+/* 217 */,
+/* 218 */,
+/* 219 */,
+/* 220 */,
+/* 221 */,
+/* 222 */,
+/* 223 */,
+/* 224 */,
+/* 225 */,
+/* 226 */,
+/* 227 */,
+/* 228 */,
+/* 229 */,
+/* 230 */,
+/* 231 */,
+/* 232 */,
+/* 233 */,
+/* 234 */,
+/* 235 */,
+/* 236 */,
+/* 237 */,
+/* 238 */,
+/* 239 */,
+/* 240 */,
+/* 241 */,
+/* 242 */,
+/* 243 */,
+/* 244 */,
+/* 245 */,
+/* 246 */,
+/* 247 */,
+/* 248 */,
+/* 249 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/*! @license Firebase v3.8.0
 Build: rev-69367dd
 Terms: https://firebase.google.com/terms/ */
 
-var firebase = __webpack_require__(34);
+var firebase = __webpack_require__(46);
 (function(){
 (function(){var h,aa=aa||{},l=this,ba=function(){},ca=function(a){var b=typeof a;if("object"==b)if(a){if(a instanceof Array)return"array";if(a instanceof Object)return b;var c=Object.prototype.toString.call(a);if("[object Window]"==c)return"object";if("[object Array]"==c||"number"==typeof a.length&&"undefined"!=typeof a.splice&&"undefined"!=typeof a.propertyIsEnumerable&&!a.propertyIsEnumerable("splice"))return"array";if("[object Function]"==c||"undefined"!=typeof a.call&&"undefined"!=typeof a.propertyIsEnumerable&&
 !a.propertyIsEnumerable("call"))return"function"}else return"null";else if("function"==b&&"undefined"==typeof a.call)return"object";return b},da=function(a){return null===a},ea=function(a){return"array"==ca(a)},fa=function(a){var b=ca(a);return"array"==b||"object"==b&&"number"==typeof a.length},m=function(a){return"string"==typeof a},ga=function(a){return"number"==typeof a},p=function(a){return"function"==ca(a)},ha=function(a){var b=typeof a;return"object"==b&&null!=a||"function"==b},ia=function(a,
@@ -65482,10 +70612,10 @@ Yj(Rf.prototype,{toJSON:{name:"toJSON",a:[Y(null,!0)]}});
 c){if("create"===a)try{c.auth()}catch(d){}});firebase.INTERNAL.extendNamespace({User:U})}else throw Error("Cannot find the firebase namespace; be sure to include firebase-app.js before this library.");})();}).call(this);
 }).call(typeof global !== undefined ? global : typeof self !== undefined ? self : typeof window !== undefined ? window : {});
 module.exports = firebase.auth;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(17)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(21)))
 
 /***/ }),
-/* 208 */
+/* 250 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/*! @license Firebase v3.8.0
@@ -65515,7 +70645,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE. */
 
-var firebase = __webpack_require__(34);
+var firebase = __webpack_require__(46);
 (function(){
 (function() {var g,aa=this;function n(a){return void 0!==a}function ba(){}function ca(a){a.Vb=function(){return a.Ye?a.Ye:a.Ye=new a}}
 function da(a){var b=typeof a;if("object"==b)if(a){if(a instanceof Array)return"array";if(a instanceof Object)return b;var c=Object.prototype.toString.call(a);if("[object Window]"==c)return"object";if("[object Array]"==c||"number"==typeof a.length&&"undefined"!=typeof a.splice&&"undefined"!=typeof a.propertyIsEnumerable&&!a.propertyIsEnumerable("splice"))return"array";if("[object Function]"==c||"undefined"!=typeof a.call&&"undefined"!=typeof a.propertyIsEnumerable&&!a.propertyIsEnumerable("call"))return"function"}else return"null";
@@ -65752,17 +70882,17 @@ d;return d.Ya},{Reference:U,Query:X,Database:Pg,enableLogging:Sb,INTERNAL:Z,TEST
 
 }).call(typeof global !== undefined ? global : typeof self !== undefined ? self : typeof window !== undefined ? window : {});
 module.exports = firebase.database;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(17)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(21)))
 
 /***/ }),
-/* 209 */
+/* 251 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/*! @license Firebase v3.8.0
 Build: rev-69367dd
 Terms: https://firebase.google.com/terms/ */
 
-var firebase = __webpack_require__(34);
+var firebase = __webpack_require__(46);
 (function(){
 (function(){var f=function(a,b){function c(){}c.prototype=b.prototype;a.prototype=new c;for(var d in b)if(Object.defineProperties){var e=Object.getOwnPropertyDescriptor(b,d);e&&Object.defineProperty(a,d,e)}else a[d]=b[d]},g=this,h=function(a){var b=typeof a;if("object"==b)if(a){if(a instanceof Array)return"array";if(a instanceof Object)return b;var c=Object.prototype.toString.call(a);if("[object Window]"==c)return"object";if("[object Array]"==c||"number"==typeof a.length&&"undefined"!=typeof a.splice&&"undefined"!=
 typeof a.propertyIsEnumerable&&!a.propertyIsEnumerable("splice"))return"array";if("[object Function]"==c||"undefined"!=typeof a.call&&"undefined"!=typeof a.propertyIsEnumerable&&!a.propertyIsEnumerable("call"))return"function"}else return"null";else if("function"==b&&"undefined"==typeof a.call)return"object";return b},k=function(a,b){function c(){}c.prototype=b.prototype;a.B=b.prototype;a.prototype=new c;a.u=function(a,c,n){for(var d=Array(arguments.length-2),e=2;e<arguments.length;e++)d[e-2]=arguments[e];
@@ -65799,17 +70929,17 @@ V.prototype.f=function(){var a=this;if(this.b)return X(this,this.b);this.b=null;
 var U=function(a){"serviceWorker"in navigator&&navigator.serviceWorker.addEventListener("message",function(b){if(b.data&&b.data["firebase-messaging-msg-type"])switch(b=b.data,b["firebase-messaging-msg-type"]){case "push-msg-received":case "notification-clicked":a.j.next(b["firebase-messaging-msg-data"])}},!1)};if(!(firebase&&firebase.INTERNAL&&firebase.INTERNAL.registerService))throw Error("Cannot install Firebase Messaging - be sure to load firebase-app.js first.");firebase.INTERNAL.registerService("messaging",function(a){return self&&"ServiceWorkerGlobalScope"in self?new P(a):new V(a)},{Messaging:V});new firebase.INTERNAL.ErrorFactory("messaging","Messaging",x);}).call(this);
 }).call(typeof global !== undefined ? global : typeof self !== undefined ? self : typeof window !== undefined ? window : {});
 module.exports = firebase.messaging;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(17)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(21)))
 
 /***/ }),
-/* 210 */
+/* 252 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/*! @license Firebase v3.8.0
 Build: rev-69367dd
 Terms: https://firebase.google.com/terms/ */
 
-var firebase = __webpack_require__(34);
+var firebase = __webpack_require__(46);
 (function(){
 (function(){for(var h,aa="function"==typeof Object.defineProperties?Object.defineProperty:function(a,b,c){if(c.get||c.set)throw new TypeError("ES3 does not support getters and setters.");a!=Array.prototype&&a!=Object.prototype&&(a[b]=c.value)},l="undefined"!=typeof window&&window===this?this:"undefined"!=typeof global&&null!=global?global:this,n=["Number","MIN_SAFE_INTEGER"],ba=0;ba<n.length-1;ba++){var ca=n[ba];ca in l||(l[ca]={});l=l[ca]}var da=n[n.length-1];
 -9007199254740991!=l[da]&&aa(l,da,{configurable:!0,writable:!0,value:-9007199254740991});
@@ -65864,10 +70994,10 @@ Z(Q.prototype,"ref",Q.prototype.na);Ib.STATE_CHANGED="state_changed";P.RUNNING="
 (function(){function a(a,b,e){return new Y(a,new Kb,e)}var b={TaskState:P,TaskEvent:Ib,StringFormat:L,Storage:Y,Reference:W};if("undefined"!==typeof firebase)firebase.INTERNAL.registerService("storage",a,b,void 0,!0);else throw Error("Cannot install Firebase Storage - be sure to load firebase-app.js first.");})();}).call(this);
 }).call(typeof global !== undefined ? global : typeof self !== undefined ? self : typeof window !== undefined ? window : {});
 module.exports = firebase.storage;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(17)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(21)))
 
 /***/ }),
-/* 211 */
+/* 253 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/*! Hammer.JS - v2.0.7 - 2016-04-22
@@ -68517,8 +73647,8 @@ if (true) {
 
 
 /***/ }),
-/* 212 */,
-/* 213 */
+/* 254 */,
+/* 255 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -68528,7 +73658,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var Subscriber_1 = __webpack_require__(4);
+var Subscriber_1 = __webpack_require__(5);
 /**
  * We need this JSDoc comment for affecting ESDoc.
  * @ignore
@@ -68560,12 +73690,12 @@ exports.InnerSubscriber = InnerSubscriber;
 //# sourceMappingURL=InnerSubscriber.js.map
 
 /***/ }),
-/* 214 */
+/* 256 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var Observable_1 = __webpack_require__(0);
+var Observable_1 = __webpack_require__(1);
 /**
  * Represents a push-based event or value that an {@link Observable} can emit.
  * This class is particularly useful for operators that manage notifications,
@@ -68693,7 +73823,7 @@ exports.Notification = Notification;
 //# sourceMappingURL=Notification.js.map
 
 /***/ }),
-/* 215 */
+/* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -68703,12 +73833,12 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var Subject_1 = __webpack_require__(22);
-var queue_1 = __webpack_require__(120);
-var Subscription_1 = __webpack_require__(15);
-var observeOn_1 = __webpack_require__(35);
-var ObjectUnsubscribedError_1 = __webpack_require__(81);
-var SubjectSubscription_1 = __webpack_require__(108);
+var Subject_1 = __webpack_require__(27);
+var queue_1 = __webpack_require__(140);
+var Subscription_1 = __webpack_require__(19);
+var observeOn_1 = __webpack_require__(47);
+var ObjectUnsubscribedError_1 = __webpack_require__(95);
+var SubjectSubscription_1 = __webpack_require__(128);
 /**
  * @class ReplaySubject<T>
  */
@@ -68801,7 +73931,7 @@ var ReplayEvent = (function () {
 //# sourceMappingURL=ReplaySubject.js.map
 
 /***/ }),
-/* 216 */
+/* 258 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -68856,175 +73986,153 @@ exports.Scheduler = Scheduler;
 //# sourceMappingURL=Scheduler.js.map
 
 /***/ }),
-/* 217 */
+/* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var Observable_1 = __webpack_require__(0);
-var forkJoin_1 = __webpack_require__(110);
+var Observable_1 = __webpack_require__(1);
+var forkJoin_1 = __webpack_require__(130);
 Observable_1.Observable.forkJoin = forkJoin_1.forkJoin;
 //# sourceMappingURL=forkJoin.js.map
 
 /***/ }),
-/* 218 */
+/* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var Observable_1 = __webpack_require__(0);
-var fromEvent_1 = __webpack_require__(240);
+var Observable_1 = __webpack_require__(1);
+var fromEvent_1 = __webpack_require__(280);
 Observable_1.Observable.fromEvent = fromEvent_1.fromEvent;
 //# sourceMappingURL=fromEvent.js.map
 
 /***/ }),
-/* 219 */
+/* 261 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var Observable_1 = __webpack_require__(0);
-var merge_1 = __webpack_require__(111);
+var Observable_1 = __webpack_require__(1);
+var merge_1 = __webpack_require__(131);
 Observable_1.Observable.merge = merge_1.merge;
 //# sourceMappingURL=merge.js.map
 
 /***/ }),
-/* 220 */
+/* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var Observable_1 = __webpack_require__(0);
-var of_1 = __webpack_require__(46);
+var Observable_1 = __webpack_require__(1);
+var of_1 = __webpack_require__(59);
 Observable_1.Observable.of = of_1.of;
 //# sourceMappingURL=of.js.map
 
 /***/ }),
-/* 221 */
+/* 263 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var Observable_1 = __webpack_require__(0);
-var throw_1 = __webpack_require__(241);
+var Observable_1 = __webpack_require__(1);
+var throw_1 = __webpack_require__(281);
 Observable_1.Observable.throw = throw_1._throw;
 //# sourceMappingURL=throw.js.map
 
 /***/ }),
-/* 222 */
+/* 264 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var Observable_1 = __webpack_require__(0);
-var auditTime_1 = __webpack_require__(112);
+var Observable_1 = __webpack_require__(1);
+var auditTime_1 = __webpack_require__(132);
 Observable_1.Observable.prototype.auditTime = auditTime_1.auditTime;
 //# sourceMappingURL=auditTime.js.map
 
 /***/ }),
-/* 223 */
+/* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var Observable_1 = __webpack_require__(0);
-var catch_1 = __webpack_require__(113);
+var Observable_1 = __webpack_require__(1);
+var catch_1 = __webpack_require__(133);
 Observable_1.Observable.prototype.catch = catch_1._catch;
 Observable_1.Observable.prototype._catch = catch_1._catch;
 //# sourceMappingURL=catch.js.map
 
 /***/ }),
-/* 224 */
+/* 266 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var Observable_1 = __webpack_require__(0);
-var do_1 = __webpack_require__(246);
+var Observable_1 = __webpack_require__(1);
+var do_1 = __webpack_require__(286);
 Observable_1.Observable.prototype.do = do_1._do;
 Observable_1.Observable.prototype._do = do_1._do;
 //# sourceMappingURL=do.js.map
 
 /***/ }),
-/* 225 */
+/* 267 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var Observable_1 = __webpack_require__(0);
-var filter_1 = __webpack_require__(114);
-Observable_1.Observable.prototype.filter = filter_1.filter;
-//# sourceMappingURL=filter.js.map
-
-/***/ }),
-/* 226 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var Observable_1 = __webpack_require__(0);
-var finally_1 = __webpack_require__(248);
+var Observable_1 = __webpack_require__(1);
+var finally_1 = __webpack_require__(288);
 Observable_1.Observable.prototype.finally = finally_1._finally;
 Observable_1.Observable.prototype._finally = finally_1._finally;
 //# sourceMappingURL=finally.js.map
 
 /***/ }),
-/* 227 */
+/* 268 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var Observable_1 = __webpack_require__(0);
-var first_1 = __webpack_require__(115);
+var Observable_1 = __webpack_require__(1);
+var first_1 = __webpack_require__(135);
 Observable_1.Observable.prototype.first = first_1.first;
 //# sourceMappingURL=first.js.map
 
 /***/ }),
-/* 228 */
+/* 269 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var Observable_1 = __webpack_require__(0);
-var map_1 = __webpack_require__(23);
-Observable_1.Observable.prototype.map = map_1.map;
-//# sourceMappingURL=map.js.map
-
-/***/ }),
-/* 229 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var Observable_1 = __webpack_require__(0);
-var share_1 = __webpack_require__(117);
+var Observable_1 = __webpack_require__(1);
+var share_1 = __webpack_require__(137);
 Observable_1.Observable.prototype.share = share_1.share;
 //# sourceMappingURL=share.js.map
 
 /***/ }),
-/* 230 */
+/* 270 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var Observable_1 = __webpack_require__(0);
-var startWith_1 = __webpack_require__(252);
+var Observable_1 = __webpack_require__(1);
+var startWith_1 = __webpack_require__(292);
 Observable_1.Observable.prototype.startWith = startWith_1.startWith;
 //# sourceMappingURL=startWith.js.map
 
 /***/ }),
-/* 231 */
+/* 271 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var Observable_1 = __webpack_require__(0);
-var switchMap_1 = __webpack_require__(253);
+var Observable_1 = __webpack_require__(1);
+var switchMap_1 = __webpack_require__(293);
 Observable_1.Observable.prototype.switchMap = switchMap_1.switchMap;
 //# sourceMappingURL=switchMap.js.map
 
 /***/ }),
-/* 232 */
+/* 272 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -69034,9 +74142,9 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var Observable_1 = __webpack_require__(0);
-var ScalarObservable_1 = __webpack_require__(75);
-var EmptyObservable_1 = __webpack_require__(45);
+var Observable_1 = __webpack_require__(1);
+var ScalarObservable_1 = __webpack_require__(89);
+var EmptyObservable_1 = __webpack_require__(58);
 /**
  * We need this JSDoc comment for affecting ESDoc.
  * @extends {Ignored}
@@ -69100,7 +74208,7 @@ exports.ArrayLikeObservable = ArrayLikeObservable;
 //# sourceMappingURL=ArrayLikeObservable.js.map
 
 /***/ }),
-/* 233 */
+/* 273 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -69110,10 +74218,10 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var Subject_1 = __webpack_require__(22);
-var Observable_1 = __webpack_require__(0);
-var Subscriber_1 = __webpack_require__(4);
-var Subscription_1 = __webpack_require__(15);
+var Subject_1 = __webpack_require__(27);
+var Observable_1 = __webpack_require__(1);
+var Subscriber_1 = __webpack_require__(5);
+var Subscription_1 = __webpack_require__(19);
 /**
  * @class ConnectableObservable<T>
  */
@@ -69270,7 +74378,7 @@ var RefCountSubscriber = (function (_super) {
 //# sourceMappingURL=ConnectableObservable.js.map
 
 /***/ }),
-/* 234 */
+/* 274 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -69280,7 +74388,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var Observable_1 = __webpack_require__(0);
+var Observable_1 = __webpack_require__(1);
 /**
  * We need this JSDoc comment for affecting ESDoc.
  * @extends {Ignored}
@@ -69358,7 +74466,7 @@ exports.ErrorObservable = ErrorObservable;
 //# sourceMappingURL=ErrorObservable.js.map
 
 /***/ }),
-/* 235 */
+/* 275 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -69368,11 +74476,11 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var Observable_1 = __webpack_require__(0);
-var EmptyObservable_1 = __webpack_require__(45);
-var isArray_1 = __webpack_require__(49);
-var subscribeToResult_1 = __webpack_require__(27);
-var OuterSubscriber_1 = __webpack_require__(25);
+var Observable_1 = __webpack_require__(1);
+var EmptyObservable_1 = __webpack_require__(58);
+var isArray_1 = __webpack_require__(62);
+var subscribeToResult_1 = __webpack_require__(38);
+var OuterSubscriber_1 = __webpack_require__(35);
 /**
  * We need this JSDoc comment for affecting ESDoc.
  * @extends {Ignored}
@@ -69476,7 +74584,7 @@ var ForkJoinSubscriber = (function (_super) {
 //# sourceMappingURL=ForkJoinObservable.js.map
 
 /***/ }),
-/* 236 */
+/* 276 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -69486,11 +74594,11 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var Observable_1 = __webpack_require__(0);
-var tryCatch_1 = __webpack_require__(124);
-var isFunction_1 = __webpack_require__(83);
-var errorObject_1 = __webpack_require__(82);
-var Subscription_1 = __webpack_require__(15);
+var Observable_1 = __webpack_require__(1);
+var tryCatch_1 = __webpack_require__(144);
+var isFunction_1 = __webpack_require__(97);
+var errorObject_1 = __webpack_require__(96);
+var Subscription_1 = __webpack_require__(19);
 var toString = Object.prototype.toString;
 function isNodeStyleEventEmitter(sourceObj) {
     return !!sourceObj && typeof sourceObj.addListener === 'function' && typeof sourceObj.removeListener === 'function';
@@ -69622,7 +74730,7 @@ exports.FromEventObservable = FromEventObservable;
 //# sourceMappingURL=FromEventObservable.js.map
 
 /***/ }),
-/* 237 */
+/* 277 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -69632,17 +74740,17 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var isArray_1 = __webpack_require__(49);
-var isArrayLike_1 = __webpack_require__(121);
-var isPromise_1 = __webpack_require__(123);
-var PromiseObservable_1 = __webpack_require__(109);
-var IteratorObservable_1 = __webpack_require__(238);
-var ArrayObservable_1 = __webpack_require__(26);
-var ArrayLikeObservable_1 = __webpack_require__(232);
-var iterator_1 = __webpack_require__(77);
-var Observable_1 = __webpack_require__(0);
-var observeOn_1 = __webpack_require__(35);
-var observable_1 = __webpack_require__(78);
+var isArray_1 = __webpack_require__(62);
+var isArrayLike_1 = __webpack_require__(141);
+var isPromise_1 = __webpack_require__(143);
+var PromiseObservable_1 = __webpack_require__(129);
+var IteratorObservable_1 = __webpack_require__(278);
+var ArrayObservable_1 = __webpack_require__(37);
+var ArrayLikeObservable_1 = __webpack_require__(272);
+var iterator_1 = __webpack_require__(91);
+var Observable_1 = __webpack_require__(1);
+var observeOn_1 = __webpack_require__(47);
+var observable_1 = __webpack_require__(92);
 /**
  * We need this JSDoc comment for affecting ESDoc.
  * @extends {Ignored}
@@ -69750,7 +74858,7 @@ exports.FromObservable = FromObservable;
 //# sourceMappingURL=FromObservable.js.map
 
 /***/ }),
-/* 238 */
+/* 278 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -69760,9 +74868,9 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var root_1 = __webpack_require__(16);
-var Observable_1 = __webpack_require__(0);
-var iterator_1 = __webpack_require__(77);
+var root_1 = __webpack_require__(20);
+var Observable_1 = __webpack_require__(1);
+var iterator_1 = __webpack_require__(91);
 /**
  * We need this JSDoc comment for affecting ESDoc.
  * @extends {Ignored}
@@ -69919,37 +75027,37 @@ function sign(value) {
 //# sourceMappingURL=IteratorObservable.js.map
 
 /***/ }),
-/* 239 */
+/* 279 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var FromObservable_1 = __webpack_require__(237);
+var FromObservable_1 = __webpack_require__(277);
 exports.from = FromObservable_1.FromObservable.create;
 //# sourceMappingURL=from.js.map
 
 /***/ }),
-/* 240 */
+/* 280 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var FromEventObservable_1 = __webpack_require__(236);
+var FromEventObservable_1 = __webpack_require__(276);
 exports.fromEvent = FromEventObservable_1.FromEventObservable.create;
 //# sourceMappingURL=fromEvent.js.map
 
 /***/ }),
-/* 241 */
+/* 281 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var ErrorObservable_1 = __webpack_require__(234);
+var ErrorObservable_1 = __webpack_require__(274);
 exports._throw = ErrorObservable_1.ErrorObservable.create;
 //# sourceMappingURL=throw.js.map
 
 /***/ }),
-/* 242 */
+/* 282 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -69959,10 +75067,10 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var ArrayObservable_1 = __webpack_require__(26);
-var isArray_1 = __webpack_require__(49);
-var OuterSubscriber_1 = __webpack_require__(25);
-var subscribeToResult_1 = __webpack_require__(27);
+var ArrayObservable_1 = __webpack_require__(37);
+var isArray_1 = __webpack_require__(62);
+var OuterSubscriber_1 = __webpack_require__(35);
+var subscribeToResult_1 = __webpack_require__(38);
 var none = {};
 /* tslint:enable:max-line-length */
 /**
@@ -70107,15 +75215,15 @@ exports.CombineLatestSubscriber = CombineLatestSubscriber;
 //# sourceMappingURL=combineLatest.js.map
 
 /***/ }),
-/* 243 */
+/* 283 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var Observable_1 = __webpack_require__(0);
-var isScheduler_1 = __webpack_require__(50);
-var ArrayObservable_1 = __webpack_require__(26);
-var mergeAll_1 = __webpack_require__(47);
+var Observable_1 = __webpack_require__(1);
+var isScheduler_1 = __webpack_require__(63);
+var ArrayObservable_1 = __webpack_require__(37);
+var mergeAll_1 = __webpack_require__(60);
 /* tslint:enable:max-line-length */
 /**
  * Creates an output Observable which sequentially emits all values from every
@@ -70287,12 +75395,12 @@ exports.concatStatic = concatStatic;
 //# sourceMappingURL=concat.js.map
 
 /***/ }),
-/* 244 */
+/* 284 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var mergeAll_1 = __webpack_require__(47);
+var mergeAll_1 = __webpack_require__(60);
 /* tslint:enable:max-line-length */
 /**
  * Converts a higher-order Observable into a first-order Observable by
@@ -70349,12 +75457,12 @@ exports.concatAll = concatAll;
 //# sourceMappingURL=concatAll.js.map
 
 /***/ }),
-/* 245 */
+/* 285 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var mergeMap_1 = __webpack_require__(48);
+var mergeMap_1 = __webpack_require__(61);
 /* tslint:enable:max-line-length */
 /**
  * Projects each source value to an Observable which is merged in the output
@@ -70425,7 +75533,7 @@ exports.concatMap = concatMap;
 //# sourceMappingURL=concatMap.js.map
 
 /***/ }),
-/* 246 */
+/* 286 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -70435,7 +75543,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var Subscriber_1 = __webpack_require__(4);
+var Subscriber_1 = __webpack_require__(5);
 /* tslint:enable:max-line-length */
 /**
  * Perform a side effect for every emission on the source Observable, but return
@@ -70544,7 +75652,7 @@ var DoSubscriber = (function (_super) {
 //# sourceMappingURL=do.js.map
 
 /***/ }),
-/* 247 */
+/* 287 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -70554,7 +75662,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var Subscriber_1 = __webpack_require__(4);
+var Subscriber_1 = __webpack_require__(5);
 /**
  * Returns an Observable that emits whether or not every item of the source satisfies the condition specified.
  *
@@ -70624,7 +75732,7 @@ var EverySubscriber = (function (_super) {
 //# sourceMappingURL=every.js.map
 
 /***/ }),
-/* 248 */
+/* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -70634,8 +75742,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var Subscriber_1 = __webpack_require__(4);
-var Subscription_1 = __webpack_require__(15);
+var Subscriber_1 = __webpack_require__(5);
+var Subscription_1 = __webpack_require__(19);
 /**
  * Returns an Observable that mirrors the source Observable, but will call a specified function when
  * the source terminates on complete or error.
@@ -70673,7 +75781,7 @@ var FinallySubscriber = (function (_super) {
 //# sourceMappingURL=finally.js.map
 
 /***/ }),
-/* 249 */
+/* 289 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -70683,8 +75791,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var Subscriber_1 = __webpack_require__(4);
-var EmptyError_1 = __webpack_require__(80);
+var Subscriber_1 = __webpack_require__(5);
+var EmptyError_1 = __webpack_require__(94);
 /* tslint:enable:max-line-length */
 /**
  * Returns an Observable that emits only the last item emitted by the source Observable.
@@ -70798,12 +75906,12 @@ var LastSubscriber = (function (_super) {
 //# sourceMappingURL=last.js.map
 
 /***/ }),
-/* 250 */
+/* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var ConnectableObservable_1 = __webpack_require__(233);
+var ConnectableObservable_1 = __webpack_require__(273);
 /* tslint:enable:max-line-length */
 /**
  * Returns an Observable that emits the results of invoking a specified selector on items
@@ -70861,7 +75969,7 @@ exports.MulticastOperator = MulticastOperator;
 //# sourceMappingURL=multicast.js.map
 
 /***/ }),
-/* 251 */
+/* 291 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -70871,7 +75979,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var Subscriber_1 = __webpack_require__(4);
+var Subscriber_1 = __webpack_require__(5);
 /* tslint:enable:max-line-length */
 /**
  * Applies an accumulator function over the source Observable, and returns the
@@ -70993,16 +76101,16 @@ exports.ReduceSubscriber = ReduceSubscriber;
 //# sourceMappingURL=reduce.js.map
 
 /***/ }),
-/* 252 */
+/* 292 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var ArrayObservable_1 = __webpack_require__(26);
-var ScalarObservable_1 = __webpack_require__(75);
-var EmptyObservable_1 = __webpack_require__(45);
-var concat_1 = __webpack_require__(243);
-var isScheduler_1 = __webpack_require__(50);
+var ArrayObservable_1 = __webpack_require__(37);
+var ScalarObservable_1 = __webpack_require__(89);
+var EmptyObservable_1 = __webpack_require__(58);
+var concat_1 = __webpack_require__(283);
+var isScheduler_1 = __webpack_require__(63);
 /* tslint:enable:max-line-length */
 /**
  * Returns an Observable that emits the items you specify as arguments before it begins to emit
@@ -71045,7 +76153,7 @@ exports.startWith = startWith;
 //# sourceMappingURL=startWith.js.map
 
 /***/ }),
-/* 253 */
+/* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -71055,8 +76163,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var OuterSubscriber_1 = __webpack_require__(25);
-var subscribeToResult_1 = __webpack_require__(27);
+var OuterSubscriber_1 = __webpack_require__(35);
+var subscribeToResult_1 = __webpack_require__(38);
 /* tslint:enable:max-line-length */
 /**
  * Projects each source value to an Observable which is merged in the output
@@ -71191,7 +76299,7 @@ var SwitchMapSubscriber = (function (_super) {
 //# sourceMappingURL=switchMap.js.map
 
 /***/ }),
-/* 254 */
+/* 294 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -71201,7 +76309,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var Subscription_1 = __webpack_require__(15);
+var Subscription_1 = __webpack_require__(19);
 /**
  * A unit of work to be executed in a {@link Scheduler}. An action is typically
  * created from within a Scheduler and an RxJS user does not need to concern
@@ -71241,7 +76349,7 @@ exports.Action = Action;
 //# sourceMappingURL=Action.js.map
 
 /***/ }),
-/* 255 */
+/* 295 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -71251,7 +76359,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var AsyncAction_1 = __webpack_require__(118);
+var AsyncAction_1 = __webpack_require__(138);
 /**
  * We need this JSDoc comment for affecting ESDoc.
  * @ignore
@@ -71296,7 +76404,7 @@ exports.QueueAction = QueueAction;
 //# sourceMappingURL=QueueAction.js.map
 
 /***/ }),
-/* 256 */
+/* 296 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -71306,7 +76414,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var AsyncScheduler_1 = __webpack_require__(119);
+var AsyncScheduler_1 = __webpack_require__(139);
 var QueueScheduler = (function (_super) {
     __extends(QueueScheduler, _super);
     function QueueScheduler() {
@@ -71318,13 +76426,13 @@ exports.QueueScheduler = QueueScheduler;
 //# sourceMappingURL=QueueScheduler.js.map
 
 /***/ }),
-/* 257 */
+/* 297 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var AsyncAction_1 = __webpack_require__(118);
-var AsyncScheduler_1 = __webpack_require__(119);
+var AsyncAction_1 = __webpack_require__(138);
+var AsyncScheduler_1 = __webpack_require__(139);
 /**
  *
  * Async Scheduler
@@ -71371,7 +76479,7 @@ exports.async = new AsyncScheduler_1.AsyncScheduler(AsyncAction_1.AsyncAction);
 //# sourceMappingURL=async.js.map
 
 /***/ }),
-/* 258 */
+/* 298 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -71402,14 +76510,14 @@ exports.UnsubscriptionError = UnsubscriptionError;
 //# sourceMappingURL=UnsubscriptionError.js.map
 
 /***/ }),
-/* 259 */
+/* 299 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var Subscriber_1 = __webpack_require__(4);
-var rxSubscriber_1 = __webpack_require__(79);
-var Observer_1 = __webpack_require__(107);
+var Subscriber_1 = __webpack_require__(5);
+var rxSubscriber_1 = __webpack_require__(93);
+var Observer_1 = __webpack_require__(127);
 function toSubscriber(nextOrObserver, error, complete) {
     if (nextOrObserver) {
         if (nextOrObserver instanceof Subscriber_1.Subscriber) {
