@@ -13,7 +13,7 @@ export class DebtsService {
         this.debts = null;
         return;
       }
-      this.debtsLocation = `debts/${authService.getAuth().uid}`;
+      this.debtsLocation = `debts/${authService.getUid()}`;
       this.debts = af.database.list(this.debtsLocation);
     });
   }

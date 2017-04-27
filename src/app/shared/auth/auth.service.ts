@@ -22,6 +22,9 @@ export class AuthService {
   getAuth() {
     return this.auth;
   }
+  getUid() {
+    return this.auth.uid;
+  }
 
   loginWithGoogle() {
     return this.af.auth.login({

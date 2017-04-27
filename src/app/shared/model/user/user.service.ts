@@ -13,7 +13,7 @@ export class UserService {
         this.user = null;
         return;
       }
-      this.user = af.database.object(`users/${authService.getAuth().uid}`);
+      this.user = af.database.object(`users/${authService.getUid()}`);
       this.user.subscribe(user => {
         // Register new user
         if (!user.registrationTime) {
@@ -30,6 +30,7 @@ export class UserService {
     });
   }
   registerUser() {
+    // TODO: add default debts and contacts
     const { provider, auth: {email, displayName, photoURL} } = this.authService.getAuth();
     this.user.set({
       provider: provider,

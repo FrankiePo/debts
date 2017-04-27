@@ -14,7 +14,7 @@ export class ContactsService {
         this.contacts = null;
         return;
       }
-      this.contactLocation = `users/${authService.getAuth().uid}/contacts`;
+      this.contactLocation = `contacts/${authService.getUid()}`;
       this.contacts = af.database.list(this.contactLocation);
     });
   }

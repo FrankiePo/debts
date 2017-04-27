@@ -1,5 +1,4 @@
 import { AuthProviders } from 'angularfire2';
-import { IContact } from '../contact/icontact';
 
 export interface IUser {
   provider: AuthProviders;
@@ -8,5 +7,4 @@ export interface IUser {
   registrationTime: number;
   lastLogin: number;
   photo?: string;
-  contacts: IContact[];
 }
