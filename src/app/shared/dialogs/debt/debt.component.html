@@ -1,7 +1,7 @@
 <form novalidate (ngSubmit)="onSubmit(debtForm)" [formGroup]="debtForm">
   <h3>Debt</h3>
   <md-input-container class="full-width">
-    <input mdInput placeholder="Amount" type="text" formControlName="amount">
+    <input mdInput placeholder="Amount" type="number" formControlName="amount">
   </md-input-container>
   <md-select placeholder="Type" class="full-width" formControlName="type">
     <md-option *ngFor="let state of select" [value]="state.type">{{ state.name }}</md-option>
@@ -12,5 +12,3 @@
   <button md-raised-button type="submit">Сохранить</button>
   <button md-raised-button (click)="closeForm()">Отменить</button>
 </form>
-
-

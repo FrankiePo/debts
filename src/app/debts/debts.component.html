@@ -1,24 +1,37 @@
-<md-card *ngFor="let contact of contacts">
-  <md-card-header>
-    <div md-card-avatar><md-icon>insert_photo</md-icon></div>
-    <md-card-title>{{ contact.name }}</md-card-title>
-    <md-card-subtitle>{{ contact.phone || contact.email }}</md-card-subtitle>
-  </md-card-header>
-  <md-card-content>
-    <md-list>
-      <h3 md-subheader>Debts:</h3>
-      <md-list-item *ngFor="let debt of getDebts(contact)">
-        <md-icon md-list-icon>insert_photo</md-icon>
-        <h4 md-line>{{ debt.amount }}</h4>
-        <p>{{ debt.description }}</p>
+<div fxLayoutWrap fxLayoutAlign="start stretch" fxLayout="row">
+  <md-card
+    *ngFor="let contact of contacts"
+    fxLayout="column"
+    fxLayoutAlign="space-between stretch"
+    style="margin:8px"
+    fxFlex="calc(25%+16px)"
+    >
+    <md-card-header>
+      <md-icon md-card-avatar>insert_photo</md-icon>
+      <md-card-title>{{ contact.name }}</md-card-title>
+      <md-card-subtitle>{{ contact.phone || contact.email }}</md-card-subtitle>
+    </md-card-header>
+    <md-card-content fxFlex="auto">
+      <md-list>
+        <h3 md-subheader>Total: {{ getTotal(contact) }}</h3>
+        <md-list-item
+          style="width:100%"
+          *ngFor="let debt of getDebts(contact)"
+          [ngClass]="{'debt__item_to-me': isToMe(debt), 'debt__item_to-contact': isToContact(debt)}">
 
-        <button md-button class="mat-icon-button" (click)="openChangeDialog(debt)"><md-icon>create</md-icon></button>
-        <button md-button class="mat-icon-button" (click)="removeDebt(debt)"><md-icon>delete</md-icon></button>
-      </md-list-item>
-    </md-list>
-  </md-card-content>
-  <md-card-actions>
-    <button md-button (click)="opeAddDialog(contact)">Add Debt</button>
-    <button md-button>SHARE</button>
-  </md-card-actions>
-</md-card>
+          <md-icon md-list-icon *ngIf="isToMe(debt)" fxFlex="35px">add</md-icon>
+          <md-icon md-list-icon *ngIf="isToContact(debt)" fxFlex="35px">remove</md-icon>
+          <h4 class="debt__amount" fxFlex="auto">{{ debt.amount }}&#8381;</h4>
+          <p class="debt__description">{{ debt.description }}</p>
+
+          <button fxFlex="40px" md-button class="mat-icon-button" (click)="openChangeDialog(debt)"><md-icon>create</md-icon></button>
+          <button fxFlex="40px" md-button class="mat-icon-button" (click)="removeDebt(debt)"><md-icon>delete</md-icon></button>
+        </md-list-item>
+      </md-list>
+    </md-card-content>
+    <md-card-actions fxLayout="row" fxLayoutAlign="space-between center">
+      <button md-raised-button (click)="opeAddDialog(contact)" fxFlex="50">Add Debt</button>
+      <button md-raised-button (click)="eraseDebts(contact)" fxFlex="50">Erase Debts</button>
+    </md-card-actions>
+  </md-card>
+</div>

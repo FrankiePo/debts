@@ -18,14 +18,14 @@ export class ContactsService {
       this.contacts = af.database.list(this.contactLocation);
     });
   }
-  update(contact) {
-    this.contacts.update(contact.$key, contact);
+  update(contact: IContact) {
+    return this.contacts.update(contact.$key, contact);
   }
   add(contact: IContact) {
     const combinedContact = Object.assign({}, contact, { creationTime: Date.now() });
-    this.contacts.push(combinedContact);
+    return this.contacts.push(combinedContact);
   };
-  remove(contact) {
-    this.contacts.remove(contact.$key);
+  remove(contact: IContact) {
+    return this.contacts.remove(contact.$key);
   }
 }

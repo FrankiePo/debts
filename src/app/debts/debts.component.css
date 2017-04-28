@@ -1,0 +1,28 @@
+/*.contact {*/
+  /*margin: 24px;*/
+/*}*/
+/*.debt__item {*/
+  /*display: flex;*/
+  /*align-items: center;*/
+  /*flex-direction: row;*/
+  /*height: 24px;*/
+  /*width: 100%;*/
+/*}*/
+.debt__item_to-me {
+  color: green;
+}
+.debt__item_to-contact {
+  color: red;
+}
+/*.debt__list {*/
+
+/*}*/
+/*.debt__amount {*/
+  /*width: 25px;*/
+/*}*/
+/*.debt__description {*/
+  /*width: 100%;*/
+/*}*/
+/*.spacer {*/
+  /*flex: 1 1 auto;*/
+/*}*/

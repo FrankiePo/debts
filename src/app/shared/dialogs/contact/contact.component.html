@@ -1,14 +1,27 @@
 <form novalidate (ngSubmit)="onSubmit(contactForm)" [formGroup]="contactForm">
-  <h3>Contact</h3>
-  <md-input-container class="full-width">
-    <input mdInput placeholder="Name" type="text" formControlName="name">
-  </md-input-container>
-  <md-input-container class="full-width">
-    <input mdInput placeholder="Phone" type="text" formControlName="phone">
-  </md-input-container>
-  <md-input-container class="full-width">
-    <input mdInput placeholder="Email" type="text" formControlName="email">
-  </md-input-container>
-  <button md-raised-button type="submit">Сохранить</button>
-  <button md-raised-button (click)="closeForm()">Отменить</button>
+  <md-list>
+    <h3 md-subheader>Contact</h3>
+    <md-list-item class="input-row">
+      <md-icon md-list-icon>insert_photo</md-icon>
+      <md-input-container>
+        <input mdInput placeholder="Name" type="text" formControlName="name">
+      </md-input-container>
+    </md-list-item>
+    <md-list-item class="input-row">
+      <md-icon md-list-icon>phone</md-icon>
+      <md-input-container>
+        <input mdInput placeholder="Phone" type="text" formControlName="phone">
+      </md-input-container>
+    </md-list-item>
+    <md-list-item class="input-row">
+      <md-icon md-list-icon>email</md-icon>
+      <md-input-container>
+        <input mdInput placeholder="Email" type="text" formControlName="email">
+      </md-input-container>
+    </md-list-item>
+    <md-list-item class="input-row">
+      <button md-raised-button type="submit">Сохранить</button>
+      <button md-raised-button (click)="closeForm()">Отменить</button>
+    </md-list-item>
+  </md-list>
 </form>

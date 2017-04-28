@@ -13,7 +13,6 @@ export class ContactsComponent {
   contacts: IContact[];
   constructor(public contactService: ContactsService, public dialog: MdDialog) {
     contactService.contacts.subscribe(contacts => {
-      console.log("--contacts: ", contacts);
       this.contacts = contacts;
     });
   }

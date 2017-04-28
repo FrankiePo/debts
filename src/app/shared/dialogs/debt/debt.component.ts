@@ -20,17 +20,17 @@ export class DebtComponent implements OnInit {
     this.select = [
       {
         type: DebtType.toMe,
-        name: "I Owe",
+        name: 'He Owes',
       }, {
         type: DebtType.toContact,
-        name: "He Owes",
+        name: 'I Owe',
       }
     ];
   }
 
   ngOnInit() {
     // TODO: simplify
-    const { description, amount, type } = this.debt || { description: '', amount: null, type: null};
+    const { description, amount, type } = this.debt || { description: '', amount: 0, type: null};
     this.debtForm = this.formBuilder.group({
       description: [description, Validators.required],
       amount: [amount, Validators.required],
@@ -38,7 +38,6 @@ export class DebtComponent implements OnInit {
     });
   }
   onSubmit({ value, valid }: { value: IDebt, valid: boolean }) {
-    console.log("----form", value, valid);
     if (valid) {
       this.dialogRef.close(value);
     }
