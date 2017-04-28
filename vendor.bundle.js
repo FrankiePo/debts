@@ -5,11 +5,11 @@ webpackJsonp([3,4],[
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_observable_merge__ = __webpack_require__(131);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_observable_merge__ = __webpack_require__(134);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_observable_merge___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_observable_merge__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_operator_share__ = __webpack_require__(137);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_operator_share__ = __webpack_require__(140);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_operator_share___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_operator_share__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Subject__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Subject__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Subject__);
 /* unused harmony export Class */
 /* unused harmony export createPlatform */
@@ -162,7 +162,7 @@ webpackJsonp([3,4],[
 /* unused harmony export ɵpid */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_39", function() { return providerDef; });
 /* unused harmony export ɵpad */
-/* unused harmony export ɵpod */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_40", function() { return pureObjectDef; });
 /* unused harmony export ɵppd */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_38", function() { return queryDef; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_33", function() { return textDef; });
@@ -6077,7 +6077,7 @@ var SystemJsNgModuleLoader = (function () {
         if (exportName === undefined) {
             exportName = 'default';
         }
-        return __webpack_require__(145)(module)
+        return __webpack_require__(148)(module)
             .then(function (module) { return module[exportName]; })
             .then(function (type) { return checkNotEmpty(type, module, exportName); })
             .then(function (type) { return _this._compiler.compileModuleAsync(type); });
@@ -6093,7 +6093,7 @@ var SystemJsNgModuleLoader = (function () {
             exportName = 'default';
             factoryClassSuffix = '';
         }
-        return __webpack_require__(145)(this._config.factoryPathPrefix + module + this._config.factoryPathSuffix)
+        return __webpack_require__(148)(this._config.factoryPathPrefix + module + this._config.factoryPathSuffix)
             .then(function (module) { return module[exportName + factoryClassSuffix]; })
             .then(function (factory) { return checkNotEmpty(factory, module, exportName); });
     };
@@ -14188,7 +14188,7 @@ function transition$$1(stateChangeExpr, steps) {
 
 var root_1 = __webpack_require__(20);
 var toSubscriber_1 = __webpack_require__(299);
-var observable_1 = __webpack_require__(92);
+var observable_1 = __webpack_require__(93);
 /**
  * A representation of any set of values over any amount of time. This the most basic building block
  * of RxJS.
@@ -14335,10 +14335,10 @@ exports.Observable = Observable;
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__breakpoints_break_point_registry__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__breakpoints_break_point_registry__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__match_media__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_add_alias__ = __webpack_require__(105);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_add_alias__ = __webpack_require__(107);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MediaMonitor; });
 /**
@@ -14466,10 +14466,10 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var isFunction_1 = __webpack_require__(97);
+var isFunction_1 = __webpack_require__(98);
 var Subscription_1 = __webpack_require__(19);
-var Observer_1 = __webpack_require__(127);
-var rxSubscriber_1 = __webpack_require__(93);
+var Observer_1 = __webpack_require__(130);
+var rxSubscriber_1 = __webpack_require__(94);
 /**
  * Implements the {@link Observer} interface and extends the
  * {@link Subscription} class. While the {@link Observer} is the public API for
@@ -18771,9 +18771,9 @@ var VERSION = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["_4" /* Version */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_auto_prefixer__ = __webpack_require__(163);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_auto_prefixer__ = __webpack_require__(164);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_layout_validator__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__responsive_responsive_activation__ = __webpack_require__(159);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__responsive_responsive_activation__ = __webpack_require__(160);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BaseFxDirective; });
 
 
@@ -18945,7 +18945,7 @@ var BaseFxDirective = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Subject__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Subject__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Subject__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__);
@@ -18955,18 +18955,18 @@ var BaseFxDirective = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_observable_merge___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_add_observable_merge__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_auditTime__ = __webpack_require__(264);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_auditTime___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_auditTime__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_forms__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_animations__ = __webpack_require__(98);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_forms__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_animations__ = __webpack_require__(99);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_startWith__ = __webpack_require__(270);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_startWith___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_startWith__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_rxjs_add_operator_first__ = __webpack_require__(268);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_rxjs_add_operator_first___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_rxjs_add_operator_first__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__angular_http__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__angular_http__ = __webpack_require__(68);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_rxjs_add_observable_forkJoin__ = __webpack_require__(259);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_rxjs_add_observable_forkJoin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13_rxjs_add_observable_forkJoin__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_rxjs_add_observable_of__ = __webpack_require__(262);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_rxjs_add_observable_of___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14_rxjs_add_observable_of__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_rxjs_add_operator_map__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_rxjs_add_operator_map__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15_rxjs_add_operator_map__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_rxjs_add_operator_filter__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_rxjs_add_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16_rxjs_add_operator_filter__);
@@ -19016,7 +19016,7 @@ var BaseFxDirective = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Y", function() { return UniqueSelectionDispatcher; });
 /* unused harmony export UNIQUE_SELECTION_DISPATCHER_PROVIDER */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "A", function() { return MdLineModule; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_73", function() { return MdLine; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_75", function() { return MdLine; });
 /* unused harmony export MdLineSetter */
 /* unused harmony export MdError */
 /* unused harmony export coerceBooleanProperty */
@@ -19155,13 +19155,13 @@ var BaseFxDirective = (function () {
 /* unused harmony export MdListDivider */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_36", function() { return LIST_TYPE_TOKEN; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_35", function() { return MdList; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_74", function() { return MdListCssMatStyler; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_72", function() { return MdListCssMatStyler; });
 /* unused harmony export MdNavListCssMatStyler */
 /* unused harmony export MdNavListTokenSetter */
 /* unused harmony export MdDividerCssMatStyler */
 /* unused harmony export MdListAvatarCssMatStyler */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_72", function() { return MdListIconCssMatStyler; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_75", function() { return MdListSubheaderCssMatStyler; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_74", function() { return MdListIconCssMatStyler; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_73", function() { return MdListSubheaderCssMatStyler; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_37", function() { return MdListItem; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_10", function() { return MdMenuModule; });
 /* unused harmony export fadeInItems */
@@ -42797,7 +42797,7 @@ var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_4" /* Version */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_scheduler_queue__ = __webpack_require__(140);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_scheduler_queue__ = __webpack_require__(143);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_scheduler_queue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_scheduler_queue__);
 /* harmony export (immutable) */ __webpack_exports__["c"] = isNil;
 /* harmony export (immutable) */ __webpack_exports__["d"] = hasKey;
@@ -42912,10 +42912,10 @@ var ZoneScheduler = (function () {
 "use strict";
 
 var isArray_1 = __webpack_require__(62);
-var isObject_1 = __webpack_require__(142);
-var isFunction_1 = __webpack_require__(97);
-var tryCatch_1 = __webpack_require__(144);
-var errorObject_1 = __webpack_require__(96);
+var isObject_1 = __webpack_require__(145);
+var isFunction_1 = __webpack_require__(98);
+var tryCatch_1 = __webpack_require__(147);
+var errorObject_1 = __webpack_require__(97);
 var UnsubscriptionError_1 = __webpack_require__(298);
 /**
  * Represents a disposable resource, such as the execution of an Observable. A
@@ -43157,7 +43157,215 @@ module.exports = g;
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__break_points_token__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__base__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__media_query_media_monitor__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_layout_validator__ = __webpack_require__(39);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LayoutDirective; });
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+
+
+/**
+ * 'layout' flexbox styling directive
+ * Defines the positioning flow direction for the child elements: row or column
+ * Optional values: column or row (default)
+ * @see https://css-tricks.com/almanac/properties/f/flex-direction/
+ *
+ */
+var LayoutDirective = (function (_super) {
+    __extends(LayoutDirective, _super);
+    /* tslint:enable */
+    /**
+     *
+     */
+    function LayoutDirective(monitor, elRef, renderer) {
+        var _this = _super.call(this, monitor, elRef, renderer) || this;
+        _this._announcer = new __WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject__["BehaviorSubject"]("row");
+        _this.layout$ = _this._announcer.asObservable();
+        return _this;
+    }
+    Object.defineProperty(LayoutDirective.prototype, "layout", {
+        /* tslint:disable */
+        set: function (val) { this._cacheInput("layout", val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutDirective.prototype, "layoutXs", {
+        set: function (val) { this._cacheInput('layoutXs', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutDirective.prototype, "layoutSm", {
+        set: function (val) { this._cacheInput('layoutSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutDirective.prototype, "layoutMd", {
+        set: function (val) { this._cacheInput('layoutMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutDirective.prototype, "layoutLg", {
+        set: function (val) { this._cacheInput('layoutLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutDirective.prototype, "layoutXl", {
+        set: function (val) { this._cacheInput('layoutXl', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutDirective.prototype, "layoutGtXs", {
+        set: function (val) { this._cacheInput('layoutGtXs', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutDirective.prototype, "layoutGtSm", {
+        set: function (val) { this._cacheInput('layoutGtSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutDirective.prototype, "layoutGtMd", {
+        set: function (val) { this._cacheInput('layoutGtMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutDirective.prototype, "layoutGtLg", {
+        set: function (val) { this._cacheInput('layoutGtLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutDirective.prototype, "layoutLtSm", {
+        set: function (val) { this._cacheInput('layoutLtSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutDirective.prototype, "layoutLtMd", {
+        set: function (val) { this._cacheInput('layoutLtMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutDirective.prototype, "layoutLtLg", {
+        set: function (val) { this._cacheInput('layoutLtLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutDirective.prototype, "layoutLtXl", {
+        set: function (val) { this._cacheInput('layoutLtXl', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    // *********************************************
+    // Lifecycle Methods
+    // *********************************************
+    /**
+     * On changes to any @Input properties...
+     * Default to use the non-responsive Input value ('fxLayout')
+     * Then conditionally override with the mq-activated Input's current value
+     */
+    LayoutDirective.prototype.ngOnChanges = function (changes) {
+        if (changes['layout'] != null || this._mqActivation) {
+            this._updateWithDirection();
+        }
+    };
+    /**
+     * After the initial onChanges, build an mqActivation object that bridges
+     * mql change events to onMediaQueryChange handlers
+     */
+    LayoutDirective.prototype.ngOnInit = function () {
+        var _this = this;
+        this._listenForMediaQueryChanges('layout', 'row', function (changes) {
+            _this._updateWithDirection(changes.value);
+        });
+        this._updateWithDirection();
+    };
+    // *********************************************
+    // Protected methods
+    // *********************************************
+    /**
+     * Validate the direction value and then update the host's inline flexbox styles
+     */
+    LayoutDirective.prototype._updateWithDirection = function (value) {
+        value = value || this._queryInput("layout") || 'row';
+        if (this._mqActivation) {
+            value = this._mqActivation.activatedInput;
+        }
+        // Update styles and announce to subscribers the *new* direction
+        var css = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__utils_layout_validator__["a" /* buildLayoutCSS */])(value);
+        this._applyStyleToElement(css);
+        this._announcer.next(css['flex-direction']);
+    };
+    return LayoutDirective;
+}(__WEBPACK_IMPORTED_MODULE_2__base__["a" /* BaseFxDirective */]));
+
+LayoutDirective.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Directive */], args: [{ selector: "\n  [fxLayout],\n  [fxLayout.xs], [fxLayout.sm], [fxLayout.md], [fxLayout.lg], [fxLayout.xl],\n  [fxLayout.lt-sm], [fxLayout.lt-md], [fxLayout.lt-lg], [fxLayout.lt-xl],\n  [fxLayout.gt-xs], [fxLayout.gt-sm], [fxLayout.gt-md], [fxLayout.gt-lg]\n" },] },
+];
+/** @nocollapse */
+LayoutDirective.ctorParameters = function () { return [
+    { type: __WEBPACK_IMPORTED_MODULE_3__media_query_media_monitor__["a" /* MediaMonitor */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* ElementRef */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_28" /* Renderer2 */], },
+]; };
+LayoutDirective.propDecorators = {
+    'layout': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout',] },],
+    'layoutXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.xs',] },],
+    'layoutSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.sm',] },],
+    'layoutMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.md',] },],
+    'layoutLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.lg',] },],
+    'layoutXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.xl',] },],
+    'layoutGtXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.gt-xs',] },],
+    'layoutGtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.gt-sm',] },],
+    'layoutGtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.gt-md',] },],
+    'layoutGtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.gt-lg',] },],
+    'layoutLtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.lt-sm',] },],
+    'layoutLtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.lt-md',] },],
+    'layoutLtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.lt-lg',] },],
+    'layoutLtXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.lt-xl',] },],
+};
+//# sourceMappingURL=layout.js.map
+
+/***/ }),
+/* 23 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__break_points_token__ = __webpack_require__(66);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BreakPointRegistry; });
 /**
  * @license
@@ -43242,7 +43450,7 @@ BreakPointRegistry.ctorParameters = function () { return [
 //# sourceMappingURL=break-point-registry.js.map
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -43290,16 +43498,16 @@ BreakPointRegistry.ctorParameters = function () { return [
 //# sourceMappingURL=object-extend.js.map
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_observable_forkJoin__ = __webpack_require__(130);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_observable_forkJoin__ = __webpack_require__(133);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_observable_forkJoin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_observable_forkJoin__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_observable_fromPromise__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_observable_fromPromise__ = __webpack_require__(91);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_observable_fromPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_observable_fromPromise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_operator_map__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_operator_map__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_operator_map__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_platform_browser__ = __webpack_require__(12);
 /* unused harmony export AbstractControlDirective */
@@ -43310,14 +43518,14 @@ BreakPointRegistry.ctorParameters = function () { return [
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return COMPOSITION_BUFFER_MODE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return DefaultValueAccessor; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return NgControl; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return NgControlStatus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return NgControlStatus; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return NgControlStatusGroup; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return NgForm; });
 /* unused harmony export NgModel */
 /* unused harmony export NgModelGroup */
 /* unused harmony export RadioControlValueAccessor */
 /* unused harmony export FormControlDirective */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return FormControlName; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return FormControlName; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return FormGroupDirective; });
 /* unused harmony export FormArrayName */
 /* unused harmony export FormGroupName */
@@ -43354,7 +43562,7 @@ BreakPointRegistry.ctorParameters = function () { return [
 /* unused harmony export ɵg */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return NgNoValidate; });
 /* unused harmony export ɵbb */
-/* unused harmony export ɵbc */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return NumberValueAccessor; });
 /* unused harmony export ɵh */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return RadioControlRegistry; });
 /* unused harmony export ɵbd */
@@ -49381,9 +49589,9 @@ ReactiveFormsModule.ctorParameters = function () { return []; };
 
 
 /***/ }),
-/* 25 */,
 /* 26 */,
-/* 27 */
+/* 27 */,
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49396,9 +49604,9 @@ var __extends = (this && this.__extends) || function (d, b) {
 var Observable_1 = __webpack_require__(1);
 var Subscriber_1 = __webpack_require__(5);
 var Subscription_1 = __webpack_require__(19);
-var ObjectUnsubscribedError_1 = __webpack_require__(95);
-var SubjectSubscription_1 = __webpack_require__(128);
-var rxSubscriber_1 = __webpack_require__(93);
+var ObjectUnsubscribedError_1 = __webpack_require__(96);
+var SubjectSubscription_1 = __webpack_require__(131);
+var rxSubscriber_1 = __webpack_require__(94);
 /**
  * @class SubjectSubscriber<T>
  */
@@ -49557,18 +49765,18 @@ exports.AnonymousSubject = AnonymousSubject;
 //# sourceMappingURL=Subject.js.map
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var Observable_1 = __webpack_require__(1);
-var map_1 = __webpack_require__(29);
+var map_1 = __webpack_require__(30);
 Observable_1.Observable.prototype.map = map_1.map;
 //# sourceMappingURL=map.js.map
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49661,13 +49869,13 @@ var MapSubscriber = (function (_super) {
 //# sourceMappingURL=map.js.map
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__base_adapter__ = __webpack_require__(100);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__base_adapter__ = __webpack_require__(101);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__media_query_media_monitor__ = __webpack_require__(3);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ClassDirective; });
 var __extends = (this && this.__extends) || (function () {
@@ -49991,214 +50199,6 @@ ClassDirective.propDecorators = {
 //# sourceMappingURL=class.js.map
 
 /***/ }),
-/* 31 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject__ = __webpack_require__(57);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__base__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__media_query_media_monitor__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_layout_validator__ = __webpack_require__(39);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LayoutDirective; });
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-
-
-
-
-/**
- * 'layout' flexbox styling directive
- * Defines the positioning flow direction for the child elements: row or column
- * Optional values: column or row (default)
- * @see https://css-tricks.com/almanac/properties/f/flex-direction/
- *
- */
-var LayoutDirective = (function (_super) {
-    __extends(LayoutDirective, _super);
-    /* tslint:enable */
-    /**
-     *
-     */
-    function LayoutDirective(monitor, elRef, renderer) {
-        var _this = _super.call(this, monitor, elRef, renderer) || this;
-        _this._announcer = new __WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject__["BehaviorSubject"]("row");
-        _this.layout$ = _this._announcer.asObservable();
-        return _this;
-    }
-    Object.defineProperty(LayoutDirective.prototype, "layout", {
-        /* tslint:disable */
-        set: function (val) { this._cacheInput("layout", val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(LayoutDirective.prototype, "layoutXs", {
-        set: function (val) { this._cacheInput('layoutXs', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(LayoutDirective.prototype, "layoutSm", {
-        set: function (val) { this._cacheInput('layoutSm', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(LayoutDirective.prototype, "layoutMd", {
-        set: function (val) { this._cacheInput('layoutMd', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(LayoutDirective.prototype, "layoutLg", {
-        set: function (val) { this._cacheInput('layoutLg', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(LayoutDirective.prototype, "layoutXl", {
-        set: function (val) { this._cacheInput('layoutXl', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(LayoutDirective.prototype, "layoutGtXs", {
-        set: function (val) { this._cacheInput('layoutGtXs', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(LayoutDirective.prototype, "layoutGtSm", {
-        set: function (val) { this._cacheInput('layoutGtSm', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(LayoutDirective.prototype, "layoutGtMd", {
-        set: function (val) { this._cacheInput('layoutGtMd', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(LayoutDirective.prototype, "layoutGtLg", {
-        set: function (val) { this._cacheInput('layoutGtLg', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(LayoutDirective.prototype, "layoutLtSm", {
-        set: function (val) { this._cacheInput('layoutLtSm', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(LayoutDirective.prototype, "layoutLtMd", {
-        set: function (val) { this._cacheInput('layoutLtMd', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(LayoutDirective.prototype, "layoutLtLg", {
-        set: function (val) { this._cacheInput('layoutLtLg', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(LayoutDirective.prototype, "layoutLtXl", {
-        set: function (val) { this._cacheInput('layoutLtXl', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    // *********************************************
-    // Lifecycle Methods
-    // *********************************************
-    /**
-     * On changes to any @Input properties...
-     * Default to use the non-responsive Input value ('fxLayout')
-     * Then conditionally override with the mq-activated Input's current value
-     */
-    LayoutDirective.prototype.ngOnChanges = function (changes) {
-        if (changes['layout'] != null || this._mqActivation) {
-            this._updateWithDirection();
-        }
-    };
-    /**
-     * After the initial onChanges, build an mqActivation object that bridges
-     * mql change events to onMediaQueryChange handlers
-     */
-    LayoutDirective.prototype.ngOnInit = function () {
-        var _this = this;
-        this._listenForMediaQueryChanges('layout', 'row', function (changes) {
-            _this._updateWithDirection(changes.value);
-        });
-        this._updateWithDirection();
-    };
-    // *********************************************
-    // Protected methods
-    // *********************************************
-    /**
-     * Validate the direction value and then update the host's inline flexbox styles
-     */
-    LayoutDirective.prototype._updateWithDirection = function (value) {
-        value = value || this._queryInput("layout") || 'row';
-        if (this._mqActivation) {
-            value = this._mqActivation.activatedInput;
-        }
-        // Update styles and announce to subscribers the *new* direction
-        var css = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__utils_layout_validator__["a" /* buildLayoutCSS */])(value);
-        this._applyStyleToElement(css);
-        this._announcer.next(css['flex-direction']);
-    };
-    return LayoutDirective;
-}(__WEBPACK_IMPORTED_MODULE_2__base__["a" /* BaseFxDirective */]));
-
-LayoutDirective.decorators = [
-    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Directive */], args: [{ selector: "\n  [fxLayout],\n  [fxLayout.xs], [fxLayout.sm], [fxLayout.md], [fxLayout.lg], [fxLayout.xl],\n  [fxLayout.lt-sm], [fxLayout.lt-md], [fxLayout.lt-lg], [fxLayout.lt-xl],\n  [fxLayout.gt-xs], [fxLayout.gt-sm], [fxLayout.gt-md], [fxLayout.gt-lg]\n" },] },
-];
-/** @nocollapse */
-LayoutDirective.ctorParameters = function () { return [
-    { type: __WEBPACK_IMPORTED_MODULE_3__media_query_media_monitor__["a" /* MediaMonitor */], },
-    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* ElementRef */], },
-    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_28" /* Renderer2 */], },
-]; };
-LayoutDirective.propDecorators = {
-    'layout': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout',] },],
-    'layoutXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.xs',] },],
-    'layoutSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.sm',] },],
-    'layoutMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.md',] },],
-    'layoutLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.lg',] },],
-    'layoutXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.xl',] },],
-    'layoutGtXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.gt-xs',] },],
-    'layoutGtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.gt-sm',] },],
-    'layoutGtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.gt-md',] },],
-    'layoutGtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.gt-lg',] },],
-    'layoutLtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.lt-sm',] },],
-    'layoutLtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.lt-md',] },],
-    'layoutLtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.lt-lg',] },],
-    'layoutLtXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayout.lt-xl',] },],
-};
-//# sourceMappingURL=layout.js.map
-
-/***/ }),
 /* 32 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -50208,9 +50208,9 @@ LayoutDirective.propDecorators = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__media_change__ = __webpack_require__(162);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__media_change__ = __webpack_require__(163);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MatchMedia; });
 /**
  * @license
@@ -50414,7 +50414,7 @@ exports.OuterSubscriber = OuterSubscriber;
 "use strict";
 
 var Observable_1 = __webpack_require__(1);
-var filter_1 = __webpack_require__(134);
+var filter_1 = __webpack_require__(137);
 Observable_1.Observable.prototype.filter = filter_1.filter;
 //# sourceMappingURL=filter.js.map
 
@@ -50430,7 +50430,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Observable_1 = __webpack_require__(1);
-var ScalarObservable_1 = __webpack_require__(89);
+var ScalarObservable_1 = __webpack_require__(90);
 var EmptyObservable_1 = __webpack_require__(58);
 var isScheduler_1 = __webpack_require__(63);
 /**
@@ -50553,13 +50553,13 @@ exports.ArrayObservable = ArrayObservable;
 "use strict";
 
 var root_1 = __webpack_require__(20);
-var isArrayLike_1 = __webpack_require__(141);
-var isPromise_1 = __webpack_require__(143);
-var isObject_1 = __webpack_require__(142);
+var isArrayLike_1 = __webpack_require__(144);
+var isPromise_1 = __webpack_require__(146);
+var isObject_1 = __webpack_require__(145);
 var Observable_1 = __webpack_require__(1);
-var iterator_1 = __webpack_require__(91);
+var iterator_1 = __webpack_require__(92);
 var InnerSubscriber_1 = __webpack_require__(255);
-var observable_1 = __webpack_require__(92);
+var observable_1 = __webpack_require__(93);
 function subscribeToResult(outerSubscriber, result, outerValue, outerIndex) {
     var destination = new InnerSubscriber_1.InnerSubscriber(outerSubscriber, outerValue, outerIndex);
     if (destination.closed) {
@@ -50914,17 +50914,17 @@ function stripProviderId(providerId) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__database__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__database__ = __webpack_require__(115);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__database__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__firebase_list_factory__ = __webpack_require__(191);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_1__firebase_list_factory__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__firebase_list_observable__ = __webpack_require__(113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__firebase_list_observable__ = __webpack_require__(116);
 /* unused harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__firebase_object_factory__ = __webpack_require__(192);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_3__firebase_object_factory__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__firebase_object_observable__ = __webpack_require__(193);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_4__firebase_object_observable__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__query_observable__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__query_observable__ = __webpack_require__(117);
 /* unused harmony namespace reexport */
 
 
@@ -50939,7 +50939,7 @@ function stripProviderId(providerId) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angularfire2__ = __webpack_require__(110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angularfire2__ = __webpack_require__(113);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__angularfire2__["e"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__angularfire2__["g"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_0__angularfire2__["h"]; });
@@ -50990,8 +50990,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var Subject_1 = __webpack_require__(27);
-var ObjectUnsubscribedError_1 = __webpack_require__(95);
+var Subject_1 = __webpack_require__(28);
+var ObjectUnsubscribedError_1 = __webpack_require__(96);
 /**
  * @class BehaviorSubject<T>
  */
@@ -51451,11 +51451,246 @@ exports.isScheduler = isScheduler;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__break_points_token__ = __webpack_require__(65);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_break_points__ = __webpack_require__(160);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__data_orientation_break_points__ = __webpack_require__(161);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_object_extend__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_breakpoint_tools__ = __webpack_require__(165);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__layout__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__media_query_media_monitor__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_layout_validator__ = __webpack_require__(39);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LayoutWrapDirective; });
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+
+
+/**
+ * @deprecated
+ * This functionality is now part of the `fxLayout` API
+ *
+ * 'layout-wrap' flexbox styling directive
+ * Defines wrapping of child elements in layout container
+ * Optional values: reverse, wrap-reverse, none, nowrap, wrap (default)]
+ *
+ *
+ * @see https://css-tricks.com/almanac/properties/f/flex-wrap/
+ */
+var LayoutWrapDirective = (function (_super) {
+    __extends(LayoutWrapDirective, _super);
+    /* tslint:enable */
+    function LayoutWrapDirective(monitor, elRef, renderer, container) {
+        var _this = _super.call(this, monitor, elRef, renderer) || this;
+        _this._layout = 'row'; // default flex-direction
+        if (container) {
+            _this._layoutWatcher = container.layout$.subscribe(_this._onLayoutChange.bind(_this));
+        }
+        return _this;
+    }
+    Object.defineProperty(LayoutWrapDirective.prototype, "wrap", {
+        /* tslint:disable */
+        set: function (val) { this._cacheInput("wrap", val); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(LayoutWrapDirective.prototype, "wrapXs", {
+        set: function (val) { this._cacheInput('wrapXs', val); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(LayoutWrapDirective.prototype, "wrapSm", {
+        set: function (val) { this._cacheInput('wrapSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutWrapDirective.prototype, "wrapMd", {
+        set: function (val) { this._cacheInput('wrapMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutWrapDirective.prototype, "wrapLg", {
+        set: function (val) { this._cacheInput('wrapLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutWrapDirective.prototype, "wrapXl", {
+        set: function (val) { this._cacheInput('wrapXl', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutWrapDirective.prototype, "wrapGtXs", {
+        set: function (val) { this._cacheInput('wrapGtXs', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutWrapDirective.prototype, "wrapGtSm", {
+        set: function (val) { this._cacheInput('wrapGtSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutWrapDirective.prototype, "wrapGtMd", {
+        set: function (val) { this._cacheInput('wrapGtMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutWrapDirective.prototype, "wrapGtLg", {
+        set: function (val) { this._cacheInput('wrapGtLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutWrapDirective.prototype, "wrapLtSm", {
+        set: function (val) { this._cacheInput('wrapLtSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutWrapDirective.prototype, "wrapLtMd", {
+        set: function (val) { this._cacheInput('wrapLtMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutWrapDirective.prototype, "wrapLtLg", {
+        set: function (val) { this._cacheInput('wrapLtLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayoutWrapDirective.prototype, "wrapLtXl", {
+        set: function (val) { this._cacheInput('wrapLtXl', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    // *********************************************
+    // Lifecycle Methods
+    // *********************************************
+    LayoutWrapDirective.prototype.ngOnChanges = function (changes) {
+        if (changes['wrap'] != null || this._mqActivation) {
+            this._updateWithValue();
+        }
+    };
+    /**
+     * After the initial onChanges, build an mqActivation object that bridges
+     * mql change events to onMediaQueryChange handlers
+     */
+    LayoutWrapDirective.prototype.ngOnInit = function () {
+        var _this = this;
+        this._listenForMediaQueryChanges('wrap', 'wrap', function (changes) {
+            _this._updateWithValue(changes.value);
+        });
+        this._updateWithValue();
+    };
+    LayoutWrapDirective.prototype.ngOnDestroy = function () {
+        _super.prototype.ngOnDestroy.call(this);
+        if (this._layoutWatcher) {
+            this._layoutWatcher.unsubscribe();
+        }
+    };
+    // *********************************************
+    // Protected methods
+    // *********************************************
+    /**
+     * Cache the parent container 'flex-direction' and update the 'flex' styles
+     */
+    LayoutWrapDirective.prototype._onLayoutChange = function (direction) {
+        var _this = this;
+        this._layout = (direction || '').toLowerCase().replace('-reverse', '');
+        if (!__WEBPACK_IMPORTED_MODULE_4__utils_layout_validator__["b" /* LAYOUT_VALUES */].find(function (x) { return x === _this._layout; })) {
+            this._layout = 'row';
+        }
+        this._updateWithValue();
+    };
+    LayoutWrapDirective.prototype._updateWithValue = function (value) {
+        value = value || this._queryInput("wrap");
+        if (this._mqActivation) {
+            value = this._mqActivation.activatedInput;
+        }
+        value = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__utils_layout_validator__["c" /* validateWrapValue */])(value || 'wrap');
+        this._applyStyleToElement(this._buildCSS(value));
+    };
+    /**
+     * Build the CSS that should be assigned to the element instance
+     */
+    LayoutWrapDirective.prototype._buildCSS = function (value) {
+        return {
+            'display': 'flex',
+            'flex-wrap': value,
+            'flex-direction': this.flowDirection
+        };
+    };
+    Object.defineProperty(LayoutWrapDirective.prototype, "flowDirection", {
+        get: function () {
+            var _this = this;
+            var computeFlowDirection = function () { return _this._getFlowDirection(_this._elementRef.nativeElement); };
+            return this._layoutWatcher ? this._layout : computeFlowDirection();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return LayoutWrapDirective;
+}(__WEBPACK_IMPORTED_MODULE_1__base__["a" /* BaseFxDirective */]));
+
+LayoutWrapDirective.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Directive */], args: [{ selector: "\n  [fxLayoutWrap], [fxLayoutWrap.xs], [fxLayoutWrap.sm], [fxLayoutWrap.lg], [fxLayoutWrap.xl],\n  [fxLayoutWrap.gt-xs], [fxLayoutWrap.gt-sm], [fxLayoutWrap.gt-md], [fxLayoutWrap.gt-lg],\n  [fxLayoutWrap.lt-xs], [fxLayoutWrap.lt-sm], [fxLayoutWrap.lt-md], [fxLayoutWrap.lt-lg]\n" },] },
+];
+/** @nocollapse */
+LayoutWrapDirective.ctorParameters = function () { return [
+    { type: __WEBPACK_IMPORTED_MODULE_3__media_query_media_monitor__["a" /* MediaMonitor */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* ElementRef */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_28" /* Renderer2 */], },
+    { type: __WEBPACK_IMPORTED_MODULE_2__layout__["a" /* LayoutDirective */], decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Z" /* Optional */] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_25" /* Self */] },] },
+]; };
+LayoutWrapDirective.propDecorators = {
+    'wrap': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap',] },],
+    'wrapXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.xs',] },],
+    'wrapSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.sm',] },],
+    'wrapMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.md',] },],
+    'wrapLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.lg',] },],
+    'wrapXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.xl',] },],
+    'wrapGtXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.gt-xs',] },],
+    'wrapGtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.gt-sm',] },],
+    'wrapGtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.gt-md',] },],
+    'wrapGtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.gt-lg',] },],
+    'wrapLtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.lt-sm',] },],
+    'wrapLtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.lt-md',] },],
+    'wrapLtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.lt-lg',] },],
+    'wrapLtXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.lt-xl',] },],
+};
+//# sourceMappingURL=layout-wrap.js.map
+
+/***/ }),
+/* 65 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__break_points_token__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_break_points__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__data_orientation_break_points__ = __webpack_require__(162);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_object_extend__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_breakpoint_tools__ = __webpack_require__(166);
 /* unused harmony export buildMergedBreakPoints */
 /* harmony export (immutable) */ __webpack_exports__["a"] = DEFAULT_BREAKPOINTS_PROVIDER_FACTORY;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return DEFAULT_BREAKPOINTS_PROVIDER; });
@@ -51511,7 +51746,7 @@ function CUSTOM_BREAKPOINTS_PROVIDER_FACTORY(_custom, options) {
 //# sourceMappingURL=break-points-provider.js.map
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -51533,18 +51768,18 @@ var BREAKPOINTS = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* Injecti
 //# sourceMappingURL=break-points-token.js.map
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__breakpoints_break_point_registry__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__breakpoints_break_point_registry__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__match_media__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__observable_media__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__observable_media__ = __webpack_require__(106);
 /* harmony export (immutable) */ __webpack_exports__["a"] = OBSERVABLE_MEDIA_PROVIDER_FACTORY;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return OBSERVABLE_MEDIA_PROVIDER; });
 /**
@@ -51581,7 +51816,7 @@ var OBSERVABLE_MEDIA_PROVIDER = {
 //# sourceMappingURL=observable-media-provider.js.map
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -53762,7 +53997,7 @@ var VERSION = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["_4" /* Version */
 
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -53770,7 +54005,7 @@ var VERSION = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["_4" /* Version */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__ = __webpack_require__(57);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Subject__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Subject__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Subject__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_observable_from__ = __webpack_require__(279);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_observable_from___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_observable_from__);
@@ -53780,9 +54015,9 @@ var VERSION = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["_4" /* Version */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_operator_concatMap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_operator_concatMap__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_operator_every__ = __webpack_require__(287);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_operator_every___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_rxjs_operator_every__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_operator_first__ = __webpack_require__(135);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_operator_first__ = __webpack_require__(138);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_operator_first___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_rxjs_operator_first__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_operator_map__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_operator_map__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_rxjs_operator_map__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_operator_mergeMap__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_operator_mergeMap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_rxjs_operator_mergeMap__);
@@ -53790,20 +54025,20 @@ var VERSION = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["_4" /* Version */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_rxjs_operator_reduce___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_rxjs_operator_reduce__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_rxjs_Observable__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_rxjs_operator_catch__ = __webpack_require__(133);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_rxjs_operator_catch__ = __webpack_require__(136);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_rxjs_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13_rxjs_operator_catch__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_rxjs_operator_concatAll__ = __webpack_require__(284);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_rxjs_operator_concatAll___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14_rxjs_operator_concatAll__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_rxjs_util_EmptyError__ = __webpack_require__(94);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_rxjs_util_EmptyError__ = __webpack_require__(95);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_rxjs_util_EmptyError___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15_rxjs_util_EmptyError__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_rxjs_observable_fromPromise__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_rxjs_observable_fromPromise__ = __webpack_require__(91);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_rxjs_observable_fromPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16_rxjs_observable_fromPromise__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17_rxjs_operator_last__ = __webpack_require__(289);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17_rxjs_operator_last___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17_rxjs_operator_last__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18_rxjs_operator_mergeAll__ = __webpack_require__(60);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18_rxjs_operator_mergeAll___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18_rxjs_operator_mergeAll__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__angular_platform_browser__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20_rxjs_operator_filter__ = __webpack_require__(134);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20_rxjs_operator_filter__ = __webpack_require__(137);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20_rxjs_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_20_rxjs_operator_filter__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "z", function() { return RouterLink; });
 /* unused harmony export RouterLinkWithHref */
@@ -59922,7 +60157,6 @@ var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_4" /* Version */
 
 
 /***/ }),
-/* 69 */,
 /* 70 */,
 /* 71 */,
 /* 72 */,
@@ -59942,7 +60176,8 @@ var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_4" /* Version */
 /* 86 */,
 /* 87 */,
 /* 88 */,
-/* 89 */
+/* 89 */,
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60006,17 +60241,17 @@ exports.ScalarObservable = ScalarObservable;
 //# sourceMappingURL=ScalarObservable.js.map
 
 /***/ }),
-/* 90 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var PromiseObservable_1 = __webpack_require__(129);
+var PromiseObservable_1 = __webpack_require__(132);
 exports.fromPromise = PromiseObservable_1.PromiseObservable.create;
 //# sourceMappingURL=fromPromise.js.map
 
 /***/ }),
-/* 91 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60060,7 +60295,7 @@ exports.$$iterator = exports.iterator;
 //# sourceMappingURL=iterator.js.map
 
 /***/ }),
-/* 92 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60092,7 +60327,7 @@ exports.$$observable = exports.observable;
 //# sourceMappingURL=observable.js.map
 
 /***/ }),
-/* 93 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60108,7 +60343,7 @@ exports.$$rxSubscriber = exports.rxSubscriber;
 //# sourceMappingURL=rxSubscriber.js.map
 
 /***/ }),
-/* 94 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60142,7 +60377,7 @@ exports.EmptyError = EmptyError;
 //# sourceMappingURL=EmptyError.js.map
 
 /***/ }),
-/* 95 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60175,7 +60410,7 @@ exports.ObjectUnsubscribedError = ObjectUnsubscribedError;
 //# sourceMappingURL=ObjectUnsubscribedError.js.map
 
 /***/ }),
-/* 96 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60185,7 +60420,7 @@ exports.errorObject = { e: {} };
 //# sourceMappingURL=errorObject.js.map
 
 /***/ }),
-/* 97 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60197,7 +60432,7 @@ exports.isFunction = isFunction;
 //# sourceMappingURL=isFunction.js.map
 
 /***/ }),
-/* 98 */
+/* 99 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -61067,11 +61302,11 @@ var AnimationGroupPlayer = (function () {
 
 
 /***/ }),
-/* 99 */
+/* 100 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_animations__ = __webpack_require__(98);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_animations__ = __webpack_require__(99);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AnimationDriver; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return AnimationEngine; });
 /* unused harmony export ɵAnimation */
@@ -63609,7 +63844,7 @@ function supportsWebAnimations() {
 
 
 /***/ }),
-/* 100 */
+/* 101 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -63749,3239 +63984,17 @@ var BaseFxDirectiveAdapter = (function (_super) {
 //# sourceMappingURL=base-adapter.js.map
 
 /***/ }),
-/* 101 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__layout__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__media_query_media_monitor__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_layout_validator__ = __webpack_require__(39);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LayoutWrapDirective; });
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-
-
-
-
-/**
- * @deprecated
- * This functionality is now part of the `fxLayout` API
- *
- * 'layout-wrap' flexbox styling directive
- * Defines wrapping of child elements in layout container
- * Optional values: reverse, wrap-reverse, none, nowrap, wrap (default)]
- *
- *
- * @see https://css-tricks.com/almanac/properties/f/flex-wrap/
- */
-var LayoutWrapDirective = (function (_super) {
-    __extends(LayoutWrapDirective, _super);
-    /* tslint:enable */
-    function LayoutWrapDirective(monitor, elRef, renderer, container) {
-        var _this = _super.call(this, monitor, elRef, renderer) || this;
-        _this._layout = 'row'; // default flex-direction
-        if (container) {
-            _this._layoutWatcher = container.layout$.subscribe(_this._onLayoutChange.bind(_this));
-        }
-        return _this;
-    }
-    Object.defineProperty(LayoutWrapDirective.prototype, "wrap", {
-        /* tslint:disable */
-        set: function (val) { this._cacheInput("wrap", val); },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(LayoutWrapDirective.prototype, "wrapXs", {
-        set: function (val) { this._cacheInput('wrapXs', val); },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(LayoutWrapDirective.prototype, "wrapSm", {
-        set: function (val) { this._cacheInput('wrapSm', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(LayoutWrapDirective.prototype, "wrapMd", {
-        set: function (val) { this._cacheInput('wrapMd', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(LayoutWrapDirective.prototype, "wrapLg", {
-        set: function (val) { this._cacheInput('wrapLg', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(LayoutWrapDirective.prototype, "wrapXl", {
-        set: function (val) { this._cacheInput('wrapXl', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(LayoutWrapDirective.prototype, "wrapGtXs", {
-        set: function (val) { this._cacheInput('wrapGtXs', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(LayoutWrapDirective.prototype, "wrapGtSm", {
-        set: function (val) { this._cacheInput('wrapGtSm', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(LayoutWrapDirective.prototype, "wrapGtMd", {
-        set: function (val) { this._cacheInput('wrapGtMd', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(LayoutWrapDirective.prototype, "wrapGtLg", {
-        set: function (val) { this._cacheInput('wrapGtLg', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(LayoutWrapDirective.prototype, "wrapLtSm", {
-        set: function (val) { this._cacheInput('wrapLtSm', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(LayoutWrapDirective.prototype, "wrapLtMd", {
-        set: function (val) { this._cacheInput('wrapLtMd', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(LayoutWrapDirective.prototype, "wrapLtLg", {
-        set: function (val) { this._cacheInput('wrapLtLg', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(LayoutWrapDirective.prototype, "wrapLtXl", {
-        set: function (val) { this._cacheInput('wrapLtXl', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    // *********************************************
-    // Lifecycle Methods
-    // *********************************************
-    LayoutWrapDirective.prototype.ngOnChanges = function (changes) {
-        if (changes['wrap'] != null || this._mqActivation) {
-            this._updateWithValue();
-        }
-    };
-    /**
-     * After the initial onChanges, build an mqActivation object that bridges
-     * mql change events to onMediaQueryChange handlers
-     */
-    LayoutWrapDirective.prototype.ngOnInit = function () {
-        var _this = this;
-        this._listenForMediaQueryChanges('wrap', 'wrap', function (changes) {
-            _this._updateWithValue(changes.value);
-        });
-        this._updateWithValue();
-    };
-    LayoutWrapDirective.prototype.ngOnDestroy = function () {
-        _super.prototype.ngOnDestroy.call(this);
-        if (this._layoutWatcher) {
-            this._layoutWatcher.unsubscribe();
-        }
-    };
-    // *********************************************
-    // Protected methods
-    // *********************************************
-    /**
-     * Cache the parent container 'flex-direction' and update the 'flex' styles
-     */
-    LayoutWrapDirective.prototype._onLayoutChange = function (direction) {
-        var _this = this;
-        this._layout = (direction || '').toLowerCase().replace('-reverse', '');
-        if (!__WEBPACK_IMPORTED_MODULE_4__utils_layout_validator__["b" /* LAYOUT_VALUES */].find(function (x) { return x === _this._layout; })) {
-            this._layout = 'row';
-        }
-        this._updateWithValue();
-    };
-    LayoutWrapDirective.prototype._updateWithValue = function (value) {
-        value = value || this._queryInput("wrap");
-        if (this._mqActivation) {
-            value = this._mqActivation.activatedInput;
-        }
-        value = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__utils_layout_validator__["c" /* validateWrapValue */])(value || 'wrap');
-        this._applyStyleToElement(this._buildCSS(value));
-    };
-    /**
-     * Build the CSS that should be assigned to the element instance
-     */
-    LayoutWrapDirective.prototype._buildCSS = function (value) {
-        return {
-            'display': 'flex',
-            'flex-wrap': value,
-            'flex-direction': this.flowDirection
-        };
-    };
-    Object.defineProperty(LayoutWrapDirective.prototype, "flowDirection", {
-        get: function () {
-            var _this = this;
-            var computeFlowDirection = function () { return _this._getFlowDirection(_this._elementRef.nativeElement); };
-            return this._layoutWatcher ? this._layout : computeFlowDirection();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return LayoutWrapDirective;
-}(__WEBPACK_IMPORTED_MODULE_1__base__["a" /* BaseFxDirective */]));
-
-LayoutWrapDirective.decorators = [
-    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Directive */], args: [{ selector: "\n  [fxLayoutWrap], [fxLayoutWrap.xs], [fxLayoutWrap.sm], [fxLayoutWrap.lg], [fxLayoutWrap.xl],\n  [fxLayoutWrap.gt-xs], [fxLayoutWrap.gt-sm], [fxLayoutWrap.gt-md], [fxLayoutWrap.gt-lg],\n  [fxLayoutWrap.lt-xs], [fxLayoutWrap.lt-sm], [fxLayoutWrap.lt-md], [fxLayoutWrap.lt-lg]\n" },] },
-];
-/** @nocollapse */
-LayoutWrapDirective.ctorParameters = function () { return [
-    { type: __WEBPACK_IMPORTED_MODULE_3__media_query_media_monitor__["a" /* MediaMonitor */], },
-    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* ElementRef */], },
-    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_28" /* Renderer2 */], },
-    { type: __WEBPACK_IMPORTED_MODULE_2__layout__["a" /* LayoutDirective */], decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Z" /* Optional */] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_25" /* Self */] },] },
-]; };
-LayoutWrapDirective.propDecorators = {
-    'wrap': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap',] },],
-    'wrapXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.xs',] },],
-    'wrapSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.sm',] },],
-    'wrapMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.md',] },],
-    'wrapLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.lg',] },],
-    'wrapXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.xl',] },],
-    'wrapGtXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.gt-xs',] },],
-    'wrapGtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.gt-sm',] },],
-    'wrapGtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.gt-md',] },],
-    'wrapGtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.gt-lg',] },],
-    'wrapLtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.lt-sm',] },],
-    'wrapLtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.lt-md',] },],
-    'wrapLtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.lt-lg',] },],
-    'wrapLtXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxLayoutWrap.lt-xl',] },],
-};
-//# sourceMappingURL=layout-wrap.js.map
-
-/***/ }),
 /* 102 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__match_media__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__media_monitor__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__observable_media_provider__ = __webpack_require__(66);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__breakpoints_break_points_provider__ = __webpack_require__(64);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__breakpoints_break_point_registry__ = __webpack_require__(22);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MediaQueriesModule; });
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-
-
-
-
-
-/**
- * *****************************************************************
- * Define module for the MediaQuery API
- * *****************************************************************
- */
-var MediaQueriesModule = (function () {
-    function MediaQueriesModule() {
-    }
-    return MediaQueriesModule;
-}());
-
-MediaQueriesModule.decorators = [
-    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_2" /* NgModule */], args: [{
-                providers: [
-                    __WEBPACK_IMPORTED_MODULE_4__breakpoints_break_points_provider__["c" /* DEFAULT_BREAKPOINTS_PROVIDER */],
-                    __WEBPACK_IMPORTED_MODULE_5__breakpoints_break_point_registry__["a" /* BreakPointRegistry */],
-                    __WEBPACK_IMPORTED_MODULE_1__match_media__["a" /* MatchMedia */],
-                    __WEBPACK_IMPORTED_MODULE_2__media_monitor__["a" /* MediaMonitor */],
-                    __WEBPACK_IMPORTED_MODULE_3__observable_media_provider__["b" /* OBSERVABLE_MEDIA_PROVIDER */] // easy subscription injectable `media$` matchMedia observable
-                ]
-            },] },
-];
-/** @nocollapse */
-MediaQueriesModule.ctorParameters = function () { return []; };
-//# sourceMappingURL=_module.js.map
-
-/***/ }),
-/* 103 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__media_monitor__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__match_media__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__breakpoints_break_point_registry__ = __webpack_require__(22);
-/* harmony export (immutable) */ __webpack_exports__["a"] = MEDIA_MONITOR_PROVIDER_FACTORY;
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return MEDIA_MONITOR_PROVIDER; });
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-
-
-
-/**
- * Ensure a single global service provider
- */
-function MEDIA_MONITOR_PROVIDER_FACTORY(parentMonitor, breakpoints, matchMedia) {
-    return parentMonitor || new __WEBPACK_IMPORTED_MODULE_1__media_monitor__["a" /* MediaMonitor */](breakpoints, matchMedia);
-}
-/**
- * Export provider that uses a global service factory (above)
- */
-var MEDIA_MONITOR_PROVIDER = {
-    provide: __WEBPACK_IMPORTED_MODULE_1__media_monitor__["a" /* MediaMonitor */],
-    deps: [
-        [new __WEBPACK_IMPORTED_MODULE_0__angular_core__["Z" /* Optional */](), new __WEBPACK_IMPORTED_MODULE_0__angular_core__["_0" /* SkipSelf */](), __WEBPACK_IMPORTED_MODULE_1__media_monitor__["a" /* MediaMonitor */]],
-        __WEBPACK_IMPORTED_MODULE_3__breakpoints_break_point_registry__["a" /* BreakPointRegistry */],
-        __WEBPACK_IMPORTED_MODULE_2__match_media__["a" /* MatchMedia */],
-    ],
-    useFactory: MEDIA_MONITOR_PROVIDER_FACTORY
-};
-//# sourceMappingURL=media-monitor-provider.js.map
-
-/***/ }),
-/* 104 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__breakpoints_break_point_registry__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__match_media__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_add_alias__ = __webpack_require__(105);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ObservableMedia; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return MediaService; });
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-
-
-
-
-
-/**
- * Base class for MediaService and pseudo-token for
- */
-var ObservableMedia = (function () {
-    function ObservableMedia() {
-    }
-    return ObservableMedia;
-}());
-
-/**
- * Class internalizes a MatchMedia service and exposes an Subscribable and Observable interface.
-
- * This an Observable with that exposes a feature to subscribe to mediaQuery
- * changes and a validator method (`isActive(<alias>)`) to test if a mediaQuery (or alias) is
- * currently active.
- *
- * !! Only mediaChange activations (not de-activations) are announced by the ObservableMedia
- *
- * This class uses the BreakPoint Registry to inject alias information into the raw MediaChange
- * notification. For custom mediaQuery notifications, alias information will not be injected and
- * those fields will be ''.
- *
- * !! This is not an actual Observable. It is a wrapper of an Observable used to publish additional
- * methods like `isActive(<alias>). To access the Observable and use RxJS operators, use
- * `.asObservable()` with syntax like media.asObservable().map(....).
- *
- *  @usage
- *
- *  // RxJS
- *  import 'rxjs/add/operator/filter';
- *  import { ObservableMedia } from '@angular/flex-layout';
- *
- *  @Component({ ... })
- *  export class AppComponent {
- *    status : string = '';
- *
- *    constructor(  media:ObservableMedia ) {
- *      let onChange = (change:MediaChange) => {
- *        this.status = change ? `'${change.mqAlias}' = (${change.mediaQuery})` : "";
- *      };
- *
- *      // Subscribe directly or access observable to use filter/map operators
- *      // e.g.
- *      //      media.subscribe(onChange);
- *
- *      media.asObservable()
- *        .filter((change:MediaChange) => true)   // silly noop filter
- *        .subscribe(onChange);
- *    }
- *  }
- */
-var MediaService = (function () {
-    function MediaService(mediaWatcher, breakpoints) {
-        this.mediaWatcher = mediaWatcher;
-        this.breakpoints = breakpoints;
-        /**
-         * Should we announce gt-<xxx> breakpoint activations ?
-         */
-        this.filterOverlaps = true;
-        this.observable$ = this._buildObservable();
-        this._registerBreakPoints();
-    }
-    /**
-     * Test if specified query/alias is active.
-     */
-    MediaService.prototype.isActive = function (alias) {
-        var query = this._toMediaQuery(alias);
-        return this.mediaWatcher.isActive(query);
-    };
-    ;
-    /**
-     * Proxy to the Observable subscribe method
-     */
-    MediaService.prototype.subscribe = function (next, error, complete) {
-        return this.observable$.subscribe(next, error, complete);
-    };
-    ;
-    /**
-     * Access to observable for use with operators like
-     * .filter(), .map(), etc.
-     */
-    MediaService.prototype.asObservable = function () {
-        return this.observable$;
-    };
-    // ************************************************
-    // Internal Methods
-    // ************************************************
-    /**
-     * Register all the mediaQueries registered in the BreakPointRegistry
-     * This is needed so subscribers can be auto-notified of all standard, registered
-     * mediaQuery activations
-     */
-    MediaService.prototype._registerBreakPoints = function () {
-        var _this = this;
-        this.breakpoints.items.forEach(function (bp) {
-            _this.mediaWatcher.registerQuery(bp.mediaQuery);
-            return bp;
-        });
-    };
-    /**
-     * Prepare internal observable
-     * NOTE: the raw MediaChange events [from MatchMedia] do not contain important alias information
-     * these must be injected into the MediaChange
-     */
-    MediaService.prototype._buildObservable = function () {
-        var _this = this;
-        var self = this;
-        // Only pass/announce activations (not de-activations)
-        // Inject associated (if any) alias information into the MediaChange event
-        // Exclude mediaQuery activations for overlapping mQs. List bounded mQ ranges only
-        var activationsOnly = function (change) {
-            return change.matches === true;
-        };
-        var addAliasInformation = function (change) {
-            return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__utils_add_alias__["a" /* mergeAlias */])(change, _this._findByQuery(change.mediaQuery));
-        };
-        var excludeOverlaps = function (change) {
-            var bp = _this.breakpoints.findByQuery(change.mediaQuery);
-            return !bp ? true : !(self.filterOverlaps && bp.overlapping);
-        };
-        return this.mediaWatcher.observe()
-            .filter(activationsOnly)
-            .map(addAliasInformation)
-            .filter(excludeOverlaps);
-    };
-    /**
-     * Breakpoint locator by alias
-     */
-    MediaService.prototype._findByAlias = function (alias) {
-        return this.breakpoints.findByAlias(alias);
-    };
-    /**
-     * Breakpoint locator by mediaQuery
-     */
-    MediaService.prototype._findByQuery = function (query) {
-        return this.breakpoints.findByQuery(query);
-    };
-    ;
-    /**
-     * Find associated breakpoint (if any)
-     */
-    MediaService.prototype._toMediaQuery = function (query) {
-        var bp = this._findByAlias(query) || this._findByQuery(query);
-        return bp ? bp.mediaQuery : query;
-    };
-    ;
-    return MediaService;
-}());
-
-MediaService.decorators = [
-    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["X" /* Injectable */] },
-];
-/** @nocollapse */
-MediaService.ctorParameters = function () { return [
-    { type: __WEBPACK_IMPORTED_MODULE_4__match_media__["a" /* MatchMedia */], },
-    { type: __WEBPACK_IMPORTED_MODULE_3__breakpoints_break_point_registry__["a" /* BreakPointRegistry */], },
-]; };
-//# sourceMappingURL=observable-media.js.map
-
-/***/ }),
-/* 105 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__object_extend__ = __webpack_require__(23);
-/* harmony export (immutable) */ __webpack_exports__["a"] = mergeAlias;
-
-/**
- * For the specified MediaChange, make sure it contains the breakpoint alias
- * and suffix (if available).
- */
-function mergeAlias(dest, source) {
-    return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__object_extend__["a" /* extendObject */])(dest, source ? {
-        mqAlias: source.alias,
-        suffix: source.suffix
-    } : {});
-}
-//# sourceMappingURL=add-alias.js.map
-
-/***/ }),
-/* 106 */,
-/* 107 */,
-/* 108 */,
-/* 109 */,
-/* 110 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_firebase__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_firebase__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tokens__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__auth_index__ = __webpack_require__(190);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__database_index__ = __webpack_require__(49);
-/* unused harmony reexport AngularFireAuth */
-/* unused harmony reexport AngularFireDatabase */
-/* unused harmony reexport FirebaseListObservable */
-/* unused harmony reexport FirebaseObjectObservable */
-/* unused harmony reexport FirebaseListFactory */
-/* unused harmony reexport FirebaseObjectFactory */
-/* unused harmony reexport firebaseAuthConfig */
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return __WEBPACK_IMPORTED_MODULE_4__auth_index__["d"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_4__auth_index__["e"]; });
-/* unused harmony reexport WindowLocation */
-/* unused harmony reexport FirebaseConfig */
-/* unused harmony reexport FirebaseApp */
-/* unused harmony reexport FirebaseAuthConfig */
-/* unused harmony reexport FirebaseRef */
-/* unused harmony reexport FirebaseUrl */
-/* unused harmony reexport FirebaseUserConfig */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return AngularFire; });
-/* harmony export (immutable) */ __webpack_exports__["b"] = _getFirebase;
-/* harmony export (immutable) */ __webpack_exports__["d"] = _getWindowLocation;
-/* harmony export (immutable) */ __webpack_exports__["c"] = _getAuthBackend;
-/* harmony export (immutable) */ __webpack_exports__["a"] = _getDefaultFirebase;
-/* unused harmony export COMMON_PROVIDERS */
-/* unused harmony export FIREBASE_PROVIDERS */
-/* unused harmony export defaultFirebase */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return AngularFireModule; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-
-
-
-
-
-
-var AngularFire = (function () {
-    function AngularFire(firebaseConfig, auth, database) {
-        this.firebaseConfig = firebaseConfig;
-        this.auth = auth;
-        this.database = database;
-    }
-    return AngularFire;
-}());
-AngularFire = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__angular_core__["X" /* Injectable */])(),
-    __param(0, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__angular_core__["_1" /* Inject */])(__WEBPACK_IMPORTED_MODULE_2__tokens__["b" /* FirebaseConfig */])),
-    __metadata("design:paramtypes", [Object, __WEBPACK_IMPORTED_MODULE_4__auth_index__["a" /* AngularFireAuth */],
-        __WEBPACK_IMPORTED_MODULE_5__database_index__["a" /* AngularFireDatabase */]])
-], AngularFire);
-
-function _getFirebase(config, appName) {
-    try {
-        if (appName) {
-            return __WEBPACK_IMPORTED_MODULE_0_firebase__["initializeApp"](config, appName);
-        }
-        else {
-            return __WEBPACK_IMPORTED_MODULE_0_firebase__["initializeApp"](config);
-        }
-    }
-    catch (e) {
-        return __WEBPACK_IMPORTED_MODULE_0_firebase__["app"](null);
-    }
-}
-function _getWindowLocation() {
-    return window.location;
-}
-function _getAuthBackend(app) {
-    return new __WEBPACK_IMPORTED_MODULE_4__auth_index__["b" /* FirebaseSdkAuthBackend */](app);
-}
-function _getDefaultFirebase(config) {
-    config.databaseURL = __WEBPACK_IMPORTED_MODULE_1__utils__["a" /* stripTrailingSlash */](config.databaseURL);
-    return config;
-}
-var COMMON_PROVIDERS = [
-    {
-        provide: __WEBPACK_IMPORTED_MODULE_2__tokens__["d" /* FirebaseApp */],
-        useFactory: _getFirebase,
-        deps: [__WEBPACK_IMPORTED_MODULE_2__tokens__["b" /* FirebaseConfig */], __WEBPACK_IMPORTED_MODULE_2__tokens__["c" /* FirebaseAppName */]]
-    },
-    __WEBPACK_IMPORTED_MODULE_4__auth_index__["a" /* AngularFireAuth */],
-    AngularFire,
-    __WEBPACK_IMPORTED_MODULE_5__database_index__["a" /* AngularFireDatabase */]
-];
-var FIREBASE_PROVIDERS = [
-    COMMON_PROVIDERS,
-    {
-        provide: __WEBPACK_IMPORTED_MODULE_4__auth_index__["c" /* AuthBackend */],
-        useFactory: _getAuthBackend,
-        deps: [__WEBPACK_IMPORTED_MODULE_2__tokens__["d" /* FirebaseApp */]]
-    },
-    {
-        provide: __WEBPACK_IMPORTED_MODULE_2__tokens__["e" /* WindowLocation */],
-        useFactory: _getWindowLocation
-    },
-];
-var defaultFirebase = function (config) {
-    return [
-        { provide: __WEBPACK_IMPORTED_MODULE_2__tokens__["a" /* FirebaseUserConfig */], useValue: config },
-        { provide: __WEBPACK_IMPORTED_MODULE_2__tokens__["b" /* FirebaseConfig */], useFactory: _getDefaultFirebase, deps: [__WEBPACK_IMPORTED_MODULE_2__tokens__["a" /* FirebaseUserConfig */]] }
-    ];
-};
-var AngularFireModule = AngularFireModule_1 = (function () {
-    function AngularFireModule() {
-    }
-    AngularFireModule.initializeApp = function (config, authConfig, appName) {
-        return {
-            ngModule: AngularFireModule_1,
-            providers: [
-                { provide: __WEBPACK_IMPORTED_MODULE_2__tokens__["a" /* FirebaseUserConfig */], useValue: config },
-                { provide: __WEBPACK_IMPORTED_MODULE_2__tokens__["b" /* FirebaseConfig */], useFactory: _getDefaultFirebase, deps: [__WEBPACK_IMPORTED_MODULE_2__tokens__["a" /* FirebaseUserConfig */]] },
-                { provide: __WEBPACK_IMPORTED_MODULE_2__tokens__["f" /* FirebaseAuthConfig */], useValue: authConfig },
-                { provide: __WEBPACK_IMPORTED_MODULE_2__tokens__["c" /* FirebaseAppName */], useValue: appName }
-            ]
-        };
-    };
-    return AngularFireModule;
-}());
-AngularFireModule = AngularFireModule_1 = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__angular_core__["_2" /* NgModule */])({
-        providers: FIREBASE_PROVIDERS
-    })
-], AngularFireModule);
-
-
-
-var AngularFireModule_1;
-//# sourceMappingURL=angularfire2.js.map
-
-/***/ }),
-/* 111 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_ReplaySubject__ = __webpack_require__(257);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_ReplaySubject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_ReplaySubject__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tokens__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__auth_backend__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_operator_mergeMap__ = __webpack_require__(61);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_operator_mergeMap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_operator_mergeMap__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_observable_of__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_observable_of___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_observable_of__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_operator_map__ = __webpack_require__(29);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_rxjs_operator_map__);
-/* unused harmony export firebaseAuthConfig */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AngularFireAuth; });
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-
-
-
-
-
-
-
-
-var kBufferSize = 1;
-var firebaseAuthConfig = function (config) {
-    return { provide: __WEBPACK_IMPORTED_MODULE_2__tokens__["f" /* FirebaseAuthConfig */], useValue: config };
-};
-var AngularFireAuth = (function (_super) {
-    __extends(AngularFireAuth, _super);
-    function AngularFireAuth(_authBackend, loc, _config) {
-        var _this = _super.call(this, kBufferSize) || this;
-        _this._authBackend = _authBackend;
-        _this._config = _config;
-        _this._credentialCache = {};
-        var firstPass = true;
-        var onAuth = _this._authBackend.onAuth();
-        __WEBPACK_IMPORTED_MODULE_5_rxjs_operator_mergeMap__["mergeMap"].call(onAuth, function (authState) {
-            if (firstPass) {
-                firstPass = false;
-                if (['http:', 'https:'].indexOf(loc.protocol) > -1) {
-                    return __WEBPACK_IMPORTED_MODULE_7_rxjs_operator_map__["map"].call(_this._authBackend.getRedirectResult(), function (userCredential) {
-                        if (userCredential && userCredential.credential) {
-                            authState = attachCredentialToAuthState(authState, userCredential.credential, userCredential.credential.provider);
-                            _this._credentialCache[userCredential.credential.provider] = userCredential.credential;
-                        }
-                        return authState;
-                    });
-                }
-            }
-            return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_rxjs_observable_of__["of"])(authState);
-        })
-            .subscribe(function (authData) { return _this._emitAuthData(authData); });
-        return _this;
-    }
-    AngularFireAuth.prototype.login = function (obj1, obj2) {
-        var _this = this;
-        var config = null;
-        var credentials = null;
-        if (arguments.length > 2) {
-            return this._reject('Login only accepts a maximum of two arguments.');
-        }
-        else if (arguments.length == 2) {
-            credentials = obj1;
-            config = obj2;
-        }
-        else if (arguments.length == 1) {
-            if (obj1.password && obj1.email) {
-                credentials = obj1;
-                config = {};
-            }
-            else {
-                config = obj1;
-            }
-        }
-        config = this._mergeConfigs(config);
-        if (__WEBPACK_IMPORTED_MODULE_3__utils__["c" /* isNil */](config.method)) {
-            return this._reject('You must provide a login method');
-        }
-        var providerMethods = [__WEBPACK_IMPORTED_MODULE_4__auth_backend__["d" /* AuthMethods */].Popup, __WEBPACK_IMPORTED_MODULE_4__auth_backend__["d" /* AuthMethods */].Redirect, __WEBPACK_IMPORTED_MODULE_4__auth_backend__["d" /* AuthMethods */].OAuthToken];
-        if (providerMethods.indexOf(config.method) != -1) {
-            if (__WEBPACK_IMPORTED_MODULE_3__utils__["c" /* isNil */](config.provider)) {
-                return this._reject('You must include a provider to use this auth method.');
-            }
-        }
-        var credentialsMethods = [__WEBPACK_IMPORTED_MODULE_4__auth_backend__["d" /* AuthMethods */].Password, __WEBPACK_IMPORTED_MODULE_4__auth_backend__["d" /* AuthMethods */].OAuthToken, __WEBPACK_IMPORTED_MODULE_4__auth_backend__["d" /* AuthMethods */].CustomToken];
-        if (credentialsMethods.indexOf(config.method) != -1) {
-            if (!credentials) {
-                return this._reject('You must include credentials to use this auth method.');
-            }
-        }
-        switch (config.method) {
-            case __WEBPACK_IMPORTED_MODULE_4__auth_backend__["d" /* AuthMethods */].Popup:
-                return this._authBackend.authWithOAuthPopup(config.provider, this._scrubConfig(config))
-                    .then(function (userCredential) {
-                    _this._credentialCache[userCredential.credential.provider] = userCredential.credential;
-                    return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__auth_backend__["b" /* authDataToAuthState */])(userCredential.user, userCredential.credential);
-                });
-            case __WEBPACK_IMPORTED_MODULE_4__auth_backend__["d" /* AuthMethods */].Redirect:
-                return this._authBackend.authWithOAuthRedirect(config.provider, this._scrubConfig(config));
-            case __WEBPACK_IMPORTED_MODULE_4__auth_backend__["d" /* AuthMethods */].Anonymous:
-                return this._authBackend.authAnonymously(this._scrubConfig(config));
-            case __WEBPACK_IMPORTED_MODULE_4__auth_backend__["d" /* AuthMethods */].Password:
-                return this._authBackend.authWithPassword(credentials);
-            case __WEBPACK_IMPORTED_MODULE_4__auth_backend__["d" /* AuthMethods */].OAuthToken:
-                return this._authBackend.authWithOAuthToken(credentials, this._scrubConfig(config));
-            case __WEBPACK_IMPORTED_MODULE_4__auth_backend__["d" /* AuthMethods */].CustomToken:
-                return this._authBackend.authWithCustomToken(credentials);
-        }
-    };
-    AngularFireAuth.prototype.logout = function () {
-        return this._authBackend.unauth();
-    };
-    AngularFireAuth.prototype.getAuth = function () {
-        console.warn("WARNING: the getAuth() API has changed behavior since adding support for Firebase 3.\n    This will return null for the initial value when the page loads, even if the user is actually logged in.\n    Please observe the actual authState asynchronously by subscribing to the auth service: af.auth.subscribe().\n    The getAuth method will be removed in future releases");
-        return this._authBackend.getAuth();
-    };
-    AngularFireAuth.prototype.createUser = function (credentials) {
-        return this._authBackend.createUser(credentials);
-    };
-    AngularFireAuth.prototype._mergeConfigs = function (config) {
-        if (this._config == null)
-            return config;
-        return Object.assign({}, this._config, config);
-    };
-    AngularFireAuth.prototype._reject = function (msg) {
-        return new Promise(function (res, rej) {
-            return rej(msg);
-        });
-    };
-    AngularFireAuth.prototype._scrubConfig = function (config, scrubProvider) {
-        if (scrubProvider === void 0) { scrubProvider = true; }
-        var scrubbed = Object.assign({}, config);
-        if (scrubProvider) {
-            delete scrubbed.provider;
-        }
-        delete scrubbed.method;
-        return scrubbed;
-    };
-    AngularFireAuth.prototype._emitAuthData = function (authData) {
-        if (authData == null) {
-            this.next(null);
-        }
-        else {
-            if (authData.auth && authData.auth.providerData && authData.auth.providerData[0]) {
-                var providerId = authData.auth.providerData[0].providerId;
-                var providerCredential = this._credentialCache[providerId];
-                if (providerCredential) {
-                    authData = attachCredentialToAuthState(authData, providerCredential, providerId);
-                }
-            }
-            this.next(authData);
-        }
-    };
-    return AngularFireAuth;
-}(__WEBPACK_IMPORTED_MODULE_1_rxjs_ReplaySubject__["ReplaySubject"]));
-AngularFireAuth = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["X" /* Injectable */])(),
-    __param(1, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_1" /* Inject */])(__WEBPACK_IMPORTED_MODULE_2__tokens__["e" /* WindowLocation */])),
-    __param(2, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Z" /* Optional */])()), __param(2, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_1" /* Inject */])(__WEBPACK_IMPORTED_MODULE_2__tokens__["f" /* FirebaseAuthConfig */])),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_4__auth_backend__["a" /* AuthBackend */], Object, Object])
-], AngularFireAuth);
-
-function attachCredentialToAuthState(authState, credential, providerId) {
-    if (!authState)
-        return authState;
-    authState[__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__auth_backend__["e" /* stripProviderId */])(providerId)] = credential;
-    return authState;
-}
-//# sourceMappingURL=auth.js.map
-
-/***/ }),
-/* 112 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tokens__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__index__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils__ = __webpack_require__(16);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AngularFireDatabase; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-
-
-
-
-
-var AngularFireDatabase = (function () {
-    function AngularFireDatabase(fbConfig, fbApp) {
-        this.fbConfig = fbConfig;
-        this.fbApp = fbApp;
-    }
-    AngularFireDatabase.prototype.list = function (urlOrRef, opts) {
-        var _this = this;
-        return __WEBPACK_IMPORTED_MODULE_3__utils__["e" /* checkForUrlOrFirebaseRef */](urlOrRef, {
-            isUrl: function () { return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__index__["c" /* FirebaseListFactory */])(_this.fbApp.database().refFromURL(getAbsUrl(_this.fbConfig, urlOrRef)), opts); },
-            isRef: function () { return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__index__["c" /* FirebaseListFactory */])(urlOrRef); }
-        });
-    };
-    AngularFireDatabase.prototype.object = function (urlOrRef, opts) {
-        var _this = this;
-        return __WEBPACK_IMPORTED_MODULE_3__utils__["e" /* checkForUrlOrFirebaseRef */](urlOrRef, {
-            isUrl: function () { return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__index__["d" /* FirebaseObjectFactory */])(_this.fbApp.database().refFromURL(getAbsUrl(_this.fbConfig, urlOrRef)), opts); },
-            isRef: function () { return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__index__["d" /* FirebaseObjectFactory */])(urlOrRef); }
-        });
-    };
-    return AngularFireDatabase;
-}());
-AngularFireDatabase = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["X" /* Injectable */])(),
-    __param(0, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_1" /* Inject */])(__WEBPACK_IMPORTED_MODULE_1__tokens__["b" /* FirebaseConfig */])),
-    __param(1, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_1" /* Inject */])(__WEBPACK_IMPORTED_MODULE_1__tokens__["d" /* FirebaseApp */])),
-    __metadata("design:paramtypes", [Object, Object])
-], AngularFireDatabase);
-
-function getAbsUrl(root, url) {
-    if (!(/^[a-z]+:\/\/.*/.test(url))) {
-        url = root.databaseURL + '/' + __WEBPACK_IMPORTED_MODULE_3__utils__["l" /* stripLeadingSlash */](url);
-    }
-    return url;
-}
-//# sourceMappingURL=database.js.map
-
-/***/ }),
-/* 113 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils__ = __webpack_require__(16);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FirebaseListObservable; });
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-
-
-var FirebaseListObservable = (function (_super) {
-    __extends(FirebaseListObservable, _super);
-    function FirebaseListObservable($ref, subscribe) {
-        var _this = _super.call(this, subscribe) || this;
-        _this.$ref = $ref;
-        return _this;
-    }
-    FirebaseListObservable.prototype.lift = function (operator) {
-        var observable = new FirebaseListObservable(this.$ref);
-        observable.source = this;
-        observable.operator = operator;
-        observable.$ref = this.$ref;
-        return observable;
-    };
-    FirebaseListObservable.prototype.push = function (val) {
-        if (!this.$ref) {
-            throw new Error('No ref specified for this Observable!');
-        }
-        return this.$ref.ref.push(val);
-    };
-    FirebaseListObservable.prototype.update = function (item, value) {
-        var _this = this;
-        return this._checkOperationCases(item, {
-            stringCase: function () { return _this.$ref.ref.child(item).update(value); },
-            firebaseCase: function () { return item.update(value); },
-            snapshotCase: function () { return item.ref.update(value); },
-            unwrappedSnapshotCase: function () { return _this.$ref.ref.child(item.$key).update(value); }
-        });
-    };
-    FirebaseListObservable.prototype.remove = function (item) {
-        var _this = this;
-        if (!item) {
-            return this.$ref.ref.remove();
-        }
-        return this._checkOperationCases(item, {
-            stringCase: function () { return _this.$ref.ref.child(item).remove(); },
-            firebaseCase: function () { return item.remove(); },
-            snapshotCase: function () { return item.ref.remove(); },
-            unwrappedSnapshotCase: function () { return _this.$ref.ref.child(item.$key).remove(); }
-        });
-    };
-    FirebaseListObservable.prototype._checkOperationCases = function (item, cases) {
-        if (__WEBPACK_IMPORTED_MODULE_1__utils__["g" /* isString */](item)) {
-            return cases.stringCase();
-        }
-        else if (__WEBPACK_IMPORTED_MODULE_1__utils__["h" /* isFirebaseRef */](item)) {
-            return cases.firebaseCase();
-        }
-        else if (__WEBPACK_IMPORTED_MODULE_1__utils__["i" /* isFirebaseDataSnapshot */](item)) {
-            return cases.snapshotCase();
-        }
-        else if (__WEBPACK_IMPORTED_MODULE_1__utils__["j" /* isAFUnwrappedSnapshot */](item)) {
-            return cases.unwrappedSnapshotCase();
-        }
-        throw new Error("Method requires a key, snapshot, reference, or unwrapped snapshot. Got: " + typeof item);
-    };
-    return FirebaseListObservable;
-}(__WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"]));
-
-//# sourceMappingURL=firebase_list_observable.js.map
-
-/***/ }),
-/* 114 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_observable_of__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_observable_of___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_observable_of__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_operator_combineLatest__ = __webpack_require__(282);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_operator_combineLatest___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_operator_combineLatest__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_operator_merge__ = __webpack_require__(136);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_operator_merge___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_operator_merge__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_operator_map__ = __webpack_require__(29);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_operator_auditTime__ = __webpack_require__(132);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_operator_auditTime___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_operator_auditTime__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__interfaces__ = __webpack_require__(194);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__utils__ = __webpack_require__(16);
-/* harmony export (immutable) */ __webpack_exports__["a"] = observeQuery;
-/* unused harmony export getOrderObservables */
-/* unused harmony export getLimitToObservables */
-/* unused harmony export getStartAtObservable */
-/* unused harmony export getEndAtObservable */
-/* unused harmony export getEqualToObservable */
-
-
-
-
-
-
-
-
-function observeQuery(query, audit) {
-    if (audit === void 0) { audit = true; }
-    if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__utils__["c" /* isNil */])(query)) {
-        return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_rxjs_observable_of__["of"])(null);
-    }
-    return __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"].create(function (observer) {
-        var combined = __WEBPACK_IMPORTED_MODULE_2_rxjs_operator_combineLatest__["combineLatest"].call(getOrderObservables(query), getStartAtObservable(query), getEndAtObservable(query), getEqualToObservable(query), getLimitToObservables(query));
-        if (audit) {
-            combined = __WEBPACK_IMPORTED_MODULE_5_rxjs_operator_auditTime__["auditTime"].call(combined, 0);
-        }
-        combined
-            .subscribe(function (_a) {
-            var orderBy = _a[0], startAt = _a[1], endAt = _a[2], equalTo = _a[3], limitTo = _a[4];
-            var serializedOrder = {};
-            if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__utils__["c" /* isNil */])(orderBy) && !__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__utils__["c" /* isNil */])(orderBy.value)) {
-                switch (orderBy.key) {
-                    case __WEBPACK_IMPORTED_MODULE_6__interfaces__["a" /* OrderByOptions */].Key:
-                        serializedOrder = { orderByKey: orderBy.value };
-                        break;
-                    case __WEBPACK_IMPORTED_MODULE_6__interfaces__["a" /* OrderByOptions */].Priority:
-                        serializedOrder = { orderByPriority: orderBy.value };
-                        break;
-                    case __WEBPACK_IMPORTED_MODULE_6__interfaces__["a" /* OrderByOptions */].Value:
-                        serializedOrder = { orderByValue: orderBy.value };
-                        break;
-                    case __WEBPACK_IMPORTED_MODULE_6__interfaces__["a" /* OrderByOptions */].Child:
-                        serializedOrder = { orderByChild: orderBy.value };
-                        break;
-                }
-            }
-            if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__utils__["c" /* isNil */])(limitTo) && !__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__utils__["c" /* isNil */])(limitTo.value)) {
-                switch (limitTo.key) {
-                    case __WEBPACK_IMPORTED_MODULE_6__interfaces__["b" /* LimitToOptions */].First:
-                        serializedOrder.limitToFirst = limitTo.value;
-                        break;
-                    case __WEBPACK_IMPORTED_MODULE_6__interfaces__["b" /* LimitToOptions */].Last: {
-                        serializedOrder.limitToLast = limitTo.value;
-                        break;
-                    }
-                }
-            }
-            if (startAt !== undefined) {
-                serializedOrder.startAt = startAt;
-            }
-            if (endAt !== undefined) {
-                serializedOrder.endAt = endAt;
-            }
-            if (equalTo !== undefined) {
-                serializedOrder.equalTo = equalTo;
-            }
-            observer.next(serializedOrder);
-        });
-    });
-}
-function getOrderObservables(query) {
-    var observables = ['orderByChild', 'orderByKey', 'orderByValue', 'orderByPriority']
-        .map(function (key, option) {
-        return ({ key: key, option: option });
-    })
-        .filter(function (_a) {
-        var key = _a.key, option = _a.option;
-        return !__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__utils__["c" /* isNil */])(query[key]);
-    })
-        .map(function (_a) {
-        var key = _a.key, option = _a.option;
-        return mapToOrderBySelection(query[key], option);
-    });
-    if (observables.length === 1) {
-        return observables[0];
-    }
-    else if (observables.length > 1) {
-        return __WEBPACK_IMPORTED_MODULE_3_rxjs_operator_merge__["merge"].apply(observables[0], observables.slice(1));
-    }
-    else {
-        return new __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"](function (subscriber) {
-            subscriber.next(null);
-        });
-    }
-}
-function getLimitToObservables(query) {
-    var observables = ['limitToFirst', 'limitToLast']
-        .map(function (key, option) { return ({ key: key, option: option }); })
-        .filter(function (_a) {
-        var key = _a.key, option = _a.option;
-        return !__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__utils__["c" /* isNil */])(query[key]);
-    })
-        .map(function (_a) {
-        var key = _a.key, option = _a.option;
-        return mapToLimitToSelection(query[key], option);
-    });
-    if (observables.length === 1) {
-        return observables[0];
-    }
-    else if (observables.length > 1) {
-        var mergedObs = __WEBPACK_IMPORTED_MODULE_3_rxjs_operator_merge__["merge"].apply(observables[0], observables.slice(1));
-        return mergedObs;
-    }
-    else {
-        return new __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"](function (subscriber) {
-            subscriber.next(null);
-        });
-    }
-}
-function getStartAtObservable(query) {
-    if (query.startAt instanceof __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"]) {
-        return query.startAt;
-    }
-    else if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__utils__["d" /* hasKey */])(query, 'startAt')) {
-        return new __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"](function (subscriber) {
-            subscriber.next(query.startAt);
-        });
-    }
-    else {
-        return new __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"](function (subscriber) {
-            subscriber.next(undefined);
-        });
-    }
-}
-function getEndAtObservable(query) {
-    if (query.endAt instanceof __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"]) {
-        return query.endAt;
-    }
-    else if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__utils__["d" /* hasKey */])(query, 'endAt')) {
-        return new __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"](function (subscriber) {
-            subscriber.next(query.endAt);
-        });
-    }
-    else {
-        return new __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"](function (subscriber) {
-            subscriber.next(undefined);
-        });
-    }
-}
-function getEqualToObservable(query) {
-    if (query.equalTo instanceof __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"]) {
-        return query.equalTo;
-    }
-    else if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__utils__["d" /* hasKey */])(query, 'equalTo')) {
-        return new __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"](function (subscriber) {
-            subscriber.next(query.equalTo);
-        });
-    }
-    else {
-        return new __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"](function (subscriber) {
-            subscriber.next(undefined);
-        });
-    }
-}
-function mapToOrderBySelection(value, key) {
-    if (value instanceof __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"]) {
-        return __WEBPACK_IMPORTED_MODULE_4_rxjs_operator_map__["map"]
-            .call(value, function (value) {
-            return ({ value: value, key: key });
-        });
-    }
-    else {
-        return new __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"](function (subscriber) {
-            subscriber.next({ key: key, value: value });
-        });
-    }
-}
-function mapToLimitToSelection(value, key) {
-    if (value instanceof __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"]) {
-        return __WEBPACK_IMPORTED_MODULE_4_rxjs_operator_map__["map"]
-            .call(value, function (value) { return ({ value: value, key: key }); });
-    }
-    else {
-        return new __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"](function (subscriber) {
-            subscriber.next({ key: key, value: value });
-        });
-    }
-}
-function hasObservableProperties(query) {
-    if (query.orderByKey instanceof __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"])
-        return true;
-    return false;
-}
-//# sourceMappingURL=query_observable.js.map
-
-/***/ }),
-/* 115 */,
-/* 116 */,
-/* 117 */,
-/* 118 */,
-/* 119 */,
-/* 120 */,
-/* 121 */,
-/* 122 */,
-/* 123 */,
-/* 124 */,
-/* 125 */,
-/* 126 */,
-/* 127 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-exports.empty = {
-    closed: true,
-    next: function (value) { },
-    error: function (err) { throw err; },
-    complete: function () { }
-};
-//# sourceMappingURL=Observer.js.map
-
-/***/ }),
-/* 128 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var Subscription_1 = __webpack_require__(19);
-/**
- * We need this JSDoc comment for affecting ESDoc.
- * @ignore
- * @extends {Ignored}
- */
-var SubjectSubscription = (function (_super) {
-    __extends(SubjectSubscription, _super);
-    function SubjectSubscription(subject, subscriber) {
-        _super.call(this);
-        this.subject = subject;
-        this.subscriber = subscriber;
-        this.closed = false;
-    }
-    SubjectSubscription.prototype.unsubscribe = function () {
-        if (this.closed) {
-            return;
-        }
-        this.closed = true;
-        var subject = this.subject;
-        var observers = subject.observers;
-        this.subject = null;
-        if (!observers || observers.length === 0 || subject.isStopped || subject.closed) {
-            return;
-        }
-        var subscriberIndex = observers.indexOf(this.subscriber);
-        if (subscriberIndex !== -1) {
-            observers.splice(subscriberIndex, 1);
-        }
-    };
-    return SubjectSubscription;
-}(Subscription_1.Subscription));
-exports.SubjectSubscription = SubjectSubscription;
-//# sourceMappingURL=SubjectSubscription.js.map
-
-/***/ }),
-/* 129 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var root_1 = __webpack_require__(20);
-var Observable_1 = __webpack_require__(1);
-/**
- * We need this JSDoc comment for affecting ESDoc.
- * @extends {Ignored}
- * @hide true
- */
-var PromiseObservable = (function (_super) {
-    __extends(PromiseObservable, _super);
-    function PromiseObservable(promise, scheduler) {
-        _super.call(this);
-        this.promise = promise;
-        this.scheduler = scheduler;
-    }
-    /**
-     * Converts a Promise to an Observable.
-     *
-     * <span class="informal">Returns an Observable that just emits the Promise's
-     * resolved value, then completes.</span>
-     *
-     * Converts an ES2015 Promise or a Promises/A+ spec compliant Promise to an
-     * Observable. If the Promise resolves with a value, the output Observable
-     * emits that resolved value as a `next`, and then completes. If the Promise
-     * is rejected, then the output Observable emits the corresponding Error.
-     *
-     * @example <caption>Convert the Promise returned by Fetch to an Observable</caption>
-     * var result = Rx.Observable.fromPromise(fetch('http://myserver.com/'));
-     * result.subscribe(x => console.log(x), e => console.error(e));
-     *
-     * @see {@link bindCallback}
-     * @see {@link from}
-     *
-     * @param {Promise<T>} promise The promise to be converted.
-     * @param {Scheduler} [scheduler] An optional IScheduler to use for scheduling
-     * the delivery of the resolved value (or the rejection).
-     * @return {Observable<T>} An Observable which wraps the Promise.
-     * @static true
-     * @name fromPromise
-     * @owner Observable
-     */
-    PromiseObservable.create = function (promise, scheduler) {
-        return new PromiseObservable(promise, scheduler);
-    };
-    PromiseObservable.prototype._subscribe = function (subscriber) {
-        var _this = this;
-        var promise = this.promise;
-        var scheduler = this.scheduler;
-        if (scheduler == null) {
-            if (this._isScalar) {
-                if (!subscriber.closed) {
-                    subscriber.next(this.value);
-                    subscriber.complete();
-                }
-            }
-            else {
-                promise.then(function (value) {
-                    _this.value = value;
-                    _this._isScalar = true;
-                    if (!subscriber.closed) {
-                        subscriber.next(value);
-                        subscriber.complete();
-                    }
-                }, function (err) {
-                    if (!subscriber.closed) {
-                        subscriber.error(err);
-                    }
-                })
-                    .then(null, function (err) {
-                    // escape the promise trap, throw unhandled errors
-                    root_1.root.setTimeout(function () { throw err; });
-                });
-            }
-        }
-        else {
-            if (this._isScalar) {
-                if (!subscriber.closed) {
-                    return scheduler.schedule(dispatchNext, 0, { value: this.value, subscriber: subscriber });
-                }
-            }
-            else {
-                promise.then(function (value) {
-                    _this.value = value;
-                    _this._isScalar = true;
-                    if (!subscriber.closed) {
-                        subscriber.add(scheduler.schedule(dispatchNext, 0, { value: value, subscriber: subscriber }));
-                    }
-                }, function (err) {
-                    if (!subscriber.closed) {
-                        subscriber.add(scheduler.schedule(dispatchError, 0, { err: err, subscriber: subscriber }));
-                    }
-                })
-                    .then(null, function (err) {
-                    // escape the promise trap, throw unhandled errors
-                    root_1.root.setTimeout(function () { throw err; });
-                });
-            }
-        }
-    };
-    return PromiseObservable;
-}(Observable_1.Observable));
-exports.PromiseObservable = PromiseObservable;
-function dispatchNext(arg) {
-    var value = arg.value, subscriber = arg.subscriber;
-    if (!subscriber.closed) {
-        subscriber.next(value);
-        subscriber.complete();
-    }
-}
-function dispatchError(arg) {
-    var err = arg.err, subscriber = arg.subscriber;
-    if (!subscriber.closed) {
-        subscriber.error(err);
-    }
-}
-//# sourceMappingURL=PromiseObservable.js.map
-
-/***/ }),
-/* 130 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var ForkJoinObservable_1 = __webpack_require__(275);
-exports.forkJoin = ForkJoinObservable_1.ForkJoinObservable.create;
-//# sourceMappingURL=forkJoin.js.map
-
-/***/ }),
-/* 131 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var merge_1 = __webpack_require__(136);
-exports.merge = merge_1.mergeStatic;
-//# sourceMappingURL=merge.js.map
-
-/***/ }),
-/* 132 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var async_1 = __webpack_require__(297);
-var Subscriber_1 = __webpack_require__(5);
-/**
- * Ignores source values for `duration` milliseconds, then emits the most recent
- * value from the source Observable, then repeats this process.
- *
- * <span class="informal">When it sees a source values, it ignores that plus
- * the next ones for `duration` milliseconds, and then it emits the most recent
- * value from the source.</span>
- *
- * <img src="./img/auditTime.png" width="100%">
- *
- * `auditTime` is similar to `throttleTime`, but emits the last value from the
- * silenced time window, instead of the first value. `auditTime` emits the most
- * recent value from the source Observable on the output Observable as soon as
- * its internal timer becomes disabled, and ignores source values while the
- * timer is enabled. Initially, the timer is disabled. As soon as the first
- * source value arrives, the timer is enabled. After `duration` milliseconds (or
- * the time unit determined internally by the optional `scheduler`) has passed,
- * the timer is disabled, then the most recent source value is emitted on the
- * output Observable, and this process repeats for the next source value.
- * Optionally takes a {@link IScheduler} for managing timers.
- *
- * @example <caption>Emit clicks at a rate of at most one click per second</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
- * var result = clicks.auditTime(1000);
- * result.subscribe(x => console.log(x));
- *
- * @see {@link audit}
- * @see {@link debounceTime}
- * @see {@link delay}
- * @see {@link sampleTime}
- * @see {@link throttleTime}
- *
- * @param {number} duration Time to wait before emitting the most recent source
- * value, measured in milliseconds or the time unit determined internally
- * by the optional `scheduler`.
- * @param {Scheduler} [scheduler=async] The {@link IScheduler} to use for
- * managing the timers that handle the rate-limiting behavior.
- * @return {Observable<T>} An Observable that performs rate-limiting of
- * emissions from the source Observable.
- * @method auditTime
- * @owner Observable
- */
-function auditTime(duration, scheduler) {
-    if (scheduler === void 0) { scheduler = async_1.async; }
-    return this.lift(new AuditTimeOperator(duration, scheduler));
-}
-exports.auditTime = auditTime;
-var AuditTimeOperator = (function () {
-    function AuditTimeOperator(duration, scheduler) {
-        this.duration = duration;
-        this.scheduler = scheduler;
-    }
-    AuditTimeOperator.prototype.call = function (subscriber, source) {
-        return source.subscribe(new AuditTimeSubscriber(subscriber, this.duration, this.scheduler));
-    };
-    return AuditTimeOperator;
-}());
-/**
- * We need this JSDoc comment for affecting ESDoc.
- * @ignore
- * @extends {Ignored}
- */
-var AuditTimeSubscriber = (function (_super) {
-    __extends(AuditTimeSubscriber, _super);
-    function AuditTimeSubscriber(destination, duration, scheduler) {
-        _super.call(this, destination);
-        this.duration = duration;
-        this.scheduler = scheduler;
-        this.hasValue = false;
-    }
-    AuditTimeSubscriber.prototype._next = function (value) {
-        this.value = value;
-        this.hasValue = true;
-        if (!this.throttled) {
-            this.add(this.throttled = this.scheduler.schedule(dispatchNext, this.duration, this));
-        }
-    };
-    AuditTimeSubscriber.prototype.clearThrottle = function () {
-        var _a = this, value = _a.value, hasValue = _a.hasValue, throttled = _a.throttled;
-        if (throttled) {
-            this.remove(throttled);
-            this.throttled = null;
-            throttled.unsubscribe();
-        }
-        if (hasValue) {
-            this.value = null;
-            this.hasValue = false;
-            this.destination.next(value);
-        }
-    };
-    return AuditTimeSubscriber;
-}(Subscriber_1.Subscriber));
-function dispatchNext(subscriber) {
-    subscriber.clearThrottle();
-}
-//# sourceMappingURL=auditTime.js.map
-
-/***/ }),
-/* 133 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var OuterSubscriber_1 = __webpack_require__(35);
-var subscribeToResult_1 = __webpack_require__(38);
-/**
- * Catches errors on the observable to be handled by returning a new observable or throwing an error.
- *
- * <img src="./img/catch.png" width="100%">
- *
- * @example <caption>Continues with a different Observable when there's an error</caption>
- *
- * Observable.of(1, 2, 3, 4, 5)
- *   .map(n => {
- * 	   if (n == 4) {
- * 	     throw 'four!';
- *     }
- *	   return n;
- *   })
- *   .catch(err => Observable.of('I', 'II', 'III', 'IV', 'V'))
- *   .subscribe(x => console.log(x));
- *   // 1, 2, 3, I, II, III, IV, V
- *
- * @example <caption>Retries the caught source Observable again in case of error, similar to retry() operator</caption>
- *
- * Observable.of(1, 2, 3, 4, 5)
- *   .map(n => {
- * 	   if (n === 4) {
- * 	     throw 'four!';
- *     }
- * 	   return n;
- *   })
- *   .catch((err, caught) => caught)
- *   .take(30)
- *   .subscribe(x => console.log(x));
- *   // 1, 2, 3, 1, 2, 3, ...
- *
- * @example <caption>Throws a new error when the source Observable throws an error</caption>
- *
- * Observable.of(1, 2, 3, 4, 5)
- *   .map(n => {
- *     if (n == 4) {
- *       throw 'four!';
- *     }
- *     return n;
- *   })
- *   .catch(err => {
- *     throw 'error in source. Details: ' + err;
- *   })
- *   .subscribe(
- *     x => console.log(x),
- *     err => console.log(err)
- *   );
- *   // 1, 2, 3, error in source. Details: four!
- *
- * @param {function} selector a function that takes as arguments `err`, which is the error, and `caught`, which
- *  is the source observable, in case you'd like to "retry" that observable by returning it again. Whatever observable
- *  is returned by the `selector` will be used to continue the observable chain.
- * @return {Observable} An observable that originates from either the source or the observable returned by the
- *  catch `selector` function.
- * @method catch
- * @name catch
- * @owner Observable
- */
-function _catch(selector) {
-    var operator = new CatchOperator(selector);
-    var caught = this.lift(operator);
-    return (operator.caught = caught);
-}
-exports._catch = _catch;
-var CatchOperator = (function () {
-    function CatchOperator(selector) {
-        this.selector = selector;
-    }
-    CatchOperator.prototype.call = function (subscriber, source) {
-        return source.subscribe(new CatchSubscriber(subscriber, this.selector, this.caught));
-    };
-    return CatchOperator;
-}());
-/**
- * We need this JSDoc comment for affecting ESDoc.
- * @ignore
- * @extends {Ignored}
- */
-var CatchSubscriber = (function (_super) {
-    __extends(CatchSubscriber, _super);
-    function CatchSubscriber(destination, selector, caught) {
-        _super.call(this, destination);
-        this.selector = selector;
-        this.caught = caught;
-    }
-    // NOTE: overriding `error` instead of `_error` because we don't want
-    // to have this flag this subscriber as `isStopped`. We can mimic the
-    // behavior of the RetrySubscriber (from the `retry` operator), where
-    // we unsubscribe from our source chain, reset our Subscriber flags,
-    // then subscribe to the selector result.
-    CatchSubscriber.prototype.error = function (err) {
-        if (!this.isStopped) {
-            var result = void 0;
-            try {
-                result = this.selector(err, this.caught);
-            }
-            catch (err2) {
-                _super.prototype.error.call(this, err2);
-                return;
-            }
-            this._unsubscribeAndRecycle();
-            this.add(subscribeToResult_1.subscribeToResult(this, result));
-        }
-    };
-    return CatchSubscriber;
-}(OuterSubscriber_1.OuterSubscriber));
-//# sourceMappingURL=catch.js.map
-
-/***/ }),
-/* 134 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var Subscriber_1 = __webpack_require__(5);
-/* tslint:enable:max-line-length */
-/**
- * Filter items emitted by the source Observable by only emitting those that
- * satisfy a specified predicate.
- *
- * <span class="informal">Like
- * [Array.prototype.filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter),
- * it only emits a value from the source if it passes a criterion function.</span>
- *
- * <img src="./img/filter.png" width="100%">
- *
- * Similar to the well-known `Array.prototype.filter` method, this operator
- * takes values from the source Observable, passes them through a `predicate`
- * function and only emits those values that yielded `true`.
- *
- * @example <caption>Emit only click events whose target was a DIV element</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
- * var clicksOnDivs = clicks.filter(ev => ev.target.tagName === 'DIV');
- * clicksOnDivs.subscribe(x => console.log(x));
- *
- * @see {@link distinct}
- * @see {@link distinctUntilChanged}
- * @see {@link distinctUntilKeyChanged}
- * @see {@link ignoreElements}
- * @see {@link partition}
- * @see {@link skip}
- *
- * @param {function(value: T, index: number): boolean} predicate A function that
- * evaluates each value emitted by the source Observable. If it returns `true`,
- * the value is emitted, if `false` the value is not passed to the output
- * Observable. The `index` parameter is the number `i` for the i-th source
- * emission that has happened since the subscription, starting from the number
- * `0`.
- * @param {any} [thisArg] An optional argument to determine the value of `this`
- * in the `predicate` function.
- * @return {Observable} An Observable of values from the source that were
- * allowed by the `predicate` function.
- * @method filter
- * @owner Observable
- */
-function filter(predicate, thisArg) {
-    return this.lift(new FilterOperator(predicate, thisArg));
-}
-exports.filter = filter;
-var FilterOperator = (function () {
-    function FilterOperator(predicate, thisArg) {
-        this.predicate = predicate;
-        this.thisArg = thisArg;
-    }
-    FilterOperator.prototype.call = function (subscriber, source) {
-        return source.subscribe(new FilterSubscriber(subscriber, this.predicate, this.thisArg));
-    };
-    return FilterOperator;
-}());
-/**
- * We need this JSDoc comment for affecting ESDoc.
- * @ignore
- * @extends {Ignored}
- */
-var FilterSubscriber = (function (_super) {
-    __extends(FilterSubscriber, _super);
-    function FilterSubscriber(destination, predicate, thisArg) {
-        _super.call(this, destination);
-        this.predicate = predicate;
-        this.thisArg = thisArg;
-        this.count = 0;
-        this.predicate = predicate;
-    }
-    // the try catch block below is left specifically for
-    // optimization and perf reasons. a tryCatcher is not necessary here.
-    FilterSubscriber.prototype._next = function (value) {
-        var result;
-        try {
-            result = this.predicate.call(this.thisArg, value, this.count++);
-        }
-        catch (err) {
-            this.destination.error(err);
-            return;
-        }
-        if (result) {
-            this.destination.next(value);
-        }
-    };
-    return FilterSubscriber;
-}(Subscriber_1.Subscriber));
-//# sourceMappingURL=filter.js.map
-
-/***/ }),
-/* 135 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var Subscriber_1 = __webpack_require__(5);
-var EmptyError_1 = __webpack_require__(94);
-/**
- * Emits only the first value (or the first value that meets some condition)
- * emitted by the source Observable.
- *
- * <span class="informal">Emits only the first value. Or emits only the first
- * value that passes some test.</span>
- *
- * <img src="./img/first.png" width="100%">
- *
- * If called with no arguments, `first` emits the first value of the source
- * Observable, then completes. If called with a `predicate` function, `first`
- * emits the first value of the source that matches the specified condition. It
- * may also take a `resultSelector` function to produce the output value from
- * the input value, and a `defaultValue` to emit in case the source completes
- * before it is able to emit a valid value. Throws an error if `defaultValue`
- * was not provided and a matching element is not found.
- *
- * @example <caption>Emit only the first click that happens on the DOM</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
- * var result = clicks.first();
- * result.subscribe(x => console.log(x));
- *
- * @example <caption>Emits the first click that happens on a DIV</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
- * var result = clicks.first(ev => ev.target.tagName === 'DIV');
- * result.subscribe(x => console.log(x));
- *
- * @see {@link filter}
- * @see {@link find}
- * @see {@link take}
- *
- * @throws {EmptyError} Delivers an EmptyError to the Observer's `error`
- * callback if the Observable completes before any `next` notification was sent.
- *
- * @param {function(value: T, index: number, source: Observable<T>): boolean} [predicate]
- * An optional function called with each item to test for condition matching.
- * @param {function(value: T, index: number): R} [resultSelector] A function to
- * produce the value on the output Observable based on the values
- * and the indices of the source Observable. The arguments passed to this
- * function are:
- * - `value`: the value that was emitted on the source.
- * - `index`: the "index" of the value from the source.
- * @param {R} [defaultValue] The default value emitted in case no valid value
- * was found on the source.
- * @return {Observable<T|R>} An Observable of the first item that matches the
- * condition.
- * @method first
- * @owner Observable
- */
-function first(predicate, resultSelector, defaultValue) {
-    return this.lift(new FirstOperator(predicate, resultSelector, defaultValue, this));
-}
-exports.first = first;
-var FirstOperator = (function () {
-    function FirstOperator(predicate, resultSelector, defaultValue, source) {
-        this.predicate = predicate;
-        this.resultSelector = resultSelector;
-        this.defaultValue = defaultValue;
-        this.source = source;
-    }
-    FirstOperator.prototype.call = function (observer, source) {
-        return source.subscribe(new FirstSubscriber(observer, this.predicate, this.resultSelector, this.defaultValue, this.source));
-    };
-    return FirstOperator;
-}());
-/**
- * We need this JSDoc comment for affecting ESDoc.
- * @ignore
- * @extends {Ignored}
- */
-var FirstSubscriber = (function (_super) {
-    __extends(FirstSubscriber, _super);
-    function FirstSubscriber(destination, predicate, resultSelector, defaultValue, source) {
-        _super.call(this, destination);
-        this.predicate = predicate;
-        this.resultSelector = resultSelector;
-        this.defaultValue = defaultValue;
-        this.source = source;
-        this.index = 0;
-        this.hasCompleted = false;
-        this._emitted = false;
-    }
-    FirstSubscriber.prototype._next = function (value) {
-        var index = this.index++;
-        if (this.predicate) {
-            this._tryPredicate(value, index);
-        }
-        else {
-            this._emit(value, index);
-        }
-    };
-    FirstSubscriber.prototype._tryPredicate = function (value, index) {
-        var result;
-        try {
-            result = this.predicate(value, index, this.source);
-        }
-        catch (err) {
-            this.destination.error(err);
-            return;
-        }
-        if (result) {
-            this._emit(value, index);
-        }
-    };
-    FirstSubscriber.prototype._emit = function (value, index) {
-        if (this.resultSelector) {
-            this._tryResultSelector(value, index);
-            return;
-        }
-        this._emitFinal(value);
-    };
-    FirstSubscriber.prototype._tryResultSelector = function (value, index) {
-        var result;
-        try {
-            result = this.resultSelector(value, index);
-        }
-        catch (err) {
-            this.destination.error(err);
-            return;
-        }
-        this._emitFinal(result);
-    };
-    FirstSubscriber.prototype._emitFinal = function (value) {
-        var destination = this.destination;
-        if (!this._emitted) {
-            this._emitted = true;
-            destination.next(value);
-            destination.complete();
-            this.hasCompleted = true;
-        }
-    };
-    FirstSubscriber.prototype._complete = function () {
-        var destination = this.destination;
-        if (!this.hasCompleted && typeof this.defaultValue !== 'undefined') {
-            destination.next(this.defaultValue);
-            destination.complete();
-        }
-        else if (!this.hasCompleted) {
-            destination.error(new EmptyError_1.EmptyError);
-        }
-    };
-    return FirstSubscriber;
-}(Subscriber_1.Subscriber));
-//# sourceMappingURL=first.js.map
-
-/***/ }),
-/* 136 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var Observable_1 = __webpack_require__(1);
-var ArrayObservable_1 = __webpack_require__(37);
-var mergeAll_1 = __webpack_require__(60);
-var isScheduler_1 = __webpack_require__(63);
-/* tslint:enable:max-line-length */
-/**
- * Creates an output Observable which concurrently emits all values from every
- * given input Observable.
- *
- * <span class="informal">Flattens multiple Observables together by blending
- * their values into one Observable.</span>
- *
- * <img src="./img/merge.png" width="100%">
- *
- * `merge` subscribes to each given input Observable (either the source or an
- * Observable given as argument), and simply forwards (without doing any
- * transformation) all the values from all the input Observables to the output
- * Observable. The output Observable only completes once all input Observables
- * have completed. Any error delivered by an input Observable will be immediately
- * emitted on the output Observable.
- *
- * @example <caption>Merge together two Observables: 1s interval and clicks</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
- * var timer = Rx.Observable.interval(1000);
- * var clicksOrTimer = clicks.merge(timer);
- * clicksOrTimer.subscribe(x => console.log(x));
- *
- * @example <caption>Merge together 3 Observables, but only 2 run concurrently</caption>
- * var timer1 = Rx.Observable.interval(1000).take(10);
- * var timer2 = Rx.Observable.interval(2000).take(6);
- * var timer3 = Rx.Observable.interval(500).take(10);
- * var concurrent = 2; // the argument
- * var merged = timer1.merge(timer2, timer3, concurrent);
- * merged.subscribe(x => console.log(x));
- *
- * @see {@link mergeAll}
- * @see {@link mergeMap}
- * @see {@link mergeMapTo}
- * @see {@link mergeScan}
- *
- * @param {ObservableInput} other An input Observable to merge with the source
- * Observable. More than one input Observables may be given as argument.
- * @param {number} [concurrent=Number.POSITIVE_INFINITY] Maximum number of input
- * Observables being subscribed to concurrently.
- * @param {Scheduler} [scheduler=null] The IScheduler to use for managing
- * concurrency of input Observables.
- * @return {Observable} An Observable that emits items that are the result of
- * every input Observable.
- * @method merge
- * @owner Observable
- */
-function merge() {
-    var observables = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        observables[_i - 0] = arguments[_i];
-    }
-    return this.lift.call(mergeStatic.apply(void 0, [this].concat(observables)));
-}
-exports.merge = merge;
-/* tslint:enable:max-line-length */
-/**
- * Creates an output Observable which concurrently emits all values from every
- * given input Observable.
- *
- * <span class="informal">Flattens multiple Observables together by blending
- * their values into one Observable.</span>
- *
- * <img src="./img/merge.png" width="100%">
- *
- * `merge` subscribes to each given input Observable (as arguments), and simply
- * forwards (without doing any transformation) all the values from all the input
- * Observables to the output Observable. The output Observable only completes
- * once all input Observables have completed. Any error delivered by an input
- * Observable will be immediately emitted on the output Observable.
- *
- * @example <caption>Merge together two Observables: 1s interval and clicks</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
- * var timer = Rx.Observable.interval(1000);
- * var clicksOrTimer = Rx.Observable.merge(clicks, timer);
- * clicksOrTimer.subscribe(x => console.log(x));
- *
- * // Results in the following:
- * // timer will emit ascending values, one every second(1000ms) to console
- * // clicks logs MouseEvents to console everytime the "document" is clicked
- * // Since the two streams are merged you see these happening
- * // as they occur.
- *
- * @example <caption>Merge together 3 Observables, but only 2 run concurrently</caption>
- * var timer1 = Rx.Observable.interval(1000).take(10);
- * var timer2 = Rx.Observable.interval(2000).take(6);
- * var timer3 = Rx.Observable.interval(500).take(10);
- * var concurrent = 2; // the argument
- * var merged = Rx.Observable.merge(timer1, timer2, timer3, concurrent);
- * merged.subscribe(x => console.log(x));
- *
- * // Results in the following:
- * // - First timer1 and timer2 will run concurrently
- * // - timer1 will emit a value every 1000ms for 10 iterations
- * // - timer2 will emit a value every 2000ms for 6 iterations
- * // - after timer1 hits it's max iteration, timer2 will
- * //   continue, and timer3 will start to run concurrently with timer2
- * // - when timer2 hits it's max iteration it terminates, and
- * //   timer3 will continue to emit a value every 500ms until it is complete
- *
- * @see {@link mergeAll}
- * @see {@link mergeMap}
- * @see {@link mergeMapTo}
- * @see {@link mergeScan}
- *
- * @param {...ObservableInput} observables Input Observables to merge together.
- * @param {number} [concurrent=Number.POSITIVE_INFINITY] Maximum number of input
- * Observables being subscribed to concurrently.
- * @param {Scheduler} [scheduler=null] The IScheduler to use for managing
- * concurrency of input Observables.
- * @return {Observable} an Observable that emits items that are the result of
- * every input Observable.
- * @static true
- * @name merge
- * @owner Observable
- */
-function mergeStatic() {
-    var observables = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        observables[_i - 0] = arguments[_i];
-    }
-    var concurrent = Number.POSITIVE_INFINITY;
-    var scheduler = null;
-    var last = observables[observables.length - 1];
-    if (isScheduler_1.isScheduler(last)) {
-        scheduler = observables.pop();
-        if (observables.length > 1 && typeof observables[observables.length - 1] === 'number') {
-            concurrent = observables.pop();
-        }
-    }
-    else if (typeof last === 'number') {
-        concurrent = observables.pop();
-    }
-    if (scheduler === null && observables.length === 1 && observables[0] instanceof Observable_1.Observable) {
-        return observables[0];
-    }
-    return new ArrayObservable_1.ArrayObservable(observables, scheduler).lift(new mergeAll_1.MergeAllOperator(concurrent));
-}
-exports.mergeStatic = mergeStatic;
-//# sourceMappingURL=merge.js.map
-
-/***/ }),
-/* 137 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var multicast_1 = __webpack_require__(290);
-var Subject_1 = __webpack_require__(27);
-function shareSubjectFactory() {
-    return new Subject_1.Subject();
-}
-/**
- * Returns a new Observable that multicasts (shares) the original Observable. As long as there is at least one
- * Subscriber this Observable will be subscribed and emitting data. When all subscribers have unsubscribed it will
- * unsubscribe from the source Observable. Because the Observable is multicasting it makes the stream `hot`.
- * This is an alias for .publish().refCount().
- *
- * <img src="./img/share.png" width="100%">
- *
- * @return {Observable<T>} An Observable that upon connection causes the source Observable to emit items to its Observers.
- * @method share
- * @owner Observable
- */
-function share() {
-    return multicast_1.multicast.call(this, shareSubjectFactory).refCount();
-}
-exports.share = share;
-;
-//# sourceMappingURL=share.js.map
-
-/***/ }),
-/* 138 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var root_1 = __webpack_require__(20);
-var Action_1 = __webpack_require__(294);
-/**
- * We need this JSDoc comment for affecting ESDoc.
- * @ignore
- * @extends {Ignored}
- */
-var AsyncAction = (function (_super) {
-    __extends(AsyncAction, _super);
-    function AsyncAction(scheduler, work) {
-        _super.call(this, scheduler, work);
-        this.scheduler = scheduler;
-        this.work = work;
-        this.pending = false;
-    }
-    AsyncAction.prototype.schedule = function (state, delay) {
-        if (delay === void 0) { delay = 0; }
-        if (this.closed) {
-            return this;
-        }
-        // Always replace the current state with the new state.
-        this.state = state;
-        // Set the pending flag indicating that this action has been scheduled, or
-        // has recursively rescheduled itself.
-        this.pending = true;
-        var id = this.id;
-        var scheduler = this.scheduler;
-        //
-        // Important implementation note:
-        //
-        // Actions only execute once by default, unless rescheduled from within the
-        // scheduled callback. This allows us to implement single and repeat
-        // actions via the same code path, without adding API surface area, as well
-        // as mimic traditional recursion but across asynchronous boundaries.
-        //
-        // However, JS runtimes and timers distinguish between intervals achieved by
-        // serial `setTimeout` calls vs. a single `setInterval` call. An interval of
-        // serial `setTimeout` calls can be individually delayed, which delays
-        // scheduling the next `setTimeout`, and so on. `setInterval` attempts to
-        // guarantee the interval callback will be invoked more precisely to the
-        // interval period, regardless of load.
-        //
-        // Therefore, we use `setInterval` to schedule single and repeat actions.
-        // If the action reschedules itself with the same delay, the interval is not
-        // canceled. If the action doesn't reschedule, or reschedules with a
-        // different delay, the interval will be canceled after scheduled callback
-        // execution.
-        //
-        if (id != null) {
-            this.id = this.recycleAsyncId(scheduler, id, delay);
-        }
-        this.delay = delay;
-        // If this action has already an async Id, don't request a new one.
-        this.id = this.id || this.requestAsyncId(scheduler, this.id, delay);
-        return this;
-    };
-    AsyncAction.prototype.requestAsyncId = function (scheduler, id, delay) {
-        if (delay === void 0) { delay = 0; }
-        return root_1.root.setInterval(scheduler.flush.bind(scheduler, this), delay);
-    };
-    AsyncAction.prototype.recycleAsyncId = function (scheduler, id, delay) {
-        if (delay === void 0) { delay = 0; }
-        // If this action is rescheduled with the same delay time, don't clear the interval id.
-        if (delay !== null && this.delay === delay) {
-            return id;
-        }
-        // Otherwise, if the action's delay time is different from the current delay,
-        // clear the interval id
-        return root_1.root.clearInterval(id) && undefined || undefined;
-    };
-    /**
-     * Immediately executes this action and the `work` it contains.
-     * @return {any}
-     */
-    AsyncAction.prototype.execute = function (state, delay) {
-        if (this.closed) {
-            return new Error('executing a cancelled action');
-        }
-        this.pending = false;
-        var error = this._execute(state, delay);
-        if (error) {
-            return error;
-        }
-        else if (this.pending === false && this.id != null) {
-            // Dequeue if the action didn't reschedule itself. Don't call
-            // unsubscribe(), because the action could reschedule later.
-            // For example:
-            // ```
-            // scheduler.schedule(function doWork(counter) {
-            //   /* ... I'm a busy worker bee ... */
-            //   var originalAction = this;
-            //   /* wait 100ms before rescheduling the action */
-            //   setTimeout(function () {
-            //     originalAction.schedule(counter + 1);
-            //   }, 100);
-            // }, 1000);
-            // ```
-            this.id = this.recycleAsyncId(this.scheduler, this.id, null);
-        }
-    };
-    AsyncAction.prototype._execute = function (state, delay) {
-        var errored = false;
-        var errorValue = undefined;
-        try {
-            this.work(state);
-        }
-        catch (e) {
-            errored = true;
-            errorValue = !!e && e || new Error(e);
-        }
-        if (errored) {
-            this.unsubscribe();
-            return errorValue;
-        }
-    };
-    AsyncAction.prototype._unsubscribe = function () {
-        var id = this.id;
-        var scheduler = this.scheduler;
-        var actions = scheduler.actions;
-        var index = actions.indexOf(this);
-        this.work = null;
-        this.delay = null;
-        this.state = null;
-        this.pending = false;
-        this.scheduler = null;
-        if (index !== -1) {
-            actions.splice(index, 1);
-        }
-        if (id != null) {
-            this.id = this.recycleAsyncId(scheduler, id, null);
-        }
-    };
-    return AsyncAction;
-}(Action_1.Action));
-exports.AsyncAction = AsyncAction;
-//# sourceMappingURL=AsyncAction.js.map
-
-/***/ }),
-/* 139 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var Scheduler_1 = __webpack_require__(258);
-var AsyncScheduler = (function (_super) {
-    __extends(AsyncScheduler, _super);
-    function AsyncScheduler() {
-        _super.apply(this, arguments);
-        this.actions = [];
-        /**
-         * A flag to indicate whether the Scheduler is currently executing a batch of
-         * queued actions.
-         * @type {boolean}
-         */
-        this.active = false;
-        /**
-         * An internal ID used to track the latest asynchronous task such as those
-         * coming from `setTimeout`, `setInterval`, `requestAnimationFrame`, and
-         * others.
-         * @type {any}
-         */
-        this.scheduled = undefined;
-    }
-    AsyncScheduler.prototype.flush = function (action) {
-        var actions = this.actions;
-        if (this.active) {
-            actions.push(action);
-            return;
-        }
-        var error;
-        this.active = true;
-        do {
-            if (error = action.execute(action.state, action.delay)) {
-                break;
-            }
-        } while (action = actions.shift()); // exhaust the scheduler queue
-        this.active = false;
-        if (error) {
-            while (action = actions.shift()) {
-                action.unsubscribe();
-            }
-            throw error;
-        }
-    };
-    return AsyncScheduler;
-}(Scheduler_1.Scheduler));
-exports.AsyncScheduler = AsyncScheduler;
-//# sourceMappingURL=AsyncScheduler.js.map
-
-/***/ }),
-/* 140 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var QueueAction_1 = __webpack_require__(295);
-var QueueScheduler_1 = __webpack_require__(296);
-/**
- *
- * Queue Scheduler
- *
- * <span class="informal">Put every next task on a queue, instead of executing it immediately</span>
- *
- * `queue` scheduler, when used with delay, behaves the same as {@link async} scheduler.
- *
- * When used without delay, it schedules given task synchronously - executes it right when
- * it is scheduled. However when called recursively, that is when inside the scheduled task,
- * another task is scheduled with queue scheduler, instead of executing immediately as well,
- * that task will be put on a queue and wait for current one to finish.
- *
- * This means that when you execute task with `queue` scheduler, you are sure it will end
- * before any other task scheduled with that scheduler will start.
- *
- * @examples <caption>Schedule recursively first, then do something</caption>
- *
- * Rx.Scheduler.queue.schedule(() => {
- *   Rx.Scheduler.queue.schedule(() => console.log('second')); // will not happen now, but will be put on a queue
- *
- *   console.log('first');
- * });
- *
- * // Logs:
- * // "first"
- * // "second"
- *
- *
- * @example <caption>Reschedule itself recursively</caption>
- *
- * Rx.Scheduler.queue.schedule(function(state) {
- *   if (state !== 0) {
- *     console.log('before', state);
- *     this.schedule(state - 1); // `this` references currently executing Action,
- *                               // which we reschedule with new state
- *     console.log('after', state);
- *   }
- * }, 0, 3);
- *
- * // In scheduler that runs recursively, you would expect:
- * // "before", 3
- * // "before", 2
- * // "before", 1
- * // "after", 1
- * // "after", 2
- * // "after", 3
- *
- * // But with queue it logs:
- * // "before", 3
- * // "after", 3
- * // "before", 2
- * // "after", 2
- * // "before", 1
- * // "after", 1
- *
- *
- * @static true
- * @name queue
- * @owner Scheduler
- */
-exports.queue = new QueueScheduler_1.QueueScheduler(QueueAction_1.QueueAction);
-//# sourceMappingURL=queue.js.map
-
-/***/ }),
-/* 141 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-exports.isArrayLike = (function (x) { return x && typeof x.length === 'number'; });
-//# sourceMappingURL=isArrayLike.js.map
-
-/***/ }),
-/* 142 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-function isObject(x) {
-    return x != null && typeof x === 'object';
-}
-exports.isObject = isObject;
-//# sourceMappingURL=isObject.js.map
-
-/***/ }),
-/* 143 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-function isPromise(value) {
-    return value && typeof value.subscribe !== 'function' && typeof value.then === 'function';
-}
-exports.isPromise = isPromise;
-//# sourceMappingURL=isPromise.js.map
-
-/***/ }),
-/* 144 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var errorObject_1 = __webpack_require__(96);
-var tryCatchTarget;
-function tryCatcher() {
-    try {
-        return tryCatchTarget.apply(this, arguments);
-    }
-    catch (e) {
-        errorObject_1.errorObject.e = e;
-        return errorObject_1.errorObject;
-    }
-}
-function tryCatch(fn) {
-    tryCatchTarget = fn;
-    return tryCatcher;
-}
-exports.tryCatch = tryCatch;
-;
-//# sourceMappingURL=tryCatch.js.map
-
-/***/ }),
-/* 145 */,
-/* 146 */,
-/* 147 */,
-/* 148 */,
-/* 149 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_filter__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_filter__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__media_query_module__ = __webpack_require__(102);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__media_query_breakpoints_break_points_provider__ = __webpack_require__(64);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__media_query_media_monitor_provider__ = __webpack_require__(103);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__media_query_observable_media_provider__ = __webpack_require__(66);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__api_flex__ = __webpack_require__(154);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__api_layout__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__api_show_hide__ = __webpack_require__(157);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__api_flex_align__ = __webpack_require__(150);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__api_flex_fill__ = __webpack_require__(151);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__api_flex_offset__ = __webpack_require__(152);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__api_flex_order__ = __webpack_require__(153);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__api_layout_align__ = __webpack_require__(155);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__api_layout_wrap__ = __webpack_require__(101);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__api_layout_gap__ = __webpack_require__(156);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__api_class__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__api_style__ = __webpack_require__(158);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FlexLayoutModule; });
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
- * Since the equivalent results are easily achieved with a css class attached to each
- * layout child, these have been deprecated and removed from the API.
- *
- *  import {LayoutPaddingDirective} from './api/layout-padding';
- *  import {LayoutMarginDirective} from './api/layout-margin';
- */
-var ALL_DIRECTIVES = [
-    __WEBPACK_IMPORTED_MODULE_8__api_layout__["a" /* LayoutDirective */],
-    __WEBPACK_IMPORTED_MODULE_15__api_layout_wrap__["a" /* LayoutWrapDirective */],
-    __WEBPACK_IMPORTED_MODULE_16__api_layout_gap__["a" /* LayoutGapDirective */],
-    __WEBPACK_IMPORTED_MODULE_14__api_layout_align__["a" /* LayoutAlignDirective */],
-    __WEBPACK_IMPORTED_MODULE_7__api_flex__["a" /* FlexDirective */],
-    __WEBPACK_IMPORTED_MODULE_13__api_flex_order__["a" /* FlexOrderDirective */],
-    __WEBPACK_IMPORTED_MODULE_12__api_flex_offset__["a" /* FlexOffsetDirective */],
-    __WEBPACK_IMPORTED_MODULE_11__api_flex_fill__["a" /* FlexFillDirective */],
-    __WEBPACK_IMPORTED_MODULE_10__api_flex_align__["a" /* FlexAlignDirective */],
-    __WEBPACK_IMPORTED_MODULE_9__api_show_hide__["a" /* ShowHideDirective */],
-    __WEBPACK_IMPORTED_MODULE_17__api_class__["a" /* ClassDirective */],
-    __WEBPACK_IMPORTED_MODULE_18__api_style__["a" /* StyleDirective */],
-];
-/**
- *
- */
-var FlexLayoutModule = (function () {
-    function FlexLayoutModule() {
-    }
-    /**
-     * External uses can easily add custom breakpoints AND include internal orientations
-     * breakpoints; which are not available by default.
-     *
-     * !! Selector aliases are not auto-configured. Developers must subclass
-     * the API directives to support extra selectors for the orientations breakpoints !!
-     */
-    FlexLayoutModule.provideBreakPoints = function (breakpoints, options) {
-        return {
-            ngModule: FlexLayoutModule,
-            providers: [
-                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__media_query_breakpoints_break_points_provider__["b" /* CUSTOM_BREAKPOINTS_PROVIDER_FACTORY */])(breakpoints, options || { orientations: false })
-            ]
-        };
-    };
-    return FlexLayoutModule;
-}());
-
-FlexLayoutModule.decorators = [
-    { type: __WEBPACK_IMPORTED_MODULE_2__angular_core__["_2" /* NgModule */], args: [{
-                declarations: ALL_DIRECTIVES,
-                imports: [__WEBPACK_IMPORTED_MODULE_3__media_query_module__["a" /* MediaQueriesModule */]],
-                exports: [__WEBPACK_IMPORTED_MODULE_3__media_query_module__["a" /* MediaQueriesModule */]].concat(ALL_DIRECTIVES),
-                providers: [
-                    __WEBPACK_IMPORTED_MODULE_5__media_query_media_monitor_provider__["b" /* MEDIA_MONITOR_PROVIDER */],
-                    __WEBPACK_IMPORTED_MODULE_4__media_query_breakpoints_break_points_provider__["c" /* DEFAULT_BREAKPOINTS_PROVIDER */],
-                    __WEBPACK_IMPORTED_MODULE_6__media_query_observable_media_provider__["b" /* OBSERVABLE_MEDIA_PROVIDER */]
-                ]
-            },] },
-];
-/** @nocollapse */
-FlexLayoutModule.ctorParameters = function () { return []; };
-//# sourceMappingURL=_module.js.map
-
-/***/ }),
-/* 150 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__media_query_media_monitor__ = __webpack_require__(3);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FlexAlignDirective; });
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-
-
-/**
- * 'flex-align' flexbox styling directive
- * Allows element-specific overrides for cross-axis alignments in a layout container
- * @see https://css-tricks.com/almanac/properties/a/align-self/
- */
-var FlexAlignDirective = (function (_super) {
-    __extends(FlexAlignDirective, _super);
-    /* tslint:enable */
-    function FlexAlignDirective(monitor, elRef, renderer) {
-        return _super.call(this, monitor, elRef, renderer) || this;
-    }
-    Object.defineProperty(FlexAlignDirective.prototype, "align", {
-        /* tslint:disable */
-        set: function (val) { this._cacheInput('align', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(FlexAlignDirective.prototype, "alignXs", {
-        set: function (val) { this._cacheInput('alignXs', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(FlexAlignDirective.prototype, "alignSm", {
-        set: function (val) { this._cacheInput('alignSm', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(FlexAlignDirective.prototype, "alignMd", {
-        set: function (val) { this._cacheInput('alignMd', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(FlexAlignDirective.prototype, "alignLg", {
-        set: function (val) { this._cacheInput('alignLg', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(FlexAlignDirective.prototype, "alignXl", {
-        set: function (val) { this._cacheInput('alignXl', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(FlexAlignDirective.prototype, "alignLtSm", {
-        set: function (val) { this._cacheInput('alignLtSm', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(FlexAlignDirective.prototype, "alignLtMd", {
-        set: function (val) { this._cacheInput('alignLtMd', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(FlexAlignDirective.prototype, "alignLtLg", {
-        set: function (val) { this._cacheInput('alignLtLg', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(FlexAlignDirective.prototype, "alignLtXl", {
-        set: function (val) { this._cacheInput('alignLtXl', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(FlexAlignDirective.prototype, "alignGtXs", {
-        set: function (val) { this._cacheInput('alignGtXs', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(FlexAlignDirective.prototype, "alignGtSm", {
-        set: function (val) { this._cacheInput('alignGtSm', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(FlexAlignDirective.prototype, "alignGtMd", {
-        set: function (val) { this._cacheInput('alignGtMd', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(FlexAlignDirective.prototype, "alignGtLg", {
-        set: function (val) { this._cacheInput('alignGtLg', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    // *********************************************
-    // Lifecycle Methods
-    // *********************************************
-    /**
-     * For @Input changes on the current mq activation property, see onMediaQueryChanges()
-     */
-    FlexAlignDirective.prototype.ngOnChanges = function (changes) {
-        if (changes['align'] != null || this._mqActivation) {
-            this._updateWithValue();
-        }
-    };
-    /**
-     * After the initial onChanges, build an mqActivation object that bridges
-     * mql change events to onMediaQueryChange handlers
-     */
-    FlexAlignDirective.prototype.ngOnInit = function () {
-        var _this = this;
-        this._listenForMediaQueryChanges('align', 'stretch', function (changes) {
-            _this._updateWithValue(changes.value);
-        });
-        this._updateWithValue();
-    };
-    // *********************************************
-    // Protected methods
-    // *********************************************
-    FlexAlignDirective.prototype._updateWithValue = function (value) {
-        value = value || this._queryInput("align") || 'stretch';
-        if (this._mqActivation) {
-            value = this._mqActivation.activatedInput;
-        }
-        this._applyStyleToElement(this._buildCSS(value));
-    };
-    FlexAlignDirective.prototype._buildCSS = function (align) {
-        var css = {};
-        // Cross-axis
-        switch (align) {
-            case 'start':
-                css['align-self'] = 'flex-start';
-                break;
-            case 'end':
-                css['align-self'] = 'flex-end';
-                break;
-            default:
-                css['align-self'] = align;
-                break;
-        }
-        return css;
-    };
-    return FlexAlignDirective;
-}(__WEBPACK_IMPORTED_MODULE_1__base__["a" /* BaseFxDirective */]));
-
-FlexAlignDirective.decorators = [
-    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Directive */], args: [{
-                selector: "\n  [fxFlexAlign],\n  [fxFlexAlign.xs], [fxFlexAlign.sm], [fxFlexAlign.md], [fxFlexAlign.lg], [fxFlexAlign.xl],\n  [fxFlexAlign.lt-sm], [fxFlexAlign.lt-md], [fxFlexAlign.lt-lg], [fxFlexAlign.lt-xl],\n  [fxFlexAlign.gt-xs], [fxFlexAlign.gt-sm], [fxFlexAlign.gt-md], [fxFlexAlign.gt-lg]\n"
-            },] },
-];
-/** @nocollapse */
-FlexAlignDirective.ctorParameters = function () { return [
-    { type: __WEBPACK_IMPORTED_MODULE_2__media_query_media_monitor__["a" /* MediaMonitor */], },
-    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* ElementRef */], },
-    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_28" /* Renderer2 */], },
-]; };
-FlexAlignDirective.propDecorators = {
-    'align': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign',] },],
-    'alignXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.xs',] },],
-    'alignSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.sm',] },],
-    'alignMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.md',] },],
-    'alignLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.lg',] },],
-    'alignXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.xl',] },],
-    'alignLtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.lt-sm',] },],
-    'alignLtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.lt-md',] },],
-    'alignLtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.lt-lg',] },],
-    'alignLtXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.lt-xl',] },],
-    'alignGtXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.gt-xs',] },],
-    'alignGtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.gt-sm',] },],
-    'alignGtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.gt-md',] },],
-    'alignGtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.gt-lg',] },],
-};
-//# sourceMappingURL=flex-align.js.map
-
-/***/ }),
-/* 151 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__media_query_media_monitor__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__base__ = __webpack_require__(8);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FlexFillDirective; });
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-
-
-var FLEX_FILL_CSS = {
-    'margin': 0,
-    'width': '100%',
-    'height': '100%',
-    'min-width': '100%',
-    'min-height': '100%'
-};
-/**
- * 'fxFill' flexbox styling directive
- *  Maximizes width and height of element in a layout container
- *
- *  NOTE: fxFill is NOT responsive API!!
- */
-var FlexFillDirective = (function (_super) {
-    __extends(FlexFillDirective, _super);
-    function FlexFillDirective(monitor, elRef, renderer) {
-        var _this = _super.call(this, monitor, elRef, renderer) || this;
-        _this.elRef = elRef;
-        _this.renderer = renderer;
-        _this._applyStyleToElement(FLEX_FILL_CSS);
-        return _this;
-    }
-    return FlexFillDirective;
-}(__WEBPACK_IMPORTED_MODULE_2__base__["a" /* BaseFxDirective */]));
-
-FlexFillDirective.decorators = [
-    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Directive */], args: [{ selector: "\n  [fxFill],\n  [fxFlexFill]\n" },] },
-];
-/** @nocollapse */
-FlexFillDirective.ctorParameters = function () { return [
-    { type: __WEBPACK_IMPORTED_MODULE_1__media_query_media_monitor__["a" /* MediaMonitor */], },
-    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* ElementRef */], },
-    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_28" /* Renderer2 */], },
-]; };
-//# sourceMappingURL=flex-fill.js.map
-
-/***/ }),
-/* 152 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__media_query_media_monitor__ = __webpack_require__(3);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FlexOffsetDirective; });
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-
-
-/**
- * 'flex-offset' flexbox styling directive
- * Configures the 'margin-left' of the element in a layout container
- */
-var FlexOffsetDirective = (function (_super) {
-    __extends(FlexOffsetDirective, _super);
-    /* tslint:enable */
-    function FlexOffsetDirective(monitor, elRef, renderer) {
-        return _super.call(this, monitor, elRef, renderer) || this;
-    }
-    Object.defineProperty(FlexOffsetDirective.prototype, "offset", {
-        /* tslint:disable */
-        set: function (val) { this._cacheInput('offset', val); },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(FlexOffsetDirective.prototype, "offsetXs", {
-        set: function (val) { this._cacheInput('offsetXs', val); },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(FlexOffsetDirective.prototype, "offsetSm", {
-        set: function (val) { this._cacheInput('offsetSm', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(FlexOffsetDirective.prototype, "offsetMd", {
-        set: function (val) { this._cacheInput('offsetMd', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(FlexOffsetDirective.prototype, "offsetLg", {
-        set: function (val) { this._cacheInput('offsetLg', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(FlexOffsetDirective.prototype, "offsetXl", {
-        set: function (val) { this._cacheInput('offsetXl', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(FlexOffsetDirective.prototype, "offsetLtSm", {
-        set: function (val) { this._cacheInput('offsetLtSm', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(FlexOffsetDirective.prototype, "offsetLtMd", {
-        set: function (val) { this._cacheInput('offsetLtMd', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(FlexOffsetDirective.prototype, "offsetLtLg", {
-        set: function (val) { this._cacheInput('offsetLtLg', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(FlexOffsetDirective.prototype, "offsetLtXl", {
-        set: function (val) { this._cacheInput('offsetLtXl', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(FlexOffsetDirective.prototype, "offsetGtXs", {
-        set: function (val) { this._cacheInput('offsetGtXs', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(FlexOffsetDirective.prototype, "offsetGtSm", {
-        set: function (val) { this._cacheInput('offsetGtSm', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(FlexOffsetDirective.prototype, "offsetGtMd", {
-        set: function (val) { this._cacheInput('offsetGtMd', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(FlexOffsetDirective.prototype, "offsetGtLg", {
-        set: function (val) { this._cacheInput('offsetGtLg', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    // *********************************************
-    // Lifecycle Methods
-    // *********************************************
-    /**
-     * For @Input changes on the current mq activation property, see onMediaQueryChanges()
-     */
-    FlexOffsetDirective.prototype.ngOnChanges = function (changes) {
-        if (changes['offset'] != null || this._mqActivation) {
-            this._updateWithValue();
-        }
-    };
-    /**
-     * After the initial onChanges, build an mqActivation object that bridges
-     * mql change events to onMediaQueryChange handlers
-     */
-    FlexOffsetDirective.prototype.ngOnInit = function () {
-        var _this = this;
-        this._listenForMediaQueryChanges('offset', 0, function (changes) {
-            _this._updateWithValue(changes.value);
-        });
-    };
-    // *********************************************
-    // Protected methods
-    // *********************************************
-    FlexOffsetDirective.prototype._updateWithValue = function (value) {
-        value = value || this._queryInput("offset") || 0;
-        if (this._mqActivation) {
-            value = this._mqActivation.activatedInput;
-        }
-        this._applyStyleToElement(this._buildCSS(value));
-    };
-    FlexOffsetDirective.prototype._buildCSS = function (offset) {
-        var isPercent = String(offset).indexOf('%') > -1;
-        var isPx = String(offset).indexOf('px') > -1;
-        if (!isPx && !isPercent && !isNaN(offset)) {
-            offset = offset + '%';
-        }
-        return { 'margin-left': "" + offset };
-    };
-    return FlexOffsetDirective;
-}(__WEBPACK_IMPORTED_MODULE_1__base__["a" /* BaseFxDirective */]));
-
-FlexOffsetDirective.decorators = [
-    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Directive */], args: [{ selector: "\n  [fxFlexOffset],\n  [fxFlexOffset.xs], [fxFlexOffset.sm], [fxFlexOffset.md], [fxFlexOffset.lg], [fxFlexOffset.xl],\n  [fxFlexOffset.lt-sm], [fxFlexOffset.lt-md], [fxFlexOffset.lt-lg], [fxFlexOffset.lt-xl],\n  [fxFlexOffset.gt-xs], [fxFlexOffset.gt-sm], [fxFlexOffset.gt-md], [fxFlexOffset.gt-lg]\n" },] },
-];
-/** @nocollapse */
-FlexOffsetDirective.ctorParameters = function () { return [
-    { type: __WEBPACK_IMPORTED_MODULE_2__media_query_media_monitor__["a" /* MediaMonitor */], },
-    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* ElementRef */], },
-    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_28" /* Renderer2 */], },
-]; };
-FlexOffsetDirective.propDecorators = {
-    'offset': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset',] },],
-    'offsetXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.xs',] },],
-    'offsetSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.sm',] },],
-    'offsetMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.md',] },],
-    'offsetLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.lg',] },],
-    'offsetXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.xl',] },],
-    'offsetLtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.lt-sm',] },],
-    'offsetLtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.lt-md',] },],
-    'offsetLtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.lt-lg',] },],
-    'offsetLtXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.lt-xl',] },],
-    'offsetGtXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.gt-xs',] },],
-    'offsetGtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.gt-sm',] },],
-    'offsetGtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.gt-md',] },],
-    'offsetGtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.gt-lg',] },],
-};
-//# sourceMappingURL=flex-offset.js.map
-
-/***/ }),
-/* 153 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__media_query_media_monitor__ = __webpack_require__(3);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FlexOrderDirective; });
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-
-
-/**
- * 'flex-order' flexbox styling directive
- * Configures the positional ordering of the element in a sorted layout container
- * @see https://css-tricks.com/almanac/properties/o/order/
- */
-var FlexOrderDirective = (function (_super) {
-    __extends(FlexOrderDirective, _super);
-    /* tslint:enable */
-    function FlexOrderDirective(monitor, elRef, renderer) {
-        return _super.call(this, monitor, elRef, renderer) || this;
-    }
-    Object.defineProperty(FlexOrderDirective.prototype, "order", {
-        /* tslint:disable */
-        set: function (val) { this._cacheInput('order', val); },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(FlexOrderDirective.prototype, "orderXs", {
-        set: function (val) { this._cacheInput('orderXs', val); },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(FlexOrderDirective.prototype, "orderSm", {
-        set: function (val) { this._cacheInput('orderSm', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(FlexOrderDirective.prototype, "orderMd", {
-        set: function (val) { this._cacheInput('orderMd', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(FlexOrderDirective.prototype, "orderLg", {
-        set: function (val) { this._cacheInput('orderLg', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(FlexOrderDirective.prototype, "orderXl", {
-        set: function (val) { this._cacheInput('orderXl', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(FlexOrderDirective.prototype, "orderGtXs", {
-        set: function (val) { this._cacheInput('orderGtXs', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(FlexOrderDirective.prototype, "orderGtSm", {
-        set: function (val) { this._cacheInput('orderGtSm', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(FlexOrderDirective.prototype, "orderGtMd", {
-        set: function (val) { this._cacheInput('orderGtMd', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(FlexOrderDirective.prototype, "orderGtLg", {
-        set: function (val) { this._cacheInput('orderGtLg', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(FlexOrderDirective.prototype, "orderLtSm", {
-        set: function (val) { this._cacheInput('orderLtSm', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(FlexOrderDirective.prototype, "orderLtMd", {
-        set: function (val) { this._cacheInput('orderLtMd', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(FlexOrderDirective.prototype, "orderLtLg", {
-        set: function (val) { this._cacheInput('orderLtLg', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(FlexOrderDirective.prototype, "orderLtXl", {
-        set: function (val) { this._cacheInput('orderLtXl', val); },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    // *********************************************
-    // Lifecycle Methods
-    // *********************************************
-    /**
-     * For @Input changes on the current mq activation property, see onMediaQueryChanges()
-     */
-    FlexOrderDirective.prototype.ngOnChanges = function (changes) {
-        if (changes['order'] != null || this._mqActivation) {
-            this._updateWithValue();
-        }
-    };
-    /**
-     * After the initial onChanges, build an mqActivation object that bridges
-     * mql change events to onMediaQueryChange handlers
-     */
-    FlexOrderDirective.prototype.ngOnInit = function () {
-        var _this = this;
-        this._listenForMediaQueryChanges('order', '0', function (changes) {
-            _this._updateWithValue(changes.value);
-        });
-        this._updateWithValue();
-    };
-    // *********************************************
-    // Protected methods
-    // *********************************************
-    FlexOrderDirective.prototype._updateWithValue = function (value) {
-        value = value || this._queryInput("order") || '0';
-        if (this._mqActivation) {
-            value = this._mqActivation.activatedInput;
-        }
-        this._applyStyleToElement(this._buildCSS(value));
-    };
-    FlexOrderDirective.prototype._buildCSS = function (value) {
-        value = parseInt(value, 10);
-        return { order: isNaN(value) ? 0 : value };
-    };
-    return FlexOrderDirective;
-}(__WEBPACK_IMPORTED_MODULE_1__base__["a" /* BaseFxDirective */]));
-
-FlexOrderDirective.decorators = [
-    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Directive */], args: [{ selector: "\n  [fxFlexOrder],\n  [fxFlexOrder.xs], [fxFlexOrder.sm], [fxFlexOrder.md], [fxFlexOrder.lg], [fxFlexOrder.xl],\n  [fxFlexOrder.lt-sm], [fxFlexOrder.lt-md], [fxFlexOrder.lt-lg], [fxFlexOrder.lt-xl],\n  [fxFlexOrder.gt-xs], [fxFlexOrder.gt-sm], [fxFlexOrder.gt-md], [fxFlexOrder.gt-lg]\n" },] },
-];
-/** @nocollapse */
-FlexOrderDirective.ctorParameters = function () { return [
-    { type: __WEBPACK_IMPORTED_MODULE_2__media_query_media_monitor__["a" /* MediaMonitor */], },
-    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* ElementRef */], },
-    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_28" /* Renderer2 */], },
-]; };
-FlexOrderDirective.propDecorators = {
-    'order': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder',] },],
-    'orderXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.xs',] },],
-    'orderSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.sm',] },],
-    'orderMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.md',] },],
-    'orderLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.lg',] },],
-    'orderXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.xl',] },],
-    'orderGtXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.gt-xs',] },],
-    'orderGtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.gt-sm',] },],
-    'orderGtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.gt-md',] },],
-    'orderGtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.gt-lg',] },],
-    'orderLtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.lt-sm',] },],
-    'orderLtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.lt-md',] },],
-    'orderLtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.lt-lg',] },],
-    'orderLtXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.lt-xl',] },],
-};
-//# sourceMappingURL=flex-order.js.map
-
-/***/ }),
-/* 154 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_object_extend__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_object_extend__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__base__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__media_query_media_monitor__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__layout__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__layout_wrap__ = __webpack_require__(101);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__utils_basis_validator__ = __webpack_require__(164);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__layout__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__layout_wrap__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__utils_basis_validator__ = __webpack_require__(165);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FlexDirective; });
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -67306,15 +64319,15 @@ FlexDirective.propDecorators = {
 //# sourceMappingURL=flex.js.map
 
 /***/ }),
-/* 155 */
+/* 103 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_object_extend__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_object_extend__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__base__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__media_query_media_monitor__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__layout__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__layout__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_layout_validator__ = __webpack_require__(39);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LayoutAlignDirective; });
 var __extends = (this && this.__extends) || (function () {
@@ -67594,13 +64607,3001 @@ LayoutAlignDirective.propDecorators = {
 //# sourceMappingURL=layout-align.js.map
 
 /***/ }),
+/* 104 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__match_media__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__media_monitor__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__observable_media_provider__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__breakpoints_break_points_provider__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__breakpoints_break_point_registry__ = __webpack_require__(23);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MediaQueriesModule; });
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+
+
+
+/**
+ * *****************************************************************
+ * Define module for the MediaQuery API
+ * *****************************************************************
+ */
+var MediaQueriesModule = (function () {
+    function MediaQueriesModule() {
+    }
+    return MediaQueriesModule;
+}());
+
+MediaQueriesModule.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_2" /* NgModule */], args: [{
+                providers: [
+                    __WEBPACK_IMPORTED_MODULE_4__breakpoints_break_points_provider__["c" /* DEFAULT_BREAKPOINTS_PROVIDER */],
+                    __WEBPACK_IMPORTED_MODULE_5__breakpoints_break_point_registry__["a" /* BreakPointRegistry */],
+                    __WEBPACK_IMPORTED_MODULE_1__match_media__["a" /* MatchMedia */],
+                    __WEBPACK_IMPORTED_MODULE_2__media_monitor__["a" /* MediaMonitor */],
+                    __WEBPACK_IMPORTED_MODULE_3__observable_media_provider__["b" /* OBSERVABLE_MEDIA_PROVIDER */] // easy subscription injectable `media$` matchMedia observable
+                ]
+            },] },
+];
+/** @nocollapse */
+MediaQueriesModule.ctorParameters = function () { return []; };
+//# sourceMappingURL=_module.js.map
+
+/***/ }),
+/* 105 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__media_monitor__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__match_media__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__breakpoints_break_point_registry__ = __webpack_require__(23);
+/* harmony export (immutable) */ __webpack_exports__["a"] = MEDIA_MONITOR_PROVIDER_FACTORY;
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return MEDIA_MONITOR_PROVIDER; });
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+
+/**
+ * Ensure a single global service provider
+ */
+function MEDIA_MONITOR_PROVIDER_FACTORY(parentMonitor, breakpoints, matchMedia) {
+    return parentMonitor || new __WEBPACK_IMPORTED_MODULE_1__media_monitor__["a" /* MediaMonitor */](breakpoints, matchMedia);
+}
+/**
+ * Export provider that uses a global service factory (above)
+ */
+var MEDIA_MONITOR_PROVIDER = {
+    provide: __WEBPACK_IMPORTED_MODULE_1__media_monitor__["a" /* MediaMonitor */],
+    deps: [
+        [new __WEBPACK_IMPORTED_MODULE_0__angular_core__["Z" /* Optional */](), new __WEBPACK_IMPORTED_MODULE_0__angular_core__["_0" /* SkipSelf */](), __WEBPACK_IMPORTED_MODULE_1__media_monitor__["a" /* MediaMonitor */]],
+        __WEBPACK_IMPORTED_MODULE_3__breakpoints_break_point_registry__["a" /* BreakPointRegistry */],
+        __WEBPACK_IMPORTED_MODULE_2__match_media__["a" /* MatchMedia */],
+    ],
+    useFactory: MEDIA_MONITOR_PROVIDER_FACTORY
+};
+//# sourceMappingURL=media-monitor-provider.js.map
+
+/***/ }),
+/* 106 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__breakpoints_break_point_registry__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__match_media__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_add_alias__ = __webpack_require__(107);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ObservableMedia; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return MediaService; });
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+
+
+
+/**
+ * Base class for MediaService and pseudo-token for
+ */
+var ObservableMedia = (function () {
+    function ObservableMedia() {
+    }
+    return ObservableMedia;
+}());
+
+/**
+ * Class internalizes a MatchMedia service and exposes an Subscribable and Observable interface.
+
+ * This an Observable with that exposes a feature to subscribe to mediaQuery
+ * changes and a validator method (`isActive(<alias>)`) to test if a mediaQuery (or alias) is
+ * currently active.
+ *
+ * !! Only mediaChange activations (not de-activations) are announced by the ObservableMedia
+ *
+ * This class uses the BreakPoint Registry to inject alias information into the raw MediaChange
+ * notification. For custom mediaQuery notifications, alias information will not be injected and
+ * those fields will be ''.
+ *
+ * !! This is not an actual Observable. It is a wrapper of an Observable used to publish additional
+ * methods like `isActive(<alias>). To access the Observable and use RxJS operators, use
+ * `.asObservable()` with syntax like media.asObservable().map(....).
+ *
+ *  @usage
+ *
+ *  // RxJS
+ *  import 'rxjs/add/operator/filter';
+ *  import { ObservableMedia } from '@angular/flex-layout';
+ *
+ *  @Component({ ... })
+ *  export class AppComponent {
+ *    status : string = '';
+ *
+ *    constructor(  media:ObservableMedia ) {
+ *      let onChange = (change:MediaChange) => {
+ *        this.status = change ? `'${change.mqAlias}' = (${change.mediaQuery})` : "";
+ *      };
+ *
+ *      // Subscribe directly or access observable to use filter/map operators
+ *      // e.g.
+ *      //      media.subscribe(onChange);
+ *
+ *      media.asObservable()
+ *        .filter((change:MediaChange) => true)   // silly noop filter
+ *        .subscribe(onChange);
+ *    }
+ *  }
+ */
+var MediaService = (function () {
+    function MediaService(mediaWatcher, breakpoints) {
+        this.mediaWatcher = mediaWatcher;
+        this.breakpoints = breakpoints;
+        /**
+         * Should we announce gt-<xxx> breakpoint activations ?
+         */
+        this.filterOverlaps = true;
+        this.observable$ = this._buildObservable();
+        this._registerBreakPoints();
+    }
+    /**
+     * Test if specified query/alias is active.
+     */
+    MediaService.prototype.isActive = function (alias) {
+        var query = this._toMediaQuery(alias);
+        return this.mediaWatcher.isActive(query);
+    };
+    ;
+    /**
+     * Proxy to the Observable subscribe method
+     */
+    MediaService.prototype.subscribe = function (next, error, complete) {
+        return this.observable$.subscribe(next, error, complete);
+    };
+    ;
+    /**
+     * Access to observable for use with operators like
+     * .filter(), .map(), etc.
+     */
+    MediaService.prototype.asObservable = function () {
+        return this.observable$;
+    };
+    // ************************************************
+    // Internal Methods
+    // ************************************************
+    /**
+     * Register all the mediaQueries registered in the BreakPointRegistry
+     * This is needed so subscribers can be auto-notified of all standard, registered
+     * mediaQuery activations
+     */
+    MediaService.prototype._registerBreakPoints = function () {
+        var _this = this;
+        this.breakpoints.items.forEach(function (bp) {
+            _this.mediaWatcher.registerQuery(bp.mediaQuery);
+            return bp;
+        });
+    };
+    /**
+     * Prepare internal observable
+     * NOTE: the raw MediaChange events [from MatchMedia] do not contain important alias information
+     * these must be injected into the MediaChange
+     */
+    MediaService.prototype._buildObservable = function () {
+        var _this = this;
+        var self = this;
+        // Only pass/announce activations (not de-activations)
+        // Inject associated (if any) alias information into the MediaChange event
+        // Exclude mediaQuery activations for overlapping mQs. List bounded mQ ranges only
+        var activationsOnly = function (change) {
+            return change.matches === true;
+        };
+        var addAliasInformation = function (change) {
+            return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__utils_add_alias__["a" /* mergeAlias */])(change, _this._findByQuery(change.mediaQuery));
+        };
+        var excludeOverlaps = function (change) {
+            var bp = _this.breakpoints.findByQuery(change.mediaQuery);
+            return !bp ? true : !(self.filterOverlaps && bp.overlapping);
+        };
+        return this.mediaWatcher.observe()
+            .filter(activationsOnly)
+            .map(addAliasInformation)
+            .filter(excludeOverlaps);
+    };
+    /**
+     * Breakpoint locator by alias
+     */
+    MediaService.prototype._findByAlias = function (alias) {
+        return this.breakpoints.findByAlias(alias);
+    };
+    /**
+     * Breakpoint locator by mediaQuery
+     */
+    MediaService.prototype._findByQuery = function (query) {
+        return this.breakpoints.findByQuery(query);
+    };
+    ;
+    /**
+     * Find associated breakpoint (if any)
+     */
+    MediaService.prototype._toMediaQuery = function (query) {
+        var bp = this._findByAlias(query) || this._findByQuery(query);
+        return bp ? bp.mediaQuery : query;
+    };
+    ;
+    return MediaService;
+}());
+
+MediaService.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["X" /* Injectable */] },
+];
+/** @nocollapse */
+MediaService.ctorParameters = function () { return [
+    { type: __WEBPACK_IMPORTED_MODULE_4__match_media__["a" /* MatchMedia */], },
+    { type: __WEBPACK_IMPORTED_MODULE_3__breakpoints_break_point_registry__["a" /* BreakPointRegistry */], },
+]; };
+//# sourceMappingURL=observable-media.js.map
+
+/***/ }),
+/* 107 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__object_extend__ = __webpack_require__(24);
+/* harmony export (immutable) */ __webpack_exports__["a"] = mergeAlias;
+
+/**
+ * For the specified MediaChange, make sure it contains the breakpoint alias
+ * and suffix (if available).
+ */
+function mergeAlias(dest, source) {
+    return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__object_extend__["a" /* extendObject */])(dest, source ? {
+        mqAlias: source.alias,
+        suffix: source.suffix
+    } : {});
+}
+//# sourceMappingURL=add-alias.js.map
+
+/***/ }),
+/* 108 */,
+/* 109 */,
+/* 110 */,
+/* 111 */,
+/* 112 */,
+/* 113 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_firebase__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_firebase__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tokens__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__auth_index__ = __webpack_require__(190);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__database_index__ = __webpack_require__(49);
+/* unused harmony reexport AngularFireAuth */
+/* unused harmony reexport AngularFireDatabase */
+/* unused harmony reexport FirebaseListObservable */
+/* unused harmony reexport FirebaseObjectObservable */
+/* unused harmony reexport FirebaseListFactory */
+/* unused harmony reexport FirebaseObjectFactory */
+/* unused harmony reexport firebaseAuthConfig */
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return __WEBPACK_IMPORTED_MODULE_4__auth_index__["d"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_4__auth_index__["e"]; });
+/* unused harmony reexport WindowLocation */
+/* unused harmony reexport FirebaseConfig */
+/* unused harmony reexport FirebaseApp */
+/* unused harmony reexport FirebaseAuthConfig */
+/* unused harmony reexport FirebaseRef */
+/* unused harmony reexport FirebaseUrl */
+/* unused harmony reexport FirebaseUserConfig */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return AngularFire; });
+/* harmony export (immutable) */ __webpack_exports__["b"] = _getFirebase;
+/* harmony export (immutable) */ __webpack_exports__["d"] = _getWindowLocation;
+/* harmony export (immutable) */ __webpack_exports__["c"] = _getAuthBackend;
+/* harmony export (immutable) */ __webpack_exports__["a"] = _getDefaultFirebase;
+/* unused harmony export COMMON_PROVIDERS */
+/* unused harmony export FIREBASE_PROVIDERS */
+/* unused harmony export defaultFirebase */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return AngularFireModule; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+
+
+
+
+
+
+var AngularFire = (function () {
+    function AngularFire(firebaseConfig, auth, database) {
+        this.firebaseConfig = firebaseConfig;
+        this.auth = auth;
+        this.database = database;
+    }
+    return AngularFire;
+}());
+AngularFire = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__angular_core__["X" /* Injectable */])(),
+    __param(0, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__angular_core__["_1" /* Inject */])(__WEBPACK_IMPORTED_MODULE_2__tokens__["b" /* FirebaseConfig */])),
+    __metadata("design:paramtypes", [Object, __WEBPACK_IMPORTED_MODULE_4__auth_index__["a" /* AngularFireAuth */],
+        __WEBPACK_IMPORTED_MODULE_5__database_index__["a" /* AngularFireDatabase */]])
+], AngularFire);
+
+function _getFirebase(config, appName) {
+    try {
+        if (appName) {
+            return __WEBPACK_IMPORTED_MODULE_0_firebase__["initializeApp"](config, appName);
+        }
+        else {
+            return __WEBPACK_IMPORTED_MODULE_0_firebase__["initializeApp"](config);
+        }
+    }
+    catch (e) {
+        return __WEBPACK_IMPORTED_MODULE_0_firebase__["app"](null);
+    }
+}
+function _getWindowLocation() {
+    return window.location;
+}
+function _getAuthBackend(app) {
+    return new __WEBPACK_IMPORTED_MODULE_4__auth_index__["b" /* FirebaseSdkAuthBackend */](app);
+}
+function _getDefaultFirebase(config) {
+    config.databaseURL = __WEBPACK_IMPORTED_MODULE_1__utils__["a" /* stripTrailingSlash */](config.databaseURL);
+    return config;
+}
+var COMMON_PROVIDERS = [
+    {
+        provide: __WEBPACK_IMPORTED_MODULE_2__tokens__["d" /* FirebaseApp */],
+        useFactory: _getFirebase,
+        deps: [__WEBPACK_IMPORTED_MODULE_2__tokens__["b" /* FirebaseConfig */], __WEBPACK_IMPORTED_MODULE_2__tokens__["c" /* FirebaseAppName */]]
+    },
+    __WEBPACK_IMPORTED_MODULE_4__auth_index__["a" /* AngularFireAuth */],
+    AngularFire,
+    __WEBPACK_IMPORTED_MODULE_5__database_index__["a" /* AngularFireDatabase */]
+];
+var FIREBASE_PROVIDERS = [
+    COMMON_PROVIDERS,
+    {
+        provide: __WEBPACK_IMPORTED_MODULE_4__auth_index__["c" /* AuthBackend */],
+        useFactory: _getAuthBackend,
+        deps: [__WEBPACK_IMPORTED_MODULE_2__tokens__["d" /* FirebaseApp */]]
+    },
+    {
+        provide: __WEBPACK_IMPORTED_MODULE_2__tokens__["e" /* WindowLocation */],
+        useFactory: _getWindowLocation
+    },
+];
+var defaultFirebase = function (config) {
+    return [
+        { provide: __WEBPACK_IMPORTED_MODULE_2__tokens__["a" /* FirebaseUserConfig */], useValue: config },
+        { provide: __WEBPACK_IMPORTED_MODULE_2__tokens__["b" /* FirebaseConfig */], useFactory: _getDefaultFirebase, deps: [__WEBPACK_IMPORTED_MODULE_2__tokens__["a" /* FirebaseUserConfig */]] }
+    ];
+};
+var AngularFireModule = AngularFireModule_1 = (function () {
+    function AngularFireModule() {
+    }
+    AngularFireModule.initializeApp = function (config, authConfig, appName) {
+        return {
+            ngModule: AngularFireModule_1,
+            providers: [
+                { provide: __WEBPACK_IMPORTED_MODULE_2__tokens__["a" /* FirebaseUserConfig */], useValue: config },
+                { provide: __WEBPACK_IMPORTED_MODULE_2__tokens__["b" /* FirebaseConfig */], useFactory: _getDefaultFirebase, deps: [__WEBPACK_IMPORTED_MODULE_2__tokens__["a" /* FirebaseUserConfig */]] },
+                { provide: __WEBPACK_IMPORTED_MODULE_2__tokens__["f" /* FirebaseAuthConfig */], useValue: authConfig },
+                { provide: __WEBPACK_IMPORTED_MODULE_2__tokens__["c" /* FirebaseAppName */], useValue: appName }
+            ]
+        };
+    };
+    return AngularFireModule;
+}());
+AngularFireModule = AngularFireModule_1 = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__angular_core__["_2" /* NgModule */])({
+        providers: FIREBASE_PROVIDERS
+    })
+], AngularFireModule);
+
+
+
+var AngularFireModule_1;
+//# sourceMappingURL=angularfire2.js.map
+
+/***/ }),
+/* 114 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_ReplaySubject__ = __webpack_require__(257);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_ReplaySubject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_ReplaySubject__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tokens__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__auth_backend__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_operator_mergeMap__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_operator_mergeMap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_operator_mergeMap__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_observable_of__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_observable_of___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_observable_of__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_operator_map__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_rxjs_operator_map__);
+/* unused harmony export firebaseAuthConfig */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AngularFireAuth; });
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+
+
+
+
+
+
+
+
+var kBufferSize = 1;
+var firebaseAuthConfig = function (config) {
+    return { provide: __WEBPACK_IMPORTED_MODULE_2__tokens__["f" /* FirebaseAuthConfig */], useValue: config };
+};
+var AngularFireAuth = (function (_super) {
+    __extends(AngularFireAuth, _super);
+    function AngularFireAuth(_authBackend, loc, _config) {
+        var _this = _super.call(this, kBufferSize) || this;
+        _this._authBackend = _authBackend;
+        _this._config = _config;
+        _this._credentialCache = {};
+        var firstPass = true;
+        var onAuth = _this._authBackend.onAuth();
+        __WEBPACK_IMPORTED_MODULE_5_rxjs_operator_mergeMap__["mergeMap"].call(onAuth, function (authState) {
+            if (firstPass) {
+                firstPass = false;
+                if (['http:', 'https:'].indexOf(loc.protocol) > -1) {
+                    return __WEBPACK_IMPORTED_MODULE_7_rxjs_operator_map__["map"].call(_this._authBackend.getRedirectResult(), function (userCredential) {
+                        if (userCredential && userCredential.credential) {
+                            authState = attachCredentialToAuthState(authState, userCredential.credential, userCredential.credential.provider);
+                            _this._credentialCache[userCredential.credential.provider] = userCredential.credential;
+                        }
+                        return authState;
+                    });
+                }
+            }
+            return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_rxjs_observable_of__["of"])(authState);
+        })
+            .subscribe(function (authData) { return _this._emitAuthData(authData); });
+        return _this;
+    }
+    AngularFireAuth.prototype.login = function (obj1, obj2) {
+        var _this = this;
+        var config = null;
+        var credentials = null;
+        if (arguments.length > 2) {
+            return this._reject('Login only accepts a maximum of two arguments.');
+        }
+        else if (arguments.length == 2) {
+            credentials = obj1;
+            config = obj2;
+        }
+        else if (arguments.length == 1) {
+            if (obj1.password && obj1.email) {
+                credentials = obj1;
+                config = {};
+            }
+            else {
+                config = obj1;
+            }
+        }
+        config = this._mergeConfigs(config);
+        if (__WEBPACK_IMPORTED_MODULE_3__utils__["c" /* isNil */](config.method)) {
+            return this._reject('You must provide a login method');
+        }
+        var providerMethods = [__WEBPACK_IMPORTED_MODULE_4__auth_backend__["d" /* AuthMethods */].Popup, __WEBPACK_IMPORTED_MODULE_4__auth_backend__["d" /* AuthMethods */].Redirect, __WEBPACK_IMPORTED_MODULE_4__auth_backend__["d" /* AuthMethods */].OAuthToken];
+        if (providerMethods.indexOf(config.method) != -1) {
+            if (__WEBPACK_IMPORTED_MODULE_3__utils__["c" /* isNil */](config.provider)) {
+                return this._reject('You must include a provider to use this auth method.');
+            }
+        }
+        var credentialsMethods = [__WEBPACK_IMPORTED_MODULE_4__auth_backend__["d" /* AuthMethods */].Password, __WEBPACK_IMPORTED_MODULE_4__auth_backend__["d" /* AuthMethods */].OAuthToken, __WEBPACK_IMPORTED_MODULE_4__auth_backend__["d" /* AuthMethods */].CustomToken];
+        if (credentialsMethods.indexOf(config.method) != -1) {
+            if (!credentials) {
+                return this._reject('You must include credentials to use this auth method.');
+            }
+        }
+        switch (config.method) {
+            case __WEBPACK_IMPORTED_MODULE_4__auth_backend__["d" /* AuthMethods */].Popup:
+                return this._authBackend.authWithOAuthPopup(config.provider, this._scrubConfig(config))
+                    .then(function (userCredential) {
+                    _this._credentialCache[userCredential.credential.provider] = userCredential.credential;
+                    return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__auth_backend__["b" /* authDataToAuthState */])(userCredential.user, userCredential.credential);
+                });
+            case __WEBPACK_IMPORTED_MODULE_4__auth_backend__["d" /* AuthMethods */].Redirect:
+                return this._authBackend.authWithOAuthRedirect(config.provider, this._scrubConfig(config));
+            case __WEBPACK_IMPORTED_MODULE_4__auth_backend__["d" /* AuthMethods */].Anonymous:
+                return this._authBackend.authAnonymously(this._scrubConfig(config));
+            case __WEBPACK_IMPORTED_MODULE_4__auth_backend__["d" /* AuthMethods */].Password:
+                return this._authBackend.authWithPassword(credentials);
+            case __WEBPACK_IMPORTED_MODULE_4__auth_backend__["d" /* AuthMethods */].OAuthToken:
+                return this._authBackend.authWithOAuthToken(credentials, this._scrubConfig(config));
+            case __WEBPACK_IMPORTED_MODULE_4__auth_backend__["d" /* AuthMethods */].CustomToken:
+                return this._authBackend.authWithCustomToken(credentials);
+        }
+    };
+    AngularFireAuth.prototype.logout = function () {
+        return this._authBackend.unauth();
+    };
+    AngularFireAuth.prototype.getAuth = function () {
+        console.warn("WARNING: the getAuth() API has changed behavior since adding support for Firebase 3.\n    This will return null for the initial value when the page loads, even if the user is actually logged in.\n    Please observe the actual authState asynchronously by subscribing to the auth service: af.auth.subscribe().\n    The getAuth method will be removed in future releases");
+        return this._authBackend.getAuth();
+    };
+    AngularFireAuth.prototype.createUser = function (credentials) {
+        return this._authBackend.createUser(credentials);
+    };
+    AngularFireAuth.prototype._mergeConfigs = function (config) {
+        if (this._config == null)
+            return config;
+        return Object.assign({}, this._config, config);
+    };
+    AngularFireAuth.prototype._reject = function (msg) {
+        return new Promise(function (res, rej) {
+            return rej(msg);
+        });
+    };
+    AngularFireAuth.prototype._scrubConfig = function (config, scrubProvider) {
+        if (scrubProvider === void 0) { scrubProvider = true; }
+        var scrubbed = Object.assign({}, config);
+        if (scrubProvider) {
+            delete scrubbed.provider;
+        }
+        delete scrubbed.method;
+        return scrubbed;
+    };
+    AngularFireAuth.prototype._emitAuthData = function (authData) {
+        if (authData == null) {
+            this.next(null);
+        }
+        else {
+            if (authData.auth && authData.auth.providerData && authData.auth.providerData[0]) {
+                var providerId = authData.auth.providerData[0].providerId;
+                var providerCredential = this._credentialCache[providerId];
+                if (providerCredential) {
+                    authData = attachCredentialToAuthState(authData, providerCredential, providerId);
+                }
+            }
+            this.next(authData);
+        }
+    };
+    return AngularFireAuth;
+}(__WEBPACK_IMPORTED_MODULE_1_rxjs_ReplaySubject__["ReplaySubject"]));
+AngularFireAuth = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["X" /* Injectable */])(),
+    __param(1, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_1" /* Inject */])(__WEBPACK_IMPORTED_MODULE_2__tokens__["e" /* WindowLocation */])),
+    __param(2, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Z" /* Optional */])()), __param(2, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_1" /* Inject */])(__WEBPACK_IMPORTED_MODULE_2__tokens__["f" /* FirebaseAuthConfig */])),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_4__auth_backend__["a" /* AuthBackend */], Object, Object])
+], AngularFireAuth);
+
+function attachCredentialToAuthState(authState, credential, providerId) {
+    if (!authState)
+        return authState;
+    authState[__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__auth_backend__["e" /* stripProviderId */])(providerId)] = credential;
+    return authState;
+}
+//# sourceMappingURL=auth.js.map
+
+/***/ }),
+/* 115 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tokens__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__index__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils__ = __webpack_require__(16);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AngularFireDatabase; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+
+
+
+
+
+var AngularFireDatabase = (function () {
+    function AngularFireDatabase(fbConfig, fbApp) {
+        this.fbConfig = fbConfig;
+        this.fbApp = fbApp;
+    }
+    AngularFireDatabase.prototype.list = function (urlOrRef, opts) {
+        var _this = this;
+        return __WEBPACK_IMPORTED_MODULE_3__utils__["e" /* checkForUrlOrFirebaseRef */](urlOrRef, {
+            isUrl: function () { return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__index__["c" /* FirebaseListFactory */])(_this.fbApp.database().refFromURL(getAbsUrl(_this.fbConfig, urlOrRef)), opts); },
+            isRef: function () { return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__index__["c" /* FirebaseListFactory */])(urlOrRef); }
+        });
+    };
+    AngularFireDatabase.prototype.object = function (urlOrRef, opts) {
+        var _this = this;
+        return __WEBPACK_IMPORTED_MODULE_3__utils__["e" /* checkForUrlOrFirebaseRef */](urlOrRef, {
+            isUrl: function () { return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__index__["d" /* FirebaseObjectFactory */])(_this.fbApp.database().refFromURL(getAbsUrl(_this.fbConfig, urlOrRef)), opts); },
+            isRef: function () { return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__index__["d" /* FirebaseObjectFactory */])(urlOrRef); }
+        });
+    };
+    return AngularFireDatabase;
+}());
+AngularFireDatabase = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["X" /* Injectable */])(),
+    __param(0, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_1" /* Inject */])(__WEBPACK_IMPORTED_MODULE_1__tokens__["b" /* FirebaseConfig */])),
+    __param(1, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_1" /* Inject */])(__WEBPACK_IMPORTED_MODULE_1__tokens__["d" /* FirebaseApp */])),
+    __metadata("design:paramtypes", [Object, Object])
+], AngularFireDatabase);
+
+function getAbsUrl(root, url) {
+    if (!(/^[a-z]+:\/\/.*/.test(url))) {
+        url = root.databaseURL + '/' + __WEBPACK_IMPORTED_MODULE_3__utils__["l" /* stripLeadingSlash */](url);
+    }
+    return url;
+}
+//# sourceMappingURL=database.js.map
+
+/***/ }),
+/* 116 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils__ = __webpack_require__(16);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FirebaseListObservable; });
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+
+
+var FirebaseListObservable = (function (_super) {
+    __extends(FirebaseListObservable, _super);
+    function FirebaseListObservable($ref, subscribe) {
+        var _this = _super.call(this, subscribe) || this;
+        _this.$ref = $ref;
+        return _this;
+    }
+    FirebaseListObservable.prototype.lift = function (operator) {
+        var observable = new FirebaseListObservable(this.$ref);
+        observable.source = this;
+        observable.operator = operator;
+        observable.$ref = this.$ref;
+        return observable;
+    };
+    FirebaseListObservable.prototype.push = function (val) {
+        if (!this.$ref) {
+            throw new Error('No ref specified for this Observable!');
+        }
+        return this.$ref.ref.push(val);
+    };
+    FirebaseListObservable.prototype.update = function (item, value) {
+        var _this = this;
+        return this._checkOperationCases(item, {
+            stringCase: function () { return _this.$ref.ref.child(item).update(value); },
+            firebaseCase: function () { return item.update(value); },
+            snapshotCase: function () { return item.ref.update(value); },
+            unwrappedSnapshotCase: function () { return _this.$ref.ref.child(item.$key).update(value); }
+        });
+    };
+    FirebaseListObservable.prototype.remove = function (item) {
+        var _this = this;
+        if (!item) {
+            return this.$ref.ref.remove();
+        }
+        return this._checkOperationCases(item, {
+            stringCase: function () { return _this.$ref.ref.child(item).remove(); },
+            firebaseCase: function () { return item.remove(); },
+            snapshotCase: function () { return item.ref.remove(); },
+            unwrappedSnapshotCase: function () { return _this.$ref.ref.child(item.$key).remove(); }
+        });
+    };
+    FirebaseListObservable.prototype._checkOperationCases = function (item, cases) {
+        if (__WEBPACK_IMPORTED_MODULE_1__utils__["g" /* isString */](item)) {
+            return cases.stringCase();
+        }
+        else if (__WEBPACK_IMPORTED_MODULE_1__utils__["h" /* isFirebaseRef */](item)) {
+            return cases.firebaseCase();
+        }
+        else if (__WEBPACK_IMPORTED_MODULE_1__utils__["i" /* isFirebaseDataSnapshot */](item)) {
+            return cases.snapshotCase();
+        }
+        else if (__WEBPACK_IMPORTED_MODULE_1__utils__["j" /* isAFUnwrappedSnapshot */](item)) {
+            return cases.unwrappedSnapshotCase();
+        }
+        throw new Error("Method requires a key, snapshot, reference, or unwrapped snapshot. Got: " + typeof item);
+    };
+    return FirebaseListObservable;
+}(__WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"]));
+
+//# sourceMappingURL=firebase_list_observable.js.map
+
+/***/ }),
+/* 117 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_observable_of__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_observable_of___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_observable_of__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_operator_combineLatest__ = __webpack_require__(282);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_operator_combineLatest___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_operator_combineLatest__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_operator_merge__ = __webpack_require__(139);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_operator_merge___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_operator_merge__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_operator_map__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_operator_auditTime__ = __webpack_require__(135);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_operator_auditTime___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_operator_auditTime__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__interfaces__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__utils__ = __webpack_require__(16);
+/* harmony export (immutable) */ __webpack_exports__["a"] = observeQuery;
+/* unused harmony export getOrderObservables */
+/* unused harmony export getLimitToObservables */
+/* unused harmony export getStartAtObservable */
+/* unused harmony export getEndAtObservable */
+/* unused harmony export getEqualToObservable */
+
+
+
+
+
+
+
+
+function observeQuery(query, audit) {
+    if (audit === void 0) { audit = true; }
+    if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__utils__["c" /* isNil */])(query)) {
+        return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_rxjs_observable_of__["of"])(null);
+    }
+    return __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"].create(function (observer) {
+        var combined = __WEBPACK_IMPORTED_MODULE_2_rxjs_operator_combineLatest__["combineLatest"].call(getOrderObservables(query), getStartAtObservable(query), getEndAtObservable(query), getEqualToObservable(query), getLimitToObservables(query));
+        if (audit) {
+            combined = __WEBPACK_IMPORTED_MODULE_5_rxjs_operator_auditTime__["auditTime"].call(combined, 0);
+        }
+        combined
+            .subscribe(function (_a) {
+            var orderBy = _a[0], startAt = _a[1], endAt = _a[2], equalTo = _a[3], limitTo = _a[4];
+            var serializedOrder = {};
+            if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__utils__["c" /* isNil */])(orderBy) && !__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__utils__["c" /* isNil */])(orderBy.value)) {
+                switch (orderBy.key) {
+                    case __WEBPACK_IMPORTED_MODULE_6__interfaces__["a" /* OrderByOptions */].Key:
+                        serializedOrder = { orderByKey: orderBy.value };
+                        break;
+                    case __WEBPACK_IMPORTED_MODULE_6__interfaces__["a" /* OrderByOptions */].Priority:
+                        serializedOrder = { orderByPriority: orderBy.value };
+                        break;
+                    case __WEBPACK_IMPORTED_MODULE_6__interfaces__["a" /* OrderByOptions */].Value:
+                        serializedOrder = { orderByValue: orderBy.value };
+                        break;
+                    case __WEBPACK_IMPORTED_MODULE_6__interfaces__["a" /* OrderByOptions */].Child:
+                        serializedOrder = { orderByChild: orderBy.value };
+                        break;
+                }
+            }
+            if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__utils__["c" /* isNil */])(limitTo) && !__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__utils__["c" /* isNil */])(limitTo.value)) {
+                switch (limitTo.key) {
+                    case __WEBPACK_IMPORTED_MODULE_6__interfaces__["b" /* LimitToOptions */].First:
+                        serializedOrder.limitToFirst = limitTo.value;
+                        break;
+                    case __WEBPACK_IMPORTED_MODULE_6__interfaces__["b" /* LimitToOptions */].Last: {
+                        serializedOrder.limitToLast = limitTo.value;
+                        break;
+                    }
+                }
+            }
+            if (startAt !== undefined) {
+                serializedOrder.startAt = startAt;
+            }
+            if (endAt !== undefined) {
+                serializedOrder.endAt = endAt;
+            }
+            if (equalTo !== undefined) {
+                serializedOrder.equalTo = equalTo;
+            }
+            observer.next(serializedOrder);
+        });
+    });
+}
+function getOrderObservables(query) {
+    var observables = ['orderByChild', 'orderByKey', 'orderByValue', 'orderByPriority']
+        .map(function (key, option) {
+        return ({ key: key, option: option });
+    })
+        .filter(function (_a) {
+        var key = _a.key, option = _a.option;
+        return !__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__utils__["c" /* isNil */])(query[key]);
+    })
+        .map(function (_a) {
+        var key = _a.key, option = _a.option;
+        return mapToOrderBySelection(query[key], option);
+    });
+    if (observables.length === 1) {
+        return observables[0];
+    }
+    else if (observables.length > 1) {
+        return __WEBPACK_IMPORTED_MODULE_3_rxjs_operator_merge__["merge"].apply(observables[0], observables.slice(1));
+    }
+    else {
+        return new __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"](function (subscriber) {
+            subscriber.next(null);
+        });
+    }
+}
+function getLimitToObservables(query) {
+    var observables = ['limitToFirst', 'limitToLast']
+        .map(function (key, option) { return ({ key: key, option: option }); })
+        .filter(function (_a) {
+        var key = _a.key, option = _a.option;
+        return !__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__utils__["c" /* isNil */])(query[key]);
+    })
+        .map(function (_a) {
+        var key = _a.key, option = _a.option;
+        return mapToLimitToSelection(query[key], option);
+    });
+    if (observables.length === 1) {
+        return observables[0];
+    }
+    else if (observables.length > 1) {
+        var mergedObs = __WEBPACK_IMPORTED_MODULE_3_rxjs_operator_merge__["merge"].apply(observables[0], observables.slice(1));
+        return mergedObs;
+    }
+    else {
+        return new __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"](function (subscriber) {
+            subscriber.next(null);
+        });
+    }
+}
+function getStartAtObservable(query) {
+    if (query.startAt instanceof __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"]) {
+        return query.startAt;
+    }
+    else if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__utils__["d" /* hasKey */])(query, 'startAt')) {
+        return new __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"](function (subscriber) {
+            subscriber.next(query.startAt);
+        });
+    }
+    else {
+        return new __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"](function (subscriber) {
+            subscriber.next(undefined);
+        });
+    }
+}
+function getEndAtObservable(query) {
+    if (query.endAt instanceof __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"]) {
+        return query.endAt;
+    }
+    else if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__utils__["d" /* hasKey */])(query, 'endAt')) {
+        return new __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"](function (subscriber) {
+            subscriber.next(query.endAt);
+        });
+    }
+    else {
+        return new __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"](function (subscriber) {
+            subscriber.next(undefined);
+        });
+    }
+}
+function getEqualToObservable(query) {
+    if (query.equalTo instanceof __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"]) {
+        return query.equalTo;
+    }
+    else if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__utils__["d" /* hasKey */])(query, 'equalTo')) {
+        return new __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"](function (subscriber) {
+            subscriber.next(query.equalTo);
+        });
+    }
+    else {
+        return new __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"](function (subscriber) {
+            subscriber.next(undefined);
+        });
+    }
+}
+function mapToOrderBySelection(value, key) {
+    if (value instanceof __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"]) {
+        return __WEBPACK_IMPORTED_MODULE_4_rxjs_operator_map__["map"]
+            .call(value, function (value) {
+            return ({ value: value, key: key });
+        });
+    }
+    else {
+        return new __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"](function (subscriber) {
+            subscriber.next({ key: key, value: value });
+        });
+    }
+}
+function mapToLimitToSelection(value, key) {
+    if (value instanceof __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"]) {
+        return __WEBPACK_IMPORTED_MODULE_4_rxjs_operator_map__["map"]
+            .call(value, function (value) { return ({ value: value, key: key }); });
+    }
+    else {
+        return new __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"](function (subscriber) {
+            subscriber.next({ key: key, value: value });
+        });
+    }
+}
+function hasObservableProperties(query) {
+    if (query.orderByKey instanceof __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"])
+        return true;
+    return false;
+}
+//# sourceMappingURL=query_observable.js.map
+
+/***/ }),
+/* 118 */,
+/* 119 */,
+/* 120 */,
+/* 121 */,
+/* 122 */,
+/* 123 */,
+/* 124 */,
+/* 125 */,
+/* 126 */,
+/* 127 */,
+/* 128 */,
+/* 129 */,
+/* 130 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+exports.empty = {
+    closed: true,
+    next: function (value) { },
+    error: function (err) { throw err; },
+    complete: function () { }
+};
+//# sourceMappingURL=Observer.js.map
+
+/***/ }),
+/* 131 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var Subscription_1 = __webpack_require__(19);
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
+var SubjectSubscription = (function (_super) {
+    __extends(SubjectSubscription, _super);
+    function SubjectSubscription(subject, subscriber) {
+        _super.call(this);
+        this.subject = subject;
+        this.subscriber = subscriber;
+        this.closed = false;
+    }
+    SubjectSubscription.prototype.unsubscribe = function () {
+        if (this.closed) {
+            return;
+        }
+        this.closed = true;
+        var subject = this.subject;
+        var observers = subject.observers;
+        this.subject = null;
+        if (!observers || observers.length === 0 || subject.isStopped || subject.closed) {
+            return;
+        }
+        var subscriberIndex = observers.indexOf(this.subscriber);
+        if (subscriberIndex !== -1) {
+            observers.splice(subscriberIndex, 1);
+        }
+    };
+    return SubjectSubscription;
+}(Subscription_1.Subscription));
+exports.SubjectSubscription = SubjectSubscription;
+//# sourceMappingURL=SubjectSubscription.js.map
+
+/***/ }),
+/* 132 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var root_1 = __webpack_require__(20);
+var Observable_1 = __webpack_require__(1);
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @extends {Ignored}
+ * @hide true
+ */
+var PromiseObservable = (function (_super) {
+    __extends(PromiseObservable, _super);
+    function PromiseObservable(promise, scheduler) {
+        _super.call(this);
+        this.promise = promise;
+        this.scheduler = scheduler;
+    }
+    /**
+     * Converts a Promise to an Observable.
+     *
+     * <span class="informal">Returns an Observable that just emits the Promise's
+     * resolved value, then completes.</span>
+     *
+     * Converts an ES2015 Promise or a Promises/A+ spec compliant Promise to an
+     * Observable. If the Promise resolves with a value, the output Observable
+     * emits that resolved value as a `next`, and then completes. If the Promise
+     * is rejected, then the output Observable emits the corresponding Error.
+     *
+     * @example <caption>Convert the Promise returned by Fetch to an Observable</caption>
+     * var result = Rx.Observable.fromPromise(fetch('http://myserver.com/'));
+     * result.subscribe(x => console.log(x), e => console.error(e));
+     *
+     * @see {@link bindCallback}
+     * @see {@link from}
+     *
+     * @param {Promise<T>} promise The promise to be converted.
+     * @param {Scheduler} [scheduler] An optional IScheduler to use for scheduling
+     * the delivery of the resolved value (or the rejection).
+     * @return {Observable<T>} An Observable which wraps the Promise.
+     * @static true
+     * @name fromPromise
+     * @owner Observable
+     */
+    PromiseObservable.create = function (promise, scheduler) {
+        return new PromiseObservable(promise, scheduler);
+    };
+    PromiseObservable.prototype._subscribe = function (subscriber) {
+        var _this = this;
+        var promise = this.promise;
+        var scheduler = this.scheduler;
+        if (scheduler == null) {
+            if (this._isScalar) {
+                if (!subscriber.closed) {
+                    subscriber.next(this.value);
+                    subscriber.complete();
+                }
+            }
+            else {
+                promise.then(function (value) {
+                    _this.value = value;
+                    _this._isScalar = true;
+                    if (!subscriber.closed) {
+                        subscriber.next(value);
+                        subscriber.complete();
+                    }
+                }, function (err) {
+                    if (!subscriber.closed) {
+                        subscriber.error(err);
+                    }
+                })
+                    .then(null, function (err) {
+                    // escape the promise trap, throw unhandled errors
+                    root_1.root.setTimeout(function () { throw err; });
+                });
+            }
+        }
+        else {
+            if (this._isScalar) {
+                if (!subscriber.closed) {
+                    return scheduler.schedule(dispatchNext, 0, { value: this.value, subscriber: subscriber });
+                }
+            }
+            else {
+                promise.then(function (value) {
+                    _this.value = value;
+                    _this._isScalar = true;
+                    if (!subscriber.closed) {
+                        subscriber.add(scheduler.schedule(dispatchNext, 0, { value: value, subscriber: subscriber }));
+                    }
+                }, function (err) {
+                    if (!subscriber.closed) {
+                        subscriber.add(scheduler.schedule(dispatchError, 0, { err: err, subscriber: subscriber }));
+                    }
+                })
+                    .then(null, function (err) {
+                    // escape the promise trap, throw unhandled errors
+                    root_1.root.setTimeout(function () { throw err; });
+                });
+            }
+        }
+    };
+    return PromiseObservable;
+}(Observable_1.Observable));
+exports.PromiseObservable = PromiseObservable;
+function dispatchNext(arg) {
+    var value = arg.value, subscriber = arg.subscriber;
+    if (!subscriber.closed) {
+        subscriber.next(value);
+        subscriber.complete();
+    }
+}
+function dispatchError(arg) {
+    var err = arg.err, subscriber = arg.subscriber;
+    if (!subscriber.closed) {
+        subscriber.error(err);
+    }
+}
+//# sourceMappingURL=PromiseObservable.js.map
+
+/***/ }),
+/* 133 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var ForkJoinObservable_1 = __webpack_require__(275);
+exports.forkJoin = ForkJoinObservable_1.ForkJoinObservable.create;
+//# sourceMappingURL=forkJoin.js.map
+
+/***/ }),
+/* 134 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var merge_1 = __webpack_require__(139);
+exports.merge = merge_1.mergeStatic;
+//# sourceMappingURL=merge.js.map
+
+/***/ }),
+/* 135 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var async_1 = __webpack_require__(297);
+var Subscriber_1 = __webpack_require__(5);
+/**
+ * Ignores source values for `duration` milliseconds, then emits the most recent
+ * value from the source Observable, then repeats this process.
+ *
+ * <span class="informal">When it sees a source values, it ignores that plus
+ * the next ones for `duration` milliseconds, and then it emits the most recent
+ * value from the source.</span>
+ *
+ * <img src="./img/auditTime.png" width="100%">
+ *
+ * `auditTime` is similar to `throttleTime`, but emits the last value from the
+ * silenced time window, instead of the first value. `auditTime` emits the most
+ * recent value from the source Observable on the output Observable as soon as
+ * its internal timer becomes disabled, and ignores source values while the
+ * timer is enabled. Initially, the timer is disabled. As soon as the first
+ * source value arrives, the timer is enabled. After `duration` milliseconds (or
+ * the time unit determined internally by the optional `scheduler`) has passed,
+ * the timer is disabled, then the most recent source value is emitted on the
+ * output Observable, and this process repeats for the next source value.
+ * Optionally takes a {@link IScheduler} for managing timers.
+ *
+ * @example <caption>Emit clicks at a rate of at most one click per second</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var result = clicks.auditTime(1000);
+ * result.subscribe(x => console.log(x));
+ *
+ * @see {@link audit}
+ * @see {@link debounceTime}
+ * @see {@link delay}
+ * @see {@link sampleTime}
+ * @see {@link throttleTime}
+ *
+ * @param {number} duration Time to wait before emitting the most recent source
+ * value, measured in milliseconds or the time unit determined internally
+ * by the optional `scheduler`.
+ * @param {Scheduler} [scheduler=async] The {@link IScheduler} to use for
+ * managing the timers that handle the rate-limiting behavior.
+ * @return {Observable<T>} An Observable that performs rate-limiting of
+ * emissions from the source Observable.
+ * @method auditTime
+ * @owner Observable
+ */
+function auditTime(duration, scheduler) {
+    if (scheduler === void 0) { scheduler = async_1.async; }
+    return this.lift(new AuditTimeOperator(duration, scheduler));
+}
+exports.auditTime = auditTime;
+var AuditTimeOperator = (function () {
+    function AuditTimeOperator(duration, scheduler) {
+        this.duration = duration;
+        this.scheduler = scheduler;
+    }
+    AuditTimeOperator.prototype.call = function (subscriber, source) {
+        return source.subscribe(new AuditTimeSubscriber(subscriber, this.duration, this.scheduler));
+    };
+    return AuditTimeOperator;
+}());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
+var AuditTimeSubscriber = (function (_super) {
+    __extends(AuditTimeSubscriber, _super);
+    function AuditTimeSubscriber(destination, duration, scheduler) {
+        _super.call(this, destination);
+        this.duration = duration;
+        this.scheduler = scheduler;
+        this.hasValue = false;
+    }
+    AuditTimeSubscriber.prototype._next = function (value) {
+        this.value = value;
+        this.hasValue = true;
+        if (!this.throttled) {
+            this.add(this.throttled = this.scheduler.schedule(dispatchNext, this.duration, this));
+        }
+    };
+    AuditTimeSubscriber.prototype.clearThrottle = function () {
+        var _a = this, value = _a.value, hasValue = _a.hasValue, throttled = _a.throttled;
+        if (throttled) {
+            this.remove(throttled);
+            this.throttled = null;
+            throttled.unsubscribe();
+        }
+        if (hasValue) {
+            this.value = null;
+            this.hasValue = false;
+            this.destination.next(value);
+        }
+    };
+    return AuditTimeSubscriber;
+}(Subscriber_1.Subscriber));
+function dispatchNext(subscriber) {
+    subscriber.clearThrottle();
+}
+//# sourceMappingURL=auditTime.js.map
+
+/***/ }),
+/* 136 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var OuterSubscriber_1 = __webpack_require__(35);
+var subscribeToResult_1 = __webpack_require__(38);
+/**
+ * Catches errors on the observable to be handled by returning a new observable or throwing an error.
+ *
+ * <img src="./img/catch.png" width="100%">
+ *
+ * @example <caption>Continues with a different Observable when there's an error</caption>
+ *
+ * Observable.of(1, 2, 3, 4, 5)
+ *   .map(n => {
+ * 	   if (n == 4) {
+ * 	     throw 'four!';
+ *     }
+ *	   return n;
+ *   })
+ *   .catch(err => Observable.of('I', 'II', 'III', 'IV', 'V'))
+ *   .subscribe(x => console.log(x));
+ *   // 1, 2, 3, I, II, III, IV, V
+ *
+ * @example <caption>Retries the caught source Observable again in case of error, similar to retry() operator</caption>
+ *
+ * Observable.of(1, 2, 3, 4, 5)
+ *   .map(n => {
+ * 	   if (n === 4) {
+ * 	     throw 'four!';
+ *     }
+ * 	   return n;
+ *   })
+ *   .catch((err, caught) => caught)
+ *   .take(30)
+ *   .subscribe(x => console.log(x));
+ *   // 1, 2, 3, 1, 2, 3, ...
+ *
+ * @example <caption>Throws a new error when the source Observable throws an error</caption>
+ *
+ * Observable.of(1, 2, 3, 4, 5)
+ *   .map(n => {
+ *     if (n == 4) {
+ *       throw 'four!';
+ *     }
+ *     return n;
+ *   })
+ *   .catch(err => {
+ *     throw 'error in source. Details: ' + err;
+ *   })
+ *   .subscribe(
+ *     x => console.log(x),
+ *     err => console.log(err)
+ *   );
+ *   // 1, 2, 3, error in source. Details: four!
+ *
+ * @param {function} selector a function that takes as arguments `err`, which is the error, and `caught`, which
+ *  is the source observable, in case you'd like to "retry" that observable by returning it again. Whatever observable
+ *  is returned by the `selector` will be used to continue the observable chain.
+ * @return {Observable} An observable that originates from either the source or the observable returned by the
+ *  catch `selector` function.
+ * @method catch
+ * @name catch
+ * @owner Observable
+ */
+function _catch(selector) {
+    var operator = new CatchOperator(selector);
+    var caught = this.lift(operator);
+    return (operator.caught = caught);
+}
+exports._catch = _catch;
+var CatchOperator = (function () {
+    function CatchOperator(selector) {
+        this.selector = selector;
+    }
+    CatchOperator.prototype.call = function (subscriber, source) {
+        return source.subscribe(new CatchSubscriber(subscriber, this.selector, this.caught));
+    };
+    return CatchOperator;
+}());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
+var CatchSubscriber = (function (_super) {
+    __extends(CatchSubscriber, _super);
+    function CatchSubscriber(destination, selector, caught) {
+        _super.call(this, destination);
+        this.selector = selector;
+        this.caught = caught;
+    }
+    // NOTE: overriding `error` instead of `_error` because we don't want
+    // to have this flag this subscriber as `isStopped`. We can mimic the
+    // behavior of the RetrySubscriber (from the `retry` operator), where
+    // we unsubscribe from our source chain, reset our Subscriber flags,
+    // then subscribe to the selector result.
+    CatchSubscriber.prototype.error = function (err) {
+        if (!this.isStopped) {
+            var result = void 0;
+            try {
+                result = this.selector(err, this.caught);
+            }
+            catch (err2) {
+                _super.prototype.error.call(this, err2);
+                return;
+            }
+            this._unsubscribeAndRecycle();
+            this.add(subscribeToResult_1.subscribeToResult(this, result));
+        }
+    };
+    return CatchSubscriber;
+}(OuterSubscriber_1.OuterSubscriber));
+//# sourceMappingURL=catch.js.map
+
+/***/ }),
+/* 137 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var Subscriber_1 = __webpack_require__(5);
+/* tslint:enable:max-line-length */
+/**
+ * Filter items emitted by the source Observable by only emitting those that
+ * satisfy a specified predicate.
+ *
+ * <span class="informal">Like
+ * [Array.prototype.filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter),
+ * it only emits a value from the source if it passes a criterion function.</span>
+ *
+ * <img src="./img/filter.png" width="100%">
+ *
+ * Similar to the well-known `Array.prototype.filter` method, this operator
+ * takes values from the source Observable, passes them through a `predicate`
+ * function and only emits those values that yielded `true`.
+ *
+ * @example <caption>Emit only click events whose target was a DIV element</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicksOnDivs = clicks.filter(ev => ev.target.tagName === 'DIV');
+ * clicksOnDivs.subscribe(x => console.log(x));
+ *
+ * @see {@link distinct}
+ * @see {@link distinctUntilChanged}
+ * @see {@link distinctUntilKeyChanged}
+ * @see {@link ignoreElements}
+ * @see {@link partition}
+ * @see {@link skip}
+ *
+ * @param {function(value: T, index: number): boolean} predicate A function that
+ * evaluates each value emitted by the source Observable. If it returns `true`,
+ * the value is emitted, if `false` the value is not passed to the output
+ * Observable. The `index` parameter is the number `i` for the i-th source
+ * emission that has happened since the subscription, starting from the number
+ * `0`.
+ * @param {any} [thisArg] An optional argument to determine the value of `this`
+ * in the `predicate` function.
+ * @return {Observable} An Observable of values from the source that were
+ * allowed by the `predicate` function.
+ * @method filter
+ * @owner Observable
+ */
+function filter(predicate, thisArg) {
+    return this.lift(new FilterOperator(predicate, thisArg));
+}
+exports.filter = filter;
+var FilterOperator = (function () {
+    function FilterOperator(predicate, thisArg) {
+        this.predicate = predicate;
+        this.thisArg = thisArg;
+    }
+    FilterOperator.prototype.call = function (subscriber, source) {
+        return source.subscribe(new FilterSubscriber(subscriber, this.predicate, this.thisArg));
+    };
+    return FilterOperator;
+}());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
+var FilterSubscriber = (function (_super) {
+    __extends(FilterSubscriber, _super);
+    function FilterSubscriber(destination, predicate, thisArg) {
+        _super.call(this, destination);
+        this.predicate = predicate;
+        this.thisArg = thisArg;
+        this.count = 0;
+        this.predicate = predicate;
+    }
+    // the try catch block below is left specifically for
+    // optimization and perf reasons. a tryCatcher is not necessary here.
+    FilterSubscriber.prototype._next = function (value) {
+        var result;
+        try {
+            result = this.predicate.call(this.thisArg, value, this.count++);
+        }
+        catch (err) {
+            this.destination.error(err);
+            return;
+        }
+        if (result) {
+            this.destination.next(value);
+        }
+    };
+    return FilterSubscriber;
+}(Subscriber_1.Subscriber));
+//# sourceMappingURL=filter.js.map
+
+/***/ }),
+/* 138 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var Subscriber_1 = __webpack_require__(5);
+var EmptyError_1 = __webpack_require__(95);
+/**
+ * Emits only the first value (or the first value that meets some condition)
+ * emitted by the source Observable.
+ *
+ * <span class="informal">Emits only the first value. Or emits only the first
+ * value that passes some test.</span>
+ *
+ * <img src="./img/first.png" width="100%">
+ *
+ * If called with no arguments, `first` emits the first value of the source
+ * Observable, then completes. If called with a `predicate` function, `first`
+ * emits the first value of the source that matches the specified condition. It
+ * may also take a `resultSelector` function to produce the output value from
+ * the input value, and a `defaultValue` to emit in case the source completes
+ * before it is able to emit a valid value. Throws an error if `defaultValue`
+ * was not provided and a matching element is not found.
+ *
+ * @example <caption>Emit only the first click that happens on the DOM</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var result = clicks.first();
+ * result.subscribe(x => console.log(x));
+ *
+ * @example <caption>Emits the first click that happens on a DIV</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var result = clicks.first(ev => ev.target.tagName === 'DIV');
+ * result.subscribe(x => console.log(x));
+ *
+ * @see {@link filter}
+ * @see {@link find}
+ * @see {@link take}
+ *
+ * @throws {EmptyError} Delivers an EmptyError to the Observer's `error`
+ * callback if the Observable completes before any `next` notification was sent.
+ *
+ * @param {function(value: T, index: number, source: Observable<T>): boolean} [predicate]
+ * An optional function called with each item to test for condition matching.
+ * @param {function(value: T, index: number): R} [resultSelector] A function to
+ * produce the value on the output Observable based on the values
+ * and the indices of the source Observable. The arguments passed to this
+ * function are:
+ * - `value`: the value that was emitted on the source.
+ * - `index`: the "index" of the value from the source.
+ * @param {R} [defaultValue] The default value emitted in case no valid value
+ * was found on the source.
+ * @return {Observable<T|R>} An Observable of the first item that matches the
+ * condition.
+ * @method first
+ * @owner Observable
+ */
+function first(predicate, resultSelector, defaultValue) {
+    return this.lift(new FirstOperator(predicate, resultSelector, defaultValue, this));
+}
+exports.first = first;
+var FirstOperator = (function () {
+    function FirstOperator(predicate, resultSelector, defaultValue, source) {
+        this.predicate = predicate;
+        this.resultSelector = resultSelector;
+        this.defaultValue = defaultValue;
+        this.source = source;
+    }
+    FirstOperator.prototype.call = function (observer, source) {
+        return source.subscribe(new FirstSubscriber(observer, this.predicate, this.resultSelector, this.defaultValue, this.source));
+    };
+    return FirstOperator;
+}());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
+var FirstSubscriber = (function (_super) {
+    __extends(FirstSubscriber, _super);
+    function FirstSubscriber(destination, predicate, resultSelector, defaultValue, source) {
+        _super.call(this, destination);
+        this.predicate = predicate;
+        this.resultSelector = resultSelector;
+        this.defaultValue = defaultValue;
+        this.source = source;
+        this.index = 0;
+        this.hasCompleted = false;
+        this._emitted = false;
+    }
+    FirstSubscriber.prototype._next = function (value) {
+        var index = this.index++;
+        if (this.predicate) {
+            this._tryPredicate(value, index);
+        }
+        else {
+            this._emit(value, index);
+        }
+    };
+    FirstSubscriber.prototype._tryPredicate = function (value, index) {
+        var result;
+        try {
+            result = this.predicate(value, index, this.source);
+        }
+        catch (err) {
+            this.destination.error(err);
+            return;
+        }
+        if (result) {
+            this._emit(value, index);
+        }
+    };
+    FirstSubscriber.prototype._emit = function (value, index) {
+        if (this.resultSelector) {
+            this._tryResultSelector(value, index);
+            return;
+        }
+        this._emitFinal(value);
+    };
+    FirstSubscriber.prototype._tryResultSelector = function (value, index) {
+        var result;
+        try {
+            result = this.resultSelector(value, index);
+        }
+        catch (err) {
+            this.destination.error(err);
+            return;
+        }
+        this._emitFinal(result);
+    };
+    FirstSubscriber.prototype._emitFinal = function (value) {
+        var destination = this.destination;
+        if (!this._emitted) {
+            this._emitted = true;
+            destination.next(value);
+            destination.complete();
+            this.hasCompleted = true;
+        }
+    };
+    FirstSubscriber.prototype._complete = function () {
+        var destination = this.destination;
+        if (!this.hasCompleted && typeof this.defaultValue !== 'undefined') {
+            destination.next(this.defaultValue);
+            destination.complete();
+        }
+        else if (!this.hasCompleted) {
+            destination.error(new EmptyError_1.EmptyError);
+        }
+    };
+    return FirstSubscriber;
+}(Subscriber_1.Subscriber));
+//# sourceMappingURL=first.js.map
+
+/***/ }),
+/* 139 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var Observable_1 = __webpack_require__(1);
+var ArrayObservable_1 = __webpack_require__(37);
+var mergeAll_1 = __webpack_require__(60);
+var isScheduler_1 = __webpack_require__(63);
+/* tslint:enable:max-line-length */
+/**
+ * Creates an output Observable which concurrently emits all values from every
+ * given input Observable.
+ *
+ * <span class="informal">Flattens multiple Observables together by blending
+ * their values into one Observable.</span>
+ *
+ * <img src="./img/merge.png" width="100%">
+ *
+ * `merge` subscribes to each given input Observable (either the source or an
+ * Observable given as argument), and simply forwards (without doing any
+ * transformation) all the values from all the input Observables to the output
+ * Observable. The output Observable only completes once all input Observables
+ * have completed. Any error delivered by an input Observable will be immediately
+ * emitted on the output Observable.
+ *
+ * @example <caption>Merge together two Observables: 1s interval and clicks</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var timer = Rx.Observable.interval(1000);
+ * var clicksOrTimer = clicks.merge(timer);
+ * clicksOrTimer.subscribe(x => console.log(x));
+ *
+ * @example <caption>Merge together 3 Observables, but only 2 run concurrently</caption>
+ * var timer1 = Rx.Observable.interval(1000).take(10);
+ * var timer2 = Rx.Observable.interval(2000).take(6);
+ * var timer3 = Rx.Observable.interval(500).take(10);
+ * var concurrent = 2; // the argument
+ * var merged = timer1.merge(timer2, timer3, concurrent);
+ * merged.subscribe(x => console.log(x));
+ *
+ * @see {@link mergeAll}
+ * @see {@link mergeMap}
+ * @see {@link mergeMapTo}
+ * @see {@link mergeScan}
+ *
+ * @param {ObservableInput} other An input Observable to merge with the source
+ * Observable. More than one input Observables may be given as argument.
+ * @param {number} [concurrent=Number.POSITIVE_INFINITY] Maximum number of input
+ * Observables being subscribed to concurrently.
+ * @param {Scheduler} [scheduler=null] The IScheduler to use for managing
+ * concurrency of input Observables.
+ * @return {Observable} An Observable that emits items that are the result of
+ * every input Observable.
+ * @method merge
+ * @owner Observable
+ */
+function merge() {
+    var observables = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        observables[_i - 0] = arguments[_i];
+    }
+    return this.lift.call(mergeStatic.apply(void 0, [this].concat(observables)));
+}
+exports.merge = merge;
+/* tslint:enable:max-line-length */
+/**
+ * Creates an output Observable which concurrently emits all values from every
+ * given input Observable.
+ *
+ * <span class="informal">Flattens multiple Observables together by blending
+ * their values into one Observable.</span>
+ *
+ * <img src="./img/merge.png" width="100%">
+ *
+ * `merge` subscribes to each given input Observable (as arguments), and simply
+ * forwards (without doing any transformation) all the values from all the input
+ * Observables to the output Observable. The output Observable only completes
+ * once all input Observables have completed. Any error delivered by an input
+ * Observable will be immediately emitted on the output Observable.
+ *
+ * @example <caption>Merge together two Observables: 1s interval and clicks</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var timer = Rx.Observable.interval(1000);
+ * var clicksOrTimer = Rx.Observable.merge(clicks, timer);
+ * clicksOrTimer.subscribe(x => console.log(x));
+ *
+ * // Results in the following:
+ * // timer will emit ascending values, one every second(1000ms) to console
+ * // clicks logs MouseEvents to console everytime the "document" is clicked
+ * // Since the two streams are merged you see these happening
+ * // as they occur.
+ *
+ * @example <caption>Merge together 3 Observables, but only 2 run concurrently</caption>
+ * var timer1 = Rx.Observable.interval(1000).take(10);
+ * var timer2 = Rx.Observable.interval(2000).take(6);
+ * var timer3 = Rx.Observable.interval(500).take(10);
+ * var concurrent = 2; // the argument
+ * var merged = Rx.Observable.merge(timer1, timer2, timer3, concurrent);
+ * merged.subscribe(x => console.log(x));
+ *
+ * // Results in the following:
+ * // - First timer1 and timer2 will run concurrently
+ * // - timer1 will emit a value every 1000ms for 10 iterations
+ * // - timer2 will emit a value every 2000ms for 6 iterations
+ * // - after timer1 hits it's max iteration, timer2 will
+ * //   continue, and timer3 will start to run concurrently with timer2
+ * // - when timer2 hits it's max iteration it terminates, and
+ * //   timer3 will continue to emit a value every 500ms until it is complete
+ *
+ * @see {@link mergeAll}
+ * @see {@link mergeMap}
+ * @see {@link mergeMapTo}
+ * @see {@link mergeScan}
+ *
+ * @param {...ObservableInput} observables Input Observables to merge together.
+ * @param {number} [concurrent=Number.POSITIVE_INFINITY] Maximum number of input
+ * Observables being subscribed to concurrently.
+ * @param {Scheduler} [scheduler=null] The IScheduler to use for managing
+ * concurrency of input Observables.
+ * @return {Observable} an Observable that emits items that are the result of
+ * every input Observable.
+ * @static true
+ * @name merge
+ * @owner Observable
+ */
+function mergeStatic() {
+    var observables = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        observables[_i - 0] = arguments[_i];
+    }
+    var concurrent = Number.POSITIVE_INFINITY;
+    var scheduler = null;
+    var last = observables[observables.length - 1];
+    if (isScheduler_1.isScheduler(last)) {
+        scheduler = observables.pop();
+        if (observables.length > 1 && typeof observables[observables.length - 1] === 'number') {
+            concurrent = observables.pop();
+        }
+    }
+    else if (typeof last === 'number') {
+        concurrent = observables.pop();
+    }
+    if (scheduler === null && observables.length === 1 && observables[0] instanceof Observable_1.Observable) {
+        return observables[0];
+    }
+    return new ArrayObservable_1.ArrayObservable(observables, scheduler).lift(new mergeAll_1.MergeAllOperator(concurrent));
+}
+exports.mergeStatic = mergeStatic;
+//# sourceMappingURL=merge.js.map
+
+/***/ }),
+/* 140 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var multicast_1 = __webpack_require__(290);
+var Subject_1 = __webpack_require__(28);
+function shareSubjectFactory() {
+    return new Subject_1.Subject();
+}
+/**
+ * Returns a new Observable that multicasts (shares) the original Observable. As long as there is at least one
+ * Subscriber this Observable will be subscribed and emitting data. When all subscribers have unsubscribed it will
+ * unsubscribe from the source Observable. Because the Observable is multicasting it makes the stream `hot`.
+ * This is an alias for .publish().refCount().
+ *
+ * <img src="./img/share.png" width="100%">
+ *
+ * @return {Observable<T>} An Observable that upon connection causes the source Observable to emit items to its Observers.
+ * @method share
+ * @owner Observable
+ */
+function share() {
+    return multicast_1.multicast.call(this, shareSubjectFactory).refCount();
+}
+exports.share = share;
+;
+//# sourceMappingURL=share.js.map
+
+/***/ }),
+/* 141 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var root_1 = __webpack_require__(20);
+var Action_1 = __webpack_require__(294);
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
+var AsyncAction = (function (_super) {
+    __extends(AsyncAction, _super);
+    function AsyncAction(scheduler, work) {
+        _super.call(this, scheduler, work);
+        this.scheduler = scheduler;
+        this.work = work;
+        this.pending = false;
+    }
+    AsyncAction.prototype.schedule = function (state, delay) {
+        if (delay === void 0) { delay = 0; }
+        if (this.closed) {
+            return this;
+        }
+        // Always replace the current state with the new state.
+        this.state = state;
+        // Set the pending flag indicating that this action has been scheduled, or
+        // has recursively rescheduled itself.
+        this.pending = true;
+        var id = this.id;
+        var scheduler = this.scheduler;
+        //
+        // Important implementation note:
+        //
+        // Actions only execute once by default, unless rescheduled from within the
+        // scheduled callback. This allows us to implement single and repeat
+        // actions via the same code path, without adding API surface area, as well
+        // as mimic traditional recursion but across asynchronous boundaries.
+        //
+        // However, JS runtimes and timers distinguish between intervals achieved by
+        // serial `setTimeout` calls vs. a single `setInterval` call. An interval of
+        // serial `setTimeout` calls can be individually delayed, which delays
+        // scheduling the next `setTimeout`, and so on. `setInterval` attempts to
+        // guarantee the interval callback will be invoked more precisely to the
+        // interval period, regardless of load.
+        //
+        // Therefore, we use `setInterval` to schedule single and repeat actions.
+        // If the action reschedules itself with the same delay, the interval is not
+        // canceled. If the action doesn't reschedule, or reschedules with a
+        // different delay, the interval will be canceled after scheduled callback
+        // execution.
+        //
+        if (id != null) {
+            this.id = this.recycleAsyncId(scheduler, id, delay);
+        }
+        this.delay = delay;
+        // If this action has already an async Id, don't request a new one.
+        this.id = this.id || this.requestAsyncId(scheduler, this.id, delay);
+        return this;
+    };
+    AsyncAction.prototype.requestAsyncId = function (scheduler, id, delay) {
+        if (delay === void 0) { delay = 0; }
+        return root_1.root.setInterval(scheduler.flush.bind(scheduler, this), delay);
+    };
+    AsyncAction.prototype.recycleAsyncId = function (scheduler, id, delay) {
+        if (delay === void 0) { delay = 0; }
+        // If this action is rescheduled with the same delay time, don't clear the interval id.
+        if (delay !== null && this.delay === delay) {
+            return id;
+        }
+        // Otherwise, if the action's delay time is different from the current delay,
+        // clear the interval id
+        return root_1.root.clearInterval(id) && undefined || undefined;
+    };
+    /**
+     * Immediately executes this action and the `work` it contains.
+     * @return {any}
+     */
+    AsyncAction.prototype.execute = function (state, delay) {
+        if (this.closed) {
+            return new Error('executing a cancelled action');
+        }
+        this.pending = false;
+        var error = this._execute(state, delay);
+        if (error) {
+            return error;
+        }
+        else if (this.pending === false && this.id != null) {
+            // Dequeue if the action didn't reschedule itself. Don't call
+            // unsubscribe(), because the action could reschedule later.
+            // For example:
+            // ```
+            // scheduler.schedule(function doWork(counter) {
+            //   /* ... I'm a busy worker bee ... */
+            //   var originalAction = this;
+            //   /* wait 100ms before rescheduling the action */
+            //   setTimeout(function () {
+            //     originalAction.schedule(counter + 1);
+            //   }, 100);
+            // }, 1000);
+            // ```
+            this.id = this.recycleAsyncId(this.scheduler, this.id, null);
+        }
+    };
+    AsyncAction.prototype._execute = function (state, delay) {
+        var errored = false;
+        var errorValue = undefined;
+        try {
+            this.work(state);
+        }
+        catch (e) {
+            errored = true;
+            errorValue = !!e && e || new Error(e);
+        }
+        if (errored) {
+            this.unsubscribe();
+            return errorValue;
+        }
+    };
+    AsyncAction.prototype._unsubscribe = function () {
+        var id = this.id;
+        var scheduler = this.scheduler;
+        var actions = scheduler.actions;
+        var index = actions.indexOf(this);
+        this.work = null;
+        this.delay = null;
+        this.state = null;
+        this.pending = false;
+        this.scheduler = null;
+        if (index !== -1) {
+            actions.splice(index, 1);
+        }
+        if (id != null) {
+            this.id = this.recycleAsyncId(scheduler, id, null);
+        }
+    };
+    return AsyncAction;
+}(Action_1.Action));
+exports.AsyncAction = AsyncAction;
+//# sourceMappingURL=AsyncAction.js.map
+
+/***/ }),
+/* 142 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var Scheduler_1 = __webpack_require__(258);
+var AsyncScheduler = (function (_super) {
+    __extends(AsyncScheduler, _super);
+    function AsyncScheduler() {
+        _super.apply(this, arguments);
+        this.actions = [];
+        /**
+         * A flag to indicate whether the Scheduler is currently executing a batch of
+         * queued actions.
+         * @type {boolean}
+         */
+        this.active = false;
+        /**
+         * An internal ID used to track the latest asynchronous task such as those
+         * coming from `setTimeout`, `setInterval`, `requestAnimationFrame`, and
+         * others.
+         * @type {any}
+         */
+        this.scheduled = undefined;
+    }
+    AsyncScheduler.prototype.flush = function (action) {
+        var actions = this.actions;
+        if (this.active) {
+            actions.push(action);
+            return;
+        }
+        var error;
+        this.active = true;
+        do {
+            if (error = action.execute(action.state, action.delay)) {
+                break;
+            }
+        } while (action = actions.shift()); // exhaust the scheduler queue
+        this.active = false;
+        if (error) {
+            while (action = actions.shift()) {
+                action.unsubscribe();
+            }
+            throw error;
+        }
+    };
+    return AsyncScheduler;
+}(Scheduler_1.Scheduler));
+exports.AsyncScheduler = AsyncScheduler;
+//# sourceMappingURL=AsyncScheduler.js.map
+
+/***/ }),
+/* 143 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var QueueAction_1 = __webpack_require__(295);
+var QueueScheduler_1 = __webpack_require__(296);
+/**
+ *
+ * Queue Scheduler
+ *
+ * <span class="informal">Put every next task on a queue, instead of executing it immediately</span>
+ *
+ * `queue` scheduler, when used with delay, behaves the same as {@link async} scheduler.
+ *
+ * When used without delay, it schedules given task synchronously - executes it right when
+ * it is scheduled. However when called recursively, that is when inside the scheduled task,
+ * another task is scheduled with queue scheduler, instead of executing immediately as well,
+ * that task will be put on a queue and wait for current one to finish.
+ *
+ * This means that when you execute task with `queue` scheduler, you are sure it will end
+ * before any other task scheduled with that scheduler will start.
+ *
+ * @examples <caption>Schedule recursively first, then do something</caption>
+ *
+ * Rx.Scheduler.queue.schedule(() => {
+ *   Rx.Scheduler.queue.schedule(() => console.log('second')); // will not happen now, but will be put on a queue
+ *
+ *   console.log('first');
+ * });
+ *
+ * // Logs:
+ * // "first"
+ * // "second"
+ *
+ *
+ * @example <caption>Reschedule itself recursively</caption>
+ *
+ * Rx.Scheduler.queue.schedule(function(state) {
+ *   if (state !== 0) {
+ *     console.log('before', state);
+ *     this.schedule(state - 1); // `this` references currently executing Action,
+ *                               // which we reschedule with new state
+ *     console.log('after', state);
+ *   }
+ * }, 0, 3);
+ *
+ * // In scheduler that runs recursively, you would expect:
+ * // "before", 3
+ * // "before", 2
+ * // "before", 1
+ * // "after", 1
+ * // "after", 2
+ * // "after", 3
+ *
+ * // But with queue it logs:
+ * // "before", 3
+ * // "after", 3
+ * // "before", 2
+ * // "after", 2
+ * // "before", 1
+ * // "after", 1
+ *
+ *
+ * @static true
+ * @name queue
+ * @owner Scheduler
+ */
+exports.queue = new QueueScheduler_1.QueueScheduler(QueueAction_1.QueueAction);
+//# sourceMappingURL=queue.js.map
+
+/***/ }),
+/* 144 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+exports.isArrayLike = (function (x) { return x && typeof x.length === 'number'; });
+//# sourceMappingURL=isArrayLike.js.map
+
+/***/ }),
+/* 145 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+function isObject(x) {
+    return x != null && typeof x === 'object';
+}
+exports.isObject = isObject;
+//# sourceMappingURL=isObject.js.map
+
+/***/ }),
+/* 146 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+function isPromise(value) {
+    return value && typeof value.subscribe !== 'function' && typeof value.then === 'function';
+}
+exports.isPromise = isPromise;
+//# sourceMappingURL=isPromise.js.map
+
+/***/ }),
+/* 147 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var errorObject_1 = __webpack_require__(97);
+var tryCatchTarget;
+function tryCatcher() {
+    try {
+        return tryCatchTarget.apply(this, arguments);
+    }
+    catch (e) {
+        errorObject_1.errorObject.e = e;
+        return errorObject_1.errorObject;
+    }
+}
+function tryCatch(fn) {
+    tryCatchTarget = fn;
+    return tryCatcher;
+}
+exports.tryCatch = tryCatch;
+;
+//# sourceMappingURL=tryCatch.js.map
+
+/***/ }),
+/* 148 */,
+/* 149 */,
+/* 150 */,
+/* 151 */,
+/* 152 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_filter__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_filter__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__media_query_module__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__media_query_breakpoints_break_points_provider__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__media_query_media_monitor_provider__ = __webpack_require__(105);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__media_query_observable_media_provider__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__api_flex__ = __webpack_require__(102);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__api_layout__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__api_show_hide__ = __webpack_require__(158);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__api_flex_align__ = __webpack_require__(153);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__api_flex_fill__ = __webpack_require__(154);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__api_flex_offset__ = __webpack_require__(155);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__api_flex_order__ = __webpack_require__(156);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__api_layout_align__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__api_layout_wrap__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__api_layout_gap__ = __webpack_require__(157);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__api_class__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__api_style__ = __webpack_require__(159);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FlexLayoutModule; });
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Since the equivalent results are easily achieved with a css class attached to each
+ * layout child, these have been deprecated and removed from the API.
+ *
+ *  import {LayoutPaddingDirective} from './api/layout-padding';
+ *  import {LayoutMarginDirective} from './api/layout-margin';
+ */
+var ALL_DIRECTIVES = [
+    __WEBPACK_IMPORTED_MODULE_8__api_layout__["a" /* LayoutDirective */],
+    __WEBPACK_IMPORTED_MODULE_15__api_layout_wrap__["a" /* LayoutWrapDirective */],
+    __WEBPACK_IMPORTED_MODULE_16__api_layout_gap__["a" /* LayoutGapDirective */],
+    __WEBPACK_IMPORTED_MODULE_14__api_layout_align__["a" /* LayoutAlignDirective */],
+    __WEBPACK_IMPORTED_MODULE_7__api_flex__["a" /* FlexDirective */],
+    __WEBPACK_IMPORTED_MODULE_13__api_flex_order__["a" /* FlexOrderDirective */],
+    __WEBPACK_IMPORTED_MODULE_12__api_flex_offset__["a" /* FlexOffsetDirective */],
+    __WEBPACK_IMPORTED_MODULE_11__api_flex_fill__["a" /* FlexFillDirective */],
+    __WEBPACK_IMPORTED_MODULE_10__api_flex_align__["a" /* FlexAlignDirective */],
+    __WEBPACK_IMPORTED_MODULE_9__api_show_hide__["a" /* ShowHideDirective */],
+    __WEBPACK_IMPORTED_MODULE_17__api_class__["a" /* ClassDirective */],
+    __WEBPACK_IMPORTED_MODULE_18__api_style__["a" /* StyleDirective */],
+];
+/**
+ *
+ */
+var FlexLayoutModule = (function () {
+    function FlexLayoutModule() {
+    }
+    /**
+     * External uses can easily add custom breakpoints AND include internal orientations
+     * breakpoints; which are not available by default.
+     *
+     * !! Selector aliases are not auto-configured. Developers must subclass
+     * the API directives to support extra selectors for the orientations breakpoints !!
+     */
+    FlexLayoutModule.provideBreakPoints = function (breakpoints, options) {
+        return {
+            ngModule: FlexLayoutModule,
+            providers: [
+                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__media_query_breakpoints_break_points_provider__["b" /* CUSTOM_BREAKPOINTS_PROVIDER_FACTORY */])(breakpoints, options || { orientations: false })
+            ]
+        };
+    };
+    return FlexLayoutModule;
+}());
+
+FlexLayoutModule.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_2__angular_core__["_2" /* NgModule */], args: [{
+                declarations: ALL_DIRECTIVES,
+                imports: [__WEBPACK_IMPORTED_MODULE_3__media_query_module__["a" /* MediaQueriesModule */]],
+                exports: [__WEBPACK_IMPORTED_MODULE_3__media_query_module__["a" /* MediaQueriesModule */]].concat(ALL_DIRECTIVES),
+                providers: [
+                    __WEBPACK_IMPORTED_MODULE_5__media_query_media_monitor_provider__["b" /* MEDIA_MONITOR_PROVIDER */],
+                    __WEBPACK_IMPORTED_MODULE_4__media_query_breakpoints_break_points_provider__["c" /* DEFAULT_BREAKPOINTS_PROVIDER */],
+                    __WEBPACK_IMPORTED_MODULE_6__media_query_observable_media_provider__["b" /* OBSERVABLE_MEDIA_PROVIDER */]
+                ]
+            },] },
+];
+/** @nocollapse */
+FlexLayoutModule.ctorParameters = function () { return []; };
+//# sourceMappingURL=_module.js.map
+
+/***/ }),
+/* 153 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__media_query_media_monitor__ = __webpack_require__(3);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FlexAlignDirective; });
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+/**
+ * 'flex-align' flexbox styling directive
+ * Allows element-specific overrides for cross-axis alignments in a layout container
+ * @see https://css-tricks.com/almanac/properties/a/align-self/
+ */
+var FlexAlignDirective = (function (_super) {
+    __extends(FlexAlignDirective, _super);
+    /* tslint:enable */
+    function FlexAlignDirective(monitor, elRef, renderer) {
+        return _super.call(this, monitor, elRef, renderer) || this;
+    }
+    Object.defineProperty(FlexAlignDirective.prototype, "align", {
+        /* tslint:disable */
+        set: function (val) { this._cacheInput('align', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexAlignDirective.prototype, "alignXs", {
+        set: function (val) { this._cacheInput('alignXs', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexAlignDirective.prototype, "alignSm", {
+        set: function (val) { this._cacheInput('alignSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexAlignDirective.prototype, "alignMd", {
+        set: function (val) { this._cacheInput('alignMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexAlignDirective.prototype, "alignLg", {
+        set: function (val) { this._cacheInput('alignLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexAlignDirective.prototype, "alignXl", {
+        set: function (val) { this._cacheInput('alignXl', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexAlignDirective.prototype, "alignLtSm", {
+        set: function (val) { this._cacheInput('alignLtSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexAlignDirective.prototype, "alignLtMd", {
+        set: function (val) { this._cacheInput('alignLtMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexAlignDirective.prototype, "alignLtLg", {
+        set: function (val) { this._cacheInput('alignLtLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexAlignDirective.prototype, "alignLtXl", {
+        set: function (val) { this._cacheInput('alignLtXl', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexAlignDirective.prototype, "alignGtXs", {
+        set: function (val) { this._cacheInput('alignGtXs', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexAlignDirective.prototype, "alignGtSm", {
+        set: function (val) { this._cacheInput('alignGtSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexAlignDirective.prototype, "alignGtMd", {
+        set: function (val) { this._cacheInput('alignGtMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexAlignDirective.prototype, "alignGtLg", {
+        set: function (val) { this._cacheInput('alignGtLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    // *********************************************
+    // Lifecycle Methods
+    // *********************************************
+    /**
+     * For @Input changes on the current mq activation property, see onMediaQueryChanges()
+     */
+    FlexAlignDirective.prototype.ngOnChanges = function (changes) {
+        if (changes['align'] != null || this._mqActivation) {
+            this._updateWithValue();
+        }
+    };
+    /**
+     * After the initial onChanges, build an mqActivation object that bridges
+     * mql change events to onMediaQueryChange handlers
+     */
+    FlexAlignDirective.prototype.ngOnInit = function () {
+        var _this = this;
+        this._listenForMediaQueryChanges('align', 'stretch', function (changes) {
+            _this._updateWithValue(changes.value);
+        });
+        this._updateWithValue();
+    };
+    // *********************************************
+    // Protected methods
+    // *********************************************
+    FlexAlignDirective.prototype._updateWithValue = function (value) {
+        value = value || this._queryInput("align") || 'stretch';
+        if (this._mqActivation) {
+            value = this._mqActivation.activatedInput;
+        }
+        this._applyStyleToElement(this._buildCSS(value));
+    };
+    FlexAlignDirective.prototype._buildCSS = function (align) {
+        var css = {};
+        // Cross-axis
+        switch (align) {
+            case 'start':
+                css['align-self'] = 'flex-start';
+                break;
+            case 'end':
+                css['align-self'] = 'flex-end';
+                break;
+            default:
+                css['align-self'] = align;
+                break;
+        }
+        return css;
+    };
+    return FlexAlignDirective;
+}(__WEBPACK_IMPORTED_MODULE_1__base__["a" /* BaseFxDirective */]));
+
+FlexAlignDirective.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Directive */], args: [{
+                selector: "\n  [fxFlexAlign],\n  [fxFlexAlign.xs], [fxFlexAlign.sm], [fxFlexAlign.md], [fxFlexAlign.lg], [fxFlexAlign.xl],\n  [fxFlexAlign.lt-sm], [fxFlexAlign.lt-md], [fxFlexAlign.lt-lg], [fxFlexAlign.lt-xl],\n  [fxFlexAlign.gt-xs], [fxFlexAlign.gt-sm], [fxFlexAlign.gt-md], [fxFlexAlign.gt-lg]\n"
+            },] },
+];
+/** @nocollapse */
+FlexAlignDirective.ctorParameters = function () { return [
+    { type: __WEBPACK_IMPORTED_MODULE_2__media_query_media_monitor__["a" /* MediaMonitor */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* ElementRef */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_28" /* Renderer2 */], },
+]; };
+FlexAlignDirective.propDecorators = {
+    'align': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign',] },],
+    'alignXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.xs',] },],
+    'alignSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.sm',] },],
+    'alignMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.md',] },],
+    'alignLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.lg',] },],
+    'alignXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.xl',] },],
+    'alignLtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.lt-sm',] },],
+    'alignLtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.lt-md',] },],
+    'alignLtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.lt-lg',] },],
+    'alignLtXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.lt-xl',] },],
+    'alignGtXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.gt-xs',] },],
+    'alignGtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.gt-sm',] },],
+    'alignGtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.gt-md',] },],
+    'alignGtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexAlign.gt-lg',] },],
+};
+//# sourceMappingURL=flex-align.js.map
+
+/***/ }),
+/* 154 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__media_query_media_monitor__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__base__ = __webpack_require__(8);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FlexFillDirective; });
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+var FLEX_FILL_CSS = {
+    'margin': 0,
+    'width': '100%',
+    'height': '100%',
+    'min-width': '100%',
+    'min-height': '100%'
+};
+/**
+ * 'fxFill' flexbox styling directive
+ *  Maximizes width and height of element in a layout container
+ *
+ *  NOTE: fxFill is NOT responsive API!!
+ */
+var FlexFillDirective = (function (_super) {
+    __extends(FlexFillDirective, _super);
+    function FlexFillDirective(monitor, elRef, renderer) {
+        var _this = _super.call(this, monitor, elRef, renderer) || this;
+        _this.elRef = elRef;
+        _this.renderer = renderer;
+        _this._applyStyleToElement(FLEX_FILL_CSS);
+        return _this;
+    }
+    return FlexFillDirective;
+}(__WEBPACK_IMPORTED_MODULE_2__base__["a" /* BaseFxDirective */]));
+
+FlexFillDirective.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Directive */], args: [{ selector: "\n  [fxFill],\n  [fxFlexFill]\n" },] },
+];
+/** @nocollapse */
+FlexFillDirective.ctorParameters = function () { return [
+    { type: __WEBPACK_IMPORTED_MODULE_1__media_query_media_monitor__["a" /* MediaMonitor */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* ElementRef */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_28" /* Renderer2 */], },
+]; };
+//# sourceMappingURL=flex-fill.js.map
+
+/***/ }),
+/* 155 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__media_query_media_monitor__ = __webpack_require__(3);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FlexOffsetDirective; });
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+/**
+ * 'flex-offset' flexbox styling directive
+ * Configures the 'margin-left' of the element in a layout container
+ */
+var FlexOffsetDirective = (function (_super) {
+    __extends(FlexOffsetDirective, _super);
+    /* tslint:enable */
+    function FlexOffsetDirective(monitor, elRef, renderer) {
+        return _super.call(this, monitor, elRef, renderer) || this;
+    }
+    Object.defineProperty(FlexOffsetDirective.prototype, "offset", {
+        /* tslint:disable */
+        set: function (val) { this._cacheInput('offset', val); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FlexOffsetDirective.prototype, "offsetXs", {
+        set: function (val) { this._cacheInput('offsetXs', val); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FlexOffsetDirective.prototype, "offsetSm", {
+        set: function (val) { this._cacheInput('offsetSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOffsetDirective.prototype, "offsetMd", {
+        set: function (val) { this._cacheInput('offsetMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOffsetDirective.prototype, "offsetLg", {
+        set: function (val) { this._cacheInput('offsetLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOffsetDirective.prototype, "offsetXl", {
+        set: function (val) { this._cacheInput('offsetXl', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOffsetDirective.prototype, "offsetLtSm", {
+        set: function (val) { this._cacheInput('offsetLtSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOffsetDirective.prototype, "offsetLtMd", {
+        set: function (val) { this._cacheInput('offsetLtMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOffsetDirective.prototype, "offsetLtLg", {
+        set: function (val) { this._cacheInput('offsetLtLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOffsetDirective.prototype, "offsetLtXl", {
+        set: function (val) { this._cacheInput('offsetLtXl', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOffsetDirective.prototype, "offsetGtXs", {
+        set: function (val) { this._cacheInput('offsetGtXs', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOffsetDirective.prototype, "offsetGtSm", {
+        set: function (val) { this._cacheInput('offsetGtSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOffsetDirective.prototype, "offsetGtMd", {
+        set: function (val) { this._cacheInput('offsetGtMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOffsetDirective.prototype, "offsetGtLg", {
+        set: function (val) { this._cacheInput('offsetGtLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    // *********************************************
+    // Lifecycle Methods
+    // *********************************************
+    /**
+     * For @Input changes on the current mq activation property, see onMediaQueryChanges()
+     */
+    FlexOffsetDirective.prototype.ngOnChanges = function (changes) {
+        if (changes['offset'] != null || this._mqActivation) {
+            this._updateWithValue();
+        }
+    };
+    /**
+     * After the initial onChanges, build an mqActivation object that bridges
+     * mql change events to onMediaQueryChange handlers
+     */
+    FlexOffsetDirective.prototype.ngOnInit = function () {
+        var _this = this;
+        this._listenForMediaQueryChanges('offset', 0, function (changes) {
+            _this._updateWithValue(changes.value);
+        });
+    };
+    // *********************************************
+    // Protected methods
+    // *********************************************
+    FlexOffsetDirective.prototype._updateWithValue = function (value) {
+        value = value || this._queryInput("offset") || 0;
+        if (this._mqActivation) {
+            value = this._mqActivation.activatedInput;
+        }
+        this._applyStyleToElement(this._buildCSS(value));
+    };
+    FlexOffsetDirective.prototype._buildCSS = function (offset) {
+        var isPercent = String(offset).indexOf('%') > -1;
+        var isPx = String(offset).indexOf('px') > -1;
+        if (!isPx && !isPercent && !isNaN(offset)) {
+            offset = offset + '%';
+        }
+        return { 'margin-left': "" + offset };
+    };
+    return FlexOffsetDirective;
+}(__WEBPACK_IMPORTED_MODULE_1__base__["a" /* BaseFxDirective */]));
+
+FlexOffsetDirective.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Directive */], args: [{ selector: "\n  [fxFlexOffset],\n  [fxFlexOffset.xs], [fxFlexOffset.sm], [fxFlexOffset.md], [fxFlexOffset.lg], [fxFlexOffset.xl],\n  [fxFlexOffset.lt-sm], [fxFlexOffset.lt-md], [fxFlexOffset.lt-lg], [fxFlexOffset.lt-xl],\n  [fxFlexOffset.gt-xs], [fxFlexOffset.gt-sm], [fxFlexOffset.gt-md], [fxFlexOffset.gt-lg]\n" },] },
+];
+/** @nocollapse */
+FlexOffsetDirective.ctorParameters = function () { return [
+    { type: __WEBPACK_IMPORTED_MODULE_2__media_query_media_monitor__["a" /* MediaMonitor */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* ElementRef */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_28" /* Renderer2 */], },
+]; };
+FlexOffsetDirective.propDecorators = {
+    'offset': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset',] },],
+    'offsetXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.xs',] },],
+    'offsetSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.sm',] },],
+    'offsetMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.md',] },],
+    'offsetLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.lg',] },],
+    'offsetXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.xl',] },],
+    'offsetLtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.lt-sm',] },],
+    'offsetLtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.lt-md',] },],
+    'offsetLtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.lt-lg',] },],
+    'offsetLtXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.lt-xl',] },],
+    'offsetGtXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.gt-xs',] },],
+    'offsetGtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.gt-sm',] },],
+    'offsetGtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.gt-md',] },],
+    'offsetGtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOffset.gt-lg',] },],
+};
+//# sourceMappingURL=flex-offset.js.map
+
+/***/ }),
 /* 156 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__layout__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__media_query_media_monitor__ = __webpack_require__(3);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FlexOrderDirective; });
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+/**
+ * 'flex-order' flexbox styling directive
+ * Configures the positional ordering of the element in a sorted layout container
+ * @see https://css-tricks.com/almanac/properties/o/order/
+ */
+var FlexOrderDirective = (function (_super) {
+    __extends(FlexOrderDirective, _super);
+    /* tslint:enable */
+    function FlexOrderDirective(monitor, elRef, renderer) {
+        return _super.call(this, monitor, elRef, renderer) || this;
+    }
+    Object.defineProperty(FlexOrderDirective.prototype, "order", {
+        /* tslint:disable */
+        set: function (val) { this._cacheInput('order', val); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FlexOrderDirective.prototype, "orderXs", {
+        set: function (val) { this._cacheInput('orderXs', val); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FlexOrderDirective.prototype, "orderSm", {
+        set: function (val) { this._cacheInput('orderSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOrderDirective.prototype, "orderMd", {
+        set: function (val) { this._cacheInput('orderMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOrderDirective.prototype, "orderLg", {
+        set: function (val) { this._cacheInput('orderLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOrderDirective.prototype, "orderXl", {
+        set: function (val) { this._cacheInput('orderXl', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOrderDirective.prototype, "orderGtXs", {
+        set: function (val) { this._cacheInput('orderGtXs', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOrderDirective.prototype, "orderGtSm", {
+        set: function (val) { this._cacheInput('orderGtSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOrderDirective.prototype, "orderGtMd", {
+        set: function (val) { this._cacheInput('orderGtMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOrderDirective.prototype, "orderGtLg", {
+        set: function (val) { this._cacheInput('orderGtLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOrderDirective.prototype, "orderLtSm", {
+        set: function (val) { this._cacheInput('orderLtSm', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOrderDirective.prototype, "orderLtMd", {
+        set: function (val) { this._cacheInput('orderLtMd', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOrderDirective.prototype, "orderLtLg", {
+        set: function (val) { this._cacheInput('orderLtLg', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(FlexOrderDirective.prototype, "orderLtXl", {
+        set: function (val) { this._cacheInput('orderLtXl', val); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    // *********************************************
+    // Lifecycle Methods
+    // *********************************************
+    /**
+     * For @Input changes on the current mq activation property, see onMediaQueryChanges()
+     */
+    FlexOrderDirective.prototype.ngOnChanges = function (changes) {
+        if (changes['order'] != null || this._mqActivation) {
+            this._updateWithValue();
+        }
+    };
+    /**
+     * After the initial onChanges, build an mqActivation object that bridges
+     * mql change events to onMediaQueryChange handlers
+     */
+    FlexOrderDirective.prototype.ngOnInit = function () {
+        var _this = this;
+        this._listenForMediaQueryChanges('order', '0', function (changes) {
+            _this._updateWithValue(changes.value);
+        });
+        this._updateWithValue();
+    };
+    // *********************************************
+    // Protected methods
+    // *********************************************
+    FlexOrderDirective.prototype._updateWithValue = function (value) {
+        value = value || this._queryInput("order") || '0';
+        if (this._mqActivation) {
+            value = this._mqActivation.activatedInput;
+        }
+        this._applyStyleToElement(this._buildCSS(value));
+    };
+    FlexOrderDirective.prototype._buildCSS = function (value) {
+        value = parseInt(value, 10);
+        return { order: isNaN(value) ? 0 : value };
+    };
+    return FlexOrderDirective;
+}(__WEBPACK_IMPORTED_MODULE_1__base__["a" /* BaseFxDirective */]));
+
+FlexOrderDirective.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Directive */], args: [{ selector: "\n  [fxFlexOrder],\n  [fxFlexOrder.xs], [fxFlexOrder.sm], [fxFlexOrder.md], [fxFlexOrder.lg], [fxFlexOrder.xl],\n  [fxFlexOrder.lt-sm], [fxFlexOrder.lt-md], [fxFlexOrder.lt-lg], [fxFlexOrder.lt-xl],\n  [fxFlexOrder.gt-xs], [fxFlexOrder.gt-sm], [fxFlexOrder.gt-md], [fxFlexOrder.gt-lg]\n" },] },
+];
+/** @nocollapse */
+FlexOrderDirective.ctorParameters = function () { return [
+    { type: __WEBPACK_IMPORTED_MODULE_2__media_query_media_monitor__["a" /* MediaMonitor */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* ElementRef */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_28" /* Renderer2 */], },
+]; };
+FlexOrderDirective.propDecorators = {
+    'order': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder',] },],
+    'orderXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.xs',] },],
+    'orderSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.sm',] },],
+    'orderMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.md',] },],
+    'orderLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.lg',] },],
+    'orderXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.xl',] },],
+    'orderGtXs': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.gt-xs',] },],
+    'orderGtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.gt-sm',] },],
+    'orderGtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.gt-md',] },],
+    'orderGtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.gt-lg',] },],
+    'orderLtSm': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.lt-sm',] },],
+    'orderLtMd': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.lt-md',] },],
+    'orderLtLg': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.lt-lg',] },],
+    'orderLtXl': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Input */], args: ['fxFlexOrder.lt-xl',] },],
+};
+//# sourceMappingURL=flex-order.js.map
+
+/***/ }),
+/* 157 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__layout__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__media_query_media_monitor__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_layout_validator__ = __webpack_require__(39);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LayoutGapDirective; });
@@ -67868,14 +67869,14 @@ LayoutGapDirective.propDecorators = {
 //# sourceMappingURL=layout-gap.js.map
 
 /***/ }),
-/* 157 */
+/* 158 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__media_query_media_monitor__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__layout__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__layout__ = __webpack_require__(22);
 /* unused harmony export negativeOf */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ShowHideDirective; });
 var __extends = (this && this.__extends) || (function () {
@@ -68208,18 +68209,18 @@ ShowHideDirective.propDecorators = {
 //# sourceMappingURL=show-hide.js.map
 
 /***/ }),
-/* 158 */
+/* 159 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__base_adapter__ = __webpack_require__(100);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__media_query_breakpoints_break_point_registry__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__base_adapter__ = __webpack_require__(101);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__media_query_breakpoints_break_point_registry__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__media_query_media_monitor__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_object_extend__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_object_extend__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_platform_browser__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__utils_style_transforms__ = __webpack_require__(166);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__utils_style_transforms__ = __webpack_require__(167);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return StyleDirective; });
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -68587,15 +68588,15 @@ StyleDirective.propDecorators = {
 //# sourceMappingURL=style.js.map
 
 /***/ }),
-/* 159 */
+/* 160 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_map__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_map__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_map__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_filter__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_filter__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_object_extend__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_object_extend__ = __webpack_require__(24);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return KeyOptions; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ResponsiveActivation; });
 
@@ -68793,7 +68794,7 @@ var ResponsiveActivation = (function () {
 //# sourceMappingURL=responsive-activation.js.map
 
 /***/ }),
-/* 160 */
+/* 161 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -68867,7 +68868,7 @@ var DEFAULT_BREAKPOINTS = [
 //# sourceMappingURL=break-points.js.map
 
 /***/ }),
-/* 161 */
+/* 162 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -68915,7 +68916,7 @@ var ORIENTATION_BREAKPOINTS = [
 //# sourceMappingURL=orientation-break-points.js.map
 
 /***/ }),
-/* 162 */
+/* 163 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -68947,7 +68948,7 @@ var MediaChange = (function () {
 //# sourceMappingURL=media-change.js.map
 
 /***/ }),
-/* 163 */
+/* 164 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -69054,7 +69055,7 @@ function toBoxOrdinal(order) {
 //# sourceMappingURL=auto-prefixer.js.map
 
 /***/ }),
-/* 164 */
+/* 165 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -69117,11 +69118,11 @@ function _validateCalcValue(calc) {
 //# sourceMappingURL=basis-validator.js.map
 
 /***/ }),
-/* 165 */
+/* 166 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__object_extend__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__object_extend__ = __webpack_require__(24);
 /* harmony export (immutable) */ __webpack_exports__["b"] = validateSuffixes;
 /* harmony export (immutable) */ __webpack_exports__["a"] = mergeByAlias;
 /**
@@ -69188,7 +69189,7 @@ function mergeByAlias(defaults, custom) {
 //# sourceMappingURL=breakpoint-tools.js.map
 
 /***/ }),
-/* 166 */
+/* 167 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -69297,13 +69298,13 @@ function keyValuesToMap(map, entry) {
 //# sourceMappingURL=style-transforms.js.map
 
 /***/ }),
-/* 167 */
+/* 168 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_animations_browser__ = __webpack_require__(99);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_animations_browser__ = __webpack_require__(100);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return BrowserAnimationsModule; });
 /* unused harmony export NoopAnimationsModule */
 /* unused harmony export ɵAnimationRenderer */
@@ -69783,7 +69784,6 @@ NoopAnimationsModule.ctorParameters = function () { return []; };
 
 
 /***/ }),
-/* 168 */,
 /* 169 */,
 /* 170 */,
 /* 171 */,
@@ -69816,9 +69816,9 @@ NoopAnimationsModule.ctorParameters = function () { return []; };
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tokens__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__auth_backend__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_operator_map__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_operator_map__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_observable_fromPromise__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_observable_fromPromise__ = __webpack_require__(91);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_observable_fromPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_rxjs_observable_fromPromise__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_operator_observeOn__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_operator_observeOn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_rxjs_operator_observeOn__);
@@ -69940,7 +69940,7 @@ function castPromise(promiseLike) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__auth__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__auth__ = __webpack_require__(114);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__auth__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__auth_backend__ = __webpack_require__(48);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_1__auth_backend__["a"]; });
@@ -69960,14 +69960,14 @@ function castPromise(promiseLike) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_firebase__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_firebase__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__firebase_list_observable__ = __webpack_require__(113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__firebase_list_observable__ = __webpack_require__(116);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_operator_observeOn__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_operator_observeOn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_operator_observeOn__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__query_observable__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__query_observable__ = __webpack_require__(117);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_operator_mergeMap__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_operator_mergeMap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_operator_mergeMap__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_operator_map__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_operator_map__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_operator_map__);
 /* harmony export (immutable) */ __webpack_exports__["a"] = FirebaseListFactory;
 /* unused harmony export onChildAdded */
@@ -73833,12 +73833,12 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var Subject_1 = __webpack_require__(27);
-var queue_1 = __webpack_require__(140);
+var Subject_1 = __webpack_require__(28);
+var queue_1 = __webpack_require__(143);
 var Subscription_1 = __webpack_require__(19);
 var observeOn_1 = __webpack_require__(47);
-var ObjectUnsubscribedError_1 = __webpack_require__(95);
-var SubjectSubscription_1 = __webpack_require__(128);
+var ObjectUnsubscribedError_1 = __webpack_require__(96);
+var SubjectSubscription_1 = __webpack_require__(131);
 /**
  * @class ReplaySubject<T>
  */
@@ -73992,7 +73992,7 @@ exports.Scheduler = Scheduler;
 "use strict";
 
 var Observable_1 = __webpack_require__(1);
-var forkJoin_1 = __webpack_require__(130);
+var forkJoin_1 = __webpack_require__(133);
 Observable_1.Observable.forkJoin = forkJoin_1.forkJoin;
 //# sourceMappingURL=forkJoin.js.map
 
@@ -74014,7 +74014,7 @@ Observable_1.Observable.fromEvent = fromEvent_1.fromEvent;
 "use strict";
 
 var Observable_1 = __webpack_require__(1);
-var merge_1 = __webpack_require__(131);
+var merge_1 = __webpack_require__(134);
 Observable_1.Observable.merge = merge_1.merge;
 //# sourceMappingURL=merge.js.map
 
@@ -74047,7 +74047,7 @@ Observable_1.Observable.throw = throw_1._throw;
 "use strict";
 
 var Observable_1 = __webpack_require__(1);
-var auditTime_1 = __webpack_require__(132);
+var auditTime_1 = __webpack_require__(135);
 Observable_1.Observable.prototype.auditTime = auditTime_1.auditTime;
 //# sourceMappingURL=auditTime.js.map
 
@@ -74058,7 +74058,7 @@ Observable_1.Observable.prototype.auditTime = auditTime_1.auditTime;
 "use strict";
 
 var Observable_1 = __webpack_require__(1);
-var catch_1 = __webpack_require__(133);
+var catch_1 = __webpack_require__(136);
 Observable_1.Observable.prototype.catch = catch_1._catch;
 Observable_1.Observable.prototype._catch = catch_1._catch;
 //# sourceMappingURL=catch.js.map
@@ -74094,7 +74094,7 @@ Observable_1.Observable.prototype._finally = finally_1._finally;
 "use strict";
 
 var Observable_1 = __webpack_require__(1);
-var first_1 = __webpack_require__(135);
+var first_1 = __webpack_require__(138);
 Observable_1.Observable.prototype.first = first_1.first;
 //# sourceMappingURL=first.js.map
 
@@ -74105,7 +74105,7 @@ Observable_1.Observable.prototype.first = first_1.first;
 "use strict";
 
 var Observable_1 = __webpack_require__(1);
-var share_1 = __webpack_require__(137);
+var share_1 = __webpack_require__(140);
 Observable_1.Observable.prototype.share = share_1.share;
 //# sourceMappingURL=share.js.map
 
@@ -74143,7 +74143,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Observable_1 = __webpack_require__(1);
-var ScalarObservable_1 = __webpack_require__(89);
+var ScalarObservable_1 = __webpack_require__(90);
 var EmptyObservable_1 = __webpack_require__(58);
 /**
  * We need this JSDoc comment for affecting ESDoc.
@@ -74218,7 +74218,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var Subject_1 = __webpack_require__(27);
+var Subject_1 = __webpack_require__(28);
 var Observable_1 = __webpack_require__(1);
 var Subscriber_1 = __webpack_require__(5);
 var Subscription_1 = __webpack_require__(19);
@@ -74595,9 +74595,9 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Observable_1 = __webpack_require__(1);
-var tryCatch_1 = __webpack_require__(144);
-var isFunction_1 = __webpack_require__(97);
-var errorObject_1 = __webpack_require__(96);
+var tryCatch_1 = __webpack_require__(147);
+var isFunction_1 = __webpack_require__(98);
+var errorObject_1 = __webpack_require__(97);
 var Subscription_1 = __webpack_require__(19);
 var toString = Object.prototype.toString;
 function isNodeStyleEventEmitter(sourceObj) {
@@ -74741,16 +74741,16 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var isArray_1 = __webpack_require__(62);
-var isArrayLike_1 = __webpack_require__(141);
-var isPromise_1 = __webpack_require__(143);
-var PromiseObservable_1 = __webpack_require__(129);
+var isArrayLike_1 = __webpack_require__(144);
+var isPromise_1 = __webpack_require__(146);
+var PromiseObservable_1 = __webpack_require__(132);
 var IteratorObservable_1 = __webpack_require__(278);
 var ArrayObservable_1 = __webpack_require__(37);
 var ArrayLikeObservable_1 = __webpack_require__(272);
-var iterator_1 = __webpack_require__(91);
+var iterator_1 = __webpack_require__(92);
 var Observable_1 = __webpack_require__(1);
 var observeOn_1 = __webpack_require__(47);
-var observable_1 = __webpack_require__(92);
+var observable_1 = __webpack_require__(93);
 /**
  * We need this JSDoc comment for affecting ESDoc.
  * @extends {Ignored}
@@ -74870,7 +74870,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var root_1 = __webpack_require__(20);
 var Observable_1 = __webpack_require__(1);
-var iterator_1 = __webpack_require__(91);
+var iterator_1 = __webpack_require__(92);
 /**
  * We need this JSDoc comment for affecting ESDoc.
  * @extends {Ignored}
@@ -75792,7 +75792,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Subscriber_1 = __webpack_require__(5);
-var EmptyError_1 = __webpack_require__(94);
+var EmptyError_1 = __webpack_require__(95);
 /* tslint:enable:max-line-length */
 /**
  * Returns an Observable that emits only the last item emitted by the source Observable.
@@ -76107,7 +76107,7 @@ exports.ReduceSubscriber = ReduceSubscriber;
 "use strict";
 
 var ArrayObservable_1 = __webpack_require__(37);
-var ScalarObservable_1 = __webpack_require__(89);
+var ScalarObservable_1 = __webpack_require__(90);
 var EmptyObservable_1 = __webpack_require__(58);
 var concat_1 = __webpack_require__(283);
 var isScheduler_1 = __webpack_require__(63);
@@ -76359,7 +76359,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var AsyncAction_1 = __webpack_require__(138);
+var AsyncAction_1 = __webpack_require__(141);
 /**
  * We need this JSDoc comment for affecting ESDoc.
  * @ignore
@@ -76414,7 +76414,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var AsyncScheduler_1 = __webpack_require__(139);
+var AsyncScheduler_1 = __webpack_require__(142);
 var QueueScheduler = (function (_super) {
     __extends(QueueScheduler, _super);
     function QueueScheduler() {
@@ -76431,8 +76431,8 @@ exports.QueueScheduler = QueueScheduler;
 
 "use strict";
 
-var AsyncAction_1 = __webpack_require__(138);
-var AsyncScheduler_1 = __webpack_require__(139);
+var AsyncAction_1 = __webpack_require__(141);
+var AsyncScheduler_1 = __webpack_require__(142);
 /**
  *
  * Async Scheduler
@@ -76516,8 +76516,8 @@ exports.UnsubscriptionError = UnsubscriptionError;
 "use strict";
 
 var Subscriber_1 = __webpack_require__(5);
-var rxSubscriber_1 = __webpack_require__(93);
-var Observer_1 = __webpack_require__(127);
+var rxSubscriber_1 = __webpack_require__(94);
+var Observer_1 = __webpack_require__(130);
 function toSubscriber(nextOrObserver, error, complete) {
     if (nextOrObserver) {
         if (nextOrObserver instanceof Subscriber_1.Subscriber) {
