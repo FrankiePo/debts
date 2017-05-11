@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnChanges } from '@angular/core';
 import { ContactsService } from '../shared/model/contact/contacts.service';
 import { IContact } from '../shared/model/contact/icontact';
 import { DebtComponent } from '../shared/dialogs/debt/debt.component';
@@ -6,36 +6,29 @@ import { IDebt } from '../shared/model/debt/idebt';
 import { MdDialog } from '@angular/material';
 import { DebtsService } from '../shared/model/debt/debts.service';
 import { DebtType } from '../shared/model/debt/debt-type.enum';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-debts',
   templateUrl: './debts.component.html',
   styleUrls: ['./debts.component.css']
 })
-export class DebtsComponent {
-  contacts: IContact[];
-  debts: IDebt[];
+export class DebtsComponent implements OnChanges {
+  contacts: Observable<IContact[]>;
   constructor(public contactsService: ContactsService, public debtsService: DebtsService, public dialog: MdDialog) {
-    debtsService.debts.subscribe(debts => {
-      this.debts = debts;
-    });
-    contactsService.contacts.subscribe(contacts => {
-      this.contacts = contacts;
-    });
+    this.contacts = contactsService.contacts;
   }
-  isToMe(debt: IDebt) {
+  isToMe(debt: IDebt): boolean {
     return debt.type === DebtType.toMe;
   }
-  isToContact(debt: IDebt) {
+  isToContact(debt: IDebt): boolean {
     return debt.type === DebtType.toContact;
   }
-  getDebts(contact: IContact) {
-    return this.debts ? this.debts.filter(debt => debt.contact === contact.$key) : [];
+  getDebts(contact: IContact): Observable<IDebt[]> {
+    return this.debtsService.getByContact(contact);
   }
-  getTotal(contact: IContact) {
-    return this.getDebts(contact)
-      .map(debt => debt.type === DebtType.toMe ? debt.amount : -debt.amount)
-      .reduce((sum, amount) => sum + amount, 0);
+  getTotal(contact: IContact): Observable<number> {
+    return this.debtsService.getTotal(contact);
   }
   openChangeDialog(debt: IDebt) {
     const dialogRef = this.dialog.open(DebtComponent);
@@ -59,9 +52,10 @@ export class DebtsComponent {
     });
   }
   eraseDebts(contact: IContact) {
-    this.getDebts(contact).forEach(debt => this.removeDebt(debt));
+    return this.debtsService.eraseByContact(contact);
   }
   removeDebt(debt: IDebt) {
-    this.debtsService.remove(debt);
+    return this.debtsService.remove(debt);
   }
+  ngOnChanges() {}
 }

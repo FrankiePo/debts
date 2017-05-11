@@ -19,7 +19,8 @@ export class ContactComponent implements OnInit {
 
   ngOnInit() {
     // TODO: simplify
-    const {name, phone, email} = this.contact || { name: '', phone: '', email: ''};
+    const contact = this.contact || { name: '', phone: '', email: ''};
+    const {name, phone, email} = contact;
     this.contactForm = this.formBuilder.group({
       name: [name, Validators.required],
       phone: [phone, Validators.required],

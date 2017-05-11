@@ -1,6 +1,6 @@
 <div fxLayoutWrap fxLayoutAlign="start stretch" fxLayout="row">
   <md-card
-    *ngFor="let contact of contacts"
+    *ngFor="let contact of contacts | async"
     fxLayout="column"
     fxLayoutAlign="space-between stretch"
     style="margin:8px"
@@ -12,11 +12,11 @@
       <md-card-subtitle>{{ contact.phone || contact.email }}</md-card-subtitle>
     </md-card-header>
     <md-card-content fxFlex="auto">
-      <md-list>
-        <h3 md-subheader>Total: {{ getTotal(contact) }}</h3>
+      <md-list *ngIf="getDebts(contact) | async as debts">
+        <h3 md-subheader>Total: {{ getTotal(contact) | async}}</h3>
         <md-list-item
           style="width:100%"
-          *ngFor="let debt of getDebts(contact)"
+          *ngFor="let debt of debts"
           [ngClass]="{'debt__item_to-me': isToMe(debt), 'debt__item_to-contact': isToContact(debt)}">
 
           <md-icon md-list-icon *ngIf="isToMe(debt)" fxFlex="35px">add</md-icon>
@@ -30,8 +30,8 @@
       </md-list>
     </md-card-content>
     <md-card-actions fxLayout="row" fxLayoutAlign="space-between center">
-      <button md-raised-button (click)="opeAddDialog(contact)" fxFlex="50">Add Debt</button>
-      <button md-raised-button (click)="eraseDebts(contact)" fxFlex="50">Erase Debts</button>
+      <button md-button (click)="opeAddDialog(contact)">ADD DEBT</button>
+      <button md-button (click)="eraseDebts(contact)">ERASE DEBTS</button>
     </md-card-actions>
   </md-card>
 </div>

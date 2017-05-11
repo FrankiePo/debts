@@ -1,21 +1,19 @@
 import { Injectable } from '@angular/core';
 import { IDebt } from './idebt';
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
-import { AuthService } from '../../auth/auth.service';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { IContact } from '../contact/icontact';
+import { DebtType } from './debt-type.enum';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+
 
 @Injectable()
 export class DebtsService {
-  private debtsLocation: string;
   debts: FirebaseListObservable<IDebt[]>;
-  constructor(private authService: AuthService, private af: AngularFire) {
-    authService.isLogedIn.subscribe(authStatus => {
-      if (!authStatus) {
-        this.debts = null;
-        return;
-      }
-      this.debtsLocation = `debts/${authService.getUid()}`;
-      this.debts = af.database.list(this.debtsLocation);
-    });
+  constructor(private fireAuth: AngularFireAuth, private db: AngularFireDatabase) {
+    fireAuth.authState.subscribe(({uid}) => this.debts = db.list(`debts/${uid}`));
+    // this.debts.map(debts => debts).subscribe(debts => console.log(debts));
   }
   add(debt: IDebt) {
     const combinedDebt = Object.assign({}, debt, { creationTime: Date.now() });
@@ -25,6 +23,20 @@ export class DebtsService {
     this.debts.remove(debt.$key);
   }
   update(debt: IDebt) {
-    this.debts.update(debt.$key, debt);
+    return this.debts.update(debt.$key, debt);
+  }
+
+  getByContact(contact: IContact): Observable<IDebt[]> {
+    return this.debts.map((debts: IDebt[]) => debts.filter(debt => debt.contact === contact.$key));
+  }
+  eraseByContact(contact: IContact) {
+    this.getByContact(contact).map(debts => debts.forEach(debt => this.remove(debt)));
+  }
+  getTotal(contact: IContact): Observable<number> {
+    return this.getByContact(contact).map((debts: IDebt[]) => debts
+        // .map(debt => debt.type === DebtType.toMe ? debt.amount : -debt.amount)
+        .map(debt => debt.amount)
+        .reduce((sum, amount) => sum + amount, 0)
+    );
   }
 }

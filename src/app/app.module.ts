@@ -18,13 +18,14 @@ import { NavigationBarComponent } from './navigation-bar/navigation-bar.componen
 import { AnalyticsComponent } from './analytics/analytics.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { DebtsComponent } from './debts/debts.component';
-import { AuthService } from './shared/auth/auth.service';
 import { AuthGuard } from './shared/auth/auth.guard';
 import { UserService } from './shared/model/user/user.service';
 import { ContactsService } from './shared/model/contact/contacts.service';
 import { ContactComponent } from './shared/dialogs/contact/contact.component';
 import { DebtComponent } from './shared/dialogs/debt/debt.component';
 import { DebtsService } from 'app/shared/model/debt/debts.service';
+import { AngularFireAuthModule} from 'angularfire2/auth';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,8 @@ import { DebtsService } from 'app/shared/model/debt/debts.service';
     HttpModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(FirebaseConfig),
+    AngularFireAuthModule,
+    AngularFireDatabaseModule,
     FlexLayoutModule,
     // V V V: AngularMaterial
     MdToolbarModule,
@@ -58,7 +61,7 @@ import { DebtsService } from 'app/shared/model/debt/debts.service';
     MdInputModule,
     MdSelectModule,
   ],
-  providers: [AuthService, AuthGuard, UserService, ContactsService, DebtsService, MdDialog],
+  providers: [AuthGuard, UserService, ContactsService, DebtsService, MdDialog],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

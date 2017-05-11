@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IDebt } from '../../model/debt/idebt';
 import { MdDialogRef } from '@angular/material';
 import { DebtType } from 'app/shared/model/debt/debt-type.enum';
+import { IContact } from '../../model/contact/icontact';
 
 @Component({
   selector: 'app-debt',
@@ -12,21 +13,19 @@ import { DebtType } from 'app/shared/model/debt/debt-type.enum';
 export class DebtComponent implements OnInit {
   debtForm: FormGroup;
   debt: IDebt;
-  select: { type: DebtType, name: string }[];
+  select: { type: DebtType, name: string }[] = [
+    {
+      type: DebtType.toMe,
+      name: 'He Owes',
+    }, {
+      type: DebtType.toContact,
+      name: 'I Owe',
+    }
+  ];
   constructor(
     private formBuilder: FormBuilder,
     private dialogRef: MdDialogRef<DebtComponent>,
-  ) {
-    this.select = [
-      {
-        type: DebtType.toMe,
-        name: 'He Owes',
-      }, {
-        type: DebtType.toContact,
-        name: 'I Owe',
-      }
-    ];
-  }
+  ) { }
 
   ngOnInit() {
     // TODO: simplify

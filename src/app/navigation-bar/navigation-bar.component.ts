@@ -1,22 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../shared/auth/auth.service';
+import { Component } from '@angular/core';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { Observable } from 'rxjs/Observable';
+import * as firebase from 'firebase/app';
 
 @Component({
   selector: 'app-navigation-bar',
   templateUrl: './navigation-bar.component.html',
   styleUrls: ['./navigation-bar.component.css']
 })
-export class NavigationBarComponent implements OnInit {
+export class NavigationBarComponent {
+  user: Observable<firebase.User>;
   isLogedIn: boolean;
-  constructor(public authService: AuthService) {
-    this.authService.isLogedIn.subscribe(status => this.isLogedIn = status);
+  constructor(public afAuth: AngularFireAuth) {
+    this.user = afAuth.authState;
+    afAuth.authState.subscribe(user => this.isLogedIn = Boolean(user));
   }
   login() {
-    this.authService.loginWithGoogle();
+    return this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
   logout() {
-    this.authService.logout();
-  }
-  ngOnInit() {
+    this.afAuth.auth.signOut();
   }
 }

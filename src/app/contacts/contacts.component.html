@@ -1,6 +1,6 @@
 <md-list style="background-color: #ffffff;">
   <h3 md-subheader>Contacts</h3>
-  <md-list-item *ngFor="let contact of contacts">
+  <md-list-item *ngFor="let contact of contacts | async">
     <md-icon md-list-icon>insert_photo</md-icon>
     <h4 md-line>{{ contact.name }}</h4>
     <p md-line>{{ contact.phone }}</p>

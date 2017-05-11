@@ -3,6 +3,7 @@ import { IContact } from '../shared/model/contact/icontact';
 import { ContactsService } from '../shared/model/contact/contacts.service';
 import { MdDialog } from '@angular/material';
 import { ContactComponent } from '../shared/dialogs/contact/contact.component';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-contacts',
@@ -10,11 +11,9 @@ import { ContactComponent } from '../shared/dialogs/contact/contact.component';
   styleUrls: ['./contacts.component.css']
 })
 export class ContactsComponent {
-  contacts: IContact[];
+  contacts: Observable<IContact[]>;
   constructor(public contactService: ContactsService, public dialog: MdDialog) {
-    contactService.contacts.subscribe(contacts => {
-      this.contacts = contacts;
-    });
+    this.contacts = contactService.contacts;
   }
   openAddDialog() {
     const dialogRef = this.dialog.open(ContactComponent);

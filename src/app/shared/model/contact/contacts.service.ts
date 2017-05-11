@@ -1,22 +1,13 @@
 import { Injectable } from '@angular/core';
-import { AuthService } from '../../auth/auth.service';
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { IContact } from './icontact';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Injectable()
 export class ContactsService {
-  private contactLocation: string;
   contacts: FirebaseListObservable<IContact[]>;
-  constructor(private authService: AuthService, private af: AngularFire) {
-    // TODO: probably this check should do guard
-    authService.isLogedIn.subscribe(authStatus => {
-      if (!authStatus) {
-        this.contacts = null;
-        return;
-      }
-      this.contactLocation = `contacts/${authService.getUid()}`;
-      this.contacts = af.database.list(this.contactLocation);
-    });
+  constructor(private auth: AngularFireAuth, private db: AngularFireDatabase) {
+    auth.authState.subscribe(({uid}) => this.contacts = db.list(`contacts/${uid}`));
   }
   update(contact: IContact) {
     return this.contacts.update(contact.$key, contact);
